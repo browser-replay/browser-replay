@@ -1,6 +1,5 @@
 {
   "$schema": "https://turborepo.org/schema.json",
-  // These root workspace files are reused in workspaces and may affect their build output
   "globalDependencies": [
     ".eslintrc.js",
     ".prettierrc",
@@ -12,6 +11,7 @@
     "prepublish": {
       "dependsOn": ["^prepublish", "//#references:update"],
       "outputs": [
+        "build/**",
         "lib/**",
         "es/**",
         "dist/**",

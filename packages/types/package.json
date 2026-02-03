@@ -1,27 +1,16 @@
 {
-  "name": "@rrweb/types",
-  "version": "2.0.0-alpha.19",
-  "publishConfig": {
-    "access": "public"
-  },
+  "name": "@dom-replay/types",
+  "version": "0.0.1",
   "keywords": [
-    "rrweb",
-    "@rrweb/types"
+    "dom-replay",
+    "@dom-replay/types"
   ],
   "scripts": {
     "dev": "vite build --watch",
-    "build": "yarn turbo run prepublish",
+    "build": "pnpm run prepublish",
     "check-types": "tsc -noEmit",
     "prepublish": "tsc -noEmit && vite build",
-    "lint": "yarn eslint src/**/*.ts"
-  },
-  "homepage": "https://github.com/rrweb-io/rrweb/tree/main/packages/@rrweb/types#readme",
-  "bugs": {
-    "url": "https://github.com/rrweb-io/rrweb/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rrweb-io/rrweb.git"
+    "lint": "pnpm eslint src/**/*.ts"
   },
   "license": "MIT",
   "type": "module",
@@ -46,10 +35,18 @@
     "package.json"
   ],
   "devDependencies": {
+    "@types/dom-mediacapture-transform": "0.1.4",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^18.15.11",
+    "@types/offscreencanvas": "^2019.6.4",
     "vite": "^5.3.1",
     "vite-plugin-dts": "^3.9.1"
   },
   "browserslist": [
     "supports es6-class"
-  ]
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  }
 }

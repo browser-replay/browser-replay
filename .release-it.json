@@ -9,7 +9,6 @@
     "publish": false
   },
   "github": {
-    "release": true,
-    "releaseName": "Release ${version}"
+    "release": false
   }
 }

@@ -1,0 +1,50 @@
+{
+  "name": "@dom-replay/plugin-sequential-id-record",
+  "version": "0.0.1",
+  "description": "",
+  "type": "module",
+  "main": "./dist/plugin-sequential-id-record.umd.cjs",
+  "module": "./dist/plugin-sequential-id-record.js",
+  "unpkg": "./dist/plugin-sequential-id-record.umd.cjs",
+  "typings": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/plugin-sequential-id-record.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/plugin-sequential-id-record.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "pnpm run prepublish",
+    "check-types": "tsc -noEmit",
+    "prepublish": "tsc -noEmit && vite build"
+  },
+  "keywords": [
+    "rrweb"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@dom-replay/types": "workspace:*",
+    "@dom-replay/core": "workspace:*",
+    "typescript": "^5.4.5",
+    "vite": "^5.3.1",
+    "vite-plugin-dts": "^3.9.1"
+  },
+  "peerDependencies": {
+    "@dom-replay/core": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  }
+}

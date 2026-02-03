@@ -1,29 +1,18 @@
 {
-  "name": "@rrweb/packer",
-  "version": "2.0.0-alpha.19",
-  "publishConfig": {
-    "access": "public"
-  },
+  "name": "@dom-replay/packer",
+  "version": "0.0.1",
   "keywords": [
-    "rrweb",
-    "@rrweb/packer"
+    "dom-replay",
+    "@dom-replay/packer"
   ],
   "scripts": {
     "dev": "vite build --watch",
-    "build": "yarn turbo run prepublish",
+    "build": "pnpm run prepublish",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "check-types": "tsc -noEmit",
     "prepublish": "tsc -noEmit && vite build",
-    "lint": "yarn eslint src/**/*.ts"
-  },
-  "homepage": "https://github.com/rrweb-io/rrweb/tree/main/packages/@rrweb/packer#readme",
-  "bugs": {
-    "url": "https://github.com/rrweb-io/rrweb/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rrweb-io/rrweb.git"
+    "lint": "pnpm eslint src/**/*.ts"
   },
   "license": "MIT",
   "type": "module",
@@ -78,9 +67,13 @@
   },
   "dependencies": {
     "fflate": "^0.4.4",
-    "@rrweb/types": "^2.0.0-alpha.19"
+    "@dom-replay/types": "workspace:*"
   },
   "browserslist": [
     "supports es6-class"
-  ]
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  }
 }

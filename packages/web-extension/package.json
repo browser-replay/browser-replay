@@ -1,9 +1,9 @@
 {
-  "name": "@rrweb/web-extension",
+  "name": "@dom-replay/web-extension",
   "private": true,
-  "version": "2.0.0-alpha.19",
-  "description": "The web extension of rrweb which helps to run rrweb on any website out of box",
-  "author": "rrweb-io",
+  "version": "0.0.1",
+  "description": "The web extension for dom-replay.",
+  "author": "dom-replay maintainers",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -15,10 +15,10 @@
     "pack:firefox": "cross-env TARGET_BROWSER=firefox ZIP=true vite build",
     "check-types": "tsc -noEmit",
     "build": "npm run pack:chrome && npm run pack:firefox",
-    "prepublish": "yarn build"
+    "prepublish": "pnpm build"
   },
   "devDependencies": {
-    "@rrweb/types": "^2.0.0-alpha.19",
+    "@dom-replay/types": "workspace:*",
     "@types/chrome": "^0.0.287",
     "@types/react-dom": "^18.0.6",
     "@types/semver": "^7.5.8",
@@ -44,7 +44,7 @@
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
     "react-router-dom": "^6.4.1",
-    "rrweb": "^2.0.0-alpha.19",
-    "rrweb-player": "^2.0.0-alpha.19"
+    "@dom-replay/core": "workspace:*",
+    "@dom-replay/player": "workspace:*"
   }
 }

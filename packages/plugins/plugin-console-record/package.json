@@ -1,0 +1,56 @@
+{
+  "name": "@dom-replay/plugin-console-record",
+  "version": "0.0.1",
+  "description": "",
+  "type": "module",
+  "main": "./dist/plugin-console-record.umd.cjs",
+  "module": "./dist/plugin-console-record.js",
+  "unpkg": "./dist/plugin-console-record.umd.cjs",
+  "typings": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/plugin-console-record.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/plugin-console-record.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "vite build --watch",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "build": "pnpm run prepublish",
+    "check-types": "tsc -noEmit",
+    "prepublish": "tsc -noEmit && vite build"
+  },
+  "keywords": [
+    "rrweb"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@dom-replay/types": "workspace:*",
+    "@dom-replay/utils": "workspace:*",
+    "@dom-replay/core": "workspace:*",
+    "typescript": "^5.4.5",
+    "vite": "^5.3.1",
+    "vite-plugin-dts": "^3.9.1",
+    "vitest": "^1.4.0",
+    "puppeteer": "^24.36.1"
+  },
+  "peerDependencies": {
+    "@dom-replay/core": "workspace:*",
+    "@dom-replay/utils": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  }
+}

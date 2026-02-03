@@ -1,0 +1,51 @@
+{
+  "name": "@dom-replay/plugin-console-replay",
+  "version": "0.0.1",
+  "description": "",
+  "type": "module",
+  "main": "./dist/plugin-console-replay.umd.cjs",
+  "module": "./dist/plugin-console-replay.js",
+  "unpkg": "./dist/plugin-console-replay.umd.cjs",
+  "typings": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/plugin-console-replay.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/plugin-console-replay.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "pnpm run prepublish",
+    "check-types": "tsc -noEmit",
+    "prepublish": "tsc -noEmit && vite build"
+  },
+  "keywords": [
+    "rrweb"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@dom-replay/plugin-console-record": "workspace:*",
+    "@dom-replay/types": "workspace:*",
+    "@dom-replay/core": "workspace:*",
+    "typescript": "^5.4.5",
+    "vite": "^5.3.1",
+    "vite-plugin-dts": "^3.9.1"
+  },
+  "peerDependencies": {
+    "@dom-replay/core": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  }
+}

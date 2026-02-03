@@ -1,29 +1,18 @@
 {
-  "name": "@rrweb/record",
-  "version": "2.0.0-alpha.19",
-  "publishConfig": {
-    "access": "public"
-  },
+  "name": "@dom-replay/record",
+  "version": "0.0.1",
   "keywords": [
-    "rrweb",
-    "@rrweb/record"
+    "dom-replay",
+    "@dom-replay/record"
   ],
   "scripts": {
     "dev": "vite build --watch",
-    "build": "yarn turbo run prepublish",
+    "build": "pnpm run prepublish",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "check-types": "tsc -noEmit",
     "prepublish": "tsc -noEmit && vite build",
-    "lint": "yarn eslint src/**/*.ts"
-  },
-  "homepage": "https://github.com/rrweb-io/rrweb/tree/main/packages/@rrweb/record#readme",
-  "bugs": {
-    "url": "https://github.com/rrweb-io/rrweb/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rrweb-io/rrweb.git"
+    "lint": "pnpm eslint src/**/*.ts"
   },
   "license": "MIT",
   "type": "module",
@@ -48,18 +37,22 @@
     "package.json"
   ],
   "devDependencies": {
-    "puppeteer": "^20.9.0",
+    "puppeteer": "^24.36.1",
     "vite": "^5.3.1",
     "vite-plugin-dts": "^3.9.1",
     "vitest": "^1.4.0",
     "typescript": "^5.4.5"
   },
   "dependencies": {
-    "@rrweb/types": "^2.0.0-alpha.19",
-    "rrweb": "^2.0.0-alpha.19",
-    "@rrweb/utils": "^2.0.0-alpha.19"
+    "@dom-replay/types": "workspace:*",
+    "@dom-replay/core": "workspace:*",
+    "@dom-replay/utils": "workspace:*"
   },
   "browserslist": [
     "supports es6-class"
-  ]
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  }
 }

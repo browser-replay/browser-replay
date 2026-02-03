@@ -1,6 +1,6 @@
 import Browser from 'webextension-polyfill';
 import { nanoid } from 'nanoid';
-import type { eventWithTime } from '@rrweb/types';
+import type { eventWithTime } from '@dom-replay/types';
 import Channel from '~/utils/channel';
 import {
   EventName,

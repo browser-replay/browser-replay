@@ -1,31 +1,31 @@
 {
   "references": [
     {
-      "path": "packages/rrdom"
+      "path": "packages/dom"
     },
     {
-      "path": "packages/rrdom-nodejs"
+      "path": "packages/dom-nodejs"
     },
     {
-      "path": "packages/rrweb"
+      "path": "packages/core"
     },
     {
-      "path": "packages/rrweb-player"
+      "path": "packages/player"
     },
     {
-      "path": "packages/rrweb-snapshot"
+      "path": "packages/snapshot"
     },
     {
       "path": "packages/types"
     },
     {
-      "path": "packages/plugins/rrweb-plugin-console-replay"
+      "path": "packages/plugins/plugin-console-replay"
     },
     {
-      "path": "packages/plugins/rrweb-plugin-console-record"
+      "path": "packages/plugins/plugin-console-record"
     },
     {
-      "path": "packages/rrvideo"
+      "path": "packages/video"
     },
     {
       "path": "packages/web-extension"
