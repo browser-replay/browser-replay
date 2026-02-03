@@ -1,20 +1,20 @@
 # Customize the Replayer
 
-When rrweb's Replayer and the [rrweb-player](../../packages/rrweb-player/) UI do not fit your need, you can customize your replayer UI.
+When rrweb's Replayer and the [@dom-replay/player](../../packages/@dom-replay/player/) UI do not fit your need, you can customize your replayer UI.
 
 There are several ways to do this:
 
-1. Use [rrweb-player](../../packages/rrweb-player/), and customize its CSS.
-2. Use [rrweb-player](../../packages/rrweb-player/), and set `showController: false` to hide the controller UI. With this config, you can implement your controller UI.
+1. Use [@dom-replay/player](../../packages/@dom-replay/player/), and customize its CSS.
+2. Use [@dom-replay/player](../../packages/@dom-replay/player/), and set `showController: false` to hide the controller UI. With this config, you can implement your controller UI.
 3. Use the `insertStyleRules` options to inject some CSS into the replay iframe.
 4. Develop a new replayer UI with rrweb's Replayer.
 
 ## Implement Your Controller UI
 
-When using rrweb-player, you can hide its controller UI:
+When using @dom-replay/player, you can hide its controller UI:
 
 ```js
-import rrwebPlayer from 'rrweb-player';
+import rrwebPlayer from '@dom-replay/player';
 
 new rrwebPlayer({
   target: document.body,
@@ -25,7 +25,7 @@ new rrwebPlayer({
 });
 ```
 
-When you are implementing a controller UI, you may need to interact with rrweb-player.
+When you are implementing a controller UI, you may need to interact with @dom-replay/player.
 
 The follwing APIs show some common use case of a controller UI:
 
@@ -50,7 +50,7 @@ rrwebPlayer.setSpeed(2);
 rrwebPlayer.goto(3000);
 ```
 
-And there are some ways to listen rrweb-player's state:
+And there are some ways to listen @dom-replay/player's state:
 
 ```js
 // get current timing
@@ -71,4 +71,4 @@ rrwebPlayer.addEventListener('ui-update-progress', (event) => {
 
 ## Develop a new replayer UI with rrweb's Replayer.
 
-Please refer [rrweb-player](https://github.com/rrweb-io/rrweb/tree/master/packages/rrweb-player/).
+Please refer [@dom-replay/player](https://github.com/rrweb-io/rrweb/tree/master/packages/@dom-replay/player/).

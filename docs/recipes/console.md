@@ -9,7 +9,7 @@ You can enable the logger using default option like this:
 
 ```js
 import rrweb from 'rrweb';
-import { getRecordConsolePlugin } from '@rrweb/rrweb-plugin-console-record';
+import { getRecordConsolePlugin } from '@dom-replay/plugin-console-record';
 
 rrweb.record({
   emit: function emit(event) {
@@ -31,7 +31,7 @@ You can also customize the behavior of logger like this:
 
 ```js
 import rrweb from 'rrweb';
-import { getRecordConsolePlugin } from '@rrweb/rrweb-plugin-console-record';
+import { getRecordConsolePlugin } from '@dom-replay/plugin-console-record';
 
 rrweb.record({
   emit: function emit(event) {
@@ -71,7 +71,7 @@ If recorded events include data of console log type, we will automatically play 
 
 ```js
 import rrweb from 'rrweb';
-import { getReplayConsolePlugin } from '@rrweb/rrweb-plugin-console-replay';
+import { getReplayConsolePlugin } from '@dom-replay/plugin-console-replay';
 
 const replayer = new rrweb.Replayer(events, {
   plugins: [
@@ -88,4 +88,4 @@ Description of replay option is as follows:
 | key          | default                                                                                                                           | description                                                                                                                             |
 | ------------ | --------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
 | level        | ['log','warn','error',...]                                                                                                        | You can set this option to play levels of log you need.                                                                                 |
-| replayLogger | a console based object that implements the interface [ReplayLogger](../../packages/rrweb/src/plugins/console/replay/index.ts#L13) | You can also set a replay logger to replay the log messages in a simulated browser console by implementing the interface `ReplayLogger` |
+| replayLogger | a console based object that implements the interface [ReplayLogger](../../packages/core/src/plugins/console/replay/index.ts#L13) | You can also set a replay logger to replay the log messages in a simulated browser console by implementing the interface `ReplayLogger` |

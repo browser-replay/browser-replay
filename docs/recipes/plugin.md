@@ -4,12 +4,12 @@ The plugin API is designed to extend the function of rrweb without bump the size
 
 # Available plugins
 
-- [@rrweb/rrweb-plugin-console-record](packages/plugins/rrweb-plugin-console-record): A plugin for recording console logs.
-- [@rrweb/rrweb-plugin-console-replay](packages/plugins/rrweb-plugin-console-replay): A plugin for replaying console logs.
-- [@rrweb/rrweb-plugin-sequential-id-record](packages/plugins/rrweb-plugin-sequential-id-record): A plugin for recording sequential IDs.
-- [@rrweb/rrweb-plugin-sequential-id-replay](packages/plugins/rrweb-plugin-sequential-id-replay): A plugin for replaying sequential IDs.
-- [@rrweb/rrweb-plugin-canvas-webrtc-record](packages/plugins/rrweb-plugin-canvas-webrtc-record): A plugin for stream `<canvas>` via WebRTC.
-- [@rrweb/rrweb-plugin-canvas-webrtc-replay](packages/plugins/rrweb-plugin-canvas-webrtc-replay): A plugin for playing streamed `<canvas>` via WebRTC.
+- [@dom-replay/plugin-console-record](packages/plugins/plugin-console-record): A plugin for recording console logs.
+- [@dom-replay/plugin-console-replay](packages/plugins/plugin-console-replay): A plugin for replaying console logs.
+- [@dom-replay/plugin-sequential-id-record](packages/plugins/plugin-sequential-id-record): A plugin for recording sequential IDs.
+- [@dom-replay/plugin-sequential-id-replay](packages/plugins/plugin-sequential-id-replay): A plugin for replaying sequential IDs.
+- [@dom-replay/plugin-canvas-webrtc-record](packages/plugins/plugin-canvas-webrtc-record): A plugin for stream `<canvas>` via WebRTC.
+- [@dom-replay/plugin-canvas-webrtc-replay](packages/plugins/plugin-canvas-webrtc-replay): A plugin for playing streamed `<canvas>` via WebRTC.
 
 ## Interface
 

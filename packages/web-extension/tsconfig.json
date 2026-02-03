@@ -15,10 +15,10 @@
   "exclude": ["dist", "node_modules", "vite.config.ts"],
   "references": [
     {
-      "path": "../rrweb"
+      "path": "../core"
     },
     {
-      "path": "../rrweb-player"
+      "path": "../player"
     },
     {
       "path": "../types"

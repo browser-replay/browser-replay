@@ -24,7 +24,7 @@ rrweb.record.addCustomEvent('some-error', {
 
 `addCustomEvent` accepts two parameters. The first one is a string-type `tag`, while the second one is an any-type `payload`.
 
-During the replay, we can add an event listener to custom events, or configure the style of custom events in rrweb-player's timeline.
+During the replay, we can add an event listener to custom events, or configure the style of custom events in @dom-replay/player's timeline.
 
 **Listen to custom events**
 
@@ -36,7 +36,7 @@ replayer.on('custom-event', (event) => {
 });
 ```
 
-**Display in rrweb-player**
+**Display in @dom-replay/player**
 
 ```js
 new rrwebPlayer({

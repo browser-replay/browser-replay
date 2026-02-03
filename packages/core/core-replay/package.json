@@ -1,0 +1,4 @@
+{
+  "main": "../dist/core-replay.cjs",
+  "types": "../dist/core-replay.d.ts"
+}

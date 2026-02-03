@@ -104,7 +104,7 @@ const win = new BrowserWindow({
   width: 800,
   height: 600,
   webPreferences: {
-    preload: path.join(__dirname, 'rrweb-recording-script.js'),
+    preload: path.join(__dirname, 'dom-replay-recording-script.js'),
     // this turns on preload inside iframes, but disables node integration
     nodeIntegrationInSubFrames: true,
     nodeIntegration: false,

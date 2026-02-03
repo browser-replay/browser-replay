@@ -66,7 +66,7 @@ There are a few style guidelines that aren't covered by the linter rules:
 
 ## Documentation translations
 
-When adding something to an English doc file, please add a translation if possible, or a placeholder in the respective \*.zh-CN.md files.
+This repository does not maintain translated documentation files.
 
 [title-case]: https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case
 [sentence-case]: https://apastyle.apa.org/style-grammar-guidelines/capitalization/sentence-case

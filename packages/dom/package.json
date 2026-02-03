@@ -1,0 +1,52 @@
+{
+  "name": "@dom-replay/dom",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/dom.cjs",
+  "module": "./dist/dom.js",
+  "unpkg": "./dist/dom.umd.cjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/dom.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/dom.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "pnpm run prepublish",
+    "check-types": "tsc -noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublish": "tsc -noEmit && vite build",
+    "lint": "pnpm eslint src/**/*.ts"
+  },
+  "devDependencies": {
+    "@dom-replay/types": "workspace:*",
+    "@typescript-eslint/eslint-plugin": "^5.23.0",
+    "@typescript-eslint/parser": "^5.23.0",
+    "eslint": "^8.15.0",
+    "puppeteer": "^24.36.1",
+    "typescript": "^5.4.5",
+    "vite": "^5.3.1",
+    "vite-plugin-dts": "^3.9.1"
+  },
+  "dependencies": {
+    "@dom-replay/snapshot": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  }
+}

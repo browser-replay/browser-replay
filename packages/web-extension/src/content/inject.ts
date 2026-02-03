@@ -1,6 +1,6 @@
-import { record } from 'rrweb';
-import type { recordOptions } from 'rrweb';
-import type { eventWithTime } from '@rrweb/types';
+import { record } from '@dom-replay/core';
+import type { recordOptions } from '@dom-replay/core';
+import type { eventWithTime } from '@dom-replay/types';
 import { MessageName, type RecordStartedMessage } from '~/types';
 import { isInCrossOriginIFrame } from '~/utils';
 

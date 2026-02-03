@@ -1,4 +1,4 @@
-import type { eventWithTime } from '@rrweb/types';
+import type { eventWithTime } from '@dom-replay/types';
 
 export enum SyncDataKey {
   settings = 'settings',

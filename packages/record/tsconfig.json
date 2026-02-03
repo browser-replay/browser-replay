@@ -10,7 +10,7 @@
       "path": "../types"
     },
     {
-      "path": "../rrweb"
+      "path": "../core"
     },
     {
       "path": "../utils"

@@ -5,8 +5,13 @@ import * as path from 'path';
 import type { PackageJson } from 'type-fest';
 import react from '@vitejs/plugin-react';
 import semver from 'semver';
+import { readFileSync } from 'node:fs';
 
 const emptyOutDir = !process.argv.includes('--watch');
+
+function readPackageJson(absolutePath: string): PackageJson {
+  return JSON.parse(readFileSync(absolutePath, 'utf8')) as PackageJson;
+}
 
 function useSpecialFormat(
   entriesToUse: string[],
@@ -96,7 +101,15 @@ export default defineConfig({
         const BrowserName =
           process.env.TARGET_BROWSER === 'chrome' ? 'chrome' : 'firefox';
         const commonManifest = originalManifest.common;
-        const rrwebVersion = packageJson.dependencies!.rrweb!.replace('^', '');
+        const rrwebDependency =
+          packageJson.dependencies!['@dom-replay/core'] ??
+          packageJson.dependencies!.rrweb!;
+        const rrwebVersion =
+          rrwebDependency.startsWith('workspace:') || rrwebDependency === '*'
+            ? (readPackageJson(
+                path.resolve(__dirname, '..', 'core', 'package.json'),
+              ).version ?? rrwebDependency)
+            : rrwebDependency.replace('^', '');
         const manifest = {
           version: getExtensionVersion(rrwebVersion),
           author: packageJson.author,
@@ -112,7 +125,7 @@ export default defineConfig({
       },
       browser: process.env.TARGET_BROWSER,
       webExtConfig: {
-        startUrl: ['github.com/rrweb-io/rrweb'],
+        startUrl: ['https://example.com'],
         watchIgnored: ['*.md', '*.log'],
       },
       additionalInputs: ['pages/index.html', 'content/inject.ts'],

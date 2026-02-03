@@ -1,5 +1,5 @@
 import { openDB } from 'idb';
-import type { eventWithTime } from '@rrweb/types';
+import type { eventWithTime } from '@dom-replay/types';
 import type { Session } from '~/types';
 
 /**

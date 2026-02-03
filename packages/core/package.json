@@ -1,0 +1,84 @@
+{
+  "name": "@dom-replay/core",
+  "version": "0.0.1",
+  "description": "record and replay the web",
+  "scripts": {
+    "retest": "cross-env PUPPETEER_HEADLESS=true pnpm retest:headful",
+    "retest:headful": "vitest run --exclude test/benchmark",
+    "build-and-test": "pnpm build && pnpm retest",
+    "test:headless": "cross-env PUPPETEER_HEADLESS=true pnpm build-and-test",
+    "test:headful": "cross-env PUPPETEER_HEADLESS=false pnpm build-and-test",
+    "test": "pnpm test:headless",
+    "test:watch": "pnpm build && cross-env PUPPETEER_HEADLESS=true pnpm vitest --exclude test/benchmark",
+    "test:update": "pnpm test:headless --update",
+    "retest:update": "cross-env PUPPETEER_HEADLESS=true pnpm retest --update",
+    "repl": "pnpm build && node scripts/repl.js",
+    "live-stream": "pnpm build && node scripts/stream.js",
+    "dev": "vite build --watch",
+    "build": "pnpm run prepublish",
+    "check-types": "tsc -noEmit",
+    "prepublish": "tsc -noEmit && vite build",
+    "lint": "pnpm eslint src",
+    "benchmark": "vitest run --maxConcurrency 1 --no-file-parallelism test/benchmark"
+  },
+  "type": "module",
+  "keywords": ["dom-replay", "session-replay", "record", "replay", "dom"],
+  "main": "./dist/core.umd.cjs",
+  "module": "./dist/core.js",
+  "unpkg": "./dist/core.umd.cjs",
+  "typings": "dist/core.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/core.d.ts",
+        "default": "./dist/core.js"
+      },
+      "require": {
+        "types": "./dist/core.d.cts",
+        "default": "./dist/core.cjs"
+      }
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "sideEffects": false,
+  "license": "MIT",
+  "devDependencies": {
+    "@types/dom-mediacapture-transform": "0.1.4",
+    "@types/inquirer": "^8.2.1",
+    "@types/jest-image-snapshot": "^6.1.0",
+    "@types/node": "^18.15.11",
+    "@types/offscreencanvas": "^2019.6.4",
+    "construct-style-sheets-polyfill": "^3.1.0",
+    "fast-mhtml": "^1.1.9",
+    "identity-obj-proxy": "^3.0.0",
+    "ignore-styles": "^5.0.1",
+    "inquirer": "^9.0.0",
+    "jest-image-snapshot": "^6.2.0",
+    "puppeteer": "^24.36.1",
+    "simple-peer-light": "^9.10.0",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.3.1",
+    "typescript": "^5.4.5",
+    "vitest": "^1.4.0",
+    "vite": "^5.3.1",
+    "vite-plugin-dts": "^3.9.1"
+  },
+  "dependencies": {
+    "@dom-replay/types": "workspace:*",
+    "@dom-replay/utils": "workspace:*",
+    "@types/css-font-loading-module": "0.0.7",
+    "@xstate/fsm": "^1.4.0",
+    "base64-arraybuffer": "^1.0.1",
+    "mitt": "^3.0.0",
+    "@dom-replay/dom": "workspace:*",
+    "@dom-replay/snapshot": "workspace:*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  }
+}

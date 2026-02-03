@@ -1,79 +1,77 @@
 # Guide
 
-[中文指南](./guide.zh_CN.md)
-
-> You may also want to read the [recipes](./docs/recipes/index.md) to find some use real-world use case, or read the [design docs](./docs) to know more technical details of rrweb.
+> You may also want to read the [recipes](./docs/recipes/index.md) to find some real-world use cases, or read the [design docs](./docs) to know more technical details.
 
 ## Installation
 
 ### Direct `<script>` include
 
-You are recommended to install rrweb via jsdelivr's CDN service:
+You are recommended to install `@dom-replay/core` via jsdelivr's CDN service:
 
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/style.css"
+  href="https://cdn.jsdelivr.net/npm/@dom-replay/core@latest/dist/style.css"
 />
-<script src="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/rrweb.umd.min.cjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@dom-replay/core@latest/dist/core.umd.min.cjs"></script>
 ```
 
 Also, you can link to a specific version number that you can update manually:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/rrweb@2.0.0-alpha.14/dist/rrweb.umd.min.cjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@dom-replay/core@0.0.1/dist/core.umd.min.cjs"></script>
 ```
 
 #### Only include the recorder code
 
-rrweb's code includes both the record and the replay parts. Most of the time you only need to include the record part into your targeted web Apps.
-This also can be done by using the `@rrweb/record` package and the CDN service:
+`@dom-replay/core` includes both the record and the replay parts. Most of the time you only need to include the record part into your targeted web apps.
+This also can be done by using the `@dom-replay/record` package and the CDN service:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@rrweb/record@latest/dist/record.umd.min.cjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@dom-replay/record@latest/dist/record.umd.min.cjs"></script>
 ```
 
 #### Other packages
 
-Besides the `rrweb` and `@rrweb/record` packages, rrweb also provides other packages for different usage.
+Besides `@dom-replay/core` and `@dom-replay/record`, dom-replay provides other packages for different usage.
 
-- [rrweb](packages/rrweb): The core package of rrweb, including record and replay functions.
-- [rrweb-player](packages/rrweb-player): A GUI for rrweb, providing a timeline and buttons for things like pause, fast-forward, and speedup.
-- [rrweb-snapshot](packages/rrweb-snapshot): Handles snapshot and rebuilding features, converting the DOM and its state into a serializable data structure.
-- [rrdom](packages/rrdom): A virtual dom package rrweb.
-- [rrdom-nodejs](packages/rrdom-nodejs): The Node.js version of rrdom for server-side DOM operations.
-- [@rrweb/all](packages/all): A package that includes `rrweb` and `@rrweb/packer` for easy install.
-- [@rrweb/record](packages/record): A package for recording rrweb sessions.
-- [@rrweb/replay](packages/replay): A package for replaying rrweb sessions.
-- [@rrweb/packer](packages/packer): A package for packing and unpacking rrweb data.
-- [@rrweb/types](packages/types): Contains types shared across rrweb packages.
-- [@rrweb/utils](packages/utils): Contains utility functions shared across rrweb packages.
-- [web-extension](packages/web-extension): A web extension for rrweb.
-- [rrvideo](packages/rrvideo): A package for handling video operations in rrweb.
-- [@rrweb/rrweb-plugin-console-record](packages/plugins/rrweb-plugin-console-record): A plugin for recording console logs.
-- [@rrweb/rrweb-plugin-console-replay](packages/plugins/rrweb-plugin-console-replay): A plugin for replaying console logs.
-- [@rrweb/rrweb-plugin-sequential-id-record](packages/plugins/rrweb-plugin-sequential-id-record): A plugin for recording sequential IDs.
-- [@rrweb/rrweb-plugin-sequential-id-replay](packages/plugins/rrweb-plugin-sequential-id-replay): A plugin for replaying sequential IDs.
-- [@rrweb/rrweb-plugin-canvas-webrtc-record](packages/plugins/rrweb-plugin-canvas-webrtc-record): A plugin for stream `<canvas>` via WebRTC.
-- [@rrweb/rrweb-plugin-canvas-webrtc-replay](packages/plugins/rrweb-plugin-canvas-webrtc-replay): A plugin for playing streamed `<canvas>` via WebRTC.
+- [@dom-replay/core](packages/core): The core package, including record and replay functions.
+- [@dom-replay/player](packages/player): A GUI player providing a timeline and controls (pause, fast-forward, speed, etc.).
+- [@dom-replay/snapshot](packages/snapshot): Snapshot and rebuilding features (serialize DOM state).
+- [@dom-replay/dom](packages/dom): A virtual DOM package.
+- [@dom-replay/dom-nodejs](packages/dom-nodejs): The Node.js version of `@dom-replay/dom` for server-side DOM operations.
+- [@dom-replay/all](packages/all): A convenience package that re-exports core pieces.
+- [@dom-replay/record](packages/record): Recording-only package.
+- [@dom-replay/replay](packages/replay): Replay-only package.
+- [@dom-replay/packer](packages/packer): Packing and unpacking event data.
+- [@dom-replay/types](packages/types): Shared types.
+- [@dom-replay/utils](packages/utils): Shared utilities.
+- [@dom-replay/web-extension](packages/web-extension): Browser extension.
+- [@dom-replay/video](packages/video): Convert sessions to video.
+- [@dom-replay/plugin-console-record](packages/plugins/plugin-console-record): A plugin for recording console logs.
+- [@dom-replay/plugin-console-replay](packages/plugins/plugin-console-replay): A plugin for replaying console logs.
+- [@dom-replay/plugin-sequential-id-record](packages/plugins/plugin-sequential-id-record): A plugin for recording sequential IDs.
+- [@dom-replay/plugin-sequential-id-replay](packages/plugins/plugin-sequential-id-replay): A plugin for replaying sequential IDs.
+- [@dom-replay/plugin-canvas-webrtc-record](packages/plugins/plugin-canvas-webrtc-record): A plugin for stream `<canvas>` via WebRTC.
+- [@dom-replay/plugin-canvas-webrtc-replay](packages/plugins/plugin-canvas-webrtc-replay): A plugin for playing streamed `<canvas>` via WebRTC.
 
 ### NPM
 
 ```shell
-npm install --save rrweb
+npm install --save @dom-replay/core
 ```
 
-rrweb provides both commonJS and ES modules bundles, which are easy to use with the popular bundlers.
+`@dom-replay/core` provides both CommonJS and ES module bundles, which are easy to use with popular bundlers.
 
 ### Compatibility Note
 
-rrweb does **not** support IE11 and below because it uses the `MutationObserver` API which was supported by [these browsers](https://caniuse.com/#feat=mutationobserver).
+dom-replay does **not** support IE11 and below because it uses the `MutationObserver` API which was supported by [these browsers](https://caniuse.com/#feat=mutationobserver).
 
 ## Getting Started
 
 ### Record
 
-The following sample code will use the variable `rrweb` which is the default exporter of this library.
+The following sample code will use a local variable named `rrweb` for convenience.
 
 ```js
 rrweb.record({
@@ -131,36 +129,36 @@ setInterval(save, 10 * 1000);
 
 The parameter of `rrweb.record` accepts the following options.
 
-| key                      | default            | description                                                                                                                                                                                   |
-| ------------------------ | ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| emit                     | required           | the callback function to get emitted events                                                                                                                                                   |
-| checkoutEveryNth         | -                  | take a full snapshot after every N events<br />refer to the [checkout](#checkout) chapter                                                                                                     |
-| checkoutEveryNms         | -                  | take a full snapshot after every N ms<br />refer to the [checkout](#checkout) chapter                                                                                                         |
-| blockClass               | 'rr-block'         | Use a string or RegExp to configure which elements should be blocked, refer to the [privacy](#privacy) chapter                                                                                |
-| blockSelector            | null               | Use a string to configure which selector should be blocked, refer to the [privacy](#privacy) chapter                                                                                          |
-| ignoreClass              | 'rr-ignore'        | Use a string or RegExp to configure which elements should be ignored, refer to the [privacy](#privacy) chapter                                                                                |
-| ignoreSelector           | null               | Use a string to configure which selector should be ignored, refer to the [privacy](#privacy) chapter                                                                                          |
-| ignoreCSSAttributes      | null               | array of CSS attributes that should be ignored                                                                                                                                                |
-| maskTextClass            | 'rr-mask'          | Use a string or RegExp to configure which elements should be masked, refer to the [privacy](#privacy) chapter                                                                                 |
-| maskTextSelector         | null               | Use a string to configure which selector should be masked, refer to the [privacy](#privacy) chapter                                                                                           |
-| maskAllInputs            | false              | mask all input content as \*                                                                                                                                                                  |
-| maskInputOptions         | { password: true } | mask some kinds of input \*<br />refer to the [list](https://github.com/rrweb-io/rrweb/blob/588164aa12f1d94576f89ae0210b98f6e971c895/packages/rrweb-snapshot/src/types.ts#L77-L95)            |
-| maskInputFn              | -                  | customize mask input content recording logic                                                                                                                                                  |
-| maskTextFn               | -                  | customize mask text content recording logic                                                                                                                                                   |
-| slimDOMOptions           | {}                 | remove unnecessary parts of the DOM <br />refer to the [list](https://github.com/rrweb-io/rrweb/blob/588164aa12f1d94576f89ae0210b98f6e971c895/packages/rrweb-snapshot/src/types.ts#L97-L108)  |
-| dataURLOptions           | {}                 | Canvas image format and quality ,This parameter will be passed to the OffscreenCanvas.convertToBlob(),Using this parameter effectively reduces the size of the recorded data                  |
-| inlineStylesheet         | true               | whether to inline the stylesheet in the events                                                                                                                                                |
-| hooks                    | {}                 | hooks for events<br />refer to the [list](https://github.com/rrweb-io/rrweb/blob/9488deb6d54a5f04350c063d942da5e96ab74075/src/types.ts#L207)                                                  |
-| packFn                   | -                  | refer to the [storage optimization recipe](./docs/recipes/optimize-storage.md)                                                                                                                |
-| sampling                 | -                  | refer to the [storage optimization recipe](./docs/recipes/optimize-storage.md)                                                                                                                |
-| recordCanvas             | false              | Whether to record the canvas element. Available options:<br/>`false`, <br/>`true`                                                                                                             |
-| recordCrossOriginIframes | false              | Whether to record cross origin iframes. rrweb has to be injected in each child iframe for this to work. Available options:<br/>`false`, <br/>`true`                                           |
-| recordAfter              | 'load'             | If the document is not ready, then the recorder will start recording after the specified event is fired. Available options: `DOMContentLoaded`, `load`                                        |
-| inlineImages             | false              | whether to record the image content                                                                                                                                                           |
-| collectFonts             | false              | whether to collect fonts in the website                                                                                                                                                       |
-| userTriggeredOnInput     | false              | whether to add `userTriggered` on input events that indicates if this event was triggered directly by the user or not. [What is `userTriggered`?](https://github.com/rrweb-io/rrweb/pull/495) |
-| plugins                  | []                 | load plugins to provide extended record functions. [What is plugins?](./docs/recipes/plugin.md)                                                                                               |
-| errorHandler             | -                  | A callback that is called if something inside of rrweb throws an error. The callback receives the error as argument.                                                                          |
+| key                      | default            | description                                                                                                                                                                                        |
+| ------------------------ | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| emit                     | required           | the callback function to get emitted events                                                                                                                                                        |
+| checkoutEveryNth         | -                  | take a full snapshot after every N events<br />refer to the [checkout](#checkout) chapter                                                                                                          |
+| checkoutEveryNms         | -                  | take a full snapshot after every N ms<br />refer to the [checkout](#checkout) chapter                                                                                                              |
+| blockClass               | 'rr-block'         | Use a string or RegExp to configure which elements should be blocked, refer to the [privacy](#privacy) chapter                                                                                     |
+| blockSelector            | null               | Use a string to configure which selector should be blocked, refer to the [privacy](#privacy) chapter                                                                                               |
+| ignoreClass              | 'rr-ignore'        | Use a string or RegExp to configure which elements should be ignored, refer to the [privacy](#privacy) chapter                                                                                     |
+| ignoreSelector           | null               | Use a string to configure which selector should be ignored, refer to the [privacy](#privacy) chapter                                                                                               |
+| ignoreCSSAttributes      | null               | array of CSS attributes that should be ignored                                                                                                                                                     |
+| maskTextClass            | 'rr-mask'          | Use a string or RegExp to configure which elements should be masked, refer to the [privacy](#privacy) chapter                                                                                      |
+| maskTextSelector         | null               | Use a string to configure which selector should be masked, refer to the [privacy](#privacy) chapter                                                                                                |
+| maskAllInputs            | false              | mask all input content as \*                                                                                                                                                                       |
+| maskInputOptions         | { password: true } | mask some kinds of input \*<br />refer to the [list](https://github.com/rrweb-io/rrweb/blob/588164aa12f1d94576f89ae0210b98f6e971c895/packages/@dom-replay/snapshot/src/types.ts#L77-L95)           |
+| maskInputFn              | -                  | customize mask input content recording logic                                                                                                                                                       |
+| maskTextFn               | -                  | customize mask text content recording logic                                                                                                                                                        |
+| slimDOMOptions           | {}                 | remove unnecessary parts of the DOM <br />refer to the [list](https://github.com/rrweb-io/rrweb/blob/588164aa12f1d94576f89ae0210b98f6e971c895/packages/@dom-replay/snapshot/src/types.ts#L97-L108) |
+| dataURLOptions           | {}                 | Canvas image format and quality ,This parameter will be passed to the OffscreenCanvas.convertToBlob(),Using this parameter effectively reduces the size of the recorded data                       |
+| inlineStylesheet         | true               | whether to inline the stylesheet in the events                                                                                                                                                     |
+| hooks                    | {}                 | hooks for events<br />refer to the [list](https://github.com/rrweb-io/rrweb/blob/9488deb6d54a5f04350c063d942da5e96ab74075/src/types.ts#L207)                                                       |
+| packFn                   | -                  | refer to the [storage optimization recipe](./docs/recipes/optimize-storage.md)                                                                                                                     |
+| sampling                 | -                  | refer to the [storage optimization recipe](./docs/recipes/optimize-storage.md)                                                                                                                     |
+| recordCanvas             | false              | Whether to record the canvas element. Available options:<br/>`false`, <br/>`true`                                                                                                                  |
+| recordCrossOriginIframes | false              | Whether to record cross origin iframes. rrweb has to be injected in each child iframe for this to work. Available options:<br/>`false`, <br/>`true`                                                |
+| recordAfter              | 'load'             | If the document is not ready, then the recorder will start recording after the specified event is fired. Available options: `DOMContentLoaded`, `load`                                             |
+| inlineImages             | false              | whether to record the image content                                                                                                                                                                |
+| collectFonts             | false              | whether to collect fonts in the website                                                                                                                                                            |
+| userTriggeredOnInput     | false              | whether to add `userTriggered` on input events that indicates if this event was triggered directly by the user or not. [What is `userTriggered`?](https://github.com/rrweb-io/rrweb/pull/495)      |
+| plugins                  | []                 | load plugins to provide extended record functions. [What is plugins?](./docs/recipes/plugin.md)                                                                                                    |
+| errorHandler             | -                  | A callback that is called if something inside of rrweb throws an error. The callback receives the error as argument.                                                                               |
 
 #### Privacy
 
@@ -313,31 +311,31 @@ The replayer accepts options as its constructor's second parameter, and it has t
 | useVirtualDom           | true          | whether to use Virtual Dom optimization in the process of skipping to a new point of time                                                                                                                                      |
 | logger                  | console       | The logger object used by the replayer to print warnings or errors                                                                                                                                                             |
 
-#### Use rrweb-player
+#### Use @dom-replay/player
 
-Since rrweb's replayer ([@rrweb/replay](packages/replay/)) only provides a basic UI, you can choose [rrweb-player](packages/rrweb-player/) which is based on rrweb's public APIs but has a feature-rich replayer UI.
+Since rrweb's replayer ([@dom-replay/replay](packages/replay/)) only provides a basic UI, you can choose [@dom-replay/player](packages/@dom-replay/player/) which is based on rrweb's public APIs but has a feature-rich replayer UI.
 
 ##### Installation
 
-rrweb-player can also be included with `<script>`：
+@dom-replay/player can also be included with `<script>`：
 
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/rrweb-player@latest/dist/style.css"
+  href="https://cdn.jsdelivr.net/npm/@dom-replay/player@latest/dist/style.css"
 />
-<script src="https://cdn.jsdelivr.net/npm/rrweb-player@latest/dist/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@dom-replay/player@latest/dist/index.js"></script>
 ```
 
 Or installed by using NPM：
 
 ```shell
-npm install --save rrweb-player
+npm install --save @dom-replay/player
 ```
 
 ```js
-import rrwebPlayer from 'rrweb-player';
-import 'rrweb-player/dist/style.css';
+import rrwebPlayer from '@dom-replay/player';
+import '@dom-replay/player/dist/style.css';
 ```
 
 ##### Usage
@@ -395,9 +393,9 @@ The event list:
 | custom-event           | custom event has been replayed      | event             |
 | destroy                | destroyed the replayer              | -                 |
 
-The rrweb-replayer also re-expose the event listener via a `component.addEventListener` API.
+The dom-replay player component also re-exposes the event listener via a `component.addEventListener` API.
 
-And there are three rrweb-replayer event will be emitted in the same way:
+And there are three player UI events emitted in the same way:
 
 | Event                  | Description                      | Value       |
 | ---------------------- | -------------------------------- | ----------- |
@@ -409,7 +407,7 @@ And there are three rrweb-replayer event will be emitted in the same way:
 
 You can also play with rrweb by using the REPL testing tool which does not need installation.
 
-Run `yarn repl` to launch a browser and ask for a URL you want to test on the CLI:
+Run `pnpm repl` to launch a browser and ask for a URL you want to test on the CLI:
 
 ```
 Enter the url you want to record, e.g https://react-redux.realworld.io:
