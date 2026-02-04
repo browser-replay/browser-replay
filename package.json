@@ -50,12 +50,18 @@
     "test:update": "pnpm turbo run test:update",
     "check-types": "pnpm turbo run check-types --continue",
     "format": "pnpm prettier --write '**/*.{ts,md}'",
+    "format:check": "pnpm prettier --check '**/*.{ts,md}'",
     "format:head": "git diff --name-only HEAD^ |grep '\\.ts$\\|\\.md$' |xargs pnpm prettier --write",
     "dev": "pnpm turbo run dev --concurrency=18",
     "repl": "cd packages/core && npm run repl",
     "live-stream": "cd packages/core && pnpm live-stream",
-    "lint": "pnpm concurrently --success=all -r -m=1 'pnpm markdownlint docs' 'ESLINT_USE_FLAT_CONFIG=false pnpm eslint packages/*/src --ext .ts,.tsx,.js,.jsx,.svelte'",
-    "lint:report": "ESLINT_USE_FLAT_CONFIG=false pnpm eslint --output-file eslint_report.json --format json packages/*/src --ext .ts,.tsx,.js,.jsx"
+    "lint:docs": "pnpm markdownlint docs",
+    "lint:code": "ESLINT_USE_FLAT_CONFIG=false pnpm eslint 'packages/*/src/**/*.{ts,tsx,js,jsx}' 'packages/plugins/*/src/**/*.{ts,tsx,js,jsx}' --cache --cache-location .cache/eslint/default.cache",
+    "lint:code:ci": "pnpm lint:code --max-warnings=0",
+    "lint:typeaware": "ESLINT_USE_FLAT_CONFIG=false pnpm eslint -c .eslintrc.typeaware.js 'packages/*/src/**/*.{ts,tsx}' 'packages/plugins/*/src/**/*.{ts,tsx}' --cache --cache-location .cache/eslint/typeaware.cache",
+    "lint": "pnpm concurrently --success=all -r -m=1 'pnpm lint:docs' 'pnpm lint:code'",
+    "lint:ci": "pnpm concurrently --success=all -r -m=1 'pnpm lint:docs' 'pnpm lint:code:ci'",
+    "lint:report": "ESLINT_USE_FLAT_CONFIG=false pnpm eslint 'packages/*/src/**/*.{ts,tsx,js,jsx}' 'packages/plugins/*/src/**/*.{ts,tsx,js,jsx}' --format json --output-file eslint_report.json"
   },
   "pnpm": {
     "overrides": {
