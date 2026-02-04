@@ -22,7 +22,13 @@
     "benchmark": "vitest run --maxConcurrency 1 --no-file-parallelism test/benchmark"
   },
   "type": "module",
-  "keywords": ["dom-replay", "session-replay", "record", "replay", "dom"],
+  "keywords": [
+    "dom-replay",
+    "session-replay",
+    "record",
+    "replay",
+    "dom"
+  ],
   "main": "./dist/core.umd.cjs",
   "module": "./dist/core.js",
   "unpkg": "./dist/core.umd.cjs",
@@ -63,19 +69,19 @@
     "ts-node": "^10.9.1",
     "tslib": "^2.3.1",
     "typescript": "^5.4.5",
-    "vitest": "^1.4.0",
     "vite": "^5.3.1",
-    "vite-plugin-dts": "^3.9.1"
+    "vite-plugin-dts": "^3.9.1",
+    "vitest": "^1.4.0"
   },
   "dependencies": {
+    "@dom-replay/dom": "workspace:*",
+    "@dom-replay/snapshot": "workspace:*",
     "@dom-replay/types": "workspace:*",
     "@dom-replay/utils": "workspace:*",
     "@types/css-font-loading-module": "0.0.7",
-    "@xstate/fsm": "^1.4.0",
-    "base64-arraybuffer": "^1.0.1",
-    "mitt": "^3.0.0",
-    "@dom-replay/dom": "workspace:*",
-    "@dom-replay/snapshot": "workspace:*"
+    "@xstate/fsm": "^1.6.5",
+    "base64-arraybuffer": "^1.0.2",
+    "mitt": "^3.0.1"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
