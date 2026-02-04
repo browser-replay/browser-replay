@@ -15,6 +15,7 @@ import {
   launchPuppeteer,
   stripBase64,
   waitForRAF,
+  sleep,
 } from '../utils';
 import type { ICanvas } from '@dom-replay/snapshot';
 
@@ -51,7 +52,7 @@ const setup = function (
     await ctx.page.goto('about:blank');
     await ctx.page.setContent(content);
     await ctx.page.addScriptTag({
-      path: path.resolve(__dirname, '../../dist/rrweb.umd.cjs'),
+      path: path.resolve(__dirname, '../../dist/core.umd.cjs'),
     });
     ctx.events = [];
     await ctx.page.exposeFunction('emit', (e: eventWithTime) => {
@@ -109,7 +110,7 @@ describe('record webgl', function (this: ISuite) {
       gl.clear(gl.COLOR_BUFFER_BIT);
     });
 
-    await ctx.page.waitForTimeout(50);
+    await sleep(50);
 
     const lastEvent = ctx.events[ctx.events.length - 1];
     expect(lastEvent).toMatchObject({
@@ -135,7 +136,7 @@ describe('record webgl', function (this: ISuite) {
       gl.clear(gl.COLOR_BUFFER_BIT);
     });
 
-    await ctx.page.waitForTimeout(50);
+    await sleep(50);
 
     const lastEvent = ctx.events[ctx.events.length - 1];
     expect(lastEvent).toMatchObject({
@@ -201,7 +202,7 @@ describe('record webgl', function (this: ISuite) {
       gl.linkProgram(program1);
     });
 
-    await ctx.page.waitForTimeout(50);
+    await sleep(50);
 
     await assertSnapshot(ctx.events);
   });
@@ -217,7 +218,7 @@ describe('record webgl', function (this: ISuite) {
       gl.linkProgram(program0);
     });
 
-    await ctx.page.waitForTimeout(50);
+    await sleep(50);
 
     await assertSnapshot(ctx.events);
   });
@@ -262,7 +263,7 @@ describe('record webgl', function (this: ISuite) {
       });
     });
 
-    await ctx.page.waitForTimeout(50);
+    await sleep(50);
 
     await assertSnapshot(ctx.events);
     expect(ctx.events.length).toEqual(5);
@@ -297,7 +298,7 @@ describe('record webgl', function (this: ISuite) {
         gl.clear(gl.COLOR_BUFFER_BIT);
       });
 
-      await ctx.page.waitForTimeout(200); // give it some time buffer
+      await sleep(200); // give it some time buffer
 
       await ctx.page.evaluate(() => {
         const canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -307,7 +308,7 @@ describe('record webgl', function (this: ISuite) {
         gl.clear(gl.COLOR_BUFFER_BIT);
       });
 
-      await ctx.page.waitForTimeout(200);
+      await sleep(200);
 
       await waitForRAF(ctx.page);
 

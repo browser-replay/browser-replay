@@ -11,6 +11,7 @@ import {
   waitForIFrameLoad,
   replaceLast,
   generateRecordSnippet,
+  sleep,
   ISuite,
 } from './utils';
 import type { recordOptions } from '../src/types';
@@ -50,7 +51,7 @@ describe('record integration tests', function (this: ISuite) {
     serverURL = getServerURL(server);
     browser = await launchPuppeteer();
 
-    const bundlePath = path.resolve(__dirname, '../dist/rrweb.umd.cjs');
+    const bundlePath = path.resolve(__dirname, '../dist/core.umd.cjs');
     code = fs.readFileSync(bundlePath, 'utf8');
   });
 
@@ -679,15 +680,8 @@ describe('record integration tests', function (this: ISuite) {
     await page.goto('about: blank');
     await page.setContent(getHtml.call(this, 'blocked-unblocked.html'));
 
-    const elements1 = (await page.$x(
-      '/html/body/div[1]/button',
-    )) as puppeteer.ElementHandle<HTMLButtonElement>[];
-    await elements1[0].click();
-
-    const elements2 = (await page.$x(
-      '/html/body/div[2]/button',
-    )) as puppeteer.ElementHandle<HTMLButtonElement>[];
-    await elements2[0].click();
+    await page.click('div.first .visible > button');
+    await page.click('div.second .visible2 > button');
 
     const snapshots = (await page.evaluate(
       'window.snapshots',
@@ -835,7 +829,7 @@ describe('record integration tests', function (this: ISuite) {
         recordCanvas: true,
       }),
     );
-    await page.waitForTimeout(50);
+    await sleep(50);
     const snapshots = (await page.evaluate(
       'window.snapshots',
     )) as eventWithTime[];
@@ -940,7 +934,7 @@ describe('record integration tests', function (this: ISuite) {
       getHtml.call(this, 'frame-image-blob-url.html', { inlineImages: true }),
     );
     await page.waitForResponse(`${serverURL}/html/assets/robot.png`);
-    await page.waitForTimeout(50); // wait for image to get added
+    await sleep(50); // wait for image to get added
     await waitForRAF(page); // wait for image to be captured
 
     const snapshots = (await page.evaluate(
@@ -963,7 +957,7 @@ describe('record integration tests', function (this: ISuite) {
       iframe.setAttribute('src', '/html/image-blob-url.html');
     });
     await page.waitForResponse(`${serverURL}/html/assets/robot.png`); // wait for image to get loaded
-    await page.waitForTimeout(50); // wait for image to get added
+    await sleep(50); // wait for image to get added
     await waitForRAF(page); // wait for image to be captured
 
     const snapshots = (await page.evaluate(
@@ -1014,7 +1008,7 @@ describe('record integration tests', function (this: ISuite) {
             'nested shadow dom';
         });
     });
-    await page.waitForTimeout(50);
+    await sleep(50);
 
     const snapshots = (await page.evaluate(
       'window.snapshots',

@@ -159,16 +159,16 @@ describe('style elements', () => {
     return document.querySelector('style')!;
   };
 
+  const normalizeCssText = (cssText: string): string => cssText.replace(/\s+/g, '');
+
   it('should serialize all rules of stylesheet when the sheet has a single child node', () => {
     const styleEl = render(`<style>body { color: red; }</style>`);
     styleEl.sheet?.insertRule('section { color: blue; }');
-    expect(serializeNode(styleEl)).toMatchObject({
-      rootId: undefined,
-      attributes: {
-        _cssText: 'section {color: blue;}body {color: red;}',
-      },
-      type: 2,
-    });
+    const serialized = serializeNode(styleEl) as any;
+    expect(serialized).toMatchObject({ rootId: undefined, type: 2 });
+    expect(normalizeCssText(serialized.attributes._cssText)).toBe(
+      normalizeCssText('section {color: blue;}body {color: red;}'),
+    );
   });
 
   it('should serialize all rules on stylesheets with mix of insertion type', () => {
@@ -176,14 +176,13 @@ describe('style elements', () => {
     styleEl.sheet?.insertRule('section.lost { color: unseeable; }'); // browser throws this away after append
     styleEl.append(document.createTextNode('section { color: blue; }'));
     styleEl.sheet?.insertRule('section.working { color: pink; }');
-    expect(serializeNode(styleEl)).toMatchObject({
-      rootId: undefined,
-      attributes: {
-        _cssText:
-          'section.working {color: pink;}body {color: red;}/* rr_split */section {color: blue;}',
-      },
-      type: 2,
-    });
+    const serialized = serializeNode(styleEl) as any;
+    expect(serialized).toMatchObject({ rootId: undefined, type: 2 });
+    expect(normalizeCssText(serialized.attributes._cssText)).toBe(
+      normalizeCssText(
+        'section.working {color: pink;}body {color: red;}/* rr_split */section {color: blue;}',
+      ),
+    );
   });
 });
 

@@ -18,6 +18,7 @@ import {
   launchPuppeteer,
   startServer,
   waitForRAF,
+  sleep,
 } from './utils';
 import type { Server } from 'http';
 
@@ -50,7 +51,7 @@ const setup = function (this: ISuite, content: string): ISuite {
       devtools: true,
     });
 
-    const bundlePath = path.resolve(__dirname, '../dist/rrweb.umd.cjs');
+    const bundlePath = path.resolve(__dirname, '../dist/core.umd.cjs');
     ctx.code = fs.readFileSync(bundlePath, 'utf8');
   });
 
@@ -108,7 +109,7 @@ describe('record', function (this: ISuite) {
     while (count--) {
       await ctx.page.type('input', 'a');
     }
-    await ctx.page.waitForTimeout(10);
+    await sleep(10);
     expect(ctx.events.length).toEqual(33);
     expect(
       ctx.events.filter((event: eventWithTime) => event.type === EventType.Meta)
@@ -133,7 +134,7 @@ describe('record', function (this: ISuite) {
     while (count--) {
       await ctx.page.type('input', 'a');
     }
-    await ctx.page.waitForTimeout(10);
+    await sleep(10);
     expect(ctx.events.length).toEqual(39);
     expect(
       ctx.events.filter((event: eventWithTime) => event.type === EventType.Meta)
@@ -159,7 +160,7 @@ describe('record', function (this: ISuite) {
       });
     });
     await ctx.page.type('input', 'a');
-    await ctx.page.waitForTimeout(300);
+    await sleep(300);
     expect(
       ctx.events.filter((event: eventWithTime) => event.type === EventType.Meta)
         .length,
@@ -169,9 +170,9 @@ describe('record', function (this: ISuite) {
         (event: eventWithTime) => event.type === EventType.FullSnapshot,
       ).length,
     ).toEqual(1); // before first automatic snapshot
-    await ctx.page.waitForTimeout(200);
+    await sleep(200);
     await ctx.page.type('input', 'a');
-    await ctx.page.waitForTimeout(10);
+    await sleep(10);
     expect(
       ctx.events.filter((event: eventWithTime) => event.type === EventType.Meta)
         .length,
@@ -205,7 +206,7 @@ describe('record', function (this: ISuite) {
         document.body.appendChild(span);
       }, 10);
     });
-    await ctx.page.waitForTimeout(100);
+    await sleep(100);
     await assertSnapshot(ctx.events);
   });
 
@@ -278,7 +279,7 @@ describe('record', function (this: ISuite) {
         a: 'b',
       });
     });
-    await ctx.page.waitForTimeout(50);
+    await sleep(50);
     await assertSnapshot(ctx.events);
   });
 
@@ -310,7 +311,7 @@ describe('record', function (this: ISuite) {
         styleSheet.insertRule('body { color: #ccc; }');
       }, 10);
     });
-    await ctx.page.waitForTimeout(50);
+    await sleep(50);
     const styleSheetRuleEvents = ctx.events.filter(
       (e) =>
         e.type === EventType.IncrementalSnapshot &&
@@ -366,7 +367,7 @@ describe('record', function (this: ISuite) {
         styleSheet.addRule('body', 'color: #ccc;');
       }, 10);
     });
-    await ctx.page.waitForTimeout(50);
+    await sleep(50);
     const styleSheetRuleEvents = ctx.events.filter(
       (e) =>
         e.type === EventType.IncrementalSnapshot &&
@@ -424,7 +425,7 @@ describe('record', function (this: ISuite) {
         atMediaRule.insertRule('body { color: #ccc; }', 0);
       }, 10);
     });
-    await ctx.page.waitForTimeout(50);
+    await sleep(50);
     const styleSheetRuleEvents = ctx.events.filter(
       (e) =>
         e.type === EventType.IncrementalSnapshot &&
@@ -489,7 +490,7 @@ describe('record', function (this: ISuite) {
         );
       }, 0);
     });
-    await ctx.page.waitForTimeout(50);
+    await sleep(50);
     await assertSnapshot(ctx.events);
   });
 
@@ -653,7 +654,7 @@ describe('record', function (this: ISuite) {
         shadowHost.shadowRoot!.adoptedStyleSheets = [sheet1, sheet3];
       }, 150);
     });
-    await ctx.page.waitForTimeout(200);
+    await sleep(200);
     await assertSnapshot(ctx.events);
   });
 
@@ -791,7 +792,7 @@ describe('record', function (this: ISuite) {
         document.body.click();
       }, 20);
     });
-    await ctx.page.waitForTimeout(50); // wait till setTimeout is called
+    await sleep(50); // wait till setTimeout is called
     await waitForRAF(ctx.page); // wait till events get sent
 
     const mutationEvents = ctx.events.filter(
@@ -1093,7 +1094,7 @@ describe('record iframes', function (this: ISuite) {
         }, 10);
       }, 10);
     });
-    await ctx.page.waitForTimeout(50); // wait till setTimeout is called
+    await sleep(50); // wait till setTimeout is called
     await waitForRAF(ctx.page); // wait till events get sent
     const styleRelatedEvents = ctx.events.filter(
       (e) =>

@@ -8,6 +8,7 @@ import {
   replaceLast,
   waitForRAF,
   generateRecordSnippet,
+  sleep,
   ISuite,
   hideMouseAnimation,
   fakeGoto,
@@ -29,7 +30,7 @@ describe('e2e webgl', () => {
     serverURL = getServerURL(server);
     browser = await launchPuppeteer();
 
-    const bundlePath = path.resolve(__dirname, '../../dist/rrweb.umd.cjs');
+    const bundlePath = path.resolve(__dirname, '../../dist/core.umd.cjs');
     code = fs.readFileSync(bundlePath, 'utf8');
   });
 
@@ -105,7 +106,7 @@ describe('e2e webgl', () => {
     );
 
     await waitForRAF(page);
-    await page.waitForTimeout(100);
+    await sleep(100);
     const snapshots: eventWithTime[] = (await page.evaluate(
       'window.snapshots',
     )) as eventWithTime[];

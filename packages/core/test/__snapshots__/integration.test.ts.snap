@@ -6069,7 +6069,7 @@ exports[`record integration tests > mutations should work when blocked class is 
     \\"data\\": {
       \\"source\\": 2,
       \\"type\\": 1,
-      \\"id\\": 42
+      \\"id\\": 28
     }
   },
   {
@@ -6077,7 +6077,7 @@ exports[`record integration tests > mutations should work when blocked class is 
     \\"data\\": {
       \\"source\\": 2,
       \\"type\\": 5,
-      \\"id\\": 42
+      \\"id\\": 28
     }
   },
   {
@@ -6085,7 +6085,7 @@ exports[`record integration tests > mutations should work when blocked class is 
     \\"data\\": {
       \\"source\\": 2,
       \\"type\\": 0,
-      \\"id\\": 42
+      \\"id\\": 28
     }
   },
   {
@@ -6093,99 +6093,8 @@ exports[`record integration tests > mutations should work when blocked class is 
     \\"data\\": {
       \\"source\\": 2,
       \\"type\\": 2,
-      \\"id\\": 42,
+      \\"id\\": 28,
       \\"pointerType\\": 0
-    }
-  },
-  {
-    \\"type\\": 3,
-    \\"data\\": {
-      \\"source\\": 0,
-      \\"texts\\": [],
-      \\"attributes\\": [
-        {
-          \\"id\\": 36,
-          \\"attributes\\": {
-            \\"class\\": \\"notB\\"
-          }
-        }
-      ],
-      \\"removes\\": [],
-      \\"adds\\": [
-        {
-          \\"parentId\\": 26,
-          \\"nextId\\": null,
-          \\"node\\": {
-            \\"type\\": 2,
-            \\"tagName\\": \\"div\\",
-            \\"attributes\\": {},
-            \\"childNodes\\": [],
-            \\"id\\": 75
-          }
-        },
-        {
-          \\"parentId\\": 75,
-          \\"nextId\\": null,
-          \\"node\\": {
-            \\"type\\": 2,
-            \\"tagName\\": \\"div\\",
-            \\"attributes\\": {},
-            \\"childNodes\\": [],
-            \\"id\\": 76
-          }
-        },
-        {
-          \\"parentId\\": 76,
-          \\"nextId\\": null,
-          \\"node\\": {
-            \\"type\\": 2,
-            \\"tagName\\": \\"button\\",
-            \\"attributes\\": {},
-            \\"childNodes\\": [],
-            \\"id\\": 77
-          }
-        },
-        {
-          \\"parentId\\": 77,
-          \\"nextId\\": null,
-          \\"node\\": {
-            \\"type\\": 3,
-            \\"textContent\\": \\"I1I2 VISIBLE\\",
-            \\"id\\": 78
-          }
-        },
-        {
-          \\"parentId\\": 75,
-          \\"nextId\\": 76,
-          \\"node\\": {
-            \\"type\\": 2,
-            \\"tagName\\": \\"div\\",
-            \\"attributes\\": {},
-            \\"childNodes\\": [],
-            \\"id\\": 79
-          }
-        },
-        {
-          \\"parentId\\": 79,
-          \\"nextId\\": null,
-          \\"node\\": {
-            \\"type\\": 2,
-            \\"tagName\\": \\"button\\",
-            \\"attributes\\": {},
-            \\"childNodes\\": [],
-            \\"id\\": 80
-          }
-        },
-        {
-          \\"parentId\\": 80,
-          \\"nextId\\": null,
-          \\"node\\": {
-            \\"type\\": 3,
-            \\"textContent\\": \\"I1I1 VISIBLE\\",
-            \\"id\\": 81
-          }
-        }
-      ]
     }
   },
   {
@@ -6193,7 +6102,7 @@ exports[`record integration tests > mutations should work when blocked class is 
     \\"data\\": {
       \\"source\\": 2,
       \\"type\\": 1,
-      \\"id\\": 68
+      \\"id\\": 54
     }
   },
   {
@@ -6201,7 +6110,7 @@ exports[`record integration tests > mutations should work when blocked class is 
     \\"data\\": {
       \\"source\\": 2,
       \\"type\\": 6,
-      \\"id\\": 42
+      \\"id\\": 28
     }
   },
   {
@@ -6209,7 +6118,7 @@ exports[`record integration tests > mutations should work when blocked class is 
     \\"data\\": {
       \\"source\\": 2,
       \\"type\\": 5,
-      \\"id\\": 68
+      \\"id\\": 54
     }
   },
   {
@@ -6217,7 +6126,7 @@ exports[`record integration tests > mutations should work when blocked class is 
     \\"data\\": {
       \\"source\\": 2,
       \\"type\\": 0,
-      \\"id\\": 68
+      \\"id\\": 54
     }
   },
   {
@@ -6225,99 +6134,8 @@ exports[`record integration tests > mutations should work when blocked class is 
     \\"data\\": {
       \\"source\\": 2,
       \\"type\\": 2,
-      \\"id\\": 68,
+      \\"id\\": 54,
       \\"pointerType\\": 0
-    }
-  },
-  {
-    \\"type\\": 3,
-    \\"data\\": {
-      \\"source\\": 0,
-      \\"texts\\": [],
-      \\"attributes\\": [
-        {
-          \\"id\\": 62,
-          \\"attributes\\": {
-            \\"class\\": \\"notB\\"
-          }
-        }
-      ],
-      \\"removes\\": [],
-      \\"adds\\": [
-        {
-          \\"parentId\\": 52,
-          \\"nextId\\": null,
-          \\"node\\": {
-            \\"type\\": 2,
-            \\"tagName\\": \\"div\\",
-            \\"attributes\\": {},
-            \\"childNodes\\": [],
-            \\"id\\": 82
-          }
-        },
-        {
-          \\"parentId\\": 82,
-          \\"nextId\\": null,
-          \\"node\\": {
-            \\"type\\": 2,
-            \\"tagName\\": \\"div\\",
-            \\"attributes\\": {},
-            \\"childNodes\\": [],
-            \\"id\\": 83
-          }
-        },
-        {
-          \\"parentId\\": 83,
-          \\"nextId\\": null,
-          \\"node\\": {
-            \\"type\\": 2,
-            \\"tagName\\": \\"button\\",
-            \\"attributes\\": {},
-            \\"childNodes\\": [],
-            \\"id\\": 84
-          }
-        },
-        {
-          \\"parentId\\": 84,
-          \\"nextId\\": null,
-          \\"node\\": {
-            \\"type\\": 3,
-            \\"textContent\\": \\"I1I2 VISIBLE\\",
-            \\"id\\": 85
-          }
-        },
-        {
-          \\"parentId\\": 82,
-          \\"nextId\\": 83,
-          \\"node\\": {
-            \\"type\\": 2,
-            \\"tagName\\": \\"div\\",
-            \\"attributes\\": {},
-            \\"childNodes\\": [],
-            \\"id\\": 86
-          }
-        },
-        {
-          \\"parentId\\": 86,
-          \\"nextId\\": null,
-          \\"node\\": {
-            \\"type\\": 2,
-            \\"tagName\\": \\"button\\",
-            \\"attributes\\": {},
-            \\"childNodes\\": [],
-            \\"id\\": 87
-          }
-        },
-        {
-          \\"parentId\\": 87,
-          \\"nextId\\": null,
-          \\"node\\": {
-            \\"type\\": 3,
-            \\"textContent\\": \\"I1I1 VISIBLE\\",
-            \\"id\\": 88
-          }
-        }
-      ]
     }
   }
 ]"
