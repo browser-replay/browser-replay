@@ -4,7 +4,7 @@ import type * as puppeteer from 'puppeteer';
 import { vi } from 'vitest';
 import type { recordOptions } from '../../src/types';
 import { listenerHandler, eventWithTime, EventType } from '@dom-replay/types';
-import { launchPuppeteer } from '../utils';
+import { launchPuppeteer, sleep } from '../utils';
 import {
   callbackWrapper,
   registerErrorHandler,
@@ -38,7 +38,7 @@ const setup = function (
   beforeAll(async () => {
     ctx.browser = await launchPuppeteer();
 
-    const bundlePath = path.resolve(__dirname, '../../dist/rrweb.umd.cjs');
+    const bundlePath = path.resolve(__dirname, '../../dist/core.umd.cjs');
     ctx.code = fs.readFileSync(bundlePath, 'utf8');
   });
 
@@ -116,7 +116,7 @@ describe('error-handler', function (this: ISuite) {
         }, 50);
       });
 
-      await ctx.page.waitForTimeout(100);
+      await sleep(100);
 
       const element = await ctx.page.$('#out');
       const text = await element!.evaluate((el) => el.textContent);
@@ -150,7 +150,7 @@ describe('error-handler', function (this: ISuite) {
         }, 50);
       });
 
-      await ctx.page.waitForTimeout(100);
+      await sleep(100);
 
       const element = await ctx.page.$('#out');
       const text = await element!.evaluate((el) => el.textContent);
@@ -185,7 +185,7 @@ describe('error-handler', function (this: ISuite) {
         }, 50);
       });
 
-      await ctx.page.waitForTimeout(100);
+      await sleep(100);
 
       const element = await ctx.page.$('#out');
       const text = await element!.evaluate((el) => el.textContent);
@@ -220,7 +220,7 @@ describe('error-handler', function (this: ISuite) {
         }, 50);
       });
 
-      await ctx.page.waitForTimeout(100);
+      await sleep(100);
 
       const element = await ctx.page.$('#out');
       const text = await element!.evaluate((el) => el.textContent);
@@ -261,7 +261,7 @@ describe('error-handler', function (this: ISuite) {
         }, 50);
       });
 
-      await ctx.page.waitForTimeout(100);
+      await sleep(100);
 
       const element = await ctx.page.$('#out');
       const text = await element!.evaluate((el) => el.textContent);
@@ -299,7 +299,7 @@ describe('error-handler', function (this: ISuite) {
         }, 50);
       });
 
-      await ctx.page.waitForTimeout(100);
+      await sleep(100);
 
       const element = await ctx.page.$('#out');
       const text = await element!.evaluate((el) => el.textContent);
@@ -337,7 +337,7 @@ describe('error-handler', function (this: ISuite) {
         }, 50);
       });
 
-      await ctx.page.waitForTimeout(100);
+      await sleep(100);
 
       const element = await ctx.page.$('#out');
       const text = await element!.evaluate((el) => el.textContent);
@@ -375,7 +375,7 @@ describe('error-handler', function (this: ISuite) {
         }, 50);
       });
 
-      await ctx.page.waitForTimeout(100);
+      await sleep(100);
 
       const element = await ctx.page.$('#out');
       const text = await element!.evaluate((el) => el.textContent);
@@ -407,7 +407,7 @@ describe('error-handler', function (this: ISuite) {
       }, 50);
     });
 
-    await ctx.page.waitForTimeout(100);
+    await sleep(100);
 
     const element = await ctx.page.$('#out');
     const text = await element!.evaluate((el) => el.textContent);

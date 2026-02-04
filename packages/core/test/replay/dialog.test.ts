@@ -39,7 +39,7 @@ describe('dialog', () => {
     serverURL = getServerURL(server);
     browser = await launchPuppeteer();
 
-    const bundlePath = path.resolve(__dirname, '../../dist/rrweb.umd.cjs');
+    const bundlePath = path.resolve(__dirname, '../../dist/core.umd.cjs');
     code = fs.readFileSync(bundlePath, 'utf8');
   });
 

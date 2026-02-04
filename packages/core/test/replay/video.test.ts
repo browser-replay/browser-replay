@@ -6,6 +6,7 @@ import {
   launchPuppeteer,
   getServerURL,
   waitForRAF,
+  sleep,
   ISuite,
   hideMouseAnimation,
   fakeGoto,
@@ -47,7 +48,7 @@ describe('video', () => {
     serverURL = getServerURL(server);
     browser = await launchPuppeteer();
 
-    const bundlePath = path.resolve(__dirname, '../../dist/rrweb.umd.cjs');
+    const bundlePath = path.resolve(__dirname, '../../dist/core.umd.cjs');
     code = fs.readFileSync(bundlePath, 'utf8');
   });
 
@@ -119,7 +120,7 @@ describe('video', () => {
     await waitForVideoTo('canplaythrough', page);
 
     // loading indicator lingers quite often
-    await page.waitForTimeout(1000);
+    await sleep(1000);
 
     const frameImage = await page!.screenshot();
 

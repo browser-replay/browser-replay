@@ -4,7 +4,13 @@ import { vi } from 'vitest';
 import type { Page } from 'puppeteer';
 import type { eventWithTime } from '@dom-replay/types';
 import type { recordOptions } from '../../src/types';
-import { startServer, launchPuppeteer, ISuite, getServerURL } from '../utils';
+import {
+  startServer,
+  launchPuppeteer,
+  ISuite,
+  getServerURL,
+  sleep,
+} from '../utils';
 
 const suites: Array<
   {
@@ -91,7 +97,7 @@ describe('benchmark: mutation observer', () => {
 
   const addRecordingScript = async (page: Page) => {
     // const scriptUrl = `${getServerURL(server)}/rrweb-1.1.3.js`;
-    const scriptUrl = `${getServerURL(server)}/rrweb.umd.cjs`;
+    const scriptUrl = `${getServerURL(server)}/core.umd.cjs`;
     await page.evaluate((url) => {
       const scriptEl = document.createElement('script');
       scriptEl.src = url;
@@ -179,7 +185,7 @@ describe('benchmark: mutation observer', () => {
       });
       await loadPage();
       await getDuration();
-      await page.waitForTimeout(1000);
+      await sleep(1000);
       await page.tracing.stop();
       await client.send('Emulation.setCPUThrottlingRate', { rate: 1 });
 

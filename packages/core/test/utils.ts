@@ -31,6 +31,9 @@ export async function launchPuppeteer(
   });
 }
 
+export const sleep = (ms: number): Promise<void> =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
 interface IMimeType {
   [key: string]: string;
 }
@@ -59,8 +62,10 @@ export const startServer = (defaultPort = 3030) =>
         .replace(/^(\.\.[\/\\])+/, '');
 
       let pathname = path.join(__dirname, sanitizePath);
-      if (/^\/rrweb.*\.c?js.*/.test(sanitizePath)) {
-        pathname = path.join(__dirname, `../dist/main`, sanitizePath);
+      if (/^\/(rrweb|core).*\.c?js.*/.test(sanitizePath)) {
+        // Serve built bundles from `dist/` (tests may request legacy rrweb.* names)
+        const normalizedBundlePath = sanitizePath.replace(/^\/rrweb/, '/core');
+        pathname = path.join(__dirname, `../dist`, normalizedBundlePath);
       }
 
       try {

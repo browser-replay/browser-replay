@@ -107,7 +107,7 @@ describe('integration tests', function (this: ISuite) {
     });
 
     code = fs.readFileSync(
-      path.resolve(__dirname, '../dist/@dom-replay/snapshot.umd.cjs'),
+      path.resolve(__dirname, '../dist/snapshot.umd.cjs'),
       'utf-8',
     );
   });
@@ -283,7 +283,15 @@ iframe.contentDocument.querySelector('center').clientHeight
         inlineImages: true,
         inlineStylesheet: false
     })`);
-    await waitForRAF(page); // need a small wait, as after the crossOrigin="anonymous" change, the snapshot triggers a reload of the image (after which, the snapshot is mutated)
+    // After setting crossOrigin="anonymous", the snapshot triggers a reload of the image
+    // and mutates the snapshot once the dataURL is available. Wait until that happens.
+    await page.waitForFunction(() => {
+      const imgs =
+        (window as any).snapshot?.childNodes?.[0]?.childNodes?.[1]?.childNodes?.filter(
+          (cn: any) => cn.type === 2 && cn.tagName === 'img',
+        ) ?? [];
+      return Boolean(imgs[0]?.attributes?.rr_dataURL);
+    });
     const bodyChildren = (await page.evaluate(`
       snapshot.childNodes[0].childNodes[1].childNodes.filter((cn) => cn.type === 2);
 `)) as any[];
@@ -439,10 +447,7 @@ describe('iframe integration tests', function (this: ISuite) {
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
 
-    code = fs.readFileSync(
-      path.resolve(__dirname, '../dist/@dom-replay/snapshot.umd.cjs'),
-      'utf-8',
-    );
+    code = fs.readFileSync(path.resolve(__dirname, '../dist/snapshot.umd.cjs'), 'utf-8');
   });
 
   afterAll(async () => {
@@ -484,10 +489,7 @@ describe('dialog integration tests', function (this: ISuite) {
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
 
-    code = fs.readFileSync(
-      path.resolve(__dirname, '../dist/@dom-replay/snapshot.umd.cjs'),
-      'utf-8',
-    );
+    code = fs.readFileSync(path.resolve(__dirname, '../dist/snapshot.umd.cjs'), 'utf-8');
   });
 
   beforeEach(async () => {
@@ -531,10 +533,7 @@ describe('shadow DOM integration tests', function (this: ISuite) {
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
     });
 
-    code = fs.readFileSync(
-      path.resolve(__dirname, '../dist/@dom-replay/snapshot.umd.cjs'),
-      'utf-8',
-    );
+    code = fs.readFileSync(path.resolve(__dirname, '../dist/snapshot.umd.cjs'), 'utf-8');
   });
 
   afterAll(async () => {

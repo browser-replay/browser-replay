@@ -32,7 +32,7 @@ describe('replayer', function () {
       content: '.replayer-mouse-tail{display: none !important;}',
     });
     await page.addScriptTag({
-      path: path.resolve(__dirname, '../../dist/rrweb.umd.cjs'),
+      path: path.resolve(__dirname, '../../dist/core.umd.cjs'),
     });
     await page.evaluate(`let events = ${JSON.stringify(events)}`);
 

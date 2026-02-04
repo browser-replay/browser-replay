@@ -69,7 +69,8 @@
       "@types/dom-webcodecs": "0.1.5"
     },
     "onlyBuiltDependencies": [
-      "esbuild"
+      "esbuild",
+      "puppeteer"
     ]
   },
   "browserslist": [
