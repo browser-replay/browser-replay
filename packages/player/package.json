@@ -1,6 +1,6 @@
 {
   "name": "@dom-replay/player",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "devDependencies": {
     "@dom-replay/snapshot": "workspace:*",
     "@dom-replay/types": "workspace:*",

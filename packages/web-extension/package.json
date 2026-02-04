@@ -1,7 +1,7 @@
 {
   "name": "@dom-replay/web-extension",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "The web extension for dom-replay.",
   "author": "dom-replay maintainers",
   "license": "MIT",
