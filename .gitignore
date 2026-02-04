@@ -9,6 +9,8 @@ temp
 
 *.log
 
+.pnpm-store/
+
 .env
 
 .DS_Store
