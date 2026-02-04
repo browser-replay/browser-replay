@@ -8,8 +8,12 @@ updates:
     groups:
       dev-dependencies:
         dependency-type: 'development'
+        patterns:
+          - '*'
       production-dependencies:
         dependency-type: 'production'
+        patterns:
+          - '*'
 
   - package-ecosystem: 'github-actions'
     directory: '/'

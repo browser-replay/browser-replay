@@ -28,11 +28,11 @@
     "ts-jest": "^29.4.6"
   },
   "dependencies": {
+    "@dom-replay/player": "workspace:*",
     "@open-tech-world/cli-progress-bar": "^2.0.2",
-    "fs-extra": "^11.1.1",
-    "minimist": "^1.2.5",
-    "playwright": "^1.56.1",
-    "@dom-replay/player": "workspace:*"
+    "fs-extra": "^11.3.3",
+    "minimist": "^1.2.8",
+    "playwright": "^1.58.1"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",

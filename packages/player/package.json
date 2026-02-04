@@ -2,8 +2,8 @@
   "name": "@dom-replay/player",
   "version": "0.0.1",
   "devDependencies": {
-    "@dom-replay/types": "workspace:*",
     "@dom-replay/snapshot": "workspace:*",
+    "@dom-replay/types": "workspace:*",
     "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/package": "^2.0.0",
@@ -24,7 +24,7 @@
   "dependencies": {
     "@dom-replay/packer": "workspace:*",
     "@dom-replay/replay": "workspace:*",
-    "@tsconfig/svelte": "^1.0.0"
+    "@tsconfig/svelte": "^1.0.13"
   },
   "scripts": {
     "dev": "vite build --watch",

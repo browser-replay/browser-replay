@@ -31,10 +31,10 @@
       "path": "../replay"
     },
     {
-      "path": "../types"
+      "path": "../snapshot"
     },
     {
-      "path": "../snapshot"
+      "path": "../types"
     }
   ]
 }

@@ -60,14 +60,14 @@
     "package.json"
   ],
   "devDependencies": {
+    "typescript": "^5.4.5",
     "vite": "^5.3.1",
     "vite-plugin-dts": "^3.9.1",
-    "vitest": "^1.4.0",
-    "typescript": "^5.4.5"
+    "vitest": "^1.4.0"
   },
   "dependencies": {
-    "fflate": "^0.4.4",
-    "@dom-replay/types": "workspace:*"
+    "@dom-replay/types": "workspace:*",
+    "fflate": "^0.4.8"
   },
   "browserslist": [
     "supports es6-class"
