@@ -1,5 +1,5 @@
-// TODO: add .eslintignore. More info: https://bobbyhadz.com/blog/typescript-parseroptions-project-has-been-set-for
 module.exports = {
+  root: true,
   env: {
     browser: true,
     es2021: true,
@@ -9,7 +9,6 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:compat/recommended',
   ],
   parser: '@typescript-eslint/parser',
@@ -17,12 +16,14 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
     tsconfigRootDir: __dirname,
-    project: ['./tsconfig.eslint.json', './packages/**/tsconfig.json'],
   },
   plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc', 'jest', 'compat'],
+  reportUnusedDisableDirectives: true,
   rules: {
     'tsdoc/syntax': 'warn',
     '@typescript-eslint/prefer-as-const': 'warn',
+    // Keep eslint lightweight; rely on `pnpm check-types` for typechecking.
+    '@typescript-eslint/no-explicit-any': 'off',
     'camelcase': ['error', {
       allow: ['rr_.*', 'legacy_.*', 'UNSAFE_.*', '__rrweb_.*'],
     }],
