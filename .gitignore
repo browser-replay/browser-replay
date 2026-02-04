@@ -40,3 +40,4 @@ vite.config.ts.timestamp-*
 
 # bundle analysis files
 *-bundle-analysis.html
+.pnpm-store/
