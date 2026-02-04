@@ -24,7 +24,7 @@
   "dependencies": {
     "@dom-replay/packer": "workspace:*",
     "@dom-replay/replay": "workspace:*",
-    "@tsconfig/svelte": "^1.0.0"
+    "@tsconfig/svelte": "^5.0.7"
   },
   "scripts": {
     "dev": "vite build --watch",

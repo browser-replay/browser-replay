@@ -70,8 +70,8 @@
   "dependencies": {
     "@dom-replay/types": "workspace:*",
     "@dom-replay/utils": "workspace:*",
-    "@types/css-font-loading-module": "0.0.7",
-    "@xstate/fsm": "^1.4.0",
+    "@types/css-font-loading-module": "0.0.14",
+    "@xstate/fsm": "^2.1.0",
     "base64-arraybuffer": "^1.0.1",
     "mitt": "^3.0.0",
     "@dom-replay/dom": "workspace:*",

@@ -50,8 +50,8 @@
   },
   "dependencies": {
     "cssom": "^0.5.0",
-    "cssstyle": "^2.3.0",
-    "nwsapi": "2.2.0",
+    "cssstyle": "^5.3.7",
+    "nwsapi": "2.2.23",
     "@dom-replay/dom": "workspace:*",
     "@dom-replay/types": "workspace:*"
   },
