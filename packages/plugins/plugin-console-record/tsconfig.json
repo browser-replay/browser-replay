@@ -17,13 +17,13 @@
   },
   "references": [
     {
+      "path": "../../core"
+    },
+    {
       "path": "../../types"
     },
     {
       "path": "../../utils"
-    },
-    {
-      "path": "../../core"
     }
   ]
 }

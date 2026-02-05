@@ -36,9 +36,8 @@
   ],
   "devDependencies": {
     "vite": "^5.2.8",
-    "vite-plugin-dts": "^3.8.1"
+    "vite-plugin-dts": "^4.5.4"
   },
-  "dependencies": {},
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
     "access": "restricted"

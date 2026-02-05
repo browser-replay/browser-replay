@@ -34,12 +34,12 @@
   ],
   "license": "MIT",
   "devDependencies": {
+    "@dom-replay/core": "workspace:*",
     "@dom-replay/plugin-console-record": "workspace:*",
     "@dom-replay/types": "workspace:*",
-    "@dom-replay/core": "workspace:*",
-    "typescript": "^5.4.5",
+    "typescript": "5.8.2",
     "vite": "^5.3.1",
-    "vite-plugin-dts": "^3.9.1"
+    "vite-plugin-dts": "^4.5.4"
   },
   "peerDependencies": {
     "@dom-replay/core": "workspace:*"

@@ -14,13 +14,13 @@
   },
   "references": [
     {
+      "path": "../../core"
+    },
+    {
       "path": "../plugin-console-record"
     },
     {
       "path": "../../types"
-    },
-    {
-      "path": "../../core"
     }
   ]
 }

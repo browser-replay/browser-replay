@@ -40,10 +40,12 @@
     "prettier": "3.8.1",
     "rollup-plugin-visualizer": "^5.12.0",
     "turbo": "^2.0.4",
-    "typescript": "^5.4.5"
+    "typescript": "5.8.2"
   },
   "scripts": {
     "build:all": "NODE_OPTIONS='--max-old-space-size=4096' pnpm turbo run prepublish",
+    "publish:gh": "bash scripts/publish-gh-packages.sh",
+    "publish:gh:dry": "bash scripts/publish-gh-packages.sh --dry-run",
     "references:update": "pnpm workspaces-to-typescript-project-references",
     "test": "pnpm turbo run test --concurrency=1 --continue",
     "test:watch": "pnpm turbo run test:watch",
@@ -66,7 +68,8 @@
   "pnpm": {
     "overrides": {
       "cssom": "https://registry.npmjs.org/rrweb-cssom/-/rrweb-cssom-0.6.0.tgz",
-      "@types/dom-webcodecs": "0.1.5"
+      "@types/dom-webcodecs": "0.1.5",
+      "typescript": "5.8.2"
     },
     "onlyBuiltDependencies": [
       "esbuild",
