@@ -19,7 +19,7 @@
     "svelte2tsx": "^0.7.30",
     "tslib": "^2.0.0",
     "vite": "^5.3.1",
-    "vite-plugin-dts": "3.9.1"
+    "vite-plugin-dts": "4.5.4"
   },
   "dependencies": {
     "@dom-replay/packer": "workspace:*",

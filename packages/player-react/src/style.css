@@ -1,0 +1,24 @@
+.rr-player {
+  position: relative;
+  background: white;
+  float: left;
+  border-radius: 5px;
+  box-shadow: 0 24px 48px rgba(17, 16, 62, 0.12);
+}
+
+.rr-player__frame {
+  overflow: hidden;
+}
+
+.replayer-wrapper {
+  float: left;
+  clear: both;
+  transform-origin: top left;
+  left: 50%;
+  top: 50%;
+}
+
+.replayer-wrapper > iframe {
+  border: none;
+}
+

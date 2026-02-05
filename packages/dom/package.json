@@ -38,9 +38,9 @@
     "@typescript-eslint/parser": "^5.23.0",
     "eslint": "^8.15.0",
     "puppeteer": "^24.36.1",
-    "typescript": "^5.4.5",
+    "typescript": "5.8.2",
     "vite": "^5.3.1",
-    "vite-plugin-dts": "^3.9.1"
+    "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
     "@dom-replay/snapshot": "workspace:*"

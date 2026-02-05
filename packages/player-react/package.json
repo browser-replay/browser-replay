@@ -1,0 +1,59 @@
+{
+  "name": "@dom-replay/player-react",
+  "version": "0.0.3",
+  "description": "React wrapper around @dom-replay/player-core.",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/player-react.cjs",
+  "module": "./dist/player-react.js",
+  "typings": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/player-react.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/player-react.cjs"
+      }
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "pnpm run prepublish",
+    "test": "vitest run",
+    "test:watch": "vitest watch",
+    "check-types": "tsc -p tsconfig.json --noEmit",
+    "prepublish": "tsc -p tsconfig.json --noEmit && vite build",
+    "lint": "pnpm eslint 'src/**/*.{ts,tsx}'"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "dependencies": {
+    "@dom-replay/player-core": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "5.8.2",
+    "vite": "^5.3.1",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^1.4.0"
+  },
+  "browserslist": [
+    "supports es6-class"
+  ],
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com",
+    "access": "restricted"
+  }
+}
+

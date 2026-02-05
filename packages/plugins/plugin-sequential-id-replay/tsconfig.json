@@ -14,13 +14,13 @@
   },
   "references": [
     {
+      "path": "../../core"
+    },
+    {
       "path": "../plugin-sequential-id-record"
     },
     {
       "path": "../../types"
-    },
-    {
-      "path": "../../core"
     }
   ]
 }

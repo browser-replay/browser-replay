@@ -16,6 +16,32 @@ const emptyOutDir = !process.argv.includes('--watch');
  */
 const disableWorkerInlining = process.env.DISABLE_WORKER_INLINING === 'true';
 
+function safeAnalysisBaseName(input: unknown): string | undefined {
+  if (typeof input !== 'string') return;
+  const trimmed = input.trim();
+  if (!trimmed) return;
+  // Make it filesystem-friendly and consistent.
+  const sanitized = trimmed
+    .replace(/^@/, '')
+    .replace(/[\/\s]+/g, '-')
+    .replace(/[^a-zA-Z0-9._-]/g, '');
+
+  // Ensure we never generate files with an rrweb prefix.
+  const withoutRrwebPrefix = sanitized.replace(/^rrweb[-_]?/i, '');
+  return withoutRrwebPrefix || sanitized || undefined;
+}
+
+function getPackageJsonNameFromCwd(): string | undefined {
+  try {
+    const pkgPath = resolve(process.cwd(), 'package.json');
+    const raw = fs.readFileSync(pkgPath, 'utf8');
+    const pkg = JSON.parse(raw) as { name?: unknown };
+    return safeAnalysisBaseName(pkg.name);
+  } catch {
+    return;
+  }
+}
+
 function minifyAndUMDPlugin({
   name,
   outDir,
@@ -164,7 +190,14 @@ export default function (
       }),
       minifyAndUMDPlugin({ name, outDir }),
       visualizer({
-        filename: resolve(__dirname, name + '-bundle-analysis.html'), // Path for the HTML report
+        filename: resolve(
+          process.cwd(),
+          `${safeAnalysisBaseName(fileName) ??
+          getPackageJsonNameFromCwd() ??
+          safeAnalysisBaseName(name) ??
+          'bundle'
+          }-bundle-analysis.html`,
+        ), // Path for the HTML report
         open: false, // don't Automatically open the report in the browser
       }),
       {
