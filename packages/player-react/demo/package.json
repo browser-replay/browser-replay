@@ -1,0 +1,26 @@
+{
+  "name": "@dom-replay/player-react-demo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@dom-replay/player": "workspace:*",
+    "@dom-replay/player-core": "workspace:*",
+    "@dom-replay/replay": "workspace:*",
+    "@dom-replay/types": "workspace:*",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.8.2",
+    "vite": "^5.4.21"
+  }
+}

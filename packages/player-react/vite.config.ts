@@ -7,9 +7,11 @@ import { resolve } from 'path';
 export default defineConfig({
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: {
+        'player-react': resolve(__dirname, 'src/index.ts'),
+        headless: resolve(__dirname, 'src/headless.ts'),
+      },
       name: 'domReplayPlayerReact',
-      fileName: 'player-react',
       formats: ['es', 'cjs'],
     },
     outDir: 'dist',
@@ -17,14 +19,19 @@ export default defineConfig({
     minify: false,
     sourcemap: true,
     rollupOptions: {
-      external: ['react', 'react-dom'],
+      // IMPORTANT: keep all React runtime entrypoints external.
+      // If we accidentally bundle `react/jsx-runtime`, consumers that alias React
+      // (e.g. preact/compat) can crash at runtime with React internals errors.
+      external: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime'],
     },
   },
   plugins: [
     dts({
+      tsconfigPath: resolve(__dirname, 'tsconfig.build.json'),
       insertTypesEntry: true,
       rollupTypes: true,
       afterBuild: (emittedFiles: Map<string, string>) => {
+        // eslint-disable-next-line compat/compat -- build-time node config
         const files: string[] = Array.from(emittedFiles.keys());
         files.forEach((file) => {
           const ctsFile = file.replace('.d.ts', '.d.cts');

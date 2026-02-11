@@ -275,8 +275,8 @@ export function createPlayerHandle(initialProps: PlayerProps): PlayerHandle {
     const heightScale = height / frameDimension.height;
     const scale = [widthScale, heightScale];
     if (maxScale) scale.push(maxScale);
-    el.style.transform =
-      `scale(${Math.min(...scale)})` + 'translate(-50%, -50%)';
+    const finalScale = Math.min(...scale);
+    el.style.transform = `translate(-50%, -50%) scale(${finalScale})`;
   }
 
   function triggerResize() {
@@ -324,6 +324,12 @@ export function createPlayerHandle(initialProps: PlayerProps): PlayerHandle {
       speed: props.speed ?? 1,
       root: frameEl,
       unpackFn: unpack,
+      mouseTail: props.mouseTail ?? {
+        duration: 500,
+        lineCap: 'round',
+        lineWidth: 3,
+        strokeStyle: 'yellow',
+      },
     };
 
     replayer = new Replayer(events, cfg);
@@ -421,10 +427,18 @@ export function createPlayerHandle(initialProps: PlayerProps): PlayerHandle {
     fullscreenCleanup = null;
 
     if (replayer) {
-      replayer.pause();
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const maybeDestroy = (replayer as any).destroy as undefined | (() => void);
-      maybeDestroy?.();
+      try {
+        replayer.pause();
+      } catch {
+        // Ignore — the replayer's internal DOM may already be torn down.
+      }
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const maybeDestroy = (replayer as any).destroy as undefined | (() => void);
+        maybeDestroy?.();
+      } catch {
+        // Ignore teardown errors.
+      }
     }
     replayer = null;
 

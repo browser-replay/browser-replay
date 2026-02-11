@@ -7,18 +7,350 @@
 }
 
 .rr-player__frame {
+  position: relative;
   overflow: hidden;
 }
 
 .replayer-wrapper {
-  float: left;
-  clear: both;
-  transform-origin: top left;
+  position: absolute;
   left: 50%;
   top: 50%;
 }
 
 .replayer-wrapper > iframe {
   border: none;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Mouse cursor ── */
+.replayer-mouse {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  transition: left 0.05s linear, top 0.05s linear;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-image: url('data:image/svg+xml;base64,PHN2ZyBoZWlnaHQ9JzMwMHB4JyB3aWR0aD0nMzAwcHgnICBmaWxsPSIjMDAwMDAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGRhdGEtbmFtZT0iTGF5ZXIgMSIgdmlld0JveD0iMCAwIDUwIDUwIiB4PSIwcHgiIHk9IjBweCI+PHRpdGxlPkRlc2lnbl90bnA8L3RpdGxlPjxwYXRoIGQ9Ik00OC43MSw0Mi45MUwzNC4wOCwyOC4yOSw0NC4zMywxOEExLDEsMCwwLDAsNDQsMTYuMzlMMi4zNSwxLjA2QTEsMSwwLDAsMCwxLjA2LDIuMzVMMTYuMzksNDRhMSwxLDAsMCwwLDEuNjUuMzZMMjguMjksMzQuMDgsNDIuOTEsNDguNzFhMSwxLDAsMCwwLDEuNDEsMGw0LjM4LTQuMzhBMSwxLDAsMCwwLDQ4LjcxLDQyLjkxWm0tNS4wOSwzLjY3TDI5LDMyYTEsMSwwLDAsMC0xLjQxLDBsLTkuODUsOS44NUwzLjY5LDMuNjlsMzguMTIsMTRMMzIsMjcuNThBMSwxLDAsMCwwLDMyLDI5TDQ2LjU5LDQzLjYyWiI+PC9wYXRoPjwvc3ZnPg==');
+  border-color: transparent;
+}
+
+/* Click indicator circle */
+.replayer-mouse::after {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: rgb(73, 80, 246);
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+  opacity: 0.3;
+}
+
+.replayer-mouse.active::after {
+  animation: click 0.2s ease-in-out 1;
+}
+
+/* Touch device support */
+.replayer-mouse.touch-device {
+  background-image: none;
+  width: 70px;
+  height: 70px;
+  border-width: 4px;
+  border-style: solid;
+  border-radius: 100%;
+  margin-left: -37px;
+  margin-top: -37px;
+  border-color: rgba(73, 80, 246, 0);
+  transition: left 0s linear, top 0s linear, border-color 0.2s ease-in-out;
+}
+
+.replayer-mouse.touch-device.touch-active {
+  border-color: rgba(73, 80, 246, 1);
+  transition: left 0.25s linear, top 0.25s linear, border-color 0.2s ease-in-out;
+}
+
+.replayer-mouse.touch-device::after {
+  opacity: 0;
+}
+
+.replayer-mouse.touch-device.active::after {
+  animation: touch-click 0.2s ease-in-out 1;
+}
+
+/* ── Mouse trail ── */
+.replayer-mouse-tail {
+  position: absolute;
+  pointer-events: none;
+}
+
+/* ── z-index layering inside wrapper ── */
+.replayer-wrapper > .replayer-mouse-tail {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.replayer-wrapper > .replayer-mouse {
+  z-index: 3;
+}
+
+/* ── Click / touch animations ── */
+@keyframes click {
+  0% {
+    opacity: 0.3;
+    width: 20px;
+    height: 20px;
+  }
+  50% {
+    opacity: 0.5;
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@keyframes touch-click {
+  0% {
+    opacity: 0;
+    width: 20px;
+    height: 20px;
+  }
+  50% {
+    opacity: 0.5;
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* ── Controller ── */
+
+.rr-controller {
+  width: 100%;
+  height: 80px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 0 0 5px 5px;
+}
+
+/* ── Timeline ── */
+
+.rr-timeline {
+  width: 80%;
+  display: flex;
+  align-items: center;
+}
+
+.rr-timeline__time {
+  display: inline-block;
+  width: 100px;
+  text-align: center;
+  color: #11103e;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+/* ── Progress bar ── */
+
+.rr-progress {
+  flex: 1;
+  height: 12px;
+  background: #eee;
+  position: relative;
+  border-radius: 3px;
+  cursor: pointer;
+  box-sizing: border-box;
+  border-top: solid 4px #fff;
+  border-bottom: solid 4px #fff;
+}
+
+.rr-progress.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.rr-progress__step {
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: #e0e1fe;
+  border-radius: 3px;
+}
+
+.rr-progress__inactive {
+  height: 4px;
+  position: absolute;
+  top: 0;
+}
+
+.rr-progress__custom {
+  width: 10px;
+  height: 5px;
+  position: absolute;
+  top: 2px;
+  transform: translate(-50%, -50%);
+}
+
+.rr-progress__handler {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  position: absolute;
+  top: 2px;
+  transform: translate(-50%, -50%);
+  background: rgb(73, 80, 246);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.rr-progress__handler:hover {
+  transform: translate(-50%, -50%) scale(1.2);
+}
+
+/* ── Button row ── */
+
+.rr-controller__btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  gap: 2px;
+}
+
+.rr-controller__btns button {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #11103e;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.rr-controller__btns button:hover {
+  background: #f0f0fe;
+}
+
+.rr-controller__btns button:active {
+  background: #e0e1fe;
+}
+
+.rr-controller__btns button.active {
+  color: #fff;
+  background: rgb(73, 80, 246);
+}
+
+.rr-controller__btns button.active:hover {
+  background: rgb(60, 67, 230);
+}
+
+.rr-controller__btns button:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.rr-controller__btns button:disabled:hover {
+  background: none;
+}
+
+/* Speed buttons need to accommodate text */
+.rr-controller__btns button:not([aria-label]) {
+  width: auto;
+  min-width: 32px;
+  padding: 0 8px;
+  border-radius: 16px;
+}
+
+/* ── SVG icon sizing ── */
+
+.rr-controller-icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* ── Toggle Switch (skip inactive) ── */
+
+.rr-switch {
+  height: 1em;
+  display: flex;
+  align-items: center;
+  margin: 0 4px;
+}
+
+.rr-switch.disabled {
+  opacity: 0.5;
+}
+
+.rr-switch__label {
+  margin: 0 8px;
+  font-size: 13px;
+  color: #11103e;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.rr-switch input[type='checkbox'] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.rr-switch label {
+  width: 2em;
+  height: 1em;
+  position: relative;
+  cursor: pointer;
+  display: block;
+}
+
+.rr-switch.disabled label {
+  cursor: not-allowed;
+}
+
+.rr-switch label::before {
+  content: '';
+  position: absolute;
+  width: 2em;
+  height: 1em;
+  left: 0.1em;
+  transition: background 0.1s ease;
+  background: rgba(73, 80, 246, 0.5);
+  border-radius: 50px;
+}
+
+.rr-switch label::after {
+  content: '';
+  position: absolute;
+  width: 1em;
+  height: 1em;
+  border-radius: 50px;
+  left: 0;
+  transition: all 0.2s ease;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.3);
+  background: #fcfff4;
+  z-index: 2;
+}
+
+.rr-switch input[type='checkbox']:checked + label::before {
+  background: rgb(73, 80, 246);
+}
+
+.rr-switch input[type='checkbox']:checked + label::after {
+  left: 1.1em;
 }
 

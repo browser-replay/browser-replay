@@ -44,6 +44,8 @@
   },
   "scripts": {
     "build:all": "NODE_OPTIONS='--max-old-space-size=4096' pnpm turbo run prepublish",
+    "pack:local": "bash scripts/pack-local-dev.sh",
+    "sync:geo-kba": "bash scripts/sync-geo-kba-local.sh",
     "publish:gh": "bash scripts/publish-gh-packages.sh",
     "publish:gh:dry": "bash scripts/publish-gh-packages.sh --dry-run",
     "references:update": "pnpm workspaces-to-typescript-project-references",
@@ -54,7 +56,7 @@
     "format": "pnpm prettier --write '**/*.{ts,md}'",
     "format:check": "pnpm prettier --check '**/*.{ts,md}'",
     "format:head": "git diff --name-only HEAD^ |grep '\\.ts$\\|\\.md$' |xargs pnpm prettier --write",
-    "dev": "pnpm turbo run dev --concurrency=18",
+    "dev": "pnpm turbo run dev --concurrency=32",
     "repl": "cd packages/core && npm run repl",
     "live-stream": "cd packages/core && pnpm live-stream",
     "lint:docs": "pnpm markdownlint docs",
@@ -69,7 +71,17 @@
     "overrides": {
       "cssom": "https://registry.npmjs.org/rrweb-cssom/-/rrweb-cssom-0.6.0.tgz",
       "@types/dom-webcodecs": "0.1.5",
-      "typescript": "5.8.2"
+      "typescript": "5.8.2",
+      "@dom-replay/types": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz",
+      "@dom-replay/utils": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-utils-0.0.3.tgz",
+      "@dom-replay/snapshot": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz",
+      "@dom-replay/dom": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-dom-0.0.3.tgz",
+      "@dom-replay/core": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz",
+      "@dom-replay/packer": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-packer-0.0.3.tgz",
+      "@dom-replay/record": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-record-0.0.3.tgz",
+      "@dom-replay/replay": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-replay-0.0.3.tgz",
+      "@dom-replay/player-core": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-player-core-0.0.3.tgz",
+      "@dom-replay/player-react": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-player-react-0.0.3.tgz"
     },
     "onlyBuiltDependencies": [
       "esbuild",

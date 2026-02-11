@@ -552,12 +552,28 @@ export class Replayer {
    * Memory occupation can be released by removing all references to this replayer.
    */
   public destroy() {
-    this.pause();
-    this.mirror.reset();
-    this.styleMirror.reset();
-    this.mediaManager.reset();
-    this.config.root.removeChild(this.wrapper);
-    this.emitter.emit(ReplayerEvents.Destroy);
+    try {
+      this.pause();
+    } catch {
+      // Ignore — internal DOM may already be torn down.
+    }
+    try {
+      this.mirror?.reset();
+      this.styleMirror?.reset();
+      this.mediaManager?.reset();
+    } catch {
+      // Ignore teardown errors from stale mirrors.
+    }
+    try {
+      this.config.root.removeChild(this.wrapper);
+    } catch {
+      // Wrapper may already be removed from the DOM.
+    }
+    try {
+      this.emitter.emit(ReplayerEvents.Destroy);
+    } catch {
+      // Ignore listener errors during teardown.
+    }
   }
 
   public startLive(baselineTime?: number) {
