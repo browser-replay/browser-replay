@@ -28,15 +28,18 @@ DEST_DIR="${DEST_BASE}/${STAMP}"
 mkdir -p "${DEST_DIR}"
 
 if [[ "${SKIP_BUILD}" != "1" ]]; then
-  # Build the minimal closure needed for record+replay.
+  # Build the minimal closure needed for record+replay+player-react.
   pnpm turbo run prepublish \
     --filter @dom-replay/types \
     --filter @dom-replay/utils \
     --filter @dom-replay/snapshot \
     --filter @dom-replay/dom \
     --filter @dom-replay/core \
+    --filter @dom-replay/packer \
     --filter @dom-replay/record \
-    --filter @dom-replay/replay
+    --filter @dom-replay/replay \
+    --filter @dom-replay/player-core \
+    --filter @dom-replay/player-react
 fi
 
 # Pack in dependency order (not strictly required, but clearer).
@@ -45,8 +48,11 @@ pnpm -C "${ROOT_DIR}/packages/utils" pack --pack-destination "${DEST_DIR}"
 pnpm -C "${ROOT_DIR}/packages/snapshot" pack --pack-destination "${DEST_DIR}"
 pnpm -C "${ROOT_DIR}/packages/dom" pack --pack-destination "${DEST_DIR}"
 pnpm -C "${ROOT_DIR}/packages/core" pack --pack-destination "${DEST_DIR}"
+pnpm -C "${ROOT_DIR}/packages/packer" pack --pack-destination "${DEST_DIR}"
 pnpm -C "${ROOT_DIR}/packages/record" pack --pack-destination "${DEST_DIR}"
 pnpm -C "${ROOT_DIR}/packages/replay" pack --pack-destination "${DEST_DIR}"
+pnpm -C "${ROOT_DIR}/packages/player-core" pack --pack-destination "${DEST_DIR}"
+pnpm -C "${ROOT_DIR}/packages/player-react" pack --pack-destination "${DEST_DIR}"
 
 mkdir -p "${DEST_BASE}"
 echo "${DEST_DIR}" > "${DEST_BASE}/latest"
@@ -56,4 +62,4 @@ echo "Packed dom-replay tarballs into:"
 echo "  ${DEST_DIR}"
 echo
 echo "Next (from geo-kba):"
-echo "  bash scripts/update-dom-replay-local.sh --target apps/dashboard"
+echo "  bash scripts/update-dom-replay-local.sh --repo \"${ROOT_DIR}\" --packs-dir \"${DEST_DIR}\""

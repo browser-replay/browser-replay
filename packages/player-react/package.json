@@ -6,16 +6,26 @@
   "type": "module",
   "main": "./dist/player-react.cjs",
   "module": "./dist/player-react.js",
-  "typings": "./dist/index.d.ts",
+  "typings": "./dist/player-react.d.ts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
+        "types": "./dist/player-react.d.ts",
         "default": "./dist/player-react.js"
       },
       "require": {
-        "types": "./dist/index.d.cts",
+        "types": "./dist/player-react.d.cts",
         "default": "./dist/player-react.cjs"
+      }
+    },
+    "./headless": {
+      "import": {
+        "types": "./dist/headless.d.ts",
+        "default": "./dist/headless.js"
+      },
+      "require": {
+        "types": "./dist/headless.d.cts",
+        "default": "./dist/headless.cjs"
       }
     },
     "./dist/style.css": "./dist/style.css"
@@ -27,15 +37,16 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "pnpm run prepublish",
+    "start": "vite --config demo/vite.config.ts",
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "check-types": "tsc -p tsconfig.json --noEmit",
-    "prepublish": "tsc -p tsconfig.json --noEmit && vite build",
+    "check-types": "tsc -p tsconfig.build.json --noEmit",
+    "prepublish": "tsc -p tsconfig.build.json --noEmit && vite build",
     "lint": "pnpm eslint 'src/**/*.{ts,tsx}'"
   },
   "peerDependencies": {
-    "react": ">=18",
-    "react-dom": ">=18"
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
   },
   "dependencies": {
     "@dom-replay/player-core": "workspace:*"
@@ -44,7 +55,7 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "typescript": "5.8.2",
-    "vite": "^5.3.1",
+    "vite": "^5.4.21",
     "vite-plugin-dts": "^4.5.4",
     "vitest": "^1.4.0"
   },
@@ -56,4 +67,3 @@
     "access": "restricted"
   }
 }
-

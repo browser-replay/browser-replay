@@ -8,6 +8,16 @@ overrides:
   cssom: https://registry.npmjs.org/rrweb-cssom/-/rrweb-cssom-0.6.0.tgz
   '@types/dom-webcodecs': 0.1.5
   typescript: 5.8.2
+  '@dom-replay/types': file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+  '@dom-replay/utils': file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-utils-0.0.3.tgz
+  '@dom-replay/snapshot': file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz
+  '@dom-replay/dom': file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-dom-0.0.3.tgz
+  '@dom-replay/core': file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
+  '@dom-replay/packer': file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-packer-0.0.3.tgz
+  '@dom-replay/record': file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-record-0.0.3.tgz
+  '@dom-replay/replay': file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-replay-0.0.3.tgz
+  '@dom-replay/player-core': file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-player-core-0.0.3.tgz
+  '@dom-replay/player-react': file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-player-react-0.0.3.tgz
 
 importers:
 
@@ -80,14 +90,14 @@ importers:
   packages/all:
     dependencies:
       '@dom-replay/core':
-        specifier: workspace:*
-        version: link:../core
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
       '@dom-replay/packer':
-        specifier: workspace:*
-        version: link:../packer
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-packer-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-packer-0.0.3.tgz
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
     devDependencies:
       puppeteer:
         specifier: ^24.36.1
@@ -108,17 +118,17 @@ importers:
   packages/core:
     dependencies:
       '@dom-replay/dom':
-        specifier: workspace:*
-        version: link:../dom
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-dom-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-dom-0.0.3.tgz
       '@dom-replay/snapshot':
-        specifier: workspace:*
-        version: link:../snapshot
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
       '@dom-replay/utils':
-        specifier: workspace:*
-        version: link:../utils
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-utils-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-utils-0.0.3.tgz
       '@types/css-font-loading-module':
         specifier: 0.0.7
         version: 0.0.7
@@ -193,12 +203,12 @@ importers:
   packages/dom:
     dependencies:
       '@dom-replay/snapshot':
-        specifier: workspace:*
-        version: link:../snapshot
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz
     devDependencies:
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.23.0
         version: 5.62.0(@typescript-eslint/parser@5.62.0(eslint@8.57.1)(typescript@5.8.2))(eslint@8.57.1)(typescript@5.8.2)
@@ -224,11 +234,11 @@ importers:
   packages/dom-nodejs:
     dependencies:
       '@dom-replay/dom':
-        specifier: workspace:*
-        version: link:../dom
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-dom-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-dom-0.0.3.tgz
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
       cssom:
         specifier: https://registry.npmjs.org/rrweb-cssom/-/rrweb-cssom-0.6.0.tgz
         version: rrweb-cssom@0.6.0
@@ -282,8 +292,8 @@ importers:
   packages/packer:
     dependencies:
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
       fflate:
         specifier: ^0.4.8
         version: 0.4.8
@@ -304,21 +314,21 @@ importers:
   packages/player:
     dependencies:
       '@dom-replay/packer':
-        specifier: workspace:*
-        version: link:../packer
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-packer-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-packer-0.0.3.tgz
       '@dom-replay/replay':
-        specifier: workspace:*
-        version: link:../replay
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-replay-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-replay-0.0.3.tgz
       '@tsconfig/svelte':
         specifier: ^1.0.13
         version: 1.0.13
     devDependencies:
       '@dom-replay/snapshot':
-        specifier: workspace:*
-        version: link:../snapshot
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
         version: 3.3.1(@sveltejs/kit@2.50.1(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.20)(vite@5.4.21(@types/node@25.2.0)))(svelte@4.2.20)(typescript@5.8.2)(vite@5.4.21(@types/node@25.2.0)))
@@ -371,17 +381,17 @@ importers:
   packages/player-core:
     dependencies:
       '@dom-replay/packer':
-        specifier: workspace:*
-        version: link:../packer
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-packer-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-packer-0.0.3.tgz
       '@dom-replay/replay':
-        specifier: workspace:*
-        version: link:../replay
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-replay-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-replay-0.0.3.tgz
       '@dom-replay/snapshot':
-        specifier: workspace:*
-        version: link:../snapshot
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
     devDependencies:
       typescript:
         specifier: 5.8.2
@@ -399,8 +409,8 @@ importers:
   packages/player-react:
     dependencies:
       '@dom-replay/player-core':
-        specifier: workspace:*
-        version: link:../player-core
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-player-core-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-player-core-0.0.3.tgz
       react:
         specifier: '>=18'
         version: 18.3.1
@@ -429,16 +439,16 @@ importers:
 
   packages/plugins/plugin-canvas-webrtc-record:
     dependencies:
+      '@dom-replay/core':
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
       simple-peer-light:
         specifier: ^9.10.0
         version: 9.10.0
     devDependencies:
-      '@dom-replay/core':
-        specifier: workspace:*
-        version: link:../../core
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
       typescript:
         specifier: 5.8.2
         version: 5.8.2
@@ -451,19 +461,19 @@ importers:
 
   packages/plugins/plugin-canvas-webrtc-replay:
     dependencies:
+      '@dom-replay/core':
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
       simple-peer-light:
         specifier: ^9.10.0
         version: 9.10.0
     devDependencies:
-      '@dom-replay/core':
-        specifier: workspace:*
-        version: link:../../core
       '@dom-replay/dom':
-        specifier: workspace:*
-        version: link:../../dom
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-dom-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-dom-0.0.3.tgz
       '@dom-replay/snapshot':
-        specifier: workspace:*
-        version: link:../../snapshot
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz
       typescript:
         specifier: 5.8.2
         version: 5.8.2
@@ -475,16 +485,17 @@ importers:
         version: 4.5.4(@types/node@25.2.0)(rollup@4.57.1)(typescript@5.8.2)(vite@5.4.21(@types/node@25.2.0))
 
   packages/plugins/plugin-console-record:
-    devDependencies:
+    dependencies:
       '@dom-replay/core':
-        specifier: workspace:*
-        version: link:../../core
-      '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
       '@dom-replay/utils':
-        specifier: workspace:*
-        version: link:../../utils
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-utils-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-utils-0.0.3.tgz
+    devDependencies:
+      '@dom-replay/types':
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
       puppeteer:
         specifier: ^24.36.1
         version: 24.36.1(typescript@5.8.2)
@@ -502,16 +513,17 @@ importers:
         version: 1.6.1(@types/node@25.2.0)(happy-dom@14.12.3)(jsdom@28.0.0)
 
   packages/plugins/plugin-console-replay:
-    devDependencies:
+    dependencies:
       '@dom-replay/core':
-        specifier: workspace:*
-        version: link:../../core
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
+    devDependencies:
       '@dom-replay/plugin-console-record':
         specifier: workspace:*
         version: link:../plugin-console-record
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
       typescript:
         specifier: 5.8.2
         version: 5.8.2
@@ -523,13 +535,14 @@ importers:
         version: 4.5.4(@types/node@25.2.0)(rollup@4.57.1)(typescript@5.8.2)(vite@5.4.21(@types/node@25.2.0))
 
   packages/plugins/plugin-sequential-id-record:
-    devDependencies:
+    dependencies:
       '@dom-replay/core':
-        specifier: workspace:*
-        version: link:../../core
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
+    devDependencies:
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
       typescript:
         specifier: 5.8.2
         version: 5.8.2
@@ -541,16 +554,17 @@ importers:
         version: 4.5.4(@types/node@25.2.0)(rollup@4.57.1)(typescript@5.8.2)(vite@5.4.21(@types/node@25.2.0))
 
   packages/plugins/plugin-sequential-id-replay:
-    devDependencies:
+    dependencies:
       '@dom-replay/core':
-        specifier: workspace:*
-        version: link:../../core
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
+    devDependencies:
       '@dom-replay/plugin-sequential-id-record':
         specifier: workspace:*
         version: link:../plugin-sequential-id-record
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
       typescript:
         specifier: 5.8.2
         version: 5.8.2
@@ -564,14 +578,14 @@ importers:
   packages/record:
     dependencies:
       '@dom-replay/core':
-        specifier: workspace:*
-        version: link:../core
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
       '@dom-replay/utils':
-        specifier: workspace:*
-        version: link:../utils
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-utils-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-utils-0.0.3.tgz
     devDependencies:
       puppeteer:
         specifier: ^24.36.1
@@ -592,11 +606,11 @@ importers:
   packages/replay:
     dependencies:
       '@dom-replay/core':
-        specifier: workspace:*
-        version: link:../core
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
     devDependencies:
       puppeteer:
         specifier: ^24.36.1
@@ -621,11 +635,11 @@ importers:
         version: 8.5.6
     devDependencies:
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
       '@dom-replay/utils':
-        specifier: workspace:*
-        version: link:../utils
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-utils-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-utils-0.0.3.tgz
       '@types/jsdom':
         specifier: ^20.0.0
         version: 20.0.1
@@ -706,8 +720,8 @@ importers:
         version: 1.58.1
     devDependencies:
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
       '@types/fs-extra':
         specifier: 11.0.1
         version: 11.0.1
@@ -733,8 +747,8 @@ importers:
         specifier: ^2.10.9
         version: 2.10.9(@emotion/react@11.14.0(@types/react@18.3.27)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.27)(react@18.3.1))(@types/react@18.3.27)(react@18.3.1))(@types/react@18.3.27)(framer-motion@7.10.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@dom-replay/core':
-        specifier: workspace:*
-        version: link:../core
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
       '@dom-replay/player':
         specifier: workspace:*
         version: link:../player
@@ -773,8 +787,8 @@ importers:
         version: 6.30.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
       '@dom-replay/types':
-        specifier: workspace:*
-        version: link:../types
+        specifier: file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+        version: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
       '@types/chrome':
         specifier: ^0.0.287
         version: 0.0.287
@@ -1101,6 +1115,38 @@ packages:
     resolution: {integrity: sha512-7rBLLzWQnBwutH2WZ0EWUkQdihqrnLYCUMaB44hSol9e0/cdIhuNFcqZO0xNheAU6qqHVA8sMiLofkYTgb+lmw==}
     engines: {node: '>= 0.10.4'}
     hasBin: true
+
+  '@dom-replay/core@file:.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz':
+    resolution: {integrity: sha512-TleN4tAVBpj6mluru4DIKWQ77Xqwqsozbmp92H6tzm0wBbWgDTjh8SUokn8caoYJHjnc93wHAcdqvjZpEI4V1A==, tarball: file:.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz}
+    version: 0.0.3
+
+  '@dom-replay/dom@file:.cache/dev-packs/20260211-102914/dom-replay-dom-0.0.3.tgz':
+    resolution: {integrity: sha512-lSL7jOb0hvz+0MPkKhRBPTswu46gPUBGSqPmoWQR1avgqUbIjQhsMCRBkzbHU4vhh1nuU+NcFKkoQuLT/ELk7g==, tarball: file:.cache/dev-packs/20260211-102914/dom-replay-dom-0.0.3.tgz}
+    version: 0.0.3
+
+  '@dom-replay/packer@file:.cache/dev-packs/20260211-102914/dom-replay-packer-0.0.3.tgz':
+    resolution: {integrity: sha512-mU2Z/Gn36JIaQX+vVPEM9l+XdllGcIM3KJ2V2icSnysgwlOjZyKzoNVvviVqwCkTbna75cuyGCFKmto1S8cdtg==, tarball: file:.cache/dev-packs/20260211-102914/dom-replay-packer-0.0.3.tgz}
+    version: 0.0.3
+
+  '@dom-replay/player-core@file:.cache/dev-packs/20260211-102914/dom-replay-player-core-0.0.3.tgz':
+    resolution: {integrity: sha512-gKildVr07pB7WobYV8Gxz88ZMahoYmCSJl6aTzq7qWWl4qL0qvFjL9R8uqdb76ogzDRVGh4ZyyMK/TcYXWtO/w==, tarball: file:.cache/dev-packs/20260211-102914/dom-replay-player-core-0.0.3.tgz}
+    version: 0.0.3
+
+  '@dom-replay/replay@file:.cache/dev-packs/20260211-102914/dom-replay-replay-0.0.3.tgz':
+    resolution: {integrity: sha512-bNvI4sXJ/g1bS8lwo/lKpOX6YA77l9KTxuXkgSv6BTfQq9a006GbuAYW65CNG0yJKYM2r0gM+s5nKNw+BB9F/w==, tarball: file:.cache/dev-packs/20260211-102914/dom-replay-replay-0.0.3.tgz}
+    version: 0.0.3
+
+  '@dom-replay/snapshot@file:.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz':
+    resolution: {integrity: sha512-tgkgCyA+Z5w2YzZiyl6J/5PTARaOrnSqHvn0AHmxOCIX5HJppIeBBaaX4jNPXA0qHTwHcJjyWi3YLBQoNF0TAg==, tarball: file:.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz}
+    version: 0.0.3
+
+  '@dom-replay/types@file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz':
+    resolution: {integrity: sha512-tQUrg6qaUkxPYth7tTgDkK25CKYY60c74D1QXfldbLF3jQVvPRd4IBk3c+gy6shBxjW6ymbhSGJ2x/3fa6tSTw==, tarball: file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz}
+    version: 0.0.3
+
+  '@dom-replay/utils@file:.cache/dev-packs/20260211-102914/dom-replay-utils-0.0.3.tgz':
+    resolution: {integrity: sha512-K2EzMaCSGngHa0jwLwC8u7605yE3OKJvVdMXmfKcOPrCeeZ6TTc4yzHXbIY6UoHYqYBzxP9bXwJcyv8heY1NDQ==, tarball: file:.cache/dev-packs/20260211-102914/dom-replay-utils-0.0.3.tgz}
+    version: 0.0.3
 
   '@emnapi/core@1.8.1':
     resolution: {integrity: sha512-AvT9QFpxK0Zd8J0jopedNm+w/2fIzvtPKPjqyw9jwvBaReTTqPBk9Hixaz7KbjimP+QNz605/XnjFcDAL2pqBg==}
@@ -6763,6 +6809,46 @@ snapshots:
       split: 1.0.1
     transitivePeerDependencies:
       - supports-color
+
+  '@dom-replay/core@file:.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz':
+    dependencies:
+      '@dom-replay/dom': file:.cache/dev-packs/20260211-102914/dom-replay-dom-0.0.3.tgz
+      '@dom-replay/snapshot': file:.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz
+      '@dom-replay/types': file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+      '@dom-replay/utils': file:.cache/dev-packs/20260211-102914/dom-replay-utils-0.0.3.tgz
+      '@types/css-font-loading-module': 0.0.7
+      '@xstate/fsm': 1.6.5
+      base64-arraybuffer: 1.0.2
+      mitt: 3.0.1
+
+  '@dom-replay/dom@file:.cache/dev-packs/20260211-102914/dom-replay-dom-0.0.3.tgz':
+    dependencies:
+      '@dom-replay/snapshot': file:.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz
+
+  '@dom-replay/packer@file:.cache/dev-packs/20260211-102914/dom-replay-packer-0.0.3.tgz':
+    dependencies:
+      '@dom-replay/types': file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+      fflate: 0.4.8
+
+  '@dom-replay/player-core@file:.cache/dev-packs/20260211-102914/dom-replay-player-core-0.0.3.tgz':
+    dependencies:
+      '@dom-replay/packer': file:.cache/dev-packs/20260211-102914/dom-replay-packer-0.0.3.tgz
+      '@dom-replay/replay': file:.cache/dev-packs/20260211-102914/dom-replay-replay-0.0.3.tgz
+      '@dom-replay/snapshot': file:.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz
+      '@dom-replay/types': file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+
+  '@dom-replay/replay@file:.cache/dev-packs/20260211-102914/dom-replay-replay-0.0.3.tgz':
+    dependencies:
+      '@dom-replay/core': file:.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz
+      '@dom-replay/types': file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz
+
+  '@dom-replay/snapshot@file:.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz':
+    dependencies:
+      postcss: 8.5.6
+
+  '@dom-replay/types@file:.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz': {}
+
+  '@dom-replay/utils@file:.cache/dev-packs/20260211-102914/dom-replay-utils-0.0.3.tgz': {}
 
   '@emnapi/core@1.8.1':
     dependencies:

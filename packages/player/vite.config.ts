@@ -34,6 +34,13 @@ function viteSvelteDts(): Plugin {
       console.log('Generating .d.ts files for Svelte components...');
 
       const { input } = options;
+      
+      // Skip if no input (e.g., in dev mode)
+      if (!input) {
+        console.log('Skipping .d.ts generation (no input defined)');
+        return;
+      }
+      
       if (typeof input === 'string') {
         await generateDts(input);
       } else if (Array.isArray(input)) {

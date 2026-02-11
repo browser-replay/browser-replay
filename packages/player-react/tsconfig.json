@@ -1,15 +1,23 @@
 {
   "extends": "../../tsconfig.base.json",
-  "include": ["src", "vite-env.d.ts"],
+  "include": [
+    "src",
+    "vite-env.d.ts"
+  ],
   "compilerOptions": {
     "rootDir": "src",
     "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@dom-replay/player-core": ["../player-core/src/index.ts"]
+      "@dom-replay/player-core": [
+        "../player-core/src/index.ts"
+      ]
     }
   },
-  "references": [{ "path": "../player-core" }]
+  "references": [
+    {
+      "path": "../player-core"
+    }
+  ]
 }
-
