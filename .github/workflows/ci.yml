@@ -32,6 +32,9 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      - name: Audit
+        run: pnpm audit --audit-level=high
+
       - name: Install Playwright (for video package tests)
         run: pnpm exec playwright install chromium
 

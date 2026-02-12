@@ -433,7 +433,6 @@ export function createPlayerHandle(initialProps: PlayerProps): PlayerHandle {
         // Ignore — the replayer's internal DOM may already be torn down.
       }
       try {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const maybeDestroy = (replayer as any).destroy as undefined | (() => void);
         maybeDestroy?.();
       } catch {

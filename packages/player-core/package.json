@@ -1,6 +1,6 @@
 {
   "name": "@dom-replay/player-core",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "description": "Framework-agnostic headless player built on @dom-replay/replay.",
   "license": "MIT",
   "type": "module",

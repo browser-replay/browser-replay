@@ -49,9 +49,7 @@ export default function Player() {
         console.error(err);
       });
     return () => {
-      // eslint-disable-next-line
       playerRef.current?.pause();
-      // eslint-disable-next-line
       playerRef.current?.$destroy();
     };
   }, [sessionId]);

@@ -142,7 +142,7 @@ export abstract class BaseRRNode implements IRRNode {
   public readonly nodeName!: string;
   public readonly RRNodeType!: RRNodeType;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-explicit-any
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   constructor(..._args: any[]) {
     //
   }
@@ -202,7 +202,6 @@ export class BaseRRDocument extends BaseRRNode implements IRRDocument {
   public readonly RRNodeType = RRNodeType.Document;
   public textContent: string | null = null;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(...args: any[]) {
     super(args);
     this.ownerDocument = this;
