@@ -1,6 +1,6 @@
 # @dom-replay/snapshot
 
-[![Build Status](https://travis-ci.org/rrweb-io/rrweb.svg?branch=master)](https://travis-ci.org/rrweb-io/rrweb) [![Join the chat at slack](https://img.shields.io/badge/slack-@rrweb-teal.svg?logo=slack)](https://join.slack.com/t/rrweb/shared_invite/zt-siwoc6hx-uWay3s2wyG8t5GpZVb8rWg)
+[![CI](https://github.com/dom-replay/dom-replay/actions/workflows/ci.yml/badge.svg)](https://github.com/dom-replay/dom-replay/actions/workflows/ci.yml)
 
 Snapshot the DOM into a stateful and serializable data structure.
 Also, provide the ability to rebuild the DOM via snapshot.

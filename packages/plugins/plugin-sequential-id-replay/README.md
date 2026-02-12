@@ -1,7 +1,7 @@
 # @dom-replay/plugin-sequential-id-replay
 
 Use this plugin in combination with the [@dom-replay/plugin-sequential-id-record](../core-plugin-sequential-id-record) plugin to record and replay events with a sequential id.
-See the [guide](../../../guide.md) for more info on rrweb.
+See the [guide](../../../guide.md) for more info.
 
 ## Installation
 
@@ -12,10 +12,10 @@ npm install @dom-replay/plugin-sequential-id-replay
 ## Usage
 
 ```js
-import rrweb from 'rrweb';
+import { Replayer } from '@dom-replay/replay';
 import { getReplaySequentialIdPlugin } from '@dom-replay/plugin-sequential-id-replay';
 
-const replayer = new rrweb.Replayer(events, {
+const replayer = new Replayer(events, {
   plugins: [
     getReplaySequentialIdPlugin({
       // make sure this is the same as the record side

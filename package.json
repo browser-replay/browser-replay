@@ -13,7 +13,7 @@
   "private": true,
   "packageManager": "pnpm@10.28.2",
   "engines": {
-    "node": ">=22 <23"
+    "node": ">=18"
   },
   "workspaces": [
     "packages/*",
@@ -71,17 +71,7 @@
     "overrides": {
       "cssom": "https://registry.npmjs.org/rrweb-cssom/-/rrweb-cssom-0.6.0.tgz",
       "@types/dom-webcodecs": "0.1.5",
-      "typescript": "5.8.2",
-      "@dom-replay/types": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-types-0.0.3.tgz",
-      "@dom-replay/utils": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-utils-0.0.3.tgz",
-      "@dom-replay/snapshot": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-snapshot-0.0.3.tgz",
-      "@dom-replay/dom": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-dom-0.0.3.tgz",
-      "@dom-replay/core": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-core-0.0.3.tgz",
-      "@dom-replay/packer": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-packer-0.0.3.tgz",
-      "@dom-replay/record": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-record-0.0.3.tgz",
-      "@dom-replay/replay": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-replay-0.0.3.tgz",
-      "@dom-replay/player-core": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-player-core-0.0.3.tgz",
-      "@dom-replay/player-react": "file:/home/vcatalano/Projects/dom-replay/.cache/dev-packs/20260211-102914/dom-replay-player-react-0.0.3.tgz"
+      "typescript": "5.8.2"
     },
     "onlyBuiltDependencies": [
       "esbuild",
@@ -92,5 +82,11 @@
     "defaults",
     "not op_mini all"
   ],
-  "version": "0.0.3"
+  "version": "0.0.3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dom-replay/dom-replay.git"
+  },
+  "bugs": "https://github.com/dom-replay/dom-replay/issues",
+  "homepage": "https://github.com/dom-replay/dom-replay#readme"
 }

@@ -217,40 +217,40 @@ export class MediaManager {
       | Record<string, never>;
 
     let isPlaying = false;
-    if (mediaAttributes.rr_mediaState) {
-      isPlaying = mediaAttributes.rr_mediaState === 'played';
+    if (mediaAttributes.dr_mediaState) {
+      isPlaying = mediaAttributes.dr_mediaState === 'played';
     } else {
       isPlaying = target.getAttribute('autoplay') !== null;
     }
     if (isPlaying && playerIsPaused) target.pause();
 
     let playbackRate = 1;
-    if (typeof mediaAttributes.rr_mediaPlaybackRate === 'number') {
-      playbackRate = mediaAttributes.rr_mediaPlaybackRate;
+    if (typeof mediaAttributes.dr_mediaPlaybackRate === 'number') {
+      playbackRate = mediaAttributes.dr_mediaPlaybackRate;
     }
 
     let muted = false;
-    if (typeof mediaAttributes.rr_mediaMuted === 'boolean') {
-      muted = mediaAttributes.rr_mediaMuted;
+    if (typeof mediaAttributes.dr_mediaMuted === 'boolean') {
+      muted = mediaAttributes.dr_mediaMuted;
     } else {
       muted = target.getAttribute('muted') !== null;
     }
 
     let loop = false;
-    if (typeof mediaAttributes.rr_mediaLoop === 'boolean') {
-      loop = mediaAttributes.rr_mediaLoop;
+    if (typeof mediaAttributes.dr_mediaLoop === 'boolean') {
+      loop = mediaAttributes.dr_mediaLoop;
     } else {
       loop = target.getAttribute('loop') !== null;
     }
 
     let volume = 1;
-    if (typeof mediaAttributes.rr_mediaVolume === 'number') {
-      volume = mediaAttributes.rr_mediaVolume;
+    if (typeof mediaAttributes.dr_mediaVolume === 'number') {
+      volume = mediaAttributes.dr_mediaVolume;
     }
 
     let currentTimeAtLastInteraction = 0;
-    if (typeof mediaAttributes.rr_mediaCurrentTime === 'number') {
-      currentTimeAtLastInteraction = mediaAttributes.rr_mediaCurrentTime;
+    if (typeof mediaAttributes.dr_mediaCurrentTime === 'number') {
+      currentTimeAtLastInteraction = mediaAttributes.dr_mediaCurrentTime;
     }
 
     this.mediaMap.set(target, {

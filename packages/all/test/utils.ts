@@ -108,7 +108,7 @@ function stringifySnapshots(snapshots: eventWithTime[]): string {
         if (s.type === EventType.Meta) {
           s.data.href = 'about:blank';
         }
-        // FIXME: travis coordinates seems different with my laptop
+        // Normalize coordinates for cross-environment snapshot stability (CI vs local)
         const coordinatesReg =
           /(bottom|top|left|right|width|height): \d+(\.\d+)?px/g;
         if (
@@ -166,14 +166,14 @@ function stringifySnapshots(snapshots: eventWithTime[]): string {
               // strip blob:urls as they are different every time
               stripBlobURLsFromAttributes(add.node);
 
-              // strip rr_dataURL as they are not consistent
+              // strip dr_dataURL as they are not consistent
               if (
-                'rr_dataURL' in add.node.attributes &&
-                add.node.attributes.rr_dataURL &&
-                typeof add.node.attributes.rr_dataURL === 'string'
+                'dr_dataURL' in add.node.attributes &&
+                add.node.attributes.dr_dataURL &&
+                typeof add.node.attributes.dr_dataURL === 'string'
               ) {
-                add.node.attributes.rr_dataURL =
-                  add.node.attributes.rr_dataURL.replace(/,.+$/, ',...');
+                add.node.attributes.dr_dataURL =
+                  add.node.attributes.dr_dataURL.replace(/,.+$/, ',...');
               }
             }
           });

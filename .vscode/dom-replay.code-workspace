@@ -1,0 +1,61 @@
+{
+  "folders": [
+    {
+      "name": "dom-replay",
+      "path": ".."
+    },
+    {
+      "name": "@dom-replay/all",
+      "path": "../packages/all"
+    },
+    {
+      "name": "@dom-replay/core",
+      "path": "../packages/core"
+    },
+    {
+      "name": "@dom-replay/record",
+      "path": "../packages/record"
+    },
+    {
+      "name": "@dom-replay/replay",
+      "path": "../packages/replay"
+    },
+    {
+      "name": "@dom-replay/player",
+      "path": "../packages/player"
+    },
+    {
+      "name": "@dom-replay/player-react",
+      "path": "../packages/player-react"
+    },
+    {
+      "name": "@dom-replay/player-core",
+      "path": "../packages/player-core"
+    },
+    {
+      "name": "@dom-replay/snapshot",
+      "path": "../packages/snapshot"
+    },
+    {
+      "name": "@dom-replay/dom",
+      "path": "../packages/dom"
+    },
+    {
+      "name": "@dom-replay/packer",
+      "path": "../packages/packer"
+    },
+    {
+      "name": "@dom-replay/types",
+      "path": "../packages/types"
+    },
+    {
+      "name": "@dom-replay/utils",
+      "path": "../packages/utils"
+    }
+  ],
+  "settings": {
+    "vitest.workspaceConfig": "../vitest.workspace.ts",
+    "vitest.commandLine": "pnpm vitest",
+    "typescript.tsdk": "node_modules/typescript/lib"
+  }
+}

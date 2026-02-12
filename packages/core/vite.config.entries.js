@@ -2,11 +2,11 @@ import config from '../../vite.config.default';
 
 export default config(
   {
-    // rrweb: 'src/index.ts',
+    // 'core': 'src/index.ts',  // main bundle uses vite.config.js
     'core-record': 'src/entries/record.ts',
     'core-replay': 'src/entries/replay.ts',
   },
-  'rrweb',
+  'domReplay',
   // { outputDir: 'dist/alt' },
   { outputDir: 'dist' },
 );

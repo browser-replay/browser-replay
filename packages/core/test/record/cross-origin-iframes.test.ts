@@ -28,7 +28,7 @@ interface ISuite {
 }
 
 interface IWindow extends Window {
-  rrweb: {
+  domReplay: {
     record: (
       options: recordOptions<eventWithTime>,
     ) => listenerHandler | undefined;
@@ -64,7 +64,7 @@ async function injectRecordScript(
   options = options || {};
   await frame.evaluate((options) => {
     (window as unknown as IWindow).snapshots = [];
-    const { record } = (window as unknown as IWindow).rrweb;
+    const { record } = (window as unknown as IWindow).domReplay;
     const config: recordOptions<eventWithTime> = {
       recordCrossOriginIframes: true,
       recordCanvas: true,
@@ -359,7 +359,7 @@ describe('cross origin iframes', function (this: ISuite) {
     it('should record custom events', async () => {
       const frame = ctx.page.mainFrame().childFrames()[0];
       await frame.evaluate(() => {
-        (window as unknown as IWindow).rrweb.addCustomEvent('test', {
+        (window as unknown as IWindow).domReplay.addCustomEvent('test', {
           id: 1,
           parentId: 1,
           nextId: 2,
@@ -551,7 +551,7 @@ describe('cross origin iframes', function (this: ISuite) {
       await assertSnapshot(snapshots);
     });
 
-    it('should filter out forwarded cross origin rrweb messages', async () => {
+    it('should filter out forwarded cross origin dom-replay messages', async () => {
       const frame = ctx.page.mainFrame().childFrames()[0];
       const iframe2URL = `${ctx.serverBURL}/html/blank.html`;
       await frame.evaluate((iframe2URL) => {

@@ -39,6 +39,6 @@ jobs:
         run: pnpm build:all
 
       - name: Publish workspace packages
-        run: pnpm -r publish --access restricted --no-git-checks
+        run: pnpm -r publish --access public --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.DOM_REPLAY_PACKAGES_TOKEN }}

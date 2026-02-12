@@ -73,7 +73,7 @@ function sanitizeSnapshot(snapshot: string): string {
 async function snapshot(page: puppeteer.Page, code: string): Promise<string> {
   await waitForRAF(page);
   const result = (await page.evaluate(`${code}
-    const snapshot = rrwebSnapshot.snapshot(document);
+    const snapshot = domReplaySnapshot.snapshot(document);
     JSON.stringify(snapshot, null, 2);
   `)) as string;
   return result;
@@ -162,8 +162,8 @@ describe('integration tests', function (this: ISuite) {
       const rebuildHtml = (
         (await page.evaluate(`${code}
         const x = new XMLSerializer();
-        const snap = rrwebSnapshot.snapshot(document);
-        let out = x.serializeToString(rrwebSnapshot.rebuild(snap, { doc: document }));
+        const snap = domReplaySnapshot.snapshot(document);
+        let out = x.serializeToString(domReplaySnapshot.rebuild(snap, { doc: document }));
         if (document.querySelector('html').getAttribute('xmlns') !== 'http://www.w3.org/1999/xhtml') {
           // this is just an artefact of serializeToString
           out = out.replace(' xmlns=\"http://www.w3.org/1999/xhtml\"', '');
@@ -204,14 +204,14 @@ describe('integration tests', function (this: ISuite) {
       `pre-check: images will be rendered ~326px high in BackCompat mode, and ~588px in CSS1Compat mode; getting: ${renderedHeight}px`,
     );
     const rebuildRenderedHeight = await page.evaluate(`${code}
-const snap = rrwebSnapshot.snapshot(document);
+const snap = domReplaySnapshot.snapshot(document);
 const iframe = document.createElement('iframe');
 iframe.setAttribute('width', document.body.clientWidth)
 iframe.setAttribute('height', document.body.clientHeight)
 iframe.style.transform = 'scale(0.3)'; // mini-me
 document.body.appendChild(iframe);
 // magic here! rebuild in a new iframe
-const rebuildNode = rrwebSnapshot.rebuild(snap, { doc: iframe.contentDocument })[0];
+const rebuildNode = domReplaySnapshot.rebuild(snap, { doc: iframe.contentDocument })[0];
 iframe.contentDocument.querySelector('center').clientHeight
 `);
     const rebuildCompatMode = await page.evaluate(
@@ -236,7 +236,7 @@ iframe.contentDocument.querySelector('center').clientHeight
     });
     await page.waitForSelector('img', { timeout: 1000 });
     await page.evaluate(`${code}
-    var snapshot = rrwebSnapshot.snapshot(document, {
+    var snapshot = domReplaySnapshot.snapshot(document, {
         dataURLOptions: { type: "image/webp", quality: 0.8 },
         inlineImages: true,
         inlineStylesheet: false
@@ -251,7 +251,7 @@ iframe.contentDocument.querySelector('center').clientHeight
         attributes: {
           src: expect.stringMatching(/images\/robot.png$/),
           alt: 'This is a robot',
-          rr_dataURL: expect.stringMatching(/^data:image\/webp;base64,/),
+          dr_dataURL: expect.stringMatching(/^data:image\/webp;base64,/),
         },
       }),
     );
@@ -268,7 +268,7 @@ iframe.contentDocument.querySelector('center').clientHeight
   <body>
     <img src="${getServerURL(
       server,
-    )}/images/rrweb-favicon-20x20.png" alt="CORS restricted but has access-control-allow-origin: *" />
+    )}/images/dom-replay-favicon-20x20.png" alt="CORS restricted but has access-control-allow-origin: *" />
   </body>
 </html>
 `,
@@ -278,7 +278,7 @@ iframe.contentDocument.querySelector('center').clientHeight
     );
 
     await page.waitForSelector('img', { timeout: 1000 });
-    await page.evaluate(`${code}var snapshot = rrwebSnapshot.snapshot(document, {
+    await page.evaluate(`${code}var snapshot = domReplaySnapshot.snapshot(document, {
         dataURLOptions: { type: "image/webp", quality: 0.8 },
         inlineImages: true,
         inlineStylesheet: false
@@ -290,7 +290,7 @@ iframe.contentDocument.querySelector('center').clientHeight
         (window as any).snapshot?.childNodes?.[0]?.childNodes?.[1]?.childNodes?.filter(
           (cn: any) => cn.type === 2 && cn.tagName === 'img',
         ) ?? [];
-      return Boolean(imgs[0]?.attributes?.rr_dataURL);
+      return Boolean(imgs[0]?.attributes?.dr_dataURL);
     });
     const bodyChildren = (await page.evaluate(`
       snapshot.childNodes[0].childNodes[1].childNodes.filter((cn) => cn.type === 2);
@@ -299,9 +299,9 @@ iframe.contentDocument.querySelector('center').clientHeight
       expect.objectContaining({
         tagName: 'img',
         attributes: {
-          src: getServerURL(server) + '/images/rrweb-favicon-20x20.png',
+          src: getServerURL(server) + '/images/dom-replay-favicon-20x20.png',
           alt: 'CORS restricted but has access-control-allow-origin: *',
-          rr_dataURL: expect.stringMatching(/^data:image\/webp;base64,/),
+          dr_dataURL: expect.stringMatching(/^data:image\/webp;base64,/),
         },
       }),
     );
@@ -314,7 +314,7 @@ iframe.contentDocument.querySelector('center').clientHeight
       waitUntil: 'load',
     });
     await page.waitForSelector('img', { timeout: 1000 });
-    await page.evaluate(`${code}var snapshot = rrwebSnapshot.snapshot(document, {
+    await page.evaluate(`${code}var snapshot = domReplaySnapshot.snapshot(document, {
         dataURLOptions: { type: "image/webp", quality: 0.8 },
         inlineImages: true,
         inlineStylesheet: false
@@ -323,7 +323,7 @@ iframe.contentDocument.querySelector('center').clientHeight
     const snapshot = (await page.evaluate(
       'JSON.stringify(snapshot, null, 2);',
     )) as string;
-    assert(snapshot.includes('"rr_dataURL"'));
+    assert(snapshot.includes('"dr_dataURL"'));
     assert(snapshot.includes('data:image/webp;base64,'));
   });
 
@@ -336,7 +336,7 @@ iframe.contentDocument.querySelector('center').clientHeight
     await page.waitForSelector('iframe', { timeout: 1000 });
     await waitForRAF(page); // wait for page to render
     await page.evaluate(`${code}
-        rrwebSnapshot.snapshot(document, {
+        domReplaySnapshot.snapshot(document, {
         dataURLOptions: { type: "image/webp", quality: 0.8 },
         inlineImages: true,
         inlineStylesheet: false,
@@ -348,7 +348,7 @@ iframe.contentDocument.querySelector('center').clientHeight
     const snapshot = (await page.evaluate(
       'JSON.stringify(window.snapshot, null, 2);',
     )) as string;
-    assert(snapshot.includes('"rr_dataURL"'));
+    assert(snapshot.includes('"dr_dataURL"'));
     assert(snapshot.includes('data:image/webp;base64,'));
   });
 
@@ -361,7 +361,7 @@ iframe.contentDocument.querySelector('center').clientHeight
     await page.waitForSelector('iframe', { timeout: 1000 });
     await waitForRAF(page); // wait for page to render
     await page.evaluate(`${code}
-        rrwebSnapshot.snapshot(document, {
+        domReplaySnapshot.snapshot(document, {
         dataURLOptions: { type: "image/webp", quality: 0.8 },
         inlineImages: true,
         inlineStylesheet: false,
@@ -373,7 +373,7 @@ iframe.contentDocument.querySelector('center').clientHeight
     const snapshot = (await page.evaluate(
       'JSON.stringify(window.snapshot, null, 2);',
     )) as string;
-    assert(snapshot.includes('"rr_dataURL"'));
+    assert(snapshot.includes('"dr_dataURL"'));
     assert(snapshot.includes('data:image/webp;base64,'));
   });
 
@@ -384,7 +384,7 @@ iframe.contentDocument.querySelector('center').clientHeight
     });
     await waitForRAF(page); // wait for page to render
     await page.evaluate(`${code}
-        window.snapshot = rrwebSnapshot.snapshot(document, {
+        window.snapshot = domReplaySnapshot.snapshot(document, {
         inlineStylesheet: true,
     })`);
     await waitForRAF(page);
@@ -403,7 +403,7 @@ iframe.contentDocument.querySelector('center').clientHeight
     await page.waitForSelector('img', { timeout: 2000 });
     await page.evaluate(`${code}`);
     await page.evaluate(`
-    var snapshot = rrwebSnapshot.snapshot(document, {
+    var snapshot = domReplaySnapshot.snapshot(document, {
       dataURLOptions: { type: "image/webp", quality: 0.8 },
       inlineImages: true,
       inlineStylesheet: false
@@ -423,7 +423,7 @@ iframe.contentDocument.querySelector('center').clientHeight
     await waitForRAF(page); // wait for page to render
     const snapshotResult = JSON.stringify(
       await page.evaluate(`${code};
-          rrwebSnapshot.snapshot(document);
+          domReplaySnapshot.snapshot(document);
         `),
       null,
       2,
@@ -464,7 +464,7 @@ describe('iframe integration tests', function (this: ISuite) {
     });
     const snapshotResult = JSON.stringify(
       await page.evaluate(`${code};
-      rrwebSnapshot.snapshot(document);
+      domReplaySnapshot.snapshot(document);
     `),
       null,
       2,
@@ -550,7 +550,7 @@ describe('shadow DOM integration tests', function (this: ISuite) {
     });
     const snapshotResult = JSON.stringify(
       await page.evaluate(`${code};
-      rrwebSnapshot.snapshot(document);
+      domReplaySnapshot.snapshot(document);
     `),
       null,
       2,

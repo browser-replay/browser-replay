@@ -32,7 +32,7 @@
     "prepublish": "tsc -noEmit && vite build"
   },
   "keywords": [
-    "rrweb"
+    "dom-replay"
   ],
   "license": "MIT",
   "devDependencies": {
@@ -51,6 +51,6 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "access": "public"
   }
 }

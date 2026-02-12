@@ -19,7 +19,7 @@ import {
 import { recordOptions } from '../../src/types';
 
 interface IWindow extends Window {
-  rrweb: {
+  domReplay: {
     record: (
       options: recordOptions<eventWithTime>,
     ) => listenerHandler | undefined;
@@ -92,7 +92,7 @@ describe('dialog', () => {
     page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
 
     await page.evaluate(() => {
-      const { record } = (window as unknown as IWindow).rrweb;
+      const { record } = (window as unknown as IWindow).domReplay;
       record({
         emit: (window as unknown as IWindow).emit,
       });
@@ -122,7 +122,7 @@ describe('dialog', () => {
     const lastEvent = events[events.length - 1];
 
     expect(lastEvent).toMatchObject(
-      attributeMutationFactory({ rr_open_mode: 'modal' }),
+      attributeMutationFactory({ dr_open_mode: 'modal' }),
     );
   });
 

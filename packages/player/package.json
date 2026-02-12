@@ -35,7 +35,7 @@
     "prepublish": "pnpm build",
     "lint": "pnpm eslint src/**/*.ts"
   },
-  "description": "rrweb's replayer UI",
+  "description": "dom-replay's replayer UI",
   "main": "./dist/player.umd.cjs",
   "module": "./dist/player.js",
   "unpkg": "./dist/player.umd.cjs",
@@ -59,11 +59,11 @@
   ],
   "type": "module",
   "keywords": [
-    "rrweb"
+    "dom-replay"
   ],
   "license": "MIT",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "access": "public"
   }
 }

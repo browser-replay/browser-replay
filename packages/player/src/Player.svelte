@@ -197,7 +197,7 @@
 <style global>
   @import '@dom-replay/replay/dist/style.css';
 
-  .rr-player {
+  .dr-player {
     position: relative;
     background: white;
     float: left;
@@ -205,7 +205,7 @@
     box-shadow: 0 24px 48px rgba(17, 16, 62, 0.12);
   }
 
-  .rr-player__frame {
+  .dr-player__frame {
     overflow: hidden;
   }
 
@@ -222,8 +222,8 @@
   }
 </style>
 
-<div class="rr-player" bind:this={player} style={playerStyle}>
-  <div class="rr-player__frame" bind:this={frame} {style} />
+<div class="dr-player" bind:this={player} style={playerStyle}>
+  <div class="dr-player__frame" bind:this={frame} {style} />
   {#if replayer}
     <Controller
       bind:this={controller}

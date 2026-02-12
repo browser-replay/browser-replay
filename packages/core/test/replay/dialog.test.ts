@@ -108,7 +108,7 @@ describe('dialog', () => {
           `let events = ${JSON.stringify(dialogPlaybackEvents)}`,
         );
         await page.evaluate(`
-          const { Replayer } = rrweb;
+          const { Replayer } = domReplay;
           window.replayer = new Replayer(events, { useVirtualDom: ${useVirtualDom} });
         `);
         const timeArray = Array.isArray(time) ? time : [time];
@@ -142,7 +142,7 @@ describe('dialog', () => {
   it('closed dialogs show nothing', async () => {
     await page.evaluate(`let events = ${JSON.stringify(dialogPlaybackEvents)}`);
     await page.evaluate(`
-      const { Replayer } = rrweb;
+      const { Replayer } = domReplay;
       window.replayer = new Replayer(events);
     `);
     await waitForRAF(page);

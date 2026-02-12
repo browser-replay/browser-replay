@@ -3,13 +3,21 @@
   "globalDependencies": [
     ".eslintrc.js",
     ".prettierrc",
-    "vite.config.defaults.ts",
+    "vite.config.default.ts",
     "tsconfig.json"
   ],
-  "globalPassThroughEnv": ["PUPPETEER_HEADLESS", "DISABLE_WORKER_INLINING"],
+  "globalPassThroughEnv": [
+    "PUPPETEER_HEADLESS",
+    "DISABLE_WORKER_INLINING",
+    "ANALYZE",
+    "SKIP_UMD"
+  ],
   "tasks": {
     "prepublish": {
-      "dependsOn": ["^prepublish", "//#references:update"],
+      "dependsOn": [
+        "^prepublish",
+        "//#references:update"
+      ],
       "outputs": [
         "build/**",
         "lib/**",
@@ -21,26 +29,38 @@
       ]
     },
     "test": {
-      "dependsOn": ["^prepublish"]
+      "dependsOn": [
+        "^prepublish"
+      ]
     },
     "test:watch": {
       "persistent": true,
       "cache": false
     },
     "test:update": {
-      "dependsOn": ["^prepublish"]
+      "dependsOn": [
+        "^prepublish"
+      ]
     },
     "dev": {
-      "dependsOn": ["prepublish", "^prepublish"],
+      "dependsOn": [
+        "prepublish",
+        "^prepublish"
+      ],
       "persistent": true,
       "cache": false
     },
     "lint": {},
     "check-types": {
-      "dependsOn": ["^prepublish"]
+      "dependsOn": [
+        "^prepublish"
+      ]
     },
     "//#references:update": {
-      "inputs": ["packages/*/package.json", "packages/plugins/*/package.json"],
+      "inputs": [
+        "packages/*/package.json",
+        "packages/plugins/*/package.json"
+      ],
       "outputs": [
         "packages/*/tsconfig.json",
         "packages/plugins/*/tsconfig.json"

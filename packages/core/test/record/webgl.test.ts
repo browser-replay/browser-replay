@@ -27,7 +27,7 @@ interface ISuite {
 }
 
 interface IWindow extends Window {
-  rrweb: {
+  domReplay: {
     record: (
       options: recordOptions<eventWithTime>,
     ) => listenerHandler | undefined;
@@ -65,7 +65,7 @@ const setup = function (
     ctx.page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
 
     await ctx.page.evaluate((canvasSample) => {
-      const { record } = (window as unknown as IWindow).rrweb;
+      const { record } = (window as unknown as IWindow).domReplay;
       record({
         recordCanvas: true,
         sampling: {

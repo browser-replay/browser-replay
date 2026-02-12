@@ -126,7 +126,7 @@ describe('benchmark: replayer fast-forward performance', () => {
             </script>
           </html>`);
           const duration = await page.evaluate(() => {
-            const replayer = new (window as any).rrweb.Replayer(
+            const replayer = new (window as any).domReplay.Replayer(
               (window as any).events,
             );
             const start = Date.now();
@@ -170,7 +170,7 @@ describe('benchmark: replayer fast-forward performance', () => {
             events.push(event);
           },
         };
-        const record = (window as any).rrweb.record;
+        const record = (window as any).domReplay.record;
         record(options);
         eval(mutateNodesFn)().then(() => {
           resolve(JSON.stringify(events));

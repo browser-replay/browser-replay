@@ -143,7 +143,7 @@ describe('record integration tests', function (this: ISuite) {
       (t.childNodes[0] as Text).appendData('re');
       // this mutation is currently emitted, and shows up in snapshot
       // but we will check that it doesn't have any effect on the value
-      // there is nothing explicit in rrweb which enforces this, but this test may protect against
+      // there is nothing explicit in dom-replay which enforces this, but this test may protect against
       // a future change where a mutation on a textarea incorrectly updates the .value
     });
     await waitForRAF(page);
@@ -156,7 +156,7 @@ describe('record integration tests', function (this: ISuite) {
 
     // check after each mutation and text input
     const replayTextareaValues = await page.evaluate(`
-      const { Replayer } = rrweb;
+      const { Replayer } = domReplay;
       const replayer = new Replayer(window.snapshots);
       const vals = [];
       window.snapshots.filter((e)=>e.data.attributes || e.data.source === 5).forEach((e)=>{
@@ -267,7 +267,7 @@ describe('record integration tests', function (this: ISuite) {
 
     // check after each mutation and text input
     const replayStyleValues = await page.evaluate(`
-      const { Replayer } = rrweb;
+      const { Replayer } = domReplay;
       const replayer = new Replayer(window.snapshots);
       const vals = [];
       window.snapshots.filter((e)=>e.data.attributes || e.data.source === 5).forEach((e)=>{
@@ -480,7 +480,7 @@ describe('record integration tests', function (this: ISuite) {
       li.setAttribute('foo', 'bar');
       document.body.setAttribute('test', 'true');
     });
-    await page.evaluate('rrweb.freezePage()');
+    await page.evaluate('domReplay.freezePage()');
     await page.evaluate(() => {
       document.body.setAttribute('test', 'bad');
       const canvas = document.querySelector('canvas') as HTMLCanvasElement;
@@ -507,12 +507,12 @@ describe('record integration tests', function (this: ISuite) {
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'ignore.html', {
-        ignoreSelector: '[data-rr-ignore]',
+        ignoreSelector: '[data-dr-ignore]',
       }),
     );
 
-    await page.type('.rr-ignore', 'secret');
-    await page.type('[data-rr-ignore]', 'secret');
+    await page.type('.dr-ignore', 'secret');
+    await page.type('[data-dr-ignore]', 'secret');
     await page.type('.dont-ignore', 'not secret');
 
     await assertSnapshot(page);
@@ -660,12 +660,12 @@ describe('record integration tests', function (this: ISuite) {
 
     await page.evaluate(() => {
       const el = document.createElement('button');
-      el.className = 'rr-block';
+      el.className = 'dr-block';
       el.style.width = '100px';
       el.style.height = '100px';
       el.innerText = 'Should not be recorded';
 
-      const nextElement = document.querySelector('.rr-block')!;
+      const nextElement = document.querySelector('.dr-block')!;
       nextElement.parentNode!.insertBefore(el, nextElement);
     });
 
@@ -753,8 +753,8 @@ describe('record integration tests', function (this: ISuite) {
     for (const event of snapshots) {
       if (event.type === EventType.FullSnapshot) {
         visitSnapshot(event.data.node, (n) => {
-          if (n.type === NodeType.Element && n.attributes.rr_dataURL) {
-            n.attributes.rr_dataURL = `LOOKS LIKE WE COULD NOT GET STABLE BASE64 FROM SAME IMAGE.`;
+          if (n.type === NodeType.Element && n.attributes.dr_dataURL) {
+            n.attributes.dr_dataURL = `LOOKS LIKE WE COULD NOT GET STABLE BASE64 FROM SAME IMAGE.`;
           }
         });
       }
@@ -1341,7 +1341,7 @@ describe('record integration tests', function (this: ISuite) {
       const ul = document.querySelector('ul') as HTMLUListElement;
       const p = document.querySelector('p') as HTMLParagraphElement;
       [li, p].forEach((element) => {
-        element.className = 'rr-mask';
+        element.className = 'dr-mask';
       });
       ul.appendChild(li);
       li.innerText = 'new list item';
@@ -1433,7 +1433,7 @@ describe('record integration tests', function (this: ISuite) {
         </body></html>
       `,
     );
-    // Start rrweb recording
+    // Start dom-replay recording
     await page.evaluate(
       (code, recordSnippet) => {
         const script = document.createElement('script');
@@ -1486,7 +1486,7 @@ describe('record integration tests', function (this: ISuite) {
      * Replay the recorded events and check if the style mutation is applied correctly
      */
     const changedColors = await page.evaluate(`
-      const { Replayer } = rrweb;
+      const { Replayer } = domReplay;
       const replayer = new Replayer(window.snapshots);
       replayer.pause(1000);
 
@@ -1528,7 +1528,7 @@ describe('record integration tests', function (this: ISuite) {
         </body></html>
       `,
     );
-    // Start rrweb recording
+    // Start dom-replay recording
     await page.evaluate(
       (code, recordSnippet) => {
         const script = document.createElement('script');
@@ -1559,7 +1559,7 @@ describe('record integration tests', function (this: ISuite) {
      * Replay the recorded events and check if the style mutation is applied correctly
      */
     const changedColors = await page.evaluate(`
-      const { Replayer } = rrweb;
+      const { Replayer } = domReplay;
       const replayer = new Replayer(window.snapshots);
       replayer.pause(1000);
 

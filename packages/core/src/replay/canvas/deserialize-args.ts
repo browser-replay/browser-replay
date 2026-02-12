@@ -28,7 +28,7 @@ export function variableListFor(
 }
 
 export function isSerializedArg(arg: unknown): arg is SerializedCanvasArg {
-  return Boolean(arg && typeof arg === 'object' && 'rr_type' in arg);
+  return Boolean(arg && typeof arg === 'object' && 'dr_type' in arg);
 }
 
 export function deserializeArg(
@@ -43,20 +43,20 @@ export function deserializeArg(
   },
 ): (arg: CanvasArg) => Promise<any> {
   return async (arg: CanvasArg): Promise<any> => {
-    if (arg && typeof arg === 'object' && 'rr_type' in arg) {
+    if (arg && typeof arg === 'object' && 'dr_type' in arg) {
       if (preload) preload.isUnchanged = false;
-      if (arg.rr_type === 'ImageBitmap' && 'args' in arg) {
+      if (arg.dr_type === 'ImageBitmap' && 'args' in arg) {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const args = await deserializeArg(imageMap, ctx, preload)(arg.args);
         // eslint-disable-next-line prefer-spread
         return await createImageBitmap.apply(null, args);
       } else if ('index' in arg) {
         if (preload || ctx === null) return arg; // we are preloading, ctx is unknown
-        const { rr_type: name, index } = arg;
+        const { dr_type: name, index } = arg;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return variableListFor(ctx, name)[index];
       } else if ('args' in arg) {
-        const { rr_type: name, args } = arg;
+        const { dr_type: name, args } = arg;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         const ctor = window[name as keyof Window];
 
@@ -78,7 +78,7 @@ export function deserializeArg(
           imageMap.set(arg.src, image);
           return image;
         }
-      } else if ('data' in arg && arg.rr_type === 'Blob') {
+      } else if ('data' in arg && arg.dr_type === 'Blob') {
         const blobContents = await Promise.all(
           arg.data.map(deserializeArg(imageMap, ctx, preload)),
         );

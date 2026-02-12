@@ -139,11 +139,11 @@ export class CanvasManager {
             property: 'drawImage', // draws (semi-transparent) image
             args: [
               {
-                rr_type: 'ImageBitmap',
+                dr_type: 'ImageBitmap',
                 args: [
                   {
-                    rr_type: 'Blob',
-                    data: [{ rr_type: 'ArrayBuffer', base64 }],
+                    dr_type: 'Blob',
+                    data: [{ dr_type: 'ArrayBuffer', base64 }],
                     type,
                   },
                 ],

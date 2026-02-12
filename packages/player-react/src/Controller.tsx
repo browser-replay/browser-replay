@@ -22,7 +22,7 @@ type ControllerProps = {
 function PlayIcon() {
   return (
     <svg
-      className="rr-controller-icon"
+      className="dr-controller-icon"
       viewBox="0 0 1024 1024"
       width="16"
       height="16"
@@ -36,7 +36,7 @@ function PlayIcon() {
 function PauseIcon() {
   return (
     <svg
-      className="rr-controller-icon"
+      className="dr-controller-icon"
       viewBox="0 0 1024 1024"
       width="16"
       height="16"
@@ -65,7 +65,7 @@ function PauseIcon() {
 function FullscreenIcon() {
   return (
     <svg
-      className="rr-controller-icon"
+      className="dr-controller-icon"
       viewBox="0 0 1024 1024"
       width="16"
       height="16"
@@ -100,7 +100,7 @@ function ToggleSwitch({
   onChange(): void;
 }) {
   return (
-    <div className={`rr-switch${disabled ? ' disabled' : ''}`}>
+    <div className={`dr-switch${disabled ? ' disabled' : ''}`}>
       <input
         type="checkbox"
         id={id}
@@ -109,7 +109,7 @@ function ToggleSwitch({
         onChange={onChange}
       />
       <label htmlFor={id} />
-      <span className="rr-switch__label">{label}</span>
+      <span className="dr-switch__label">{label}</span>
     </div>
   );
 }
@@ -128,7 +128,7 @@ function renderInactiveMarker(marker: InactivePeriodMarker, idx: number) {
     <div
       key={`inactive-${idx}-${marker.startMs}`}
       title={marker.name}
-      className="rr-progress__inactive"
+      className="dr-progress__inactive"
       style={{
         width: marker.width,
         left: marker.position,
@@ -143,7 +143,7 @@ function renderCustomMarker(marker: CustomEventMarker, idx: number) {
     <div
       key={`custom-${idx}-${marker.timestamp}-${marker.name}`}
       title={marker.name}
-      className="rr-progress__custom"
+      className="dr-progress__custom"
       style={{
         left: marker.position,
         background: marker.background,
@@ -259,10 +259,10 @@ export function Controller({
   const skipping = state.speedState === 'skipping';
 
   return (
-    <div className="rr-controller">
-      <div className="rr-timeline">
+    <div className="dr-controller">
+      <div className="dr-timeline">
         <span
-          className="rr-timeline__time"
+          className="dr-timeline__time"
           aria-live="polite"
           aria-atomic="true"
         >
@@ -270,7 +270,7 @@ export function Controller({
         </span>
         <div
           ref={progressRef}
-          className={`rr-progress${skipping ? ' disabled' : ''}`}
+          className={`dr-progress${skipping ? ' disabled' : ''}`}
           role="slider"
           tabIndex={0}
           aria-label="Replay timeline"
@@ -281,15 +281,15 @@ export function Controller({
           onMouseDown={skipping ? undefined : handleMouseDown}
           onKeyDown={seekFromKeyboard}
         >
-          <div className="rr-progress__step" style={{ width: percentage }} />
+          <div className="dr-progress__step" style={{ width: percentage }} />
           {state.inactivePeriods.map(renderInactiveMarker)}
           {state.customEvents.map(renderCustomMarker)}
-          <div className="rr-progress__handler" style={{ left: percentage }} />
+          <div className="dr-progress__handler" style={{ left: percentage }} />
         </div>
-        <span className="rr-timeline__time">{formatTime(totalTime)}</span>
+        <span className="dr-timeline__time">{formatTime(totalTime)}</span>
       </div>
 
-      <div className="rr-controller__btns">
+      <div className="dr-controller__btns">
         <button
           ref={playButtonRef}
           onClick={onTogglePlay}
@@ -312,7 +312,7 @@ export function Controller({
         ))}
 
         <ToggleSwitch
-          id="rr-skip-inactive"
+          id="dr-skip-inactive"
           checked={state.skipInactive}
           disabled={skipping}
           label="skip inactive"

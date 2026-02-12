@@ -1,5 +1,7 @@
 # Guide
 
+dom-replay is a separate project built on [rrweb](https://github.com/rrweb-io/rrweb). See `LICENSE` and `NOTICE` for attribution.
+
 > You may also want to read the [recipes](./docs/recipes/index.md) to find some real-world use cases, or read the [design docs](./docs) to know more technical details.
 
 ## Installation
@@ -71,10 +73,10 @@ dom-replay does **not** support IE11 and below because it uses the `MutationObse
 
 ### Record
 
-The following sample code will use a local variable named `rrweb` for convenience.
+The following sample code will use a local variable named `domReplay` for convenience.
 
 ```js
-rrweb.record({
+domReplay.record({
   emit(event) {
     // store the event in any way you like
   },
@@ -86,7 +88,7 @@ During recording, the recorder will emit when there is some event incurred, all 
 The `record` method returns a function which can be called to stop events from firing:
 
 ```js
-let stopFn = rrweb.record({
+let stopFn = domReplay.record({
   emit(event) {
     if (events.length > 100) {
       // stop after 100 events
@@ -101,7 +103,7 @@ A more real-world usage may look like this:
 ```js
 let events = [];
 
-rrweb.record({
+domReplay.record({
   emit(event) {
     // push event into the events array
     events.push(event);
@@ -127,46 +129,46 @@ setInterval(save, 10 * 1000);
 
 #### Options
 
-The parameter of `rrweb.record` accepts the following options.
+The parameter of `domReplay.record` accepts the following options.
 
 | key                      | default            | description                                                                                                                                                                                        |
 | ------------------------ | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | emit                     | required           | the callback function to get emitted events                                                                                                                                                        |
 | checkoutEveryNth         | -                  | take a full snapshot after every N events<br />refer to the [checkout](#checkout) chapter                                                                                                          |
 | checkoutEveryNms         | -                  | take a full snapshot after every N ms<br />refer to the [checkout](#checkout) chapter                                                                                                              |
-| blockClass               | 'rr-block'         | Use a string or RegExp to configure which elements should be blocked, refer to the [privacy](#privacy) chapter                                                                                     |
+| blockClass               | 'dr-block'         | Use a string or RegExp to configure which elements should be blocked, refer to the [privacy](#privacy) chapter                                                                                     |
 | blockSelector            | null               | Use a string to configure which selector should be blocked, refer to the [privacy](#privacy) chapter                                                                                               |
-| ignoreClass              | 'rr-ignore'        | Use a string or RegExp to configure which elements should be ignored, refer to the [privacy](#privacy) chapter                                                                                     |
+| ignoreClass              | 'dr-ignore'        | Use a string or RegExp to configure which elements should be ignored, refer to the [privacy](#privacy) chapter                                                                                     |
 | ignoreSelector           | null               | Use a string to configure which selector should be ignored, refer to the [privacy](#privacy) chapter                                                                                               |
 | ignoreCSSAttributes      | null               | array of CSS attributes that should be ignored                                                                                                                                                     |
-| maskTextClass            | 'rr-mask'          | Use a string or RegExp to configure which elements should be masked, refer to the [privacy](#privacy) chapter                                                                                      |
+| maskTextClass            | 'dr-mask'          | Use a string or RegExp to configure which elements should be masked, refer to the [privacy](#privacy) chapter                                                                                      |
 | maskTextSelector         | null               | Use a string to configure which selector should be masked, refer to the [privacy](#privacy) chapter                                                                                                |
 | maskAllInputs            | false              | mask all input content as \*                                                                                                                                                                       |
-| maskInputOptions         | { password: true } | mask some kinds of input \*<br />refer to the [list](https://github.com/rrweb-io/rrweb/blob/588164aa12f1d94576f89ae0210b98f6e971c895/packages/@dom-replay/snapshot/src/types.ts#L77-L95)           |
+| maskInputOptions         | { password: true } | mask some kinds of input \*<br />refer to the [list](https://github.com/dom-replay/dom-replay/blob/master/packages/snapshot/src/types.ts#L77-L95)           |
 | maskInputFn              | -                  | customize mask input content recording logic                                                                                                                                                       |
 | maskTextFn               | -                  | customize mask text content recording logic                                                                                                                                                        |
-| slimDOMOptions           | {}                 | remove unnecessary parts of the DOM <br />refer to the [list](https://github.com/rrweb-io/rrweb/blob/588164aa12f1d94576f89ae0210b98f6e971c895/packages/@dom-replay/snapshot/src/types.ts#L97-L108) |
+| slimDOMOptions           | {}                 | remove unnecessary parts of the DOM <br />refer to the [list](https://github.com/dom-replay/dom-replay/blob/master/packages/snapshot/src/types.ts#L97-L108) |
 | dataURLOptions           | {}                 | Canvas image format and quality ,This parameter will be passed to the OffscreenCanvas.convertToBlob(),Using this parameter effectively reduces the size of the recorded data                       |
 | inlineStylesheet         | true               | whether to inline the stylesheet in the events                                                                                                                                                     |
-| hooks                    | {}                 | hooks for events<br />refer to the [list](https://github.com/rrweb-io/rrweb/blob/9488deb6d54a5f04350c063d942da5e96ab74075/src/types.ts#L207)                                                       |
+| hooks                    | {}                 | hooks for events<br />refer to the [list](https://github.com/dom-replay/dom-replay/blob/master/packages/types/src/index.ts#L207)                                                       |
 | packFn                   | -                  | refer to the [storage optimization recipe](./docs/recipes/optimize-storage.md)                                                                                                                     |
 | sampling                 | -                  | refer to the [storage optimization recipe](./docs/recipes/optimize-storage.md)                                                                                                                     |
 | recordCanvas             | false              | Whether to record the canvas element. Available options:<br/>`false`, <br/>`true`                                                                                                                  |
-| recordCrossOriginIframes | false              | Whether to record cross origin iframes. rrweb has to be injected in each child iframe for this to work. Available options:<br/>`false`, <br/>`true`                                                |
+| recordCrossOriginIframes | false              | Whether to record cross origin iframes. dom-replay has to be injected in each child iframe for this to work. Available options:<br/>`false`, <br/>`true`                                                |
 | recordAfter              | 'load'             | If the document is not ready, then the recorder will start recording after the specified event is fired. Available options: `DOMContentLoaded`, `load`                                             |
 | inlineImages             | false              | whether to record the image content                                                                                                                                                                |
 | collectFonts             | false              | whether to collect fonts in the website                                                                                                                                                            |
-| userTriggeredOnInput     | false              | whether to add `userTriggered` on input events that indicates if this event was triggered directly by the user or not. [What is `userTriggered`?](https://github.com/rrweb-io/rrweb/pull/495)      |
+| userTriggeredOnInput     | false              | whether to add `userTriggered` on input events that indicates if this event was triggered directly by the user or not. [What is `userTriggered`?](https://github.com/dom-replay/dom-replay/blob/master/packages/types/src/index.ts)      |
 | plugins                  | []                 | load plugins to provide extended record functions. [What is plugins?](./docs/recipes/plugin.md)                                                                                                    |
-| errorHandler             | -                  | A callback that is called if something inside of rrweb throws an error. The callback receives the error as argument.                                                                               |
+| errorHandler             | -                  | A callback that is called if something inside of dom-replay throws an error. The callback receives the error as argument.                                                                               |
 
 #### Privacy
 
 You may find some contents on the webpage which are not willing to be recorded, then you can use the following approaches:
 
-- An element with the class name `.rr-block` will not be recorded. Instead, it will replay as a placeholder with the same dimension.
-- An element with the class name `.rr-ignore` will not record its input events.
-- All text of elements with the class name `.rr-mask` and their children will be masked.
+- An element with the class name `.dr-block` will not be recorded. Instead, it will replay as a placeholder with the same dimension.
+- An element with the class name `.dr-ignore` will not record its input events.
+- All text of elements with the class name `.dr-mask` and their children will be masked.
 - `input[type="password"]` will be masked by default.
 - Mask options to mask the content in input elements.
 
@@ -180,7 +182,7 @@ By default, all the emitted events are required to replay a session and if you d
 // We use a two-dimensional array to store multiple events array
 const eventsMatrix = [[]];
 
-rrweb.record({
+domReplay.record({
   emit(event, isCheckout) {
     // isCheckout is a flag to tell you the events has been checkout
     if (isCheckout) {
@@ -207,7 +209,7 @@ window.onerror = function () {
 };
 ```
 
-Due to the incremental-snapshot-chain mechanism rrweb used, we can not capture the last N events accurately. With the sample code above, you will finally get the last 200 to 400 events been sent to your backend.
+Due to the incremental-snapshot-chain mechanism dom-replay uses, we can not capture the last N events accurately. With the sample code above, you will finally get the last 200 to 400 events been sent to your backend.
 
 Similarly, you can also configure `checkoutEveryNms` to capture the last N minutes events:
 
@@ -215,7 +217,7 @@ Similarly, you can also configure `checkoutEveryNms` to capture the last N minut
 // We use a two-dimensional array to store multiple events array
 const eventsMatrix = [[]];
 
-rrweb.record({
+domReplay.record({
   emit(event, isCheckout) {
     // isCheckout is a flag to tell you the events has been checkout
     if (isCheckout) {
@@ -251,7 +253,7 @@ You need to include the style sheet before replay:
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/rrweb@latest/dist/style.css"
+  href="https://cdn.jsdelivr.net/npm/@dom-replay/core@latest/dist/style.css"
 />
 ```
 
@@ -260,14 +262,14 @@ And then initialize the replayer with the following code:
 ```js
 const events = YOUR_EVENTS;
 
-const replayer = new rrweb.Replayer(events);
+const replayer = new domReplay.Replayer(events);
 replayer.play();
 ```
 
 #### Control the replayer by API
 
 ```js
-const replayer = new rrweb.Replayer(events);
+const replayer = new domReplay.Replayer(events);
 
 // play
 replayer.play();
@@ -298,13 +300,13 @@ The replayer accepts options as its constructor's second parameter, and it has t
 | inactivePeriodThreshold | 10000         | the threshold in milliseconds for what should be considered an inactive period                                                                                                                                                 |
 | showWarning             | true          | whether to print warning messages during replay                                                                                                                                                                                |
 | showDebug               | false         | whether to print debug messages during replay                                                                                                                                                                                  |
-| blockClass              | 'rr-block'    | element with the class name will display as a blocked area                                                                                                                                                                     |
+| blockClass              | 'dr-block'    | element with the class name will display as a blocked area                                                                                                                                                                     |
 | liveMode                | false         | whether to enable live mode                                                                                                                                                                                                    |
 | insertStyleRules        | []            | accepts multiple CSS rule string, which will be injected into the replay iframe                                                                                                                                                |
 | triggerFocus            | true          | whether to trigger focus during replay                                                                                                                                                                                         |
 | UNSAFE_replayCanvas     | false         | whether to replay the canvas element. **Enable this will remove the sandbox, which is unsafe.**                                                                                                                                |
 | pauseAnimation          | true          | whether to pause CSS animation when the replayer is paused                                                                                                                                                                     |
-| mouseTail               | true          | whether to show mouse tail during replay. Set to false to disable mouse tail. A complete config can be found in this [type](https://github.com/rrweb-io/rrweb/blob/9488deb6d54a5f04350c063d942da5e96ab74075/src/types.ts#L407) |
+| mouseTail               | true          | whether to show mouse tail during replay. Set to false to disable mouse tail. A complete config can be found in this [type](https://github.com/dom-replay/dom-replay/blob/master/packages/types/src/index.ts) |
 | unpackFn                | -             | refer to the [storage optimization recipe](./docs/recipes/optimize-storage.md)                                                                                                                                                 |
 | logConfig               | -             | configuration of console output playback, refer to the [console recipe](./docs/recipes/console.md)                                                                                                                             |
 | plugins                 | []            | load plugins to provide extended replay functions. [What is plugins?](./docs/recipes/plugin.md)                                                                                                                                |
@@ -313,7 +315,7 @@ The replayer accepts options as its constructor's second parameter, and it has t
 
 #### Use @dom-replay/player
 
-Since rrweb's replayer ([@dom-replay/replay](packages/replay/)) only provides a basic UI, you can choose [@dom-replay/player](packages/@dom-replay/player/) which is based on rrweb's public APIs but has a feature-rich replayer UI.
+[@dom-replay/replay](packages/replay/) provides a minimal replay API. For a full UI with timeline and controls, use [@dom-replay/player](packages/player/) (Svelte) or [@dom-replay/player-react](packages/player-react/) (React).
 
 ##### Installation
 
@@ -334,14 +336,14 @@ npm install --save @dom-replay/player
 ```
 
 ```js
-import rrwebPlayer from '@dom-replay/player';
+import Player from '@dom-replay/player';
 import '@dom-replay/player/dist/style.css';
 ```
 
 ##### Usage
 
 ```js
-new rrwebPlayer({
+new Player({
   target: document.body, // customizable root element
   props: {
     events,
@@ -361,15 +363,15 @@ new rrwebPlayer({
 | speedOption    | [1, 2, 4, 8] | speed options in UI                                                  |
 | showController | true         | whether to show the controller UI                                    |
 | tags           | {}           | customize the custom events style with a key-value map               |
-| ...            | -            | all the rrweb Replayer options will be bypassed                      |
+| ...            | -            | all the Replayer options will be bypassed                            |
 
 #### Events
 
-Developers may want to extend the rrweb's replayer or respond to its events. Such as giving notification when the replayer starts to skip inactive time.
-So rrweb expose a public API `on` which allow developers to listen to the events and customize the reactions, and it has the following events:
+Developers may want to extend the dom-replay replayer or respond to its events. Such as giving notification when the replayer starts to skip inactive time.
+dom-replay exposes a public API `on` which allows developers to listen to the events and customize the reactions, and it has the following events:
 
 ```js
-const replayer = new rrweb.Replayer(events);
+const replayer = new domReplay.Replayer(events);
 replayer.on(EVENT_NAME, (payload) => {
   ...
 })
@@ -405,7 +407,7 @@ And there are three player UI events emitted in the same way:
 
 ## REPL tool
 
-You can also play with rrweb by using the REPL testing tool which does not need installation.
+You can also play with dom-replay by using the REPL testing tool which does not need installation.
 
 Run `pnpm repl` to launch a browser and ask for a URL you want to test on the CLI:
 
@@ -436,4 +438,4 @@ At this point, you can enter 'y' again on the CLI. The test tool will save the r
 Saved at PATH_TO_YOUR_REPO/temp/replay_2018_11_23T07_53_30.html
 ```
 
-This file uses the latest rrweb bundle code, so we can run `npm run bundle:browser` after patching the code, then refresh the static file to see and debug the impact of the latest code on replay.
+This file uses the latest dom-replay bundle code, so we can run `npm run bundle:browser` after patching the code, then refresh the static file to see and debug the impact of the latest code on replay.

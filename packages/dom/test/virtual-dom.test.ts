@@ -217,8 +217,8 @@ describe('RRDocument for browser environment', () => {
           type: NodeType.Element,
           isSVG: true,
           attributes: {
-            rr_width: '50px',
-            rr_height: '50px',
+            dr_width: '50px',
+            dr_height: '50px',
           },
           childNodes: [],
         },

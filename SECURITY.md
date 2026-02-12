@@ -1,10 +1,9 @@
-# Vulnerability Disclosure Policy
-
-This document outlines dom-replay's vulnerability disclosure policy.
+# Security Policy
 
 ## Reporting a Vulnerability
 
-Please do not report security vulnerabilities through public issue trackers.
-Instead, please report them through your organization's security reporting process, or email security@your-company.com.
+Please do not report security vulnerabilities through public issues.
 
-We appreciate your help in making dom-replay more secure.
+To report a vulnerability, please email vcatalano@gmail.com.
+
+We appreciate your help in keeping dom-replay secure.
