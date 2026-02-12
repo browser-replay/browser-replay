@@ -7,7 +7,7 @@ export default defineConfig({
   root: path.resolve(__dirname),
   resolve: {
     alias: {
-      '@dom-replay/player-react': path.resolve(__dirname, '../src'),
+      '@dom-replay/player': path.resolve(__dirname, '../src'),
       '@dom-replay/player-core': path.resolve(__dirname, '../../player-core/src'),
     },
   },

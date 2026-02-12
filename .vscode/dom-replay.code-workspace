@@ -25,8 +25,8 @@
       "path": "../packages/player"
     },
     {
-      "name": "@dom-replay/player-react",
-      "path": "../packages/player-react"
+      "name": "@dom-replay/player-svelte",
+      "path": "../packages/player-svelte"
     },
     {
       "name": "@dom-replay/player-core",

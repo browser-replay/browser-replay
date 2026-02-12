@@ -1,4 +1,4 @@
-# @dom-replay/player
+# @dom-replay/player-svelte
 
 ## 2.0.0-alpha.19
 

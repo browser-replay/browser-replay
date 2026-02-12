@@ -42,7 +42,7 @@ From the dom-replay repo root:
 bash scripts/pack-local-dev.sh
 ```
 
-This builds the packages needed for record + replay + player-react and writes tarballs to `.cache/dev-packs/<timestamp>/`.
+This builds the packages needed for record + replay + player and writes tarballs to `.cache/dev-packs/<timestamp>/`.
 
 ### 2. Install tarballs in the consuming app
 

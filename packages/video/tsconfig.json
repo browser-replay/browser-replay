@@ -24,7 +24,7 @@
   ],
   "references": [
     {
-      "path": "../player"
+      "path": "../player-svelte"
     },
     {
       "path": "../types"

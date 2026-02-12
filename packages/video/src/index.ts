@@ -2,11 +2,11 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import { chromium } from 'playwright';
 import { EventType, eventWithTime } from '@dom-replay/types';
-import type Player from '@dom-replay/player';
+import type Player from '@dom-replay/player-svelte';
 
 const playerScriptPath = path.resolve(
-  require.resolve('@dom-replay/player'),
-  '../../dist/player.umd.cjs',
+  require.resolve('@dom-replay/player-svelte'),
+  '../../dist/player-svelte.umd.cjs',
 );
 const playerStylePath = path.resolve(playerScriptPath, '../style.css');
 const playerUmdSource = fs.readFileSync(playerScriptPath, 'utf-8');
@@ -57,7 +57,7 @@ function getHtml(events: Array<eventWithTime>, config?: VideoConfig): string {
       )};
       /*-->*/
       const userConfig = ${JSON.stringify(config?.player || {})};
-      window.replayer = new domReplayPlayer.Player({
+      window.replayer = new (domReplayPlayerSvelte.default || domReplayPlayerSvelte)({
         target: document.body,
         width: userConfig.width,
         height: userConfig.height,
