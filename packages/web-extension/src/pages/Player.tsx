@@ -1,7 +1,7 @@
 /// <reference types="chrome"/>
 import { useRef, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Replayer from '@dom-replay/player';
+import Replayer from '@dom-replay/player-svelte';
 import {
   Box,
   Breadcrumb,
@@ -34,7 +34,7 @@ export default function Player() {
         const manifest = chrome.runtime.getManifest();
         const playerVersion = manifest.version_name || manifest.version;
         const linkEl = document.createElement('link');
-        linkEl.href = `https://cdn.jsdelivr.net/npm/@dom-replay/player@${playerVersion}/dist/style.min.css`;
+        linkEl.href = `https://cdn.jsdelivr.net/npm/@dom-replay/player-svelte@${playerVersion}/dist/style.min.css`;
         linkEl.rel = 'stylesheet';
         document.head.appendChild(linkEl);
         playerRef.current = new Replayer({

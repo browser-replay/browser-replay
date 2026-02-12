@@ -3,7 +3,7 @@
 .idea
 node_modules
 package-lock.json
-tsconfig.tsbuildinfo
+*.tsbuildinfo
 
 temp
 
@@ -18,6 +18,9 @@ temp
 # output of `yarn build`
 build
 dist
+
+# SvelteKit build output
+.svelte-kit/
 
 # turbo cache
 .turbo

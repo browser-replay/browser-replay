@@ -1,77 +1,44 @@
-import path from 'path';
-import glob from 'fast-glob';
-import { Plugin } from 'vite';
-import config from '../../vite.config.default';
-import { svelte } from '@sveltejs/vite-plugin-svelte';
-import sveltePreprocess from 'svelte-preprocess';
-import { emitDts, EmitDtsConfig } from 'svelte2tsx';
-import { createRequire } from 'node:module';
+/// <reference types="vite/client" />
 import { copyFileSync } from 'node:fs';
+import { defineConfig } from 'vite';
+import dts from 'vite-plugin-dts';
+import { resolve } from 'path';
 
-const declarationDir = path.resolve('./types');
-const require = createRequire(import.meta.url);
-const svelteShimsPath = require.resolve('svelte2tsx/svelte-shims-v4.d.ts');
-
-// Helper function to emit TypeScript definitions
-async function generateDts(inputPath: string) {
-  const config: EmitDtsConfig = {
-    declarationDir: declarationDir,
-    libRoot: path.dirname(inputPath),
-    svelteShimsPath: svelteShimsPath,
-  };
-
-  try {
-    await emitDts(config);
-  } catch (error) {
-    console.error(`Error generating .d.ts for ${inputPath}:`, error);
-  }
-}
-
-function viteSvelteDts(): Plugin {
-  return {
-    name: 'vite-plugin-svelte-dts',
-    async buildStart(options) {
-      console.log('Generating .d.ts files for Svelte components...');
-
-      const { input } = options;
-      
-      // Skip if no input (e.g., in dev mode)
-      if (!input) {
-        console.log('Skipping .d.ts generation (no input defined)');
-        return;
-      }
-      
-      if (typeof input === 'string') {
-        await generateDts(input);
-      } else if (Array.isArray(input)) {
-        for (const file of input) {
-          await generateDts(file);
-        }
-      } else {
-        for (const file of Object.values(input)) {
-          await generateDts(file);
-        }
-      }
-
-      // copy .d.ts files to src directory
-      const files = await glob('**/*.svelte.d.ts', {
-        cwd: declarationDir,
-        absolute: true,
-      });
-      for (const file of files) {
-        // resolve the path relative to the src directory
-        const dest = path.resolve('src', path.relative(declarationDir, file));
-        copyFileSync(file, dest);
-      }
+export default defineConfig({
+  build: {
+    lib: {
+      entry: {
+        'player': resolve(__dirname, 'src/index.ts'),
+        headless: resolve(__dirname, 'src/headless.ts'),
+      },
+      name: 'domReplayPlayer',
+      formats: ['es', 'cjs'],
     },
-  };
-}
-
-export default config(path.resolve(__dirname, 'src/main.ts'), 'domReplayPlayer', {
+    outDir: 'dist',
+    emptyOutDir: !process.argv.includes('--watch'),
+    minify: false,
+    sourcemap: true,
+    rollupOptions: {
+      // IMPORTANT: keep all React runtime entrypoints external.
+      // If we accidentally bundle `react/jsx-runtime`, consumers that alias React
+      // (e.g. preact/compat) can crash at runtime with React internals errors.
+      external: ['react', 'react-dom', 'react/jsx-runtime', 'react/jsx-dev-runtime'],
+    },
+  },
   plugins: [
-    viteSvelteDts(),
-    svelte({
-      preprocess: [sveltePreprocess({ typescript: true })],
+    dts({
+      tsconfigPath: resolve(__dirname, 'tsconfig.build.json'),
+      insertTypesEntry: true,
+      rollupTypes: true,
+      afterBuild: (emittedFiles: Map<string, string>) => {
+        // eslint-disable-next-line compat/compat -- build-time node config
+        const files: string[] = Array.from(emittedFiles.keys());
+        files.forEach((file) => {
+          const ctsFile = file.replace('.d.ts', '.d.cts');
+          copyFileSync(file, ctsFile);
+        });
+      },
     }),
   ],
 });
+

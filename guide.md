@@ -38,7 +38,8 @@ This also can be done by using the `@dom-replay/record` package and the CDN serv
 Besides `@dom-replay/core` and `@dom-replay/record`, dom-replay provides other packages for different usage.
 
 - [@dom-replay/core](packages/core): The core package, including record and replay functions.
-- [@dom-replay/player](packages/player): A GUI player providing a timeline and controls (pause, fast-forward, speed, etc.).
+- [@dom-replay/player](packages/player): React GUI player providing a timeline and controls.
+- [@dom-replay/player-svelte](packages/player-svelte): Svelte GUI player with timeline and controls (pause, fast-forward, speed, etc.).
 - [@dom-replay/snapshot](packages/snapshot): Snapshot and rebuilding features (serialize DOM state).
 - [@dom-replay/dom](packages/dom): A virtual DOM package.
 - [@dom-replay/dom-nodejs](packages/dom-nodejs): The Node.js version of `@dom-replay/dom` for server-side DOM operations.
@@ -313,31 +314,31 @@ The replayer accepts options as its constructor's second parameter, and it has t
 | useVirtualDom           | true          | whether to use Virtual Dom optimization in the process of skipping to a new point of time                                                                                                                                      |
 | logger                  | console       | The logger object used by the replayer to print warnings or errors                                                                                                                                                             |
 
-#### Use @dom-replay/player
+#### Use @dom-replay/player or @dom-replay/player-svelte
 
-[@dom-replay/replay](packages/replay/) provides a minimal replay API. For a full UI with timeline and controls, use [@dom-replay/player](packages/player/) (Svelte) or [@dom-replay/player-react](packages/player-react/) (React).
+[@dom-replay/replay](packages/replay/) provides a minimal replay API. For a full UI with timeline and controls, use [@dom-replay/player](packages/player/) (React) or [@dom-replay/player-svelte](packages/player-svelte/) (Svelte).
 
-##### Installation
+##### Installation (Svelte player)
 
-@dom-replay/player can also be included with `<script>`：
+@dom-replay/player-svelte can also be included with `<script>`：
 
 ```html
 <link
   rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@dom-replay/player@latest/dist/style.css"
+  href="https://cdn.jsdelivr.net/npm/@dom-replay/player-svelte@latest/dist/style.css"
 />
-<script src="https://cdn.jsdelivr.net/npm/@dom-replay/player@latest/dist/index.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@dom-replay/player-svelte@latest/dist/player-svelte.umd.cjs"></script>
 ```
 
 Or installed by using NPM：
 
 ```shell
-npm install --save @dom-replay/player
+npm install --save @dom-replay/player-svelte
 ```
 
 ```js
-import Player from '@dom-replay/player';
-import '@dom-replay/player/dist/style.css';
+import Player from '@dom-replay/player-svelte';
+import '@dom-replay/player-svelte/dist/style.css';
 ```
 
 ##### Usage

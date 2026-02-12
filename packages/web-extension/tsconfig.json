@@ -8,17 +8,23 @@
     "incremental": true,
     "resolveJsonModule": true,
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": [
+        "src/*"
+      ]
     },
     "jsx": "react-jsx"
   },
-  "exclude": ["dist", "node_modules", "vite.config.ts"],
+  "exclude": [
+    "dist",
+    "node_modules",
+    "vite.config.ts"
+  ],
   "references": [
     {
       "path": "../core"
     },
     {
-      "path": "../player"
+      "path": "../player-svelte"
     },
     {
       "path": "../types"

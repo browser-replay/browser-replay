@@ -1,86 +1,18 @@
-import type { eventWithTime } from '@dom-replay/types';
-import type { Replayer, playerConfig } from '@dom-replay/replay';
-import type { Mirror } from '@dom-replay/snapshot';
+import type * as React from 'react';
+import type { PlayerHandle, PlayerProps, PlayerStateSnapshot } from '@dom-replay/player-core';
 
-export type RRwebPlayerOptions = {
-  target: HTMLElement;
-  props: {
-    /**
-     * The events to replay.
-     * @default `[]`
-     */
-    events: eventWithTime[];
-    /**
-     * The width of the replayer
-     * @defaultValue `1024`
-     */
-    width?: number;
-    /**
-     * The height of the replayer
-     * @defaultValue `576`
-     */
-    height?: number;
-    /**
-     * The maximum scale of the replayer (1 = 100%). Set to 0 for unlimited
-     * @defaultValue `1`
-     */
-    maxScale?: number;
-    /**
-     * Whether to autoplay
-     * @defaultValue `true`
-     */
-    autoPlay?: boolean;
-    /**
-     * The default speed to play at
-     * @defaultValue `1`
-     */
-    speed?: number;
-    /**
-     * Speed options in UI
-     * @defaultValue `[1, 2, 4, 8]`
-     */
-    speedOption?: number[];
-    /**
-     * Whether to show the controller UI
-     * @defaultValue `true`
-     */
-    showController?: boolean;
-    /**
-     * Customize the custom events style with a key-value map
-     * @defaultValue `{}`
-     */
-    tags?: Record<string, string>;
-    /**
-     * Customize the color of inactive periods indicator in the progress bar with a valid CSS color string.
-     * @defaultValue `#D4D4D4`
-     */
-    inactiveColor?: string;
-  } & Partial<playerConfig>;
+export type DomReplayPlayerProps = PlayerProps & {
+  className?: string;
+  style?: React.CSSProperties;
+  /**
+   * Called when player state changes (play/pause, progress, speed, etc.).
+   * Fires frequently during playback (~10/sec due to throttling). Throttle
+   * further in your handler if you do heavy work.
+   */
+  onStateChange?: (state: PlayerStateSnapshot) => void;
 };
 
-export type RRwebPlayerExpose = {
-  addEventListener: (
-    event: string,
-    handler: (params: unknown) => unknown,
-  ) => void;
-  addEvent: (event: eventWithTime) => void;
-  getMetaData: Replayer['getMetaData'];
-  getReplayer: () => Replayer;
-  getMirror: () => Mirror;
-  // getSilly: () => void;
-  toggle: () => void;
-  setSpeed: (speed: number) => void;
-  toggleSkipInactive: () => void;
-  toggleFullscreen: () => void;
-  triggerResize: () => void;
-  $set: (options: { width: number; height: number }) => void;
-  play: () => void;
-  pause: () => void;
-  goto: (timeOffset: number, play?: boolean) => void;
-  playRange: (
-    timeOffset: number,
-    endTimeOffset: number,
-    startLooping?: boolean,
-    afterHook?: undefined | (() => void),
-  ) => void;
+export type DomReplayPlayerRef = Omit<PlayerHandle, 'mount' | 'destroy'> & {
+  getContainer(): HTMLDivElement | null;
 };
+

@@ -100,7 +100,7 @@ if [[ "$FORCE_BUILD" == "1" ]]; then
     --filter @dom-replay/record \
     --filter @dom-replay/replay \
     --filter @dom-replay/player-core \
-    --filter @dom-replay/player-react
+    --filter @dom-replay/player
   bash "${ROOT_DIR}/scripts/pack-local-dev.sh" --skip-build
 elif [[ "$SKIP_BUILD" == "1" ]]; then
   bash "${ROOT_DIR}/scripts/pack-local-dev.sh" --skip-build

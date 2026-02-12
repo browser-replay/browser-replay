@@ -35,7 +35,7 @@
   "dependencies": {
     "@chakra-ui/react": "^2.10.9",
     "@dom-replay/core": "workspace:*",
-    "@dom-replay/player": "workspace:*",
+    "@dom-replay/player-svelte": "workspace:*",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@tanstack/react-table": "^8.21.3",
