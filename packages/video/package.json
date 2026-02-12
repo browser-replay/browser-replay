@@ -1,6 +1,6 @@
 {
   "name": "@dom-replay/video",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "description": "Transform dom-replay sessions into video",
   "main": "build/index.js",
   "bin": {

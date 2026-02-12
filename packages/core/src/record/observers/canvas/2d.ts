@@ -64,7 +64,6 @@ export default function initCanvas2DMutationObserver(
         prop,
         {
           set(v) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
             cb(this.canvas, {
               type: CanvasContext['2D'],
               property: prop,

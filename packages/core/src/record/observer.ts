@@ -598,7 +598,6 @@ function initStyleSheetObserver(
     };
   }
 
-  // eslint-disable-next-line @typescript-eslint/unbound-method
   const insertRule = win.CSSStyleSheet.prototype.insertRule;
   win.CSSStyleSheet.prototype.insertRule = new Proxy(insertRule, {
     apply: callbackWrapper(
@@ -638,7 +637,6 @@ function initStyleSheetObserver(
     return win.CSSStyleSheet.prototype.insertRule.apply(this, [rule, index]);
   };
 
-  // eslint-disable-next-line @typescript-eslint/unbound-method
   const deleteRule = win.CSSStyleSheet.prototype.deleteRule;
   win.CSSStyleSheet.prototype.deleteRule = new Proxy(deleteRule, {
     apply: callbackWrapper(
@@ -678,7 +676,6 @@ function initStyleSheetObserver(
   let replace: (text: string) => Promise<CSSStyleSheet>;
 
   if (win.CSSStyleSheet.prototype.replace) {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     replace = win.CSSStyleSheet.prototype.replace;
     win.CSSStyleSheet.prototype.replace = new Proxy(replace, {
       apply: callbackWrapper(
@@ -710,7 +707,6 @@ function initStyleSheetObserver(
 
   let replaceSync: (text: string) => void;
   if (win.CSSStyleSheet.prototype.replaceSync) {
-    // eslint-disable-next-line @typescript-eslint/unbound-method
     replaceSync = win.CSSStyleSheet.prototype.replaceSync;
     win.CSSStyleSheet.prototype.replaceSync = new Proxy(replaceSync, {
       apply: callbackWrapper(
@@ -770,9 +766,7 @@ function initStyleSheetObserver(
 
   Object.entries(supportedNestedCSSRuleTypes).forEach(([typeKey, type]) => {
     unmodifiedFunctions[typeKey] = {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       insertRule: type.prototype.insertRule,
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       deleteRule: type.prototype.deleteRule,
     };
 
@@ -916,9 +910,7 @@ export function initAdoptedStyleSheetObserver(
     Object.defineProperty(host, 'adoptedStyleSheets', {
       configurable: originalPropertyDescriptor.configurable,
       enumerable: originalPropertyDescriptor.enumerable,
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       get: originalPropertyDescriptor.get,
-      // eslint-disable-next-line @typescript-eslint/unbound-method
       set: originalPropertyDescriptor.set,
     });
   });
@@ -933,7 +925,6 @@ function initStyleDeclarationObserver(
   }: observerParam,
   { win }: { win: IWindow },
 ): listenerHandler {
-  // eslint-disable-next-line @typescript-eslint/unbound-method
   const setProperty = win.CSSStyleDeclaration.prototype.setProperty;
   win.CSSStyleDeclaration.prototype.setProperty = new Proxy(setProperty, {
     apply: callbackWrapper(
@@ -971,7 +962,6 @@ function initStyleDeclarationObserver(
     ),
   });
 
-  // eslint-disable-next-line @typescript-eslint/unbound-method
   const removeProperty = win.CSSStyleDeclaration.prototype.removeProperty;
   win.CSSStyleDeclaration.prototype.removeProperty = new Proxy(removeProperty, {
     apply: callbackWrapper(

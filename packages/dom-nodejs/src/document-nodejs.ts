@@ -14,11 +14,8 @@ import {
   type IRRDocument,
   type CSSStyleDeclaration,
 } from '@dom-replay/dom';
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-var-requires
 const nwsapi = require('nwsapi');
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-var-requires
 const cssom = require('cssom');
-// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-var-requires
 const cssstyle = require('cssstyle');
 
 export class RRWindow {
@@ -36,7 +33,6 @@ export class RRDocument extends BaseRRDocument implements IRRDocument {
   private _nwsapi: NWSAPI | undefined;
   get nwsapi(): NWSAPI {
     if (!this._nwsapi) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
       this._nwsapi = nwsapi({
         document: this as unknown as Document,
         DOMException: null as unknown as new (
@@ -199,7 +195,6 @@ export class RRElement extends BaseRRElement {
   private _style: CSSStyleDeclarationType;
   constructor(tagName: string) {
     super(tagName);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     this._style = new cssstyle.CSSStyleDeclaration();
     const style = this._style;
     Object.defineProperty(this.attributes, 'style', {
@@ -344,7 +339,6 @@ export class RRStyleElement extends RRElement {
       for (const child of this.childNodes)
         if (child.RRNodeType === RRNodeType.Text)
           result += (child as RRText).textContent;
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment
       this._sheet = cssom.parse(result);
     }
     return this._sheet;

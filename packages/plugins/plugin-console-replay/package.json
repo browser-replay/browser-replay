@@ -1,6 +1,6 @@
 {
   "name": "@dom-replay/plugin-console-replay",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "description": "",
   "type": "module",
   "main": "./dist/plugin-console-replay.umd.cjs",

@@ -1,6 +1,6 @@
 {
   "name": "@dom-replay/player-react",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "description": "React wrapper around @dom-replay/player-core.",
   "license": "MIT",
   "type": "module",

@@ -71,7 +71,6 @@ function patchGLPrototype(
       const hookHandler = hookSetter<typeof prototype>(prototype, prop, {
         set(v) {
           // TODO: this could potentially also be an OffscreenCanvas as well as HTMLCanvasElement
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
           cb(this.canvas as HTMLCanvasElement, {
             type,
             property: prop,

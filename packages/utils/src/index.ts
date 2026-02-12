@@ -97,7 +97,6 @@ export function getUntaintedPrototype<T extends keyof BasePrototypeCache>(
     const win = iframeEl.contentWindow;
     if (!win) return defaultObj.prototype as BasePrototypeCache[T];
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-explicit-any
     const untaintedObject = (win as any)[key]
       .prototype as BasePrototypeCache[T];
     // cleanup
@@ -131,7 +130,6 @@ export function getUntaintedAccessor<
     ) as BasePrototypeCache[K][T];
 
   const untaintedPrototype = getUntaintedPrototype(key);
-  // eslint-disable-next-line @typescript-eslint/unbound-method
   const untaintedAccessor = Object.getOwnPropertyDescriptor(
     untaintedPrototype,
     accessor,
@@ -149,7 +147,6 @@ type BaseMethod<K extends keyof BasePrototypeCache> = (
   ...args: unknown[]
 ) => unknown;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const untaintedMethodCache: Record<string, BaseMethod<any>> = {};
 export function getUntaintedMethod<
   K extends keyof BasePrototypeCache,
@@ -251,7 +248,6 @@ export function patch(
     // Make sure it's a function first, as we need to attach an empty prototype for `defineProperties` to work
     // otherwise it'll throw "TypeError: Object.defineProperties called on non-object"
     if (typeof wrapped === 'function') {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       wrapped.prototype = wrapped.prototype || {};
       Object.defineProperties(wrapped, {
         __dr_original__: {

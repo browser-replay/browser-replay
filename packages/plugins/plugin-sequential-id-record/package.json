@@ -1,6 +1,6 @@
 {
   "name": "@dom-replay/plugin-sequential-id-record",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "description": "",
   "type": "module",
   "main": "./dist/plugin-sequential-id-record.umd.cjs",
