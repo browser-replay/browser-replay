@@ -22,7 +22,7 @@ async function injectRecording(frame, serverURL) {
   try {
     await frame.addScriptTag({ url: `${serverURL}/core.umd.cjs` });
     await frame.addScriptTag({
-      url: `${serverURL}/plugins/rrweb-plugin-canvas-webrtc-record.js`,
+      url: `${serverURL}/plugins/plugin-canvas-webrtc-record.js`,
     });
     await frame.evaluate(() => {
       const win = window;
@@ -31,9 +31,9 @@ async function injectRecording(frame, serverURL) {
 
       (async () => {
         win.events = [];
-        window.record = win.rrweb.record;
+        window.record = win.domReplay.record;
         window.plugin =
-          new rrwebPluginCanvasWebRTCRecord.RRWebPluginCanvasWebRTCRecord({
+          new domReplayPluginCanvasWebRTCRecord.RRWebPluginCanvasWebRTCRecord({
             signalSendCallback: (msg) => {
               // [record#callback] provides canvas id, stream, and webrtc sdpOffer signal & connect message
               _signal(msg);
@@ -82,12 +82,12 @@ async function startReplay(page, serverURL, recordedPage) {
 
   await page.addScriptTag({ url: `${serverURL}/core.umd.cjs` });
   await page.addScriptTag({
-    url: `${serverURL}/plugins/rrweb-plugin-canvas-webrtc-replay.js`,
+    url: `${serverURL}/plugins/plugin-canvas-webrtc-replay.js`,
   });
 
   return page.evaluate(() => {
     window.plugin =
-      new rrwebPluginCanvasWebRTCReplay.RRWebPluginCanvasWebRTCReplay({
+      new domReplayPluginCanvasWebRTCReplay.RRWebPluginCanvasWebRTCReplay({
         canvasFoundCallback(canvas, context) {
           console.log('canvas', canvas, context);
           // [replay#onBuild] gets id of canvas element and sends to recorded page
@@ -98,7 +98,7 @@ async function startReplay(page, serverURL, recordedPage) {
         },
       });
 
-    window.replayer = new rrweb.Replayer([], {
+    window.replayer = new domReplay.Replayer([], {
       UNSAFE_replayCanvas: true,
       liveMode: true,
       plugins: [window.plugin.initPlugin()],
@@ -199,7 +199,7 @@ void (async () => {
     if (!recordedPage) {
       throw new Error('No recorded page found');
     }
-    // disables content security policy which enables us to insert rrweb as a script tag
+    // disables content security policy which enables us to insert dom-replay as a script tag
     await recordedPage.setBypassCSP(true);
 
     replayerPage.on('console', (msg) =>

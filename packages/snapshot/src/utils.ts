@@ -32,7 +32,7 @@ export function isShadowRoot(n: Node): n is ShadowRoot {
 }
 
 /**
- * To fix the issue https://github.com/rrweb-io/rrweb/issues/933.
+ * To fix inline style ordering issues (see upstream rrweb issue #933).
  * Some websites use polyfilled shadow dom and this function is used to detect this situation.
  */
 export function isNativeShadowDom(shadowRoot: ShadowRoot): boolean {
@@ -282,7 +282,7 @@ export function toLowerCase<T extends string>(str: T): Lowercase<T> {
   return str.toLowerCase() as unknown as Lowercase<T>;
 }
 
-const ORIGINAL_ATTRIBUTE_NAME = '__rrweb_original__';
+const ORIGINAL_ATTRIBUTE_NAME = '__dr_original__';
 type PatchedGetImageData = {
   [ORIGINAL_ATTRIBUTE_NAME]: CanvasImageData['getImageData'];
 } & CanvasImageData['getImageData'];
@@ -359,7 +359,7 @@ export function getInputType(element: HTMLElement): Lowercase<string> | null {
   // when omitting the type of input element(e.g. <input />), the type is treated as text
   const type = (element as HTMLInputElement).type;
 
-  return element.hasAttribute('data-rr-is-password')
+  return element.hasAttribute('data-dr-is-password')
     ? 'password'
     : type
     ? // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
@@ -592,5 +592,5 @@ export function markCssSplits(
   cssText: string,
   style: HTMLStyleElement,
 ): string {
-  return splitCssText(cssText, style).join('/* rr_split */');
+  return splitCssText(cssText, style).join('/* dr_split */');
 }

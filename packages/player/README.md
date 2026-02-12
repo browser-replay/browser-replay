@@ -29,14 +29,14 @@ npm install --save @dom-replay/player
 ```
 
 ```js
-import rrwebPlayer from '@dom-replay/player';
+import Player from '@dom-replay/player';
 import '@dom-replay/player/dist/style.css';
 ```
 
 ## Usage
 
 ```js
-new rrwebPlayer({
+new Player({
   target: document.body, // customizable root element
   props: {
     events,
@@ -60,7 +60,7 @@ new rrwebPlayer({
 | inactiveColor  | #D4D4D4      | Customize the color of inactive periods indicator in the progress bar with a valid CSS color string. |
 | ...            | -            | all the [Replayer options](../../guide.md#options-1) will be bypassed                                |
 
-## methods on the rrwebPlayer component
+## methods on the Player component
 
 ```ts
 addEventListener(event: string, handler: (params: any) => unknown): void;

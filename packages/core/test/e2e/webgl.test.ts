@@ -84,7 +84,7 @@ describe('e2e webgl', () => {
     await hideMouseAnimation(page);
     await page.evaluate(`let events = ${JSON.stringify(snapshots)}`);
     await page.evaluate(`
-      const { Replayer } = rrweb;
+      const { Replayer } = domReplay;
       const replayer = new Replayer(events, {
         UNSAFE_replayCanvas: true,
       });
@@ -119,7 +119,7 @@ describe('e2e webgl', () => {
     await hideMouseAnimation(page);
     await page.evaluate(`let events = ${JSON.stringify(snapshots)}`);
     await page.evaluate(`
-      const { Replayer } = rrweb;
+      const { Replayer } = domReplay;
       const replayer = new Replayer(events, {
         UNSAFE_replayCanvas: true,
       });

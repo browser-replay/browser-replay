@@ -8,14 +8,14 @@ This feature aims to provide developers with more information about the bug scen
 You can enable the logger using default option like this:
 
 ```js
-import rrweb from 'rrweb';
+import { record } from '@dom-replay/record';
 import { getRecordConsolePlugin } from '@dom-replay/plugin-console-record';
 
-rrweb.record({
+record({
   emit: function emit(event) {
     // you should use console.log in this way to avoid errors.
-    const defaultLog = console.log['__rrweb_original__']
-      ? console.log['__rrweb_original__']
+    const defaultLog = console.log['__dr_original__']
+      ? console.log['__dr_original__']
       : console.log;
     defaultLog(event);
   },
@@ -25,19 +25,19 @@ rrweb.record({
 ```
 
 **alert**: You shouldn't call console.log(warn, error .etc) in the emit function or you would get the error: `Uncaught RangeError: Maximum call stack size exceeded`.
-You should call console.log.\_\_rrweb_original\_\_() instead.
+You should call console.log.\_\_dr_original\_\_() instead.
 
 You can also customize the behavior of logger like this:
 
 ```js
-import rrweb from 'rrweb';
+import { record } from '@dom-replay/record';
 import { getRecordConsolePlugin } from '@dom-replay/plugin-console-record';
 
-rrweb.record({
+record({
   emit: function emit(event) {
     // you should use console.log in this way to avoid errors.
-    const defaultLog = console.log['__rrweb_original__']
-      ? console.log['__rrweb_original__']
+    const defaultLog = console.log['__dr_original__']
+      ? console.log['__dr_original__']
       : console.log;
     defaultLog(event);
   },
@@ -70,10 +70,10 @@ All options are described below:
 If recorded events include data of console log type, we will automatically play them.
 
 ```js
-import rrweb from 'rrweb';
+import { Replayer } from '@dom-replay/replay';
 import { getReplayConsolePlugin } from '@dom-replay/plugin-console-replay';
 
-const replayer = new rrweb.Replayer(events, {
+const replayer = new Replayer(events, {
   plugins: [
     getReplayConsolePlugin({
       level: ['info', 'log', 'warn', 'error'],

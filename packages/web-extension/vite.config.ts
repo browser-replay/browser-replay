@@ -46,10 +46,10 @@ function useSpecialFormat(
 }
 
 /**
- * Get the extension version based on the rrweb version.
+ * Get the extension version based on the @dom-replay/core version.
  */
-function getExtensionVersion(rrwebVersion: string): string {
-  const parsedVersion = semver.parse(rrwebVersion.replace('^', ''));
+function getExtensionVersion(coreVersion: string): string {
+  const parsedVersion = semver.parse(coreVersion.replace('^', ''));
 
   if (!parsedVersion) {
     throw new Error('Invalid version format');
@@ -60,11 +60,11 @@ function getExtensionVersion(rrwebVersion: string): string {
     return `${parsedVersion.major}.${parsedVersion.minor}.${
       parsedVersion.patch
     }.${parsedVersion.prerelease[1] || 0}`;
-  } else if (rrwebVersion === '2.0.0') {
+  } else if (coreVersion === '2.0.0') {
     // This version has already been released as the first version. We need to add a patch version to it to avoid publishing conflicts.
     return '2.0.0.100';
   } else {
-    return rrwebVersion;
+    return coreVersion;
   }
 }
 
@@ -101,19 +101,19 @@ export default defineConfig({
         const BrowserName =
           process.env.TARGET_BROWSER === 'chrome' ? 'chrome' : 'firefox';
         const commonManifest = originalManifest.common;
-        const rrwebDependency =
+        const coreDependency =
           packageJson.dependencies!['@dom-replay/core'] ??
-          packageJson.dependencies!.rrweb!;
-        const rrwebVersion =
-          rrwebDependency.startsWith('workspace:') || rrwebDependency === '*'
+          (packageJson.dependencies as Record<string, string>).rrweb;
+        const coreVersion =
+          coreDependency?.startsWith('workspace:') || coreDependency === '*'
             ? (readPackageJson(
                 path.resolve(__dirname, '..', 'core', 'package.json'),
-              ).version ?? rrwebDependency)
-            : rrwebDependency.replace('^', '');
+              ).version ?? coreDependency)
+            : (coreDependency ?? '').replace('^', '');
         const manifest = {
-          version: getExtensionVersion(rrwebVersion),
+          version: getExtensionVersion(coreVersion),
           author: packageJson.author,
-          version_name: rrwebVersion,
+          version_name: coreVersion,
           ...commonManifest,
         };
         Object.assign(

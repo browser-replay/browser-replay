@@ -1,4 +1,4 @@
-# rrweb canvas webrtc plugin
+# dom-replay canvas webrtc plugin
 
 Plugin that live streams contents of canvas elements via webrtc
 
@@ -13,7 +13,7 @@ https://user-images.githubusercontent.com/4106/186701616-fd71a107-5d53-423c-ba09
 ```js
 // Record side
 
-import rrweb from 'rrweb';
+import { record } from '@dom-replay/record';
 import { RRWebPluginCanvasWebRTCRecord } from '@dom-replay/plugin-canvas-webrtc-record';
 
 const webRTCRecordPlugin = new RRWebPluginCanvasWebRTCRecord({
@@ -24,7 +24,7 @@ const webRTCRecordPlugin = new RRWebPluginCanvasWebRTCRecord({
   },
 });
 
-rrweb.record({
+record({
   emit: (event) => {
     // send these events to the `replayer.addEvent(event)`, how you do that is up to you
     // you can send them to a server for example which can then send them to the replayer
@@ -42,7 +42,7 @@ rrweb.record({
 
 ```js
 // Replay side
-import rrweb from 'rrweb';
+import { Replayer } from '@dom-replay/replay';
 import { RRWebPluginCanvasWebRTCReplay } from '@dom-replay/plugin-canvas-webrtc-replay';
 
 const webRTCReplayPlugin = new RRWebPluginCanvasWebRTCReplay({
@@ -59,7 +59,7 @@ const webRTCReplayPlugin = new RRWebPluginCanvasWebRTCReplay({
   },
 });
 
-const replayer = new rrweb.Replayer([], {
+const replayer = new Replayer([], {
   UNSAFE_replayCanvas: true, // turn canvas replay on!
   liveMode: true, // live mode is needed to stream events to the replayer
   plugins: [webRTCReplayPlugin.initPlugin()],
@@ -71,4 +71,4 @@ replayer.addEvent(event); // call this whenever an event is received from the re
 
 ## More info
 
-https://github.com/rrweb-io/rrweb/pull/976
+https://github.com/dom-replay/dom-replay (canvas WebRTC streaming)

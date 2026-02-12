@@ -69,11 +69,11 @@ function record<T = eventWithTime>(
     emit,
     checkoutEveryNms,
     checkoutEveryNth,
-    blockClass = 'rr-block',
+    blockClass = 'dr-block',
     blockSelector = null,
-    ignoreClass = 'rr-ignore',
+    ignoreClass = 'dr-ignore',
     ignoreSelector = null,
-    maskTextClass = 'rr-mask',
+    maskTextClass = 'dr-mask',
     maskTextSelector = null,
     inlineStylesheet = true,
     maskAllInputs,
@@ -202,7 +202,7 @@ function record<T = eventWithTime>(
       emit?.(eventProcessor(e), isCheckout);
     } else if (passEmitsToParent) {
       const message: CrossOriginIframeMessageEventContent<T> = {
-        type: 'rrweb',
+        type: 'dom-replay',
         event: eventProcessor(e),
         origin: window.location.origin,
         isCheckout,

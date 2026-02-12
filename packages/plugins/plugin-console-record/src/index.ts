@@ -230,7 +230,7 @@ function initLogObserver(
               });
             }
           } catch (error) {
-            original('rrweb logger error:', error, ...args);
+            original('dom-replay logger error:', error, ...args);
           } finally {
             inStack = false;
           }
@@ -240,7 +240,7 @@ function initLogObserver(
   }
 }
 
-export const PLUGIN_NAME = 'rrweb/console@1';
+export const PLUGIN_NAME = '@dom-replay/console@1';
 
 export const getRecordConsolePlugin: (
   options?: LogRecordOptions,

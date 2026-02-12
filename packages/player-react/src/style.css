@@ -1,4 +1,4 @@
-.rr-player {
+.dr-player {
   position: relative;
   background: white;
   float: left;
@@ -6,7 +6,7 @@
   box-shadow: 0 24px 48px rgba(17, 16, 62, 0.12);
 }
 
-.rr-player__frame {
+.dr-player__frame {
   position: relative;
   overflow: hidden;
 }
@@ -128,7 +128,7 @@
 
 /* ── Controller ── */
 
-.rr-controller {
+.dr-controller {
   width: 100%;
   height: 80px;
   background: #fff;
@@ -141,13 +141,13 @@
 
 /* ── Timeline ── */
 
-.rr-timeline {
+.dr-timeline {
   width: 80%;
   display: flex;
   align-items: center;
 }
 
-.rr-timeline__time {
+.dr-timeline__time {
   display: inline-block;
   width: 100px;
   text-align: center;
@@ -159,7 +159,7 @@
 
 /* ── Progress bar ── */
 
-.rr-progress {
+.dr-progress {
   flex: 1;
   height: 12px;
   background: #eee;
@@ -171,12 +171,12 @@
   border-bottom: solid 4px #fff;
 }
 
-.rr-progress.disabled {
+.dr-progress.disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.rr-progress__step {
+.dr-progress__step {
   height: 100%;
   position: absolute;
   left: 0;
@@ -185,13 +185,13 @@
   border-radius: 3px;
 }
 
-.rr-progress__inactive {
+.dr-progress__inactive {
   height: 4px;
   position: absolute;
   top: 0;
 }
 
-.rr-progress__custom {
+.dr-progress__custom {
   width: 10px;
   height: 5px;
   position: absolute;
@@ -199,7 +199,7 @@
   transform: translate(-50%, -50%);
 }
 
-.rr-progress__handler {
+.dr-progress__handler {
   width: 20px;
   height: 20px;
   border-radius: 10px;
@@ -210,13 +210,13 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
 }
 
-.rr-progress__handler:hover {
+.dr-progress__handler:hover {
   transform: translate(-50%, -50%) scale(1.2);
 }
 
 /* ── Button row ── */
 
-.rr-controller__btns {
+.dr-controller__btns {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -224,7 +224,7 @@
   gap: 2px;
 }
 
-.rr-controller__btns button {
+.dr-controller__btns button {
   width: 32px;
   height: 32px;
   display: flex;
@@ -239,34 +239,34 @@
   transition: background 0.15s ease, color 0.15s ease;
 }
 
-.rr-controller__btns button:hover {
+.dr-controller__btns button:hover {
   background: #f0f0fe;
 }
 
-.rr-controller__btns button:active {
+.dr-controller__btns button:active {
   background: #e0e1fe;
 }
 
-.rr-controller__btns button.active {
+.dr-controller__btns button.active {
   color: #fff;
   background: rgb(73, 80, 246);
 }
 
-.rr-controller__btns button.active:hover {
+.dr-controller__btns button.active:hover {
   background: rgb(60, 67, 230);
 }
 
-.rr-controller__btns button:disabled {
+.dr-controller__btns button:disabled {
   cursor: not-allowed;
   opacity: 0.4;
 }
 
-.rr-controller__btns button:disabled:hover {
+.dr-controller__btns button:disabled:hover {
   background: none;
 }
 
 /* Speed buttons need to accommodate text */
-.rr-controller__btns button:not([aria-label]) {
+.dr-controller__btns button:not([aria-label]) {
   width: auto;
   min-width: 32px;
   padding: 0 8px;
@@ -275,7 +275,7 @@
 
 /* ── SVG icon sizing ── */
 
-.rr-controller-icon {
+.dr-controller-icon {
   display: block;
   width: 16px;
   height: 16px;
@@ -284,18 +284,18 @@
 
 /* ── Toggle Switch (skip inactive) ── */
 
-.rr-switch {
+.dr-switch {
   height: 1em;
   display: flex;
   align-items: center;
   margin: 0 4px;
 }
 
-.rr-switch.disabled {
+.dr-switch.disabled {
   opacity: 0.5;
 }
 
-.rr-switch__label {
+.dr-switch__label {
   margin: 0 8px;
   font-size: 13px;
   color: #11103e;
@@ -303,14 +303,14 @@
   white-space: nowrap;
 }
 
-.rr-switch input[type='checkbox'] {
+.dr-switch input[type='checkbox'] {
   position: absolute;
   opacity: 0;
   width: 0;
   height: 0;
 }
 
-.rr-switch label {
+.dr-switch label {
   width: 2em;
   height: 1em;
   position: relative;
@@ -318,11 +318,11 @@
   display: block;
 }
 
-.rr-switch.disabled label {
+.dr-switch.disabled label {
   cursor: not-allowed;
 }
 
-.rr-switch label::before {
+.dr-switch label::before {
   content: '';
   position: absolute;
   width: 2em;
@@ -333,7 +333,7 @@
   border-radius: 50px;
 }
 
-.rr-switch label::after {
+.dr-switch label::after {
   content: '';
   position: absolute;
   width: 1em;
@@ -346,11 +346,11 @@
   z-index: 2;
 }
 
-.rr-switch input[type='checkbox']:checked + label::before {
+.dr-switch input[type='checkbox']:checked + label::before {
   background: rgb(73, 80, 246);
 }
 
-.rr-switch input[type='checkbox']:checked + label::after {
+.dr-switch input[type='checkbox']:checked + label::after {
   left: 1.1em;
 }
 

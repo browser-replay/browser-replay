@@ -10,6 +10,7 @@ import { visualizer } from 'rollup-plugin-visualizer';
 
 // don't empty out dir if --watch flag is passed
 const emptyOutDir = !process.argv.includes('--watch');
+const isWatch = process.argv.includes('--watch');
 /**
  * Chrome web store does not allow base64 inline workers.
  * For chrome extension, we need to disable worker inlining to pass the review.
@@ -26,9 +27,9 @@ function safeAnalysisBaseName(input: unknown): string | undefined {
     .replace(/[\/\s]+/g, '-')
     .replace(/[^a-zA-Z0-9._-]/g, '');
 
-  // Ensure we never generate files with an rrweb prefix.
-  const withoutRrwebPrefix = sanitized.replace(/^rrweb[-_]?/i, '');
-  return withoutRrwebPrefix || sanitized || undefined;
+  // Strip legacy rrweb prefix if present (for backwards compatibility).
+  const withoutLegacyPrefix = sanitized.replace(/^rrweb[-_]?/i, '');
+  return withoutLegacyPrefix || sanitized || undefined;
 }
 
 function getPackageJsonNameFromCwd(): string | undefined {
@@ -52,6 +53,9 @@ function minifyAndUMDPlugin({
   return {
     name: 'minify-plugin',
     async writeBundle(outputOptions, bundle) {
+      if (isWatch && process.env.SKIP_UMD === '1') return;
+
+      const tasks: Promise<void>[] = [];
       for (const file of Object.values(bundle)) {
         if (
           file.type === 'asset' &&
@@ -67,40 +71,44 @@ function minifyAndUMDPlugin({
             '',
           );
           const outputFilePath = resolve(outputOptions.dir!, baseFileName);
-          // console.log(outputFilePath, 'minifying', file.fileName);
           if (isCSS) {
-            await buildFile({
-              input: inputFilePath,
-              output: `${outputFilePath}.min.css`,
-              minify: true,
-              isCss: true,
-              outDir,
-            });
+            tasks.push(
+              buildFile({
+                input: inputFilePath,
+                output: `${outputFilePath}.min.css`,
+                minify: true,
+                isCss: true,
+                outDir,
+              }),
+            );
           } else {
-            await buildFile({
-              name,
-              input: inputFilePath,
-              output: `${outputFilePath}.umd.cjs`,
-              minify: false,
-              isCss: false,
-              outDir,
-            });
-            await buildFile({
-              name,
-              input: inputFilePath,
-              output: `${outputFilePath}.umd.min.cjs`,
-              minify: true,
-              isCss: false,
-              outDir,
-            });
+            tasks.push(
+              buildFile({
+                name,
+                input: inputFilePath,
+                output: `${outputFilePath}.umd.cjs`,
+                minify: false,
+                isCss: false,
+                outDir,
+              }),
+              buildFile({
+                name,
+                input: inputFilePath,
+                output: `${outputFilePath}.umd.min.cjs`,
+                minify: true,
+                isCss: false,
+                outDir,
+              }),
+            );
           }
         }
       }
+      await Promise.all(tasks);
     },
   };
 }
 
-async function buildFile({
+function buildFile({
   name,
   input,
   output,
@@ -114,8 +122,8 @@ async function buildFile({
   outDir: string;
   minify: boolean;
   isCss: boolean;
-}) {
-  await build({
+}): Promise<void> {
+  return build({
     entryPoints: [input],
     outfile: output,
     minify,
@@ -128,10 +136,11 @@ async function buildFile({
         libraryName: name,
       }),
     ],
+  }).then(() => {
+    const filename = output.replace(new RegExp(`^.+/(${outDir}/)`), '$1');
+    console.log(filename);
+    console.log(`${filename}.map`);
   });
-  const filename = output.replace(new RegExp(`^.+/(${outDir}/)`), '$1');
-  console.log(filename);
-  console.log(`${filename}.map`);
 }
 
 export default function (
@@ -150,7 +159,7 @@ export default function (
         entry,
         name,
         fileName,
-        // TODO: turn on `umd` for rrweb when https://github.com/schummar/vite/tree/feature/libMultiEntryUMD gets merged
+        // TODO: turn on `umd` for multi-entry when https://github.com/schummar/vite/tree/feature/libMultiEntryUMD gets merged
         // More info: https://github.com/vitejs/vite/pull/7047#issuecomment-1288080855
         // formats: ['es', 'umd', 'cjs'],
         formats,
@@ -166,16 +175,15 @@ export default function (
 
       sourcemap: true,
 
-      // rollupOptions: {
-      //   output: {
-      //     manualChunks: {},
-      //   },
-      // },
+      rollupOptions: {
+        maxParallelFileOps: 32,
+      },
     },
     plugins: [
       dts({
         insertTypesEntry: true,
         rollupTypes: true,
+        skipDiagnostics: true,
         afterBuild: (emittedFiles: Map<string, string>) => {
           // To pass publint (`npm x publint@latest`) and ensure the
           // package is supported by all consumers, we must export types that are
@@ -189,17 +197,20 @@ export default function (
         },
       }),
       minifyAndUMDPlugin({ name, outDir }),
-      visualizer({
-        filename: resolve(
-          process.cwd(),
-          `${safeAnalysisBaseName(fileName) ??
-          getPackageJsonNameFromCwd() ??
-          safeAnalysisBaseName(name) ??
-          'bundle'
-          }-bundle-analysis.html`,
-        ), // Path for the HTML report
-        open: false, // don't Automatically open the report in the browser
-      }),
+      ...(process.env.ANALYZE === 'true'
+        ? [
+            visualizer({
+              filename: resolve(
+                process.cwd(),
+                `${safeAnalysisBaseName(fileName) ??
+                  getPackageJsonNameFromCwd() ??
+                  safeAnalysisBaseName(name) ??
+                  'bundle'}-bundle-analysis.html`,
+              ),
+              open: false,
+            }),
+          ]
+        : []),
       {
         name: 'remove-worker-inline',
         enforce: 'pre',

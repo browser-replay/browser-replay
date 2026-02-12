@@ -61,7 +61,7 @@ export function serializeArg(
   ) {
     const name = value.constructor.name;
     return {
-      rr_type: name,
+      dr_type: name,
       args: [Object.values(value)],
     };
   } else if (
@@ -74,13 +74,13 @@ export function serializeArg(
     const base64 = encode(value);
 
     return {
-      rr_type: name,
+      dr_type: name,
       base64,
     };
   } else if (value instanceof DataView) {
     const name = value.constructor.name;
     return {
-      rr_type: name,
+      dr_type: name,
       args: [
         serializeArg(value.buffer, win, ctx),
         value.byteOffset,
@@ -91,7 +91,7 @@ export function serializeArg(
     const name = value.constructor.name;
     const { src } = value;
     return {
-      rr_type: name,
+      dr_type: name,
       src,
     };
   } else if (value instanceof HTMLCanvasElement) {
@@ -99,19 +99,19 @@ export function serializeArg(
     // TODO: move `toDataURL` to web worker if possible
     const src = value.toDataURL(); // heavy on large canvas
     return {
-      rr_type: name,
+      dr_type: name,
       src,
     };
   } else if (value instanceof ImageData) {
     const name = value.constructor.name;
     return {
-      rr_type: name,
+      dr_type: name,
       args: [serializeArg(value.data, win, ctx), value.width, value.height],
     };
     // } else if (value instanceof Blob) {
     //   const name = value.constructor.name;
     //   return {
-    //     rr_type: name,
+    //     dr_type: name,
     //     data: [serializeArg(await value.arrayBuffer(), win, ctx)],
     //     type: value.type,
     //   };
@@ -120,7 +120,7 @@ export function serializeArg(
     const index = saveWebGLVar(value, win, ctx) as number;
 
     return {
-      rr_type: name,
+      dr_type: name,
       index: index,
     };
   }

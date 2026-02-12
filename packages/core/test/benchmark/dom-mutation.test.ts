@@ -103,7 +103,7 @@ describe('benchmark: mutation observer', () => {
       scriptEl.src = url;
       document.head.append(scriptEl);
     }, scriptUrl);
-    await page.waitForFunction('window.rrweb');
+    await page.waitForFunction('window.domReplay');
   };
 
   for (const suite of suites) {
@@ -143,7 +143,7 @@ describe('benchmark: mutation observer', () => {
                 resolve(lastEvent.timestamp - start);
               },
             };
-            const record = (window as any).rrweb.record;
+            const record = (window as any).domReplay.record;
             record(options);
 
             start = Date.now();

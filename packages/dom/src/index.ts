@@ -154,7 +154,7 @@ export class RRMediaElement extends BaseRRMediaElement {}
 export class RRDialogElement extends BaseRRDialogElement {}
 
 export class RRCanvasElement extends RRElement implements IRRElement {
-  public rr_dataURL: string | null = null;
+  public dr_dataURL: string | null = null;
   public canvasMutations: {
     event: canvasEventWithTime;
     mutation: canvasMutationData;

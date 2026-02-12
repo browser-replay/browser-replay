@@ -63,7 +63,7 @@ export const startServer = (defaultPort = 3030) =>
 
       let pathname = path.join(__dirname, sanitizePath);
       if (/^\/(rrweb|core).*\.c?js.*/.test(sanitizePath)) {
-        // Serve built bundles from `dist/` (tests may request legacy rrweb.* names)
+        // Serve built bundles from `dist/` (legacy /rrweb/ paths map to /core/)
         const normalizedBundlePath = sanitizePath.replace(/^\/rrweb/, '/core');
         pathname = path.join(__dirname, `../dist`, normalizedBundlePath);
       }
@@ -122,7 +122,7 @@ export function stringifySnapshots(snapshots: eventWithTime[]): string {
               s.data.source === IncrementalSource.ViewportResize)) ||
           // ignore '[vite] connected' messages from vite
           (s.type === EventType.Plugin &&
-            s.data.plugin === 'rrweb/console@1' &&
+            s.data.plugin === '@dom-replay/console@1' &&
             (s.data.payload as { payload: string[] })?.payload?.find((msg) =>
               msg.includes('[vite] connected'),
             ))
@@ -135,7 +135,7 @@ export function stringifySnapshots(snapshots: eventWithTime[]): string {
         if (s.type === EventType.Meta) {
           s.data.href = 'about:blank';
         }
-        // FIXME: travis coordinates seems different with my laptop
+        // Normalize coordinates for cross-environment snapshot stability (CI vs local)
         const coordinatesReg =
           /(bottom|top|left|right|width|height): \d+(\.\d+)?px/g;
         if (
@@ -193,14 +193,14 @@ export function stringifySnapshots(snapshots: eventWithTime[]): string {
               // strip blob:urls as they are different every time
               stripBlobURLsFromAttributes(add.node);
 
-              // strip rr_dataURL as they are not consistent
+              // strip dr_dataURL as they are not consistent
               if (
-                'rr_dataURL' in add.node.attributes &&
-                add.node.attributes.rr_dataURL &&
-                typeof add.node.attributes.rr_dataURL === 'string'
+                'dr_dataURL' in add.node.attributes &&
+                add.node.attributes.dr_dataURL &&
+                typeof add.node.attributes.dr_dataURL === 'string'
               ) {
-                add.node.attributes.rr_dataURL =
-                  add.node.attributes.rr_dataURL.replace(/,.+$/, ',...');
+                add.node.attributes.dr_dataURL =
+                  add.node.attributes.dr_dataURL.replace(/,.+$/, ',...');
               }
             }
           });
@@ -214,7 +214,7 @@ export function stringifySnapshots(snapshots: eventWithTime[]): string {
           }
         } else if (
           s.type === EventType.Plugin &&
-          s.data.plugin === 'rrweb/console@1'
+          s.data.plugin === '@dom-replay/console@1'
         ) {
           const pluginPayload = (
             s as pluginEvent<{
@@ -790,7 +790,7 @@ export async function waitForIFrameLoad(
 
 export function generateRecordSnippet(options: recordOptions<eventWithTime>) {
   return `
-  rrweb.record({
+  domReplay.record({
     emit: event => {
       if (!window.snapshots) window.snapshots = [];
       window.snapshots.push(event);

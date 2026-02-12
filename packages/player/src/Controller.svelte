@@ -337,7 +337,7 @@
 </script>
 
 <style>
-  .rr-controller {
+  .dr-controller {
     width: 100%;
     height: 80px;
     background: #fff;
@@ -348,20 +348,20 @@
     border-radius: 0 0 5px 5px;
   }
 
-  .rr-timeline {
+  .dr-timeline {
     width: 80%;
     display: flex;
     align-items: center;
   }
 
-  .rr-timeline__time {
+  .dr-timeline__time {
     display: inline-block;
     width: 100px;
     text-align: center;
     color: #11103e;
   }
 
-  .rr-progress {
+  .dr-progress {
     flex: 1;
     height: 12px;
     background: #eee;
@@ -373,11 +373,11 @@
     border-bottom: solid 4px #fff;
   }
 
-  .rr-progress.disabled {
+  .dr-progress.disabled {
     cursor: not-allowed;
   }
 
-  .rr-progress__step {
+  .dr-progress__step {
     height: 100%;
     position: absolute;
     left: 0;
@@ -385,7 +385,7 @@
     background: #e0e1fe;
   }
 
-  .rr-progress__handler {
+  .dr-progress__handler {
     width: 20px;
     height: 20px;
     border-radius: 10px;
@@ -395,14 +395,14 @@
     background: rgb(73, 80, 246);
   }
 
-  .rr-controller__btns {
+  .dr-controller__btns {
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 13px;
   }
 
-  .rr-controller__btns button {
+  .dr-controller__btns button {
     width: 32px;
     height: 32px;
     display: flex;
@@ -415,33 +415,33 @@
     cursor: pointer;
   }
 
-  .rr-controller__btns button:active {
+  .dr-controller__btns button:active {
     background: #e0e1fe;
   }
 
-  .rr-controller__btns button.active {
+  .dr-controller__btns button.active {
     color: #fff;
     background: rgb(73, 80, 246);
   }
 
-  .rr-controller__btns button:disabled {
+  .dr-controller__btns button:disabled {
     cursor: not-allowed;
   }
 </style>
 
 {#if showController}
-  <div class="rr-controller">
-    <div class="rr-timeline">
-      <span class="rr-timeline__time">{formatTime(currentTime)}</span>
+  <div class="dr-controller">
+    <div class="dr-timeline">
+      <span class="dr-timeline__time">{formatTime(currentTime)}</span>
       <div
-        class="rr-progress"
+        class="dr-progress"
         class:disabled={speedState === 'skipping'}
         bind:this={progress}
         on:click={handleProgressClick}
         on:keydown={handleProgressKeydown}
       >
         <div
-          class="rr-progress__step"
+          class="dr-progress__step"
           style="width: {percentage}"
         />
         {#each inactivePeriods as period}
@@ -460,11 +460,11 @@
           />
         {/each}
 
-        <div class="rr-progress__handler" style="left: {percentage}" />
+        <div class="dr-progress__handler" style="left: {percentage}" />
       </div>
-      <span class="rr-timeline__time">{formatTime(meta.totalTime)}</span>
+      <span class="dr-timeline__time">{formatTime(meta.totalTime)}</span>
     </div>
-    <div class="rr-controller__btns">
+    <div class="dr-controller__btns">
       <button on:click={toggle}>
         {#if playerState === 'playing'}
           <svg

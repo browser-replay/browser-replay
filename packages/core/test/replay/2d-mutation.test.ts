@@ -51,7 +51,7 @@ describe('canvas2DMutation', () => {
           property: 'drawImage',
           args: [
             {
-              rr_type: 'ImageBitmap',
+              dr_type: 'ImageBitmap',
               args: [],
             },
             0,

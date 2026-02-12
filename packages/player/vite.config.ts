@@ -67,7 +67,7 @@ function viteSvelteDts(): Plugin {
   };
 }
 
-export default config(path.resolve(__dirname, 'src/main.ts'), 'rrwebPlayer', {
+export default config(path.resolve(__dirname, 'src/main.ts'), 'domReplayPlayer', {
   plugins: [
     viteSvelteDts(),
     svelte({

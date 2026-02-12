@@ -648,8 +648,8 @@ function serializeElementNode(
   if (tagName === 'dialog' && (n as HTMLDialogElement).open) {
     // register what type of dialog is this
     // `modal` or `non-modal`
-    // this is used to trigger `showModal()` or `show()` on replay (outside of @dom-replay/snapshot, in rrweb)
-    (attributes as DialogAttributes).rr_open_mode = n.matches('dialog:modal')
+    // this is used to trigger `showModal()` or `show()` on replay (outside of @dom-replay/snapshot, in dom-replay)
+    (attributes as DialogAttributes).dr_open_mode = n.matches('dialog:modal')
       ? 'modal'
       : 'non-modal';
   }
@@ -659,7 +659,7 @@ function serializeElementNode(
     if ((n as ICanvas).__context === '2d') {
       // only record this on 2d canvas
       if (!is2DCanvasBlank(n as HTMLCanvasElement)) {
-        attributes.rr_dataURL = (n as HTMLCanvasElement).toDataURL(
+        attributes.dr_dataURL = (n as HTMLCanvasElement).toDataURL(
           dataURLOptions.type,
           dataURLOptions.quality,
         );
@@ -682,7 +682,7 @@ function serializeElementNode(
 
       // no need to save dataURL if it's the same as blank canvas
       if (canvasDataURL !== blankCanvasDataURL) {
-        attributes.rr_dataURL = canvasDataURL;
+        attributes.dr_dataURL = canvasDataURL;
       }
     }
   }
@@ -702,7 +702,7 @@ function serializeElementNode(
         canvasService!.width = image.naturalWidth;
         canvasService!.height = image.naturalHeight;
         canvasCtx!.drawImage(image, 0, 0);
-        attributes.rr_dataURL = canvasService!.toDataURL(
+        attributes.dr_dataURL = canvasService!.toDataURL(
           dataURLOptions.type,
           dataURLOptions.quality,
         );
@@ -732,26 +732,26 @@ function serializeElementNode(
   // media elements
   if (['audio', 'video'].includes(tagName)) {
     const mediaAttributes = attributes as mediaAttributes;
-    mediaAttributes.rr_mediaState = (n as HTMLMediaElement).paused
+    mediaAttributes.dr_mediaState = (n as HTMLMediaElement).paused
       ? 'paused'
       : 'played';
-    mediaAttributes.rr_mediaCurrentTime = (n as HTMLMediaElement).currentTime;
-    mediaAttributes.rr_mediaPlaybackRate = (n as HTMLMediaElement).playbackRate;
-    mediaAttributes.rr_mediaMuted = (n as HTMLMediaElement).muted;
-    mediaAttributes.rr_mediaLoop = (n as HTMLMediaElement).loop;
-    mediaAttributes.rr_mediaVolume = (n as HTMLMediaElement).volume;
+    mediaAttributes.dr_mediaCurrentTime = (n as HTMLMediaElement).currentTime;
+    mediaAttributes.dr_mediaPlaybackRate = (n as HTMLMediaElement).playbackRate;
+    mediaAttributes.dr_mediaMuted = (n as HTMLMediaElement).muted;
+    mediaAttributes.dr_mediaLoop = (n as HTMLMediaElement).loop;
+    mediaAttributes.dr_mediaVolume = (n as HTMLMediaElement).volume;
   }
   // Scroll
   if (!newlyAddedElement) {
     // `scrollTop` and `scrollLeft` are expensive calls because they trigger reflow.
     // Since `scrollTop` & `scrollLeft` are always 0 when an element is added to the DOM.
-    // And scrolls also get picked up by rrweb's ScrollObserver
+    // And scrolls also get picked up by dom-replay's ScrollObserver
     // So we can safely skip the `scrollTop/Left` calls for newly added elements
     if (n.scrollLeft) {
-      attributes.rr_scrollLeft = n.scrollLeft;
+      attributes.dr_scrollLeft = n.scrollLeft;
     }
     if (n.scrollTop) {
-      attributes.rr_scrollTop = n.scrollTop;
+      attributes.dr_scrollTop = n.scrollTop;
     }
   }
   // block element
@@ -759,8 +759,8 @@ function serializeElementNode(
     const { width, height } = n.getBoundingClientRect();
     attributes = {
       class: attributes.class,
-      rr_width: `${width}px`,
-      rr_height: `${height}px`,
+      dr_width: `${width}px`,
+      dr_height: `${height}px`,
     };
   }
   // iframe
@@ -768,7 +768,7 @@ function serializeElementNode(
     if (!(n as HTMLIFrameElement).contentDocument) {
       // we can't record it directly as we can't see into it
       // preserve the src attribute so a decision can be taken at replay time
-      attributes.rr_src = attributes.src;
+      attributes.dr_src = attributes.src;
     }
     delete attributes.src; // prevent auto loading
   }
@@ -1267,9 +1267,9 @@ function snapshot(
 ): serializedNodeWithId | null {
   const {
     mirror = new Mirror(),
-    blockClass = 'rr-block',
+    blockClass = 'dr-block',
     blockSelector = null,
-    maskTextClass = 'rr-mask',
+    maskTextClass = 'dr-mask',
     maskTextSelector = null,
     inlineStylesheet = true,
     inlineImages = false,

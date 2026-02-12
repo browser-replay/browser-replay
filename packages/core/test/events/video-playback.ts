@@ -107,11 +107,11 @@ const events: eventWithTime[] = [
                     attributes: {
                       muted: '',
                       controls: '',
-                      rr_mediaState: 'played',
-                      rr_mediaCurrentTime: 0,
-                      rr_mediaPlaybackRate: 1,
-                      rr_mediaMuted: true,
-                      rr_mediaVolume: 1,
+                      dr_mediaState: 'played',
+                      dr_mediaCurrentTime: 0,
+                      dr_mediaPlaybackRate: 1,
+                      dr_mediaMuted: true,
+                      dr_mediaVolume: 1,
                     },
                     childNodes: [
                       { type: 3, textContent: '\n      ', id: 28 },

@@ -66,7 +66,7 @@ exports[`cross origin iframes & packer > blank.html > should support packFn opti
                     \\"type\\": 2,
                     \\"tagName\\": \\"iframe\\",
                     \\"attributes\\": {
-                      \\"rr_src\\": \\"http://localhost:3030/html/blank.html\\"
+                      \\"dr_src\\": \\"http://localhost:3030/html/blank.html\\"
                     },
                     \\"childNodes\\": [],
                     \\"id\\": 9

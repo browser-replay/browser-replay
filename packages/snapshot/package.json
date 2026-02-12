@@ -1,7 +1,7 @@
 {
   "name": "@dom-replay/snapshot",
   "version": "0.0.3",
-  "description": "rrweb's component to take a snapshot of DOM, aka DOM serializer",
+  "description": "dom-replay's component to take a snapshot of DOM, aka DOM serializer",
   "scripts": {
     "retest": "vitest run",
     "test": "pnpm build && vitest run",
@@ -17,7 +17,7 @@
   },
   "type": "module",
   "keywords": [
-    "rrweb",
+    "dom-replay",
     "snapshot",
     "DOM"
   ],
@@ -61,6 +61,6 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com",
-    "access": "restricted"
+    "access": "public"
   }
 }

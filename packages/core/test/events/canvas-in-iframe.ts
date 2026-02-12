@@ -164,7 +164,7 @@ const events: eventWithTime[] = [
             attributes: {
               width: '10',
               height: '10',
-              rr_dataURL:
+              dr_dataURL:
                 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAAB5JREFUKFNjZCASMBKpjmEQKvzPwIDqrEHoRozgBQC/ZQELU4DiXAAAAABJRU5ErkJggg==',
               id: 'canvas_with_data',
             },

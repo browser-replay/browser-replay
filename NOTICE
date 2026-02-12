@@ -1,10 +1,10 @@
 dom-replay
 
-This project includes software originally derived from rrweb (Record and Replay the Web).
+This project includes software built on rrweb (Record and Replay the Web).
 
 dom-replay includes software originally distributed under the MIT License.
 See the LICENSE file in this repository for the full license text.
 
-Upstream project:
+Original source (attribution):
 - rrweb: https://github.com/rrweb-io/rrweb
 

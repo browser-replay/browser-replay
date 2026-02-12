@@ -129,7 +129,7 @@ describe('absolute url to stylesheet', () => {
 
 describe('isBlockedElement()', () => {
   const subject = (html: string, opt: any = {}) =>
-    _isBlockedElement(render(html), 'rr-block', opt.blockSelector);
+    _isBlockedElement(render(html), 'dr-block', opt.blockSelector);
 
   const render = (html: string): HTMLElement =>
     JSDOM.fragment(html).querySelector('div')!;
@@ -139,16 +139,16 @@ describe('isBlockedElement()', () => {
   });
 
   it('blocks prohibited className', () => {
-    expect(subject('<div class="foo rr-block bar" />')).toEqual(true);
+    expect(subject('<div class="foo dr-block bar" />')).toEqual(true);
   });
 
   it('does not block random data selector', () => {
-    expect(subject('<div data-rr-block />')).toEqual(false);
+    expect(subject('<div data-dr-block />')).toEqual(false);
   });
 
   it('blocks blocked selector', () => {
     expect(
-      subject('<div data-rr-block />', { blockSelector: '[data-rr-block]' }),
+      subject('<div data-dr-block />', { blockSelector: '[data-dr-block]' }),
     ).toEqual(true);
   });
 });
@@ -180,7 +180,7 @@ describe('style elements', () => {
     expect(serialized).toMatchObject({ rootId: undefined, type: 2 });
     expect(normalizeCssText(serialized.attributes._cssText)).toBe(
       normalizeCssText(
-        'section.working {color: pink;}body {color: red;}/* rr_split */section {color: blue;}',
+        'section.working {color: pink;}body {color: red;}/* dr_split */section {color: blue;}',
       ),
     );
   });
@@ -200,8 +200,8 @@ describe('scrollTop/scrollLeft', () => {
     el.scrollLeft = 20;
     expect(serializeNode(el)).toMatchObject({
       attributes: {
-        rr_scrollTop: 10,
-        rr_scrollLeft: 20,
+        dr_scrollTop: 10,
+        dr_scrollLeft: 20,
       },
     });
   });

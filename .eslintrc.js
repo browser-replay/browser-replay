@@ -4,7 +4,6 @@ module.exports = {
     browser: true,
     es2021: true,
     node: true,
-    'jest/globals': true,
   },
   extends: [
     'eslint:recommended',
@@ -17,7 +16,7 @@ module.exports = {
     sourceType: 'module',
     tsconfigRootDir: __dirname,
   },
-  plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc', 'jest', 'compat'],
+  plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc', 'compat'],
   reportUnusedDisableDirectives: true,
   rules: {
     'tsdoc/syntax': 'warn',
@@ -25,7 +24,7 @@ module.exports = {
     // Keep eslint lightweight; rely on `pnpm check-types` for typechecking.
     '@typescript-eslint/no-explicit-any': 'off',
     'camelcase': ['error', {
-      allow: ['rr_.*', 'legacy_.*', 'UNSAFE_.*', '__rrweb_.*'],
+      allow: ['legacy_.*', 'UNSAFE_.*', '__dr_.*', 'dr_.*'],
     }],
   },
 };

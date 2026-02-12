@@ -44,7 +44,7 @@ const untaintedBasePrototype: Partial<BasePrototypeCache> = {};
  on global is a good-enough proxy for Angular
  to cover most cases
  (you can configure zone.js to have a different name
-  on the global object and should then manually run rrweb
+  on the global object and should then manually run dom-replay
   outside the Zone)
  */
 export const isAngularZonePresent = (): boolean => {
@@ -254,7 +254,7 @@ export function patch(
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       wrapped.prototype = wrapped.prototype || {};
       Object.defineProperties(wrapped, {
-        __rrweb_original__: {
+        __dr_original__: {
           enumerable: false,
           value: original,
         },

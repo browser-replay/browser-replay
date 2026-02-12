@@ -315,7 +315,7 @@ describe('applyCssSplits css rejoiner', function () {
   const mockLastUnusedArg = null as unknown as BuildCache;
   const halfCssText = '.a { background-color: red; }';
   const otherHalfCssText = halfCssText.replace('.a', '.x');
-  const markedCssText = [halfCssText, otherHalfCssText].join('/* rr_split */');
+  const markedCssText = [halfCssText, otherHalfCssText].join('/* dr_split */');
   let sn: serializedElementNodeWithId;
 
   beforeEach(() => {
@@ -374,7 +374,7 @@ describe('applyCssSplits css rejoiner', function () {
   it('applies css splits correctly when split parts are invalid by themselves', () => {
     const badFirstHalf = 'a:hov';
     const badSecondHalf = 'er { color: red; }';
-    const markedCssText = [badFirstHalf, badSecondHalf].join('/* rr_split */');
+    const markedCssText = [badFirstHalf, badSecondHalf].join('/* dr_split */');
     applyCssSplits(sn, markedCssText, true, mockLastUnusedArg);
     expect(
       (sn.childNodes[0] as textNode).textContent +
@@ -405,7 +405,7 @@ describe('applyCssSplits css rejoiner', function () {
     const badMidThird = ': red; } input:hover {';
     const badEndThird = 'border: 1px solid purple; }';
     const markedCssText = [badStartThird, badMidThird, badEndThird].join(
-      '/* rr_split */',
+      '/* dr_split */',
     );
     applyCssSplits(sn3, markedCssText, true, mockLastUnusedArg);
     expect((sn3.childNodes[0] as textNode).textContent).toEqual(

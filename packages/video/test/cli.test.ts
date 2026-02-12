@@ -1,7 +1,11 @@
 import { execSync } from 'child_process';
 import * as fs from 'fs-extra';
 import * as path from 'path';
+import { fileURLToPath } from 'url';
+import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import exampleEvents from './events/example';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('should be able to run cli', () => {
   beforeAll(() => {
@@ -23,7 +27,7 @@ describe('should be able to run cli', () => {
   it('should throw error without input path', () => {
     expect(() => {
       execSync('node ./build/cli.js', execOptions);
-    }).toThrowError(/.*please pass --input to your rrweb events file.*/);
+    }).toThrow(/please pass --input to your events JSON file/);
   });
 
   it('should generate a video without output path', () => {

@@ -24,7 +24,7 @@ export function assertSnapshot(snapshots: eventWithTime[]) {
   expect(stringifySnapshots(snapshots)).toMatchSnapshot();
 }
 
-describe('rrweb-plugin-console-record', () => {
+describe('@dom-replay/plugin-console-record', () => {
   // vi.setConfig({ testTimeout: 120_000 });
   let server: ViteDevServer;
   let serverUrl: string;

@@ -50,7 +50,7 @@ describe('replayer', function () {
   describe('webgl', () => {
     it('should output simple webgl object', async () => {
       await page.evaluate(`
-      const { Replayer } = rrweb;
+      const { Replayer } = domReplay;
       const replayer = new Replayer(events, {
         UNSAFE_replayCanvas: true,
       });

@@ -1,6 +1,6 @@
 # Plugin
 
-The plugin API is designed to extend the function of rrweb without bump the size and complexity of rrweb's core part.
+The plugin API is designed to extend the function of dom-replay without increasing the size and complexity of the core packages.
 
 # Available plugins
 
@@ -13,7 +13,7 @@ The plugin API is designed to extend the function of rrweb without bump the size
 
 ## Interface
 
-Same to with other functionality in rrweb, a plugin can implement record or replay or both features.
+As with other functionality in dom-replay, a plugin can implement record or replay or both features.
 
 ```ts
 export type RecordPlugin<TOptions = unknown> = {
@@ -54,8 +54,8 @@ const exampleRecordPlugin: RecordPlugin<{ foo: string }> = {
   },
 };
 
-rrweb.record({
-  emit: emit(event) {},
+domReplay.record({
+  emit(event) {},
   plugins: [exampleRecordPlugin],
 });
 ```
@@ -90,7 +90,7 @@ const exampleReplayPlugin: ReplayPlugin = {
   },
 };
 
-const replayer = new rrweb.Replayer(events, {
+const replayer = new domReplay.Replayer(events, {
   plugins: [exampleReplayPlugin],
 });
 ```
@@ -101,8 +101,8 @@ A replay plugin can interact with the replayer by using `context.replayer`.
 
 A record plugin should have a unique name, and it will be stored in the event it emits.
 
-**Since we will have both plugins in the rrweb repo and plugins in users' own codebase, which may cause naming conflicts in the future, we strongly recommended users naming their own plugins in this way:**
+**Since we will have both plugins in the dom-replay repo and plugins in users' own codebase, which may cause naming conflicts in the future, we strongly recommend users name their own plugins in this way:**
 
 > scope/name@version
 
-For example `rrweb/console@1` or `github/pr@2`.
+For example `@dom-replay/console@1` or `github/pr@2`.

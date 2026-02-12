@@ -203,7 +203,7 @@ exports[`record integration tests > can correctly serialize a shader and multipl
           \\"args\\": [
             34962,
             {
-              \\"rr_type\\": \\"WebGLBuffer\\",
+              \\"dr_type\\": \\"WebGLBuffer\\",
               \\"index\\": 0
             }
           ]
@@ -213,7 +213,7 @@ exports[`record integration tests > can correctly serialize a shader and multipl
           \\"args\\": [
             34962,
             {
-              \\"rr_type\\": \\"Float32Array\\",
+              \\"dr_type\\": \\"Float32Array\\",
               \\"args\\": [
                 [
                   -0.5,
@@ -245,7 +245,7 @@ exports[`record integration tests > can correctly serialize a shader and multipl
           \\"property\\": \\"shaderSource\\",
           \\"args\\": [
             {
-              \\"rr_type\\": \\"WebGLShader\\",
+              \\"dr_type\\": \\"WebGLShader\\",
               \\"index\\": 0
             },
             \\"attribute vec2 coordinates;void main(void) { gl_Position = vec4(coordinates,0.0, 1.0);}\\"
@@ -255,7 +255,7 @@ exports[`record integration tests > can correctly serialize a shader and multipl
           \\"property\\": \\"compileShader\\",
           \\"args\\": [
             {
-              \\"rr_type\\": \\"WebGLShader\\",
+              \\"dr_type\\": \\"WebGLShader\\",
               \\"index\\": 0
             }
           ]
@@ -270,7 +270,7 @@ exports[`record integration tests > can correctly serialize a shader and multipl
           \\"property\\": \\"shaderSource\\",
           \\"args\\": [
             {
-              \\"rr_type\\": \\"WebGLShader\\",
+              \\"dr_type\\": \\"WebGLShader\\",
               \\"index\\": 1
             },
             \\"void main(void) {gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);}\\"
@@ -280,7 +280,7 @@ exports[`record integration tests > can correctly serialize a shader and multipl
           \\"property\\": \\"compileShader\\",
           \\"args\\": [
             {
-              \\"rr_type\\": \\"WebGLShader\\",
+              \\"dr_type\\": \\"WebGLShader\\",
               \\"index\\": 1
             }
           ]
@@ -293,11 +293,11 @@ exports[`record integration tests > can correctly serialize a shader and multipl
           \\"property\\": \\"attachShader\\",
           \\"args\\": [
             {
-              \\"rr_type\\": \\"WebGLProgram\\",
+              \\"dr_type\\": \\"WebGLProgram\\",
               \\"index\\": 0
             },
             {
-              \\"rr_type\\": \\"WebGLShader\\",
+              \\"dr_type\\": \\"WebGLShader\\",
               \\"index\\": 0
             }
           ]
@@ -306,11 +306,11 @@ exports[`record integration tests > can correctly serialize a shader and multipl
           \\"property\\": \\"attachShader\\",
           \\"args\\": [
             {
-              \\"rr_type\\": \\"WebGLProgram\\",
+              \\"dr_type\\": \\"WebGLProgram\\",
               \\"index\\": 0
             },
             {
-              \\"rr_type\\": \\"WebGLShader\\",
+              \\"dr_type\\": \\"WebGLShader\\",
               \\"index\\": 1
             }
           ]
@@ -319,7 +319,7 @@ exports[`record integration tests > can correctly serialize a shader and multipl
           \\"property\\": \\"linkProgram\\",
           \\"args\\": [
             {
-              \\"rr_type\\": \\"WebGLProgram\\",
+              \\"dr_type\\": \\"WebGLProgram\\",
               \\"index\\": 0
             }
           ]
@@ -328,7 +328,7 @@ exports[`record integration tests > can correctly serialize a shader and multipl
           \\"property\\": \\"useProgram\\",
           \\"args\\": [
             {
-              \\"rr_type\\": \\"WebGLProgram\\",
+              \\"dr_type\\": \\"WebGLProgram\\",
               \\"index\\": 0
             }
           ]
@@ -338,7 +338,7 @@ exports[`record integration tests > can correctly serialize a shader and multipl
           \\"args\\": [
             34962,
             {
-              \\"rr_type\\": \\"WebGLBuffer\\",
+              \\"dr_type\\": \\"WebGLBuffer\\",
               \\"index\\": 0
             }
           ]
@@ -347,7 +347,7 @@ exports[`record integration tests > can correctly serialize a shader and multipl
           \\"property\\": \\"getAttribLocation\\",
           \\"args\\": [
             {
-              \\"rr_type\\": \\"WebGLProgram\\",
+              \\"dr_type\\": \\"WebGLProgram\\",
               \\"index\\": 0
             },
             \\"coordinates\\"
@@ -749,7 +749,7 @@ exports[`record integration tests > can mask character data mutations 1`] = `
         {
           \\"id\\": 7,
           \\"attributes\\": {
-            \\"class\\": \\"rr-mask\\"
+            \\"class\\": \\"dr-mask\\"
           }
         }
       ],
@@ -767,7 +767,7 @@ exports[`record integration tests > can mask character data mutations 1`] = `
             \\"type\\": 2,
             \\"tagName\\": \\"li\\",
             \\"attributes\\": {
-              \\"class\\": \\"rr-mask\\"
+              \\"class\\": \\"dr-mask\\"
             },
             \\"childNodes\\": [],
             \\"id\\": 20
@@ -1134,7 +1134,7 @@ exports[`record integration tests > can record and replay style mutations 1`] = 
                     \\"tagName\\": \\"style\\",
                     \\"attributes\\": {
                       \\"id\\": \\"dual-textContent\\",
-                      \\"_cssText\\": \\"body { background-color: black; }/* rr_split */body { color: orange !important; }\\"
+                      \\"_cssText\\": \\"body { background-color: black; }/* dr_split */body { color: orange !important; }\\"
                     },
                     \\"childNodes\\": [
                       {
@@ -3456,7 +3456,7 @@ exports[`record integration tests > can record node mutations 1`] = `
                       },
                       {
                         \\"type\\": 3,
-                        \\"textContent\\": \\"\\\\n    In the 3.5 version it use a quite complicated DOM generation strategy which is a good battle-test for rrweb's recorder.\\\\n  \\",
+                        \\"textContent\\": \\"\\\\n    In the 3.5 version it use a quite complicated DOM generation strategy which is a good battle-test for dom-replay's recorder.\\\\n  \\",
                         \\"id\\": 23
                       }
                     ],
@@ -5792,9 +5792,9 @@ exports[`record integration tests > mutations should work when blocked class is 
                         \\"type\\": 2,
                         \\"tagName\\": \\"div\\",
                         \\"attributes\\": {
-                          \\"class\\": \\"rr-block\\",
-                          \\"rr_width\\": \\"200px\\",
-                          \\"rr_height\\": \\"33px\\"
+                          \\"class\\": \\"dr-block\\",
+                          \\"dr_width\\": \\"200px\\",
+                          \\"dr_height\\": \\"33px\\"
                         },
                         \\"childNodes\\": [],
                         \\"id\\": 36
@@ -5964,9 +5964,9 @@ exports[`record integration tests > mutations should work when blocked class is 
                         \\"type\\": 2,
                         \\"tagName\\": \\"div\\",
                         \\"attributes\\": {
-                          \\"class\\": \\"rr-block\\",
-                          \\"rr_width\\": \\"200px\\",
-                          \\"rr_height\\": \\"33px\\"
+                          \\"class\\": \\"dr-block\\",
+                          \\"dr_width\\": \\"200px\\",
+                          \\"dr_height\\": \\"33px\\"
                         },
                         \\"childNodes\\": [],
                         \\"id\\": 62
@@ -7355,7 +7355,7 @@ exports[`record integration tests > should mask password value attribute with ma
         {
           \\"id\\": 18,
           \\"attributes\\": {
-            \\"data-rr-is-password\\": \\"true\\"
+            \\"data-dr-is-password\\": \\"true\\"
           }
         }
       ],
@@ -7590,7 +7590,7 @@ exports[`record integration tests > should mask texts 1`] = `
                     \\"type\\": 2,
                     \\"tagName\\": \\"p\\",
                     \\"attributes\\": {
-                      \\"class\\": \\"rr-mask\\"
+                      \\"class\\": \\"dr-mask\\"
                     },
                     \\"childNodes\\": [
                       {
@@ -7610,7 +7610,7 @@ exports[`record integration tests > should mask texts 1`] = `
                     \\"type\\": 2,
                     \\"tagName\\": \\"div\\",
                     \\"attributes\\": {
-                      \\"class\\": \\"rr-mask\\"
+                      \\"class\\": \\"dr-mask\\"
                     },
                     \\"childNodes\\": [
                       {
@@ -7888,7 +7888,7 @@ exports[`record integration tests > should mask texts using maskTextFn 1`] = `
                     \\"type\\": 2,
                     \\"tagName\\": \\"p\\",
                     \\"attributes\\": {
-                      \\"class\\": \\"rr-mask\\"
+                      \\"class\\": \\"dr-mask\\"
                     },
                     \\"childNodes\\": [
                       {
@@ -7908,7 +7908,7 @@ exports[`record integration tests > should mask texts using maskTextFn 1`] = `
                     \\"type\\": 2,
                     \\"tagName\\": \\"div\\",
                     \\"attributes\\": {
-                      \\"class\\": \\"rr-mask\\"
+                      \\"class\\": \\"dr-mask\\"
                     },
                     \\"childNodes\\": [
                       {
@@ -8946,9 +8946,9 @@ exports[`record integration tests > should not record blocked elements and its c
                     \\"type\\": 2,
                     \\"tagName\\": \\"div\\",
                     \\"attributes\\": {
-                      \\"class\\": \\"rr-block\\",
-                      \\"rr_width\\": \\"50px\\",
-                      \\"rr_height\\": \\"50px\\"
+                      \\"class\\": \\"dr-block\\",
+                      \\"dr_width\\": \\"50px\\",
+                      \\"dr_height\\": \\"50px\\"
                     },
                     \\"childNodes\\": [],
                     \\"id\\": 18
@@ -9126,9 +9126,9 @@ exports[`record integration tests > should not record blocked elements dynamical
                     \\"type\\": 2,
                     \\"tagName\\": \\"div\\",
                     \\"attributes\\": {
-                      \\"class\\": \\"rr-block\\",
-                      \\"rr_width\\": \\"50px\\",
-                      \\"rr_height\\": \\"50px\\"
+                      \\"class\\": \\"dr-block\\",
+                      \\"dr_width\\": \\"50px\\",
+                      \\"dr_height\\": \\"50px\\"
                     },
                     \\"childNodes\\": [],
                     \\"id\\": 18
@@ -9186,9 +9186,9 @@ exports[`record integration tests > should not record blocked elements dynamical
             \\"type\\": 2,
             \\"tagName\\": \\"button\\",
             \\"attributes\\": {
-              \\"class\\": \\"rr-block\\",
-              \\"rr_width\\": \\"100px\\",
-              \\"rr_height\\": \\"100px\\"
+              \\"class\\": \\"dr-block\\",
+              \\"dr_width\\": \\"100px\\",
+              \\"dr_height\\": \\"100px\\"
             },
             \\"childNodes\\": [],
             \\"id\\": 23
@@ -9353,7 +9353,7 @@ exports[`record integration tests > should not record input events on ignored el
                             \\"tagName\\": \\"input\\",
                             \\"attributes\\": {
                               \\"type\\": \\"text\\",
-                              \\"class\\": \\"rr-ignore\\"
+                              \\"class\\": \\"dr-ignore\\"
                             },
                             \\"childNodes\\": [],
                             \\"id\\": 22
@@ -9386,7 +9386,7 @@ exports[`record integration tests > should not record input events on ignored el
                             \\"tagName\\": \\"input\\",
                             \\"attributes\\": {
                               \\"type\\": \\"text\\",
-                              \\"data-rr-ignore\\": \\"\\"
+                              \\"data-dr-ignore\\": \\"\\"
                             },
                             \\"childNodes\\": [],
                             \\"id\\": 27
@@ -11588,7 +11588,7 @@ exports[`record integration tests > should record canvas mutations 1`] = `
                       \\"width\\": \\"200\\",
                       \\"height\\": \\"100\\",
                       \\"style\\": \\"border: 1px solid #000000;\\",
-                      \\"rr_dataURL\\": \\"LOOKS LIKE WE COULD NOT GET STABLE BASE64 FROM SAME IMAGE.\\"
+                      \\"dr_dataURL\\": \\"LOOKS LIKE WE COULD NOT GET STABLE BASE64 FROM SAME IMAGE.\\"
                     },
                     \\"childNodes\\": [
                       {
@@ -12428,7 +12428,7 @@ exports[`record integration tests > should record images inside iframe with blob
             \\"tagName\\": \\"img\\",
             \\"attributes\\": {
               \\"src\\": \\"blob:http://localhost:xxxx/...\\",
-              \\"rr_dataURL\\": \\"data:image/png;base64,...\\"
+              \\"dr_dataURL\\": \\"data:image/png;base64,...\\"
             },
             \\"childNodes\\": [],
             \\"rootId\\": 21,
@@ -12862,7 +12862,7 @@ exports[`record integration tests > should record images inside iframe with blob
             \\"tagName\\": \\"img\\",
             \\"attributes\\": {
               \\"src\\": \\"blob:http://localhost:xxxx/...\\",
-              \\"rr_dataURL\\": \\"data:image/png;base64,...\\"
+              \\"dr_dataURL\\": \\"data:image/png;base64,...\\"
             },
             \\"childNodes\\": [],
             \\"rootId\\": 27,
@@ -13070,7 +13070,7 @@ exports[`record integration tests > should record images with blob url 1`] = `
             \\"tagName\\": \\"img\\",
             \\"attributes\\": {
               \\"src\\": \\"blob:http://localhost:xxxx/...\\",
-              \\"rr_dataURL\\": \\"data:image/png;base64,...\\"
+              \\"dr_dataURL\\": \\"data:image/png;base64,...\\"
             },
             \\"childNodes\\": [],
             \\"id\\": 24
@@ -16963,7 +16963,7 @@ exports[`record integration tests > should unmask texts using maskTextFn 1`] = `
                     \\"type\\": 2,
                     \\"tagName\\": \\"p\\",
                     \\"attributes\\": {
-                      \\"class\\": \\"rr-mask\\"
+                      \\"class\\": \\"dr-mask\\"
                     },
                     \\"childNodes\\": [
                       {
@@ -16983,7 +16983,7 @@ exports[`record integration tests > should unmask texts using maskTextFn 1`] = `
                     \\"type\\": 2,
                     \\"tagName\\": \\"div\\",
                     \\"attributes\\": {
-                      \\"class\\": \\"rr-mask\\"
+                      \\"class\\": \\"dr-mask\\"
                     },
                     \\"childNodes\\": [
                       {

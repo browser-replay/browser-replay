@@ -58,7 +58,7 @@ describe('replayer', function () {
   describe('hover', () => {
     it('should trigger hover on mouseDown', async () => {
       await page.evaluate(`
-      const { Replayer } = rrweb;
+      const { Replayer } = domReplay;
       const replayer = new Replayer(events);
       replayer.pause(110); // mouseDown event is at 100
     `);

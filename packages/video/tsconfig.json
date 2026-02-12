@@ -16,7 +16,12 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "exclude": ["build", "node_modules", "test"],
+  "exclude": [
+    "build",
+    "node_modules",
+    "test",
+    "vitest.config.ts"
+  ],
   "references": [
     {
       "path": "../player"
