@@ -38,6 +38,9 @@ jobs:
       - name: Install Playwright (for video package tests)
         run: pnpm --filter @dom-replay/video exec playwright install chromium
 
+      - name: Install Puppeteer Chrome (for core, snapshot, dom, etc.)
+        run: pnpm --filter @dom-replay/core exec puppeteer browsers install chrome
+
       - name: Lint
         run: pnpm lint
 

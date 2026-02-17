@@ -51,6 +51,8 @@
     "publish:gh:dry": "bash scripts/publish-gh-packages.sh --dry-run",
     "references:update": "pnpm workspaces-to-typescript-project-references",
     "test": "pnpm turbo run test --concurrency=1 --continue",
+    "install:puppeteer-chrome": "pnpm --filter @dom-replay/core exec puppeteer browsers install chrome",
+    "test:core:safe": "cd packages/core && pnpm build && cross-env PUPPETEER_HEADLESS=true pnpm exec vitest run --pool=forks --maxWorkers=1 --exclude test/benchmark",
     "test:watch": "pnpm turbo run test:watch",
     "test:update": "pnpm turbo run test:update",
     "check-types": "pnpm turbo run check-types --continue",

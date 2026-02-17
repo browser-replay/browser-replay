@@ -215,9 +215,9 @@ describe('cross origin iframes', function (this: ISuite) {
         const iframe = document.querySelector('iframe') as HTMLIFrameElement;
         iframe.src = `${url}/html/empty.html`;
       }, ctx.serverURL);
-      await waitForRAF(ctx.page); // should load iframe (but sometimes doesn't)
+      await waitForRAF(ctx.page);
       const frame = ctx.page.mainFrame().childFrames()[0];
-      await frame.waitForSelector('#one'); // ensure frame has changed
+      await frame.waitForSelector('#one', { timeout: 60_000 }); // ensure frame has loaded
 
       await injectRecordScript(ctx.page.mainFrame().childFrames()[0]); // injects script into new iframe
 

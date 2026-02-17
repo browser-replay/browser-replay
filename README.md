@@ -64,6 +64,7 @@ Additional packages: [snapshot](packages/snapshot), [dom](packages/dom), [packer
 - Test: `pnpm test`
 - Lint: `pnpm lint`
 - **Publishing:** [Publishing packages](docs/development/publishing.md) (npm and GitHub Packages; deploy without OTP via GitHub Actions)
+- **Tests crashing or freezing your machine?** See [Running tests locally](docs/development/running-tests-locally.md) (use `pnpm test:core:safe` for a lighter run).
 
 ## Docs
 

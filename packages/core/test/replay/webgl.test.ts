@@ -40,11 +40,11 @@ describe('replayer', function () {
   });
 
   afterEach(async () => {
-    await page.close();
+    if (page) await page.close();
   });
 
   afterAll(async () => {
-    await browser.close();
+    if (browser) await browser.close();
   });
 
   describe('webgl', () => {
