@@ -52,7 +52,7 @@
     "@dom-replay/player-core": "workspace:*"
   },
   "devDependencies": {
-    "@types/react": "^18.2.0",
+    "@types/react": "^19.2.14",
     "@types/react-dom": "^18.2.0",
     "typescript": "5.8.2",
     "vite": "^5.4.21",
