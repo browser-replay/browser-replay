@@ -16,9 +16,10 @@ module.exports = {
     sourceType: 'module',
     tsconfigRootDir: __dirname,
   },
-  plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc', 'compat'],
+  plugins: ['@typescript-eslint', 'eslint-plugin-tsdoc', 'compat', 'react-hooks'],
   reportUnusedDisableDirectives: true,
   rules: {
+    'react-hooks/exhaustive-deps': 'warn',
     'tsdoc/syntax': 'warn',
     '@typescript-eslint/prefer-as-const': 'warn',
     // Keep eslint lightweight; rely on `pnpm check-types` for typechecking.
@@ -27,4 +28,28 @@ module.exports = {
       allow: ['legacy_.*', 'UNSAFE_.*', '__dr_.*', 'dr_.*'],
     }],
   },
+  overrides: [
+    {
+      files: ['packages/dom-nodejs/**/*.ts'],
+      rules: { '@typescript-eslint/no-var-requires': 'off' },
+    },
+    {
+      files: ['packages/player/**/*.{ts,tsx}'],
+      rules: {
+        'compat/compat': 'warn',
+        '@typescript-eslint/no-empty-function': 'warn',
+      },
+    },
+    {
+      files: ['packages/player-core/src/index.ts'],
+      rules: {
+        '@typescript-eslint/no-empty-function': 'warn',
+        'no-extra-boolean-cast': 'warn',
+      },
+    },
+    {
+      files: ['packages/core/src/utils.ts'],
+      rules: { '@typescript-eslint/no-this-alias': 'warn' },
+    },
+  ],
 };
