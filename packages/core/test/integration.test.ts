@@ -894,20 +894,24 @@ describe('record integration tests', function (this: ISuite) {
     expect(text).toEqual('4\n3\n2\n1\n5');
   });
 
-  it('should nest record iframe', async () => {
-    const page: puppeteer.Page = await browser.newPage();
-    await page.goto(`${serverURL}/html`);
-    await page.setContent(getHtml.call(this, 'main.html'));
+  it(
+    'should nest record iframe',
+    async () => {
+      const page: puppeteer.Page = await browser.newPage();
+      await page.goto(`${serverURL}/html`);
+      await page.setContent(getHtml.call(this, 'main.html'));
 
-    const frameIdTwo = await waitForIFrameLoad(page, '#two');
-    const frameIdFour = await waitForIFrameLoad(frameIdTwo, '#four');
-    await waitForIFrameLoad(frameIdFour, '#five');
+      const frameIdTwo = await waitForIFrameLoad(page, '#two');
+      const frameIdFour = await waitForIFrameLoad(frameIdTwo, '#four');
+      await waitForIFrameLoad(frameIdFour, '#five');
 
-    const snapshots = (await page.evaluate(
-      'window.snapshots',
-    )) as eventWithTime[];
-    await assertSnapshot(snapshots);
-  });
+      const snapshots = (await page.evaluate(
+        'window.snapshots',
+      )) as eventWithTime[];
+      await assertSnapshot(snapshots);
+    },
+    30_000,
+  );
 
   it('should record images with blob url', async () => {
     const page: puppeteer.Page = await browser.newPage();

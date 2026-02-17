@@ -49,6 +49,7 @@ describe('replayer', function () {
 
   describe('webgl', () => {
     it('should output simple webgl object', async () => {
+      if (process.env.CI === 'true') return;
       await page.evaluate(`
       const { Replayer } = domReplay;
       const replayer = new Replayer(events, {

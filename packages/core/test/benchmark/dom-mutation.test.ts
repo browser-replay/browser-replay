@@ -115,8 +115,8 @@ describe('benchmark: mutation observer', () => {
 
       const loadPage = async () => {
         if ('html' in suite) {
-          await page.goto('about:blank');
-          await page.setContent(getHtml.call(this, suite.html));
+          // Load from server so script can load same-origin (avoid CORS/private-network block on about:blank)
+          await page.goto(`${getServerURL(server)}/html/${suite.html}`);
         } else {
           await page.goto(suite.url);
         }
