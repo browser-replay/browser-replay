@@ -146,9 +146,20 @@ function buildFile({
 export default function (
   entry: LibraryOptions['entry'],
   name: LibraryOptions['name'],
-  options?: { outputDir?: string; fileName?: string; plugins?: Plugin[] },
+  options?: {
+  outputDir?: string;
+  fileName?: string;
+  plugins?: Plugin[];
+  /** Use "named" to fix mixed default+named export warning in libs like utils */
+  outputExports?: 'default' | 'named' | 'none' | 'auto';
+},
 ) {
-  const { fileName, outputDir: outDir = 'dist', plugins = [] } = options || {};
+  const {
+    fileName,
+    outputDir: outDir = 'dist',
+    plugins = [],
+    outputExports,
+  } = options || {};
 
   let formats: LibraryFormats[] = ['es', 'cjs'];
 
@@ -177,6 +188,9 @@ export default function (
 
       rollupOptions: {
         maxParallelFileOps: 32,
+        ...(outputExports != null && {
+          output: { exports: outputExports },
+        }),
       },
     },
     plugins: [

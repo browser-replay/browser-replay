@@ -689,9 +689,9 @@ importers:
 
   packages/video:
     dependencies:
-      '@dom-replay/player-svelte':
+      '@dom-replay/player-core':
         specifier: workspace:*
-        version: link:../player-svelte
+        version: link:../player-core
       '@open-tech-world/cli-progress-bar':
         specifier: ^2.0.2
         version: 2.0.2

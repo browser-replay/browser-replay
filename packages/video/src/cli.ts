@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import minimist from 'minimist';
 import { ProgressBar } from '@open-tech-world/cli-progress-bar';
-import type Player from '@dom-replay/player-svelte';
+import type { PlayerProps } from '@dom-replay/player-core';
 import { transformToVideo } from './index';
 
 const argv = minimist(process.argv.slice(2));
@@ -20,7 +20,7 @@ if (argv.config) {
     ? configPathStr
     : path.resolve(process.cwd(), configPathStr);
   config = JSON.parse(fs.readFileSync(configPath, 'utf-8')) as Omit<
-    ConstructorParameters<typeof Player>[0]['props'],
+    PlayerProps,
     'events'
   >;
 }

@@ -2,15 +2,13 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import { chromium } from 'playwright';
 import { EventType, eventWithTime } from '@dom-replay/types';
-import type Player from '@dom-replay/player-svelte';
+import type { PlayerProps } from '@dom-replay/player-core';
 
 const playerScriptPath = path.resolve(
-  require.resolve('@dom-replay/player-svelte'),
-  '../../dist/player-svelte.umd.cjs',
+  path.dirname(require.resolve('@dom-replay/player-core')),
+  'player-core.umd.cjs',
 );
-const playerStylePath = path.resolve(playerScriptPath, '../style.css');
 const playerUmdSource = fs.readFileSync(playerScriptPath, 'utf-8');
-const playerStyle = fs.readFileSync(playerStylePath, 'utf-8');
 // The max valid scale value for the scaling method which can improve the video quality.
 const MaxScaleValue = 2.5;
 
@@ -22,10 +20,7 @@ type VideoConfig = {
   resolutionRatio?: number;
   // A callback function that will be called when the progress of the replay is updated.
   onProgressUpdate?: (percent: number) => void;
-  player?: Omit<
-    ConstructorParameters<typeof Player>[0]['props'],
-    'events'
-  >;
+  player?: Omit<PlayerProps, 'events'>;
 };
 
 const defaultConfig: Required<VideoConfig> = {
@@ -41,10 +36,18 @@ const defaultConfig: Required<VideoConfig> = {
 };
 
 function getHtml(events: Array<eventWithTime>, config?: VideoConfig): string {
+  const userConfig = config?.player || {};
+  const maxScale = (config?.resolutionRatio ?? 1) * MaxScaleValue;
+  const playerProps = {
+    ...userConfig,
+    events,
+    showController: false,
+    maxScale,
+  };
+
   return `
 <html>
   <head>
-  <style>${playerStyle}</style>
   <style>html, body {padding: 0; border: none; margin: 0;}</style>
   </head>
   <body>
@@ -56,23 +59,16 @@ function getHtml(events: Array<eventWithTime>, config?: VideoConfig): string {
         '<\\/script>',
       )};
       /*-->*/
-      const userConfig = ${JSON.stringify(config?.player || {})};
-      window.replayer = new (domReplayPlayerSvelte.default || domReplayPlayerSvelte)({
-        target: document.body,
-        width: userConfig.width,
-        height: userConfig.height,
-        props: {
-          ...userConfig,
-          events,
-          showController: false,          
-        },
-      });
-      window.replayer.addEventListener('finish', () => window.onReplayFinish());
-      window.replayer.addEventListener('ui-update-progress', (payload)=> window.onReplayProgressUpdate
-      (payload));
-      window.replayer.addEventListener('resize',()=>document.querySelector('.replayer-wrapper').style.transform = 'scale(${
-        (config?.resolutionRatio ?? 1) * MaxScaleValue
-      }) translate(-50%, -50%)');
+      const playerProps = ${JSON.stringify(playerProps).replace(
+        /<\/script>/g,
+        '<\\/script>',
+      )};
+      const lib = (typeof domReplayPlayerCore !== 'undefined' ? domReplayPlayerCore : (typeof globalThis !== 'undefined' ? globalThis : window).domReplayPlayerCore);
+      const handle = lib.createPlayerHandle(playerProps);
+      handle.mount(document.body);
+      handle.addEventListener('finish', () => window.onReplayFinish());
+      handle.addEventListener('ui-update-progress', (payload) => window.onReplayProgressUpdate(payload));
+      window.replayer = handle;
     </script>
   </body>
 </html>
