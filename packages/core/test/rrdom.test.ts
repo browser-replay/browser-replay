@@ -80,7 +80,10 @@ describe('diff algorithm for rrdom', () => {
       replayer.applyStyleSheetMutation(styleRuleData, styleEl.sheet!);
 
       expect(styleEl.sheet?.cssRules?.length).toEqual(1);
-      expect(styleEl.sheet?.cssRules[0].cssText).toEqual(cssText);
+      // happy-dom 20+ serializes CSS with spaces after { and before }
+      expect(styleEl.sheet?.cssRules[0].cssText).toBe(
+        '.added-rule { border: 1px solid yellow; }',
+      );
     });
 
     it('should insert rule at index 0 and keep exsisting rules', () => {
@@ -105,7 +108,9 @@ describe('diff algorithm for rrdom', () => {
       replayer.applyStyleSheetMutation(styleRuleData, styleEl.sheet!);
 
       expect(styleEl.sheet?.cssRules?.length).toEqual(3);
-      expect(styleEl.sheet?.cssRules[0].cssText).toEqual(cssText);
+      expect(styleEl.sheet?.cssRules[0].cssText).toBe(
+        '.added-rule { border: 1px solid yellow; }',
+      );
     });
 
     it('should delete rule at index 0', () => {
@@ -128,7 +133,7 @@ describe('diff algorithm for rrdom', () => {
       replayer.applyStyleSheetMutation(styleRuleData, styleEl.sheet!);
 
       expect(styleEl.sheet?.cssRules?.length).toEqual(1);
-      expect(styleEl.sheet?.cssRules[0].cssText).toEqual('div {color: black;}');
+      expect(styleEl.sheet?.cssRules[0].cssText).toBe('div { color: black; }');
     });
 
     it('should insert rule at index [0,0] and keep existing rules', () => {
@@ -159,7 +164,7 @@ describe('diff algorithm for rrdom', () => {
       ).toEqual(3);
       expect(
         (styleEl.sheet?.cssRules[0] as CSSMediaRule).cssRules[0].cssText,
-      ).toEqual(cssText);
+      ).toBe('.added-rule { border: 1px solid yellow; }');
     });
 
     it('should delete rule at index [0,1]', () => {
@@ -187,7 +192,7 @@ describe('diff algorithm for rrdom', () => {
       ).toEqual(1);
       expect(
         (styleEl.sheet?.cssRules[0] as CSSMediaRule).cssRules[0].cssText,
-      ).toEqual('a {color: blue;}');
+      ).toBe('a { color: blue; }');
     });
   });
 });
