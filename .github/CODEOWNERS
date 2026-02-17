@@ -1,0 +1,14 @@
+# Code owners for automatic review assignments
+# See https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global owners (all files)
+* @vcatalano
+
+# Package-specific owners
+/packages/core/ @vcatalano
+/packages/player/ @vcatalano
+/packages/record/ @vcatalano
+
+# CI/CD files
+/.github/ @vcatalano
+/scripts/ @vcatalano
