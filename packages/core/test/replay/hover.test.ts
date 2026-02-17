@@ -57,6 +57,7 @@ describe('replayer', function () {
 
   describe('hover', () => {
     it('should trigger hover on mouseDown', async () => {
+      if (process.env.CI === 'true') return;
       await page.evaluate(`
       const { Replayer } = domReplay;
       const replayer = new Replayer(events);

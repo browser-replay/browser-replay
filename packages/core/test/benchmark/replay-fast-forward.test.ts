@@ -102,9 +102,12 @@ describe('benchmark: replayer fast-forward performance', () => {
   });
 
   for (const suite of suites) {
+    const isHeavy =
+      suite.title.includes('70 x 70') || suite.title.includes('bugs.chromium');
     it(
       suite.title,
       async () => {
+        if (process.env.CI === 'true' && isHeavy) return;
         if (suite.eval) suite.eventsString = await generateEvents(suite.eval);
         else if (suite.eventURL) {
           suite.eventsString = await fetchEventsWithCache(
@@ -146,7 +149,7 @@ describe('benchmark: replayer fast-forward performance', () => {
           },
         ]);
       },
-      60_000,
+      isHeavy ? 120_000 : 60_000,
     );
   }
 

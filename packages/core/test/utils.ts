@@ -249,12 +249,18 @@ export function stringifySnapshots(snapshots: eventWithTime[]): string {
       }),
     null,
     2,
-  ).replace(
-    // servers might get run on a random port,
-    // so we need to normalize the port number
-    /http:\/\/localhost:\d+/g,
-    'http://localhost:3030',
-  );
+  )
+    .replace(
+      // servers might get run on a random port,
+      // so we need to normalize the port number
+      /http:\/\/localhost:\d+/g,
+      'http://localhost:3030',
+    )
+    .replace(
+      // Lit template placeholders (e.g. ?lit$435550342$) are non-deterministic
+      /\?lit\$\d+\$/g,
+      '?lit$0$',
+    );
 }
 
 function stripBlobURLsFromAttributes(node: {
