@@ -1421,7 +1421,7 @@ describe('diff algorithm for rrdom', () => {
 
       try {
         const code = fs.readFileSync(
-          path.resolve(__dirname, '../dist/rrdom.umd.cjs'),
+          path.resolve(__dirname, '../dist/dom.umd.cjs'),
           'utf8',
         );
         await page.evaluate(code);
@@ -1459,28 +1459,28 @@ describe('diff algorithm for rrdom', () => {
           const iframeEl = document.querySelector('iframe');
 
           // Construct a virtual dom tree.
-          const rrDocument = new rrdom.RRDocument();
+          const rrDocument = new domReplayDom.RRDocument();
           const rrIframeEl = rrDocument.createElement('iframe');
-          rrDocument.mirror.add(rrIframeEl, rrdom.getDefaultSN(rrIframeEl, ${iframeElId}));
+          rrDocument.mirror.add(rrIframeEl, domReplayDom.getDefaultSN(rrIframeEl, ${iframeElId}));
           rrDocument.appendChild(rrIframeEl);
           rrDocument.mirror.add(
             rrIframeEl.contentDocument,
-            rrdom.getDefaultSN(rrIframeEl.contentDocument, ${iframeDomId}),
+            domReplayDom.getDefaultSN(rrIframeEl.contentDocument, ${iframeDomId}),
           );
           const rrDocType = rrDocument.createDocumentType('html', '', '');
           rrIframeEl.contentDocument.appendChild(rrDocType);
           const rrHtmlEl = rrDocument.createElement('html');
-          rrDocument.mirror.add(rrHtmlEl, rrdom.getDefaultSN(rrHtmlEl, ${htmlElId}));
+          rrDocument.mirror.add(rrHtmlEl, domReplayDom.getDefaultSN(rrHtmlEl, ${htmlElId}));
           rrIframeEl.contentDocument.appendChild(rrHtmlEl);
           
           const replayer = {
-            mirror: rrdom.createMirror(),
+            mirror: domReplayDom.createMirror(),
             applyCanvas: () => {},
             applyInput: () => {},
             applyScroll: () => {},
             applyStyleSheetMutation: () => {},
           };
-          rrdom.diff(iframeEl, rrIframeEl, replayer);
+          domReplayDom.diff(iframeEl, rrIframeEl, replayer);
           
           iframeEl.contentDocument.documentElement.className =
             '${className.toLowerCase()}';

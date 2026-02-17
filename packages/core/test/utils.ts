@@ -225,10 +225,14 @@ export function stringifySnapshots(snapshots: eventWithTime[]): string {
 
           if (pluginPayload?.trace.length) {
             pluginPayload.trace = pluginPayload.trace.map((trace) => {
-              return trace.replace(
-                /^pptr:evaluate;.*?:(\d+:\d+)/,
-                '__puppeteer_evaluation_script__:$1',
+              // Normalize Puppeteer stack frames (format varies by version: pptr:evaluate;... or pptr:;...file:///...)
+              const pptrMatch = trace.match(
+                /^pptr:(?:evaluate;|;).*?:(\d+:\d+)$/,
               );
+              if (pptrMatch) {
+                return `__puppeteer_evaluation_script__:${pptrMatch[1]}`;
+              }
+              return trace;
             });
           }
           if (pluginPayload?.payload.length) {

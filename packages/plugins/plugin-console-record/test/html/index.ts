@@ -1,5 +1,5 @@
 import type { eventWithTime } from '@dom-replay/types';
-import { record } from 'rrweb';
+import { record } from '@dom-replay/core';
 import { getRecordConsolePlugin } from '../../src/index';
 
 window.Date.now = () => new Date(Date.UTC(2018, 10, 15, 8)).valueOf();

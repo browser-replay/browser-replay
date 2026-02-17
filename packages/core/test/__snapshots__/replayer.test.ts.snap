@@ -1,0 +1,409 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`replayer > can fast forward past StyleSheetRule changes on virtual elements 1`] = `
+"file-frame-2
+[object Promise]
+
+file-cid-0
+(()=>{
+function addCustomElement(def) {
+  if (def.is_autonomous) {
+      window.customElements.define(def.name, class extends HTMLElement{});
+  } else {
+    const templateElement = document.createElement(def.local_name);
+    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
+    const ElementBase = window[baseName];
+    window.customElements.define(def.name, class extends ElementBase {},
+      {extends: def.local_name});
+  }
+}
+
+function addCustomElements(metadata) {
+  for (const def of metadata.custom_elements) {
+    try {
+      addCustomElement(def);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+function main(metadata) {
+  addCustomElements(metadata);
+}
+main({\\"custom_elements\\":[]});})();
+
+
+file-frame-3
+[object Promise]
+
+file-cid-1
+(()=>{
+function addCustomElement(def) {
+  if (def.is_autonomous) {
+      window.customElements.define(def.name, class extends HTMLElement{});
+  } else {
+    const templateElement = document.createElement(def.local_name);
+    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
+    const ElementBase = window[baseName];
+    window.customElements.define(def.name, class extends ElementBase {},
+      {extends: def.local_name});
+  }
+}
+
+function addCustomElements(metadata) {
+  for (const def of metadata.custom_elements) {
+    try {
+      addCustomElement(def);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+function main(metadata) {
+  addCustomElements(metadata);
+}
+main({\\"custom_elements\\":[]});})();
+"
+`;
+
+exports[`replayer > can fast forward past StyleSheetRule deletion on virtual elements 1`] = `
+"file-frame-2
+[object Promise]
+
+file-cid-0
+(()=>{
+function addCustomElement(def) {
+  if (def.is_autonomous) {
+      window.customElements.define(def.name, class extends HTMLElement{});
+  } else {
+    const templateElement = document.createElement(def.local_name);
+    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
+    const ElementBase = window[baseName];
+    window.customElements.define(def.name, class extends ElementBase {},
+      {extends: def.local_name});
+  }
+}
+
+function addCustomElements(metadata) {
+  for (const def of metadata.custom_elements) {
+    try {
+      addCustomElement(def);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+function main(metadata) {
+  addCustomElements(metadata);
+}
+main({\\"custom_elements\\":[]});})();
+
+
+file-frame-3
+[object Promise]
+
+file-cid-1
+(()=>{
+function addCustomElement(def) {
+  if (def.is_autonomous) {
+      window.customElements.define(def.name, class extends HTMLElement{});
+  } else {
+    const templateElement = document.createElement(def.local_name);
+    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
+    const ElementBase = window[baseName];
+    window.customElements.define(def.name, class extends ElementBase {},
+      {extends: def.local_name});
+  }
+}
+
+function addCustomElements(metadata) {
+  for (const def of metadata.custom_elements) {
+    try {
+      addCustomElement(def);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+function main(metadata) {
+  addCustomElements(metadata);
+}
+main({\\"custom_elements\\":[]});})();
+"
+`;
+
+exports[`replayer > can handle remote stylesheets 1`] = `
+"file-frame-2
+[object Promise]
+
+file-cid-0
+(()=>{
+function addCustomElement(def) {
+  if (def.is_autonomous) {
+      window.customElements.define(def.name, class extends HTMLElement{});
+  } else {
+    const templateElement = document.createElement(def.local_name);
+    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
+    const ElementBase = window[baseName];
+    window.customElements.define(def.name, class extends ElementBase {},
+      {extends: def.local_name});
+  }
+}
+
+function addCustomElements(metadata) {
+  for (const def of metadata.custom_elements) {
+    try {
+      addCustomElement(def);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+function main(metadata) {
+  addCustomElements(metadata);
+}
+main({\\"custom_elements\\":[]});})();
+
+
+file-frame-3
+[object Promise]
+
+file-cid-1
+(()=>{
+function addCustomElement(def) {
+  if (def.is_autonomous) {
+      window.customElements.define(def.name, class extends HTMLElement{});
+  } else {
+    const templateElement = document.createElement(def.local_name);
+    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
+    const ElementBase = window[baseName];
+    window.customElements.define(def.name, class extends ElementBase {},
+      {extends: def.local_name});
+  }
+}
+
+function addCustomElements(metadata) {
+  for (const def of metadata.custom_elements) {
+    try {
+      addCustomElement(def);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+function main(metadata) {
+  addCustomElements(metadata);
+}
+main({\\"custom_elements\\":[]});})();
+"
+`;
+
+exports[`replayer > can handle removing style elements 1`] = `
+"file-frame-2
+[object Promise]
+
+file-cid-0
+(()=>{
+function addCustomElement(def) {
+  if (def.is_autonomous) {
+      window.customElements.define(def.name, class extends HTMLElement{});
+  } else {
+    const templateElement = document.createElement(def.local_name);
+    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
+    const ElementBase = window[baseName];
+    window.customElements.define(def.name, class extends ElementBase {},
+      {extends: def.local_name});
+  }
+}
+
+function addCustomElements(metadata) {
+  for (const def of metadata.custom_elements) {
+    try {
+      addCustomElement(def);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+function main(metadata) {
+  addCustomElements(metadata);
+}
+main({\\"custom_elements\\":[]});})();
+
+
+file-frame-3
+[object Promise]
+
+file-cid-1
+(()=>{
+function addCustomElement(def) {
+  if (def.is_autonomous) {
+      window.customElements.define(def.name, class extends HTMLElement{});
+  } else {
+    const templateElement = document.createElement(def.local_name);
+    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
+    const ElementBase = window[baseName];
+    window.customElements.define(def.name, class extends ElementBase {},
+      {extends: def.local_name});
+  }
+}
+
+function addCustomElements(metadata) {
+  for (const def of metadata.custom_elements) {
+    try {
+      addCustomElement(def);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+function main(metadata) {
+  addCustomElements(metadata);
+}
+main({\\"custom_elements\\":[]});})();
+"
+`;
+
+exports[`replayer > replays same timestamp events in correct order (with addAction) 1`] = `
+"file-frame-2
+[object Promise]
+
+file-cid-0
+(()=>{
+function addCustomElement(def) {
+  if (def.is_autonomous) {
+      window.customElements.define(def.name, class extends HTMLElement{});
+  } else {
+    const templateElement = document.createElement(def.local_name);
+    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
+    const ElementBase = window[baseName];
+    window.customElements.define(def.name, class extends ElementBase {},
+      {extends: def.local_name});
+  }
+}
+
+function addCustomElements(metadata) {
+  for (const def of metadata.custom_elements) {
+    try {
+      addCustomElement(def);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+function main(metadata) {
+  addCustomElements(metadata);
+}
+main({\\"custom_elements\\":[]});})();
+
+
+file-frame-3
+[object Promise]
+
+file-cid-1
+(()=>{
+function addCustomElement(def) {
+  if (def.is_autonomous) {
+      window.customElements.define(def.name, class extends HTMLElement{});
+  } else {
+    const templateElement = document.createElement(def.local_name);
+    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
+    const ElementBase = window[baseName];
+    window.customElements.define(def.name, class extends ElementBase {},
+      {extends: def.local_name});
+  }
+}
+
+function addCustomElements(metadata) {
+  for (const def of metadata.custom_elements) {
+    try {
+      addCustomElement(def);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+function main(metadata) {
+  addCustomElements(metadata);
+}
+main({\\"custom_elements\\":[]});})();
+"
+`;
+
+exports[`replayer > replays same timestamp events in correct order 1`] = `
+"file-frame-2
+[object Promise]
+
+file-cid-0
+(()=>{
+function addCustomElement(def) {
+  if (def.is_autonomous) {
+      window.customElements.define(def.name, class extends HTMLElement{});
+  } else {
+    const templateElement = document.createElement(def.local_name);
+    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
+    const ElementBase = window[baseName];
+    window.customElements.define(def.name, class extends ElementBase {},
+      {extends: def.local_name});
+  }
+}
+
+function addCustomElements(metadata) {
+  for (const def of metadata.custom_elements) {
+    try {
+      addCustomElement(def);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+function main(metadata) {
+  addCustomElements(metadata);
+}
+main({\\"custom_elements\\":[]});})();
+
+
+file-frame-3
+[object Promise]
+
+file-cid-1
+(()=>{
+function addCustomElement(def) {
+  if (def.is_autonomous) {
+      window.customElements.define(def.name, class extends HTMLElement{});
+  } else {
+    const templateElement = document.createElement(def.local_name);
+    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
+    const ElementBase = window[baseName];
+    window.customElements.define(def.name, class extends ElementBase {},
+      {extends: def.local_name});
+  }
+}
+
+function addCustomElements(metadata) {
+  for (const def of metadata.custom_elements) {
+    try {
+      addCustomElement(def);
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+function main(metadata) {
+  addCustomElements(metadata);
+}
+main({\\"custom_elements\\":[]});})();
+"
+`;
