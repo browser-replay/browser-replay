@@ -20,10 +20,12 @@ Publishing is done from CI using **npm Trusted Publishing (OIDC)**. No long-live
 2. **Deploy**
    - **From a tag:**  
      Bump versions in the repo, then push a version tag:
+
      ```bash
      git tag v0.0.2
      git push origin v0.0.2
      ```
+
      The [Publish to npm](https://github.com/dom-replay/dom-replay/actions/workflows/publish-npm.yml) workflow runs and publishes all packages to npm.
    - **Manual run:**  
      In GitHub: **Actions** → **Publish to npm** → **Run workflow** (uses version from root `package.json`).
@@ -36,12 +38,15 @@ If you need to publish from your machine (e.g. one-off fix):
 
 - **With 2FA enabled:**  
   Use a [Granular Access Token](https://www.npmjs.com/settings/~/tokens) with **Publish** scope and, if your org allows it, **Bypass two-factor authentication for automation**. Set it as `NPM_TOKEN` and run:
+
   ```bash
   NPM_TOKEN=... ./publish-all-to-npm.sh
   ```
+
   If npm still asks for OTP, the bypass option may not be available for your account (npm is tightening 2FA).
 
 - **Temporarily disable 2FA:**  
+
   ```bash
   npm profile disable-2fa --otp=YOUR_OTP
   NPM_TOKEN=... ./publish-all-to-npm.sh
