@@ -2,8 +2,8 @@
   "name": "@dom-replay/player-svelte",
   "version": "0.0.1",
   "devDependencies": {
-    "@dom-replay/snapshot": "workspace:*",
-    "@dom-replay/types": "workspace:*",
+    "@dom-replay/snapshot": "^0.0.1",
+    "@dom-replay/types": "^0.0.1",
     "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/package": "^2.0.0",
@@ -22,8 +22,8 @@
     "vite-plugin-dts": "4.5.4"
   },
   "dependencies": {
-    "@dom-replay/packer": "workspace:*",
-    "@dom-replay/replay": "workspace:*",
+    "@dom-replay/packer": "^0.0.1",
+    "@dom-replay/replay": "^0.0.1",
     "@tsconfig/svelte": "^1.0.13"
   },
   "scripts": {
@@ -63,7 +63,7 @@
   ],
   "license": "MIT",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
+    "registry": "https://registry.npmjs.org/",
     "access": "public"
   }
 }

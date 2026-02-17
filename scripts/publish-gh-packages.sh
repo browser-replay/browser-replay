@@ -3,7 +3,7 @@ set -euo pipefail
 
 usage() {
   cat <<'EOF'
-Publish this workspace to GitHub Packages (npm).
+Publish this workspace to npm registry (GitHub Packages or npmjs.com).
 
 Usage:
   scripts/publish-gh-packages.sh [options]
@@ -14,9 +14,9 @@ Options:
   --dry-run                Perform a dry run (no publish)
   --skip-install           Skip pnpm install step
   --skip-build             Skip pnpm build:all step
-  --delete-existing        Delete existing package version on GitHub before
-                           publishing (avoids 409). Often 404 via API; prefer
-                           --bump-version when possible.
+  --delete-existing        Delete existing package version before publishing
+                           (avoids 409). Only works for GitHub Packages.
+  --force                   Delete existing packages and republish (avoids 409).
   --delete-version <ver>   Delete a specific version from GitHub Packages
                            without publishing (use --filter to limit packages)
   --bump-version           Bump patch version (e.g. 0.0.1 -> 0.0.2) in all
@@ -26,20 +26,21 @@ Options:
   -h, --help               Show help
 
 Auth:
-  Provide a token via NODE_AUTH_TOKEN or GITHUB_TOKEN (write:packages).
-  Optional: GITHUB_OWNER (default: vcatalano).
+  For GitHub Packages: NODE_AUTH_TOKEN or GITHUB_TOKEN (write:packages)
+  For npmjs.com: NPM_TOKEN or standard npm login
+  Optional: REGISTRY (default: npmjs.com), GITHUB_OWNER (default: dom-replay)
 
 Examples:
-  NODE_AUTH_TOKEN=... scripts/publish-gh-packages.sh
-  NODE_AUTH_TOKEN=... scripts/publish-gh-packages.sh --bump-version --skip-install --skip-build
-  GITHUB_TOKEN=... scripts/publish-gh-packages.sh --filter @dom-replay/core
-  NODE_AUTH_TOKEN=... scripts/publish-gh-packages.sh --tag next --dry-run
+  NPM_TOKEN=... scripts/publish-gh-packages.sh
+  NODE_AUTH_TOKEN=... REGISTRY=https://npm.pkg.github.com scripts/publish-gh-packages.sh --force
+  scripts/publish-gh-packages.sh --bump-version --skip-install --skip-build
+  scripts/publish-gh-packages.sh --filter @dom-replay/core
 EOF
 }
 
 SCOPE='@dom-replay'
-REGISTRY='https://npm.pkg.github.com'
-GITHUB_OWNER="${GITHUB_OWNER:-vcatalano}"
+REGISTRY="${REGISTRY:-https://registry.npmjs.org/}"
+GITHUB_OWNER="${GITHUB_OWNER:-dom-replay}"
 # Repository for package lookup (e.g. dom-replay/dom-replay). Used when org/user APIs return 404.
 GITHUB_REPO="${GITHUB_REPO:-dom-replay/dom-replay}"
 SKIP_INSTALL='0'
@@ -50,6 +51,7 @@ BUMP_VERSION='0'
 DEBUG='0'
 TAG=''
 DELETE_VERSION=''
+FORCE='0'
 FILTER_ARGS=()
 
 while [[ $# -gt 0 ]]; do
@@ -68,6 +70,11 @@ while [[ $# -gt 0 ]]; do
       ;;
     --delete-existing)
       DELETE_EXISTING='1'
+      shift 1
+      ;;
+    --force)
+      FORCE='1'
+      DELETE_EXISTING='1'  # Force implies delete existing
       shift 1
       ;;
     --delete-version)
@@ -109,10 +116,19 @@ if [[ -z "${ROOT_DIR}" ]]; then
   exit 1
 fi
 
-TOKEN="${NODE_AUTH_TOKEN:-${GITHUB_TOKEN:-}}"
-if [[ -z "${TOKEN}" ]]; then
-  echo "Error: set NODE_AUTH_TOKEN (or GITHUB_TOKEN) with GitHub Packages write access." >&2
-  exit 1
+# Set authentication based on registry
+if [[ "${REGISTRY}" == "https://npm.pkg.github.com" ]]; then
+  TOKEN="${NODE_AUTH_TOKEN:-${GITHUB_TOKEN:-}}"
+  if [[ -z "${TOKEN}" ]]; then
+    echo "Error: set NODE_AUTH_TOKEN (or GITHUB_TOKEN) with GitHub Packages write access." >&2
+    exit 1
+  fi
+else
+  TOKEN="${NPM_TOKEN:-${NODE_AUTH_TOKEN:-${GITHUB_TOKEN:-}}}"
+  if [[ -z "${TOKEN}" ]]; then
+    echo "Error: set NPM_TOKEN (or NODE_AUTH_TOKEN/GITHUB_TOKEN) for npm publishing." >&2
+    exit 1
+  fi
 fi
 
 TMP_NPMRC="$(mktemp)"
@@ -121,11 +137,20 @@ cleanup() {
 }
 trap cleanup EXIT
 
-cat >"${TMP_NPMRC}" <<EOF
+# Configure npm registry and authentication
+if [[ "${REGISTRY}" == "https://npm.pkg.github.com" ]]; then
+  cat >"${TMP_NPMRC}" <<EOF
 ${SCOPE}:registry=${REGISTRY}
 //npm.pkg.github.com/:_authToken=${TOKEN}
 always-auth=true
 EOF
+else
+  cat >"${TMP_NPMRC}" <<EOF
+registry=${REGISTRY}
+//registry.npmjs.org/:_authToken=${TOKEN}
+always-auth=true
+EOF
+fi
 
 export NODE_AUTH_TOKEN="${TOKEN}"
 export NPM_CONFIG_USERCONFIG="${TMP_NPMRC}"
@@ -181,6 +206,7 @@ prepare_package_for_publish() {
 
 # Delete a package version from GitHub Packages (so we can republish).
 # Requires token with delete:packages. Uses org API for scoped packages.
+# Only works for GitHub Packages, not npmjs.com
 delete_github_package_version() {
   local pkg_name="$1"
   local version="$2"
@@ -277,33 +303,40 @@ publish_one() {
   grep -q '"private": *true' "${dir}/package.json" 2>/dev/null && return 0
   grep -q '"publishConfig"' "${dir}/package.json" 2>/dev/null || return 0
 
-  # Prepare package for publishing (replace workspace:* with published versions)
-  local temp_dir
-  temp_dir=$(mktemp -d)
-  cp -r "${dir}"/* "${temp_dir}/"
-  prepare_package_for_publish "${temp_dir}/package.json"
+  # Temporarily modify package.json for publishing (replace workspace:* with published versions)
+  local original_content
+  original_content=$(cat "${dir}/package.json")
+  prepare_package_for_publish "${dir}/package.json"
 
   if [[ "${DELETE_EXISTING}" == "1" ]]; then
-    local pkg_name version
-    pkg_name=$(node -e "console.log(JSON.parse(require('fs').readFileSync(process.argv[1],'utf8')).name)" "${temp_dir}/package.json" 2>/dev/null) || true
-    version=$(node -e "console.log(JSON.parse(require('fs').readFileSync(process.argv[1],'utf8')).version)" "${temp_dir}/package.json" 2>/dev/null) || true
-    if [[ -n "${pkg_name}" && -n "${version}" ]]; then
-      if [[ "${DRY_RUN}" == "1" ]]; then
-        echo "[dry-run] Would delete existing ${pkg_name}@${version} from GitHub Packages" >&2
-        # Show what URLs would be tried
-        local encoded_no_scope
-        encoded_no_scope=$(node -e "console.log(encodeURIComponent(process.argv[1]))" "${pkg_name##*/}")
-        echo "[dry-run] Would try this list URL:" >&2
-        echo "[dry-run]   GET https://api.github.com/orgs/${GITHUB_OWNER}/packages/npm/${encoded_no_scope}/versions" >&2
-        echo "[dry-run] Would then try corresponding DELETE URLs if version found" >&2
-      else
-        delete_github_package_version "$pkg_name" "$version"
+    # Only attempt deletion for GitHub Packages, not npmjs.com
+    if [[ "${REGISTRY}" == "https://npm.pkg.github.com" ]]; then
+      local pkg_name version
+      pkg_name=$(node -e "console.log(JSON.parse(require('fs').readFileSync(process.argv[1],'utf8')).name)" "${dir}/package.json" 2>/dev/null) || true
+      version=$(node -e "console.log(JSON.parse(require('fs').readFileSync(process.argv[1],'utf8')).version)" "${dir}/package.json" 2>/dev/null) || true
+      if [[ -n "${pkg_name}" && -n "${version}" ]]; then
+        if [[ "${DRY_RUN}" == "1" ]]; then
+          echo "[dry-run] Would delete existing ${pkg_name}@${version} from GitHub Packages" >&2
+          # Show what URLs would be tried
+          local encoded_no_scope
+          encoded_no_scope=$(node -e "console.log(encodeURIComponent(process.argv[1]))" "${pkg_name##*/}")
+          echo "[dry-run] Would try this list URL:" >&2
+          echo "[dry-run]   GET https://api.github.com/orgs/${GITHUB_OWNER}/packages/npm/${encoded_no_scope}/versions" >&2
+          echo "[dry-run] Would then try corresponding DELETE URLs if version found" >&2
+        else
+          delete_github_package_version "$pkg_name" "$version"
+        fi
       fi
+    else
+      echo "Note: Skipping deletion for npmjs.com registry (not supported)" >&2
     fi
   fi
+
   echo "Publishing ${dir##*/} ..." >&2
-  (cd "${temp_dir}" && pnpm publish "${PUBLISH_ARGS[@]}")
-  rm -rf "${temp_dir}"
+  (cd "${dir}" && pnpm publish "${PUBLISH_ARGS[@]}")
+
+  # Restore original package.json
+  echo "${original_content}" > "${dir}/package.json"
 }
 
 FAILED=0
@@ -321,7 +354,7 @@ if [[ -n "${DELETE_VERSION}" ]]; then
     [[ -n "$dir" ]] || continue
     [[ -f "${dir}/package.json" ]] || continue
     grep -q '"publishConfig"' "${dir}/package.json" 2>/dev/null || continue
-    local pkg_name version
+    pkg_name="" version=""
     pkg_name=$(node -e "console.log(JSON.parse(require('fs').readFileSync(process.argv[1],'utf8')).name)" "${dir}/package.json" 2>/dev/null) || continue
     if [[ -n "${pkg_name}" ]]; then
       echo "Deleting ${pkg_name}@${DELETE_VERSION} ..." >&2

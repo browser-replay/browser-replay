@@ -63,6 +63,7 @@ Additional packages: [snapshot](packages/snapshot), [dom](packages/dom), [packer
 - Dev (watch): `pnpm dev`
 - Test: `pnpm test`
 - Lint: `pnpm lint`
+- **Publishing:** [Publishing packages](docs/development/publishing.md) (npm and GitHub Packages; deploy without OTP via GitHub Actions)
 
 ## Docs
 
