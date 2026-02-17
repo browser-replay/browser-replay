@@ -36,7 +36,7 @@ jobs:
         run: pnpm audit --audit-level=high
 
       - name: Install Playwright (for video package tests)
-        run: pnpm exec playwright install chromium
+        run: pnpm --filter @dom-replay/video exec playwright install chromium
 
       - name: Lint
         run: pnpm lint
