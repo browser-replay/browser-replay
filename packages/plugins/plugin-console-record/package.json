@@ -39,7 +39,7 @@
     "@dom-replay/core": "workspace:*",
     "@dom-replay/types": "workspace:*",
     "@dom-replay/utils": "workspace:*",
-    "puppeteer": "^24.36.1",
+    "puppeteer": "^24.37.3",
     "typescript": "5.8.2",
     "vite": "^5.3.1",
     "vite-plugin-dts": "^4.5.4",
