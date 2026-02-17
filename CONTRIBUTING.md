@@ -68,6 +68,10 @@ Then restart the dev server.
 
 See [documentation](docs/development/coding-style.md).
 
+## Releases / publishing
+
+See [Publishing packages](docs/development/publishing.md) for how to publish to npm and GitHub Packages (including deploy without OTP via GitHub Actions).
+
 ## License
 
 This codebase includes MIT-licensed components; see `LICENSE` and `NOTICE`. By contributing, you agree that your contributions will be licensed under the MIT License.

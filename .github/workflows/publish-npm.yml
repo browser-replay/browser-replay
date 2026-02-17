@@ -1,0 +1,39 @@
+# Publish @dom-replay/* packages to npm (registry.npmjs.org) using Trusted Publishing (OIDC).
+# No NPM_TOKEN or OTP required once trusted publishers are configured on npm.
+# See docs/publishing.md for one-time setup.
+name: Publish to npm
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  id-token: write   # Required for npm OIDC trusted publishing
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: NODE_OPTIONS='--max-old-space-size=4096' pnpm build:all
+
+      - name: Publish to npm (OIDC)
+        run: bash .github/scripts/publish-npm-oidc.sh
+        # Do NOT set NODE_AUTH_TOKEN or NPM_TOKEN; npm uses OIDC for auth.

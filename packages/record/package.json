@@ -44,15 +44,15 @@
     "vitest": "^1.4.0"
   },
   "dependencies": {
-    "@dom-replay/core": "workspace:*",
-    "@dom-replay/types": "workspace:*",
-    "@dom-replay/utils": "workspace:*"
+    "@dom-replay/core": "^0.0.1",
+    "@dom-replay/types": "^0.0.1",
+    "@dom-replay/utils": "^0.0.1"
   },
   "browserslist": [
     "supports es6-class"
   ],
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com",
+    "registry": "https://registry.npmjs.org/",
     "access": "public"
   }
 }
