@@ -1494,8 +1494,8 @@ describe('diff algorithm for rrdom', () => {
         // IFrame document has two children, mirror id of documentElement is ${htmlElId}, and selectors should be case-sensitive for matching in iframe dom (consistent with the normal dom).
         expect(result).toBeTruthy();
       } finally {
-        await page.close();
-        await browser.close();
+        if (page) await page.close();
+        if (browser) await browser.close();
       }
     });
   });

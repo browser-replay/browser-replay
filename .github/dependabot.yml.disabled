@@ -1,3 +1,4 @@
+# Dependabot disabled until tests are passing. Rename to dependabot.yml to re-enable.
 version: 2
 updates:
   - package-ecosystem: 'github-actions'

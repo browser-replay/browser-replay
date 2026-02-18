@@ -251,7 +251,7 @@ describe('RRDocument for browser environment', () => {
       );
     });
     afterAll(async () => {
-      await browser.close();
+      if (browser) await browser.close();
     });
 
     beforeEach(async () => {
@@ -261,7 +261,7 @@ describe('RRDocument for browser environment', () => {
     });
 
     afterEach(async () => {
-      await page.close();
+      if (page) await page.close();
     });
     it('can build from a common html', async () => {
       await page.setContent(getHtml('main.html'));
