@@ -15,6 +15,7 @@ jobs:
     env:
       PUPPETEER_HEADLESS: 'true'
       PUPPETEER_DOWNLOAD_BASE_URL: 'https://storage.googleapis.com/chrome-for-testing-public'
+      PUPPETEER_CACHE_DIR: '${{ github.workspace }}/.cache/puppeteer'
     steps:
       - uses: actions/checkout@v4
 
