@@ -40,7 +40,9 @@ jobs:
         run: pnpm --filter @dom-replay/video exec playwright install chromium
 
       - name: Install Puppeteer Chrome (for core, snapshot, dom, etc.)
-        run: pnpm --filter @dom-replay/core exec puppeteer browsers install chrome
+        run: |
+          pnpm --filter @dom-replay/core exec puppeteer browsers install chrome
+          pnpm --filter @dom-replay/dom exec puppeteer browsers install chrome
 
       - name: Lint
         run: pnpm lint
