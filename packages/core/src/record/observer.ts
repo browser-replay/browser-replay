@@ -131,7 +131,7 @@ function initMoveObserver({
           | IncrementalSource.TouchMove
           | IncrementalSource.Drag,
       ) => {
-        const totalOffset = Date.now() - timeBaseline!;
+        const totalOffset = Date.now() - (timeBaseline ?? Date.now());
         mousemoveCb(
           positions.map((p) => {
             p.timeOffset -= totalOffset;

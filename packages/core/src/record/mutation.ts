@@ -363,13 +363,15 @@ export default class MutationBuffer {
     };
 
     while (this.mapRemoves.length) {
-      this.mirror.removeNodeFromMap(this.mapRemoves.shift()!);
+      const node = this.mapRemoves.shift();
+      if (node) this.mirror.removeNodeFromMap(node);
     }
 
     for (const n of this.movedSet) {
+      const parentNode = dom.parentNode(n);
       if (
         isParentRemoved(this.removesSubTreeCache, n, this.mirror) &&
-        !this.movedSet.has(dom.parentNode(n)!)
+        (!parentNode || !this.movedSet.has(parentNode))
       ) {
         continue;
       }
@@ -836,6 +838,7 @@ function isParentRemoved(removes: Set<Node>, n: Node, mirror: Mirror): boolean {
 function _isParentRemoved(
   removes: Set<Node>,
   n: Node,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   _mirror: Mirror,
 ): boolean {
   const node: ParentNode | null = dom.parentNode(n);

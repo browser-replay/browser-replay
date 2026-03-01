@@ -30,7 +30,8 @@ async function getTransparentBlobFor(
 ): Promise<string> {
   const id = `${width}-${height}`;
   if ('OffscreenCanvas' in globalThis) {
-    if (transparentBlobMap.has(id)) return transparentBlobMap.get(id)!;
+    const cached = transparentBlobMap.get(id);
+    if (cached !== undefined) return cached;
     const offscreen = new OffscreenCanvas(width, height);
     offscreen.getContext('2d'); // creates rendering context for `converToBlob`
     const blob = await offscreen.convertToBlob(dataURLOptions); // takes a while

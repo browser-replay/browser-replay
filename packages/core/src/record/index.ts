@@ -537,7 +537,7 @@ function record<T = eventWithTime>(
             plugins
               ?.filter((p) => p.observer)
               ?.map((p) => ({
-                observer: p.observer!,
+                observer: p.observer as NonNullable<typeof p.observer>,
                 options: p.options,
                 callback: (payload: object) =>
                   wrappedEmit({
@@ -555,7 +555,8 @@ function record<T = eventWithTime>(
 
     iframeManager.addLoadListener((iframeEl) => {
       try {
-        handlers.push(observe(iframeEl.contentDocument!));
+        const doc = iframeEl.contentDocument;
+        if (doc) handlers.push(observe(doc));
       } catch (error) {
         // TODO: handle internal error
         console.warn(error);

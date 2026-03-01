@@ -2,7 +2,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import minimist from 'minimist';
-import { ProgressBar } from '@open-tech-world/cli-progress-bar';
+import cliProgress from 'cli-progress';
 import type { PlayerProps } from '@dom-replay/player-core';
 import { transformToVideo } from './index';
 
@@ -25,11 +25,18 @@ if (argv.config) {
   >;
 }
 
-const pBar = new ProgressBar({ prefix: 'Transforming' });
+const pBar = new cliProgress.SingleBar(
+  { format: '{prefix} |{bar}| {percentage}%' },
+  cliProgress.Presets.shades_classic,
+);
+pBar.start(100, 0, { prefix: 'Transforming' });
 const onProgressUpdate = (percent: number) => {
-  if (percent < 1) pBar.run({ value: percent * 100, total: 100 });
-  else
-    pBar.run({ value: 100, total: 100, prefix: 'Transformation Completed!' });
+  if (percent < 1) {
+    pBar.update(Math.round(percent * 100));
+  } else {
+    pBar.update(100, { prefix: 'Completed' });
+    pBar.stop();
+  }
 };
 
 transformToVideo({

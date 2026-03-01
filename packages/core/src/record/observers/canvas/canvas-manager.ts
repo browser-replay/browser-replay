@@ -99,7 +99,7 @@ export class CanvasManager {
       this.pendingCanvasMutations.set(target, []);
     }
 
-    this.pendingCanvasMutations.get(target)!.push(mutation);
+    this.pendingCanvasMutations.get(target)?.push(mutation);
   };
 
   private initCanvasFPSObserver(
@@ -301,10 +301,10 @@ export class CanvasManager {
     const valuesWithType = this.pendingCanvasMutations.get(canvas);
     if (!valuesWithType || id === -1) return;
 
-    const values = valuesWithType.map((value) => {
-      const { type, ...rest } = value;
-      return rest;
-    });
+    const values = valuesWithType.map(
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      ({ type: _type, ...rest }) => rest,
+    );
     const { type } = valuesWithType[0];
 
     this.mutationCb({ id, type, commands: values });

@@ -85,6 +85,7 @@ export class StylesheetManager {
   }
 
   // TODO: take snapshot on stylesheet reload by applying event listener
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   private trackStylesheetInLinkElement(_linkEl: HTMLLinkElement) {
     // linkEl.addEventListener('load', () => {
     //   // re-loaded, maybe take another snapshot?
