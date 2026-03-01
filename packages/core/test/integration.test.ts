@@ -789,6 +789,7 @@ describe('record integration tests', function (this: ISuite) {
 
     await page.type('#input', 'moo');
     await page.type('#textarea', 'boo');
+    await waitForRAF(page);
 
     await page.evaluate(() => {
       const el = document.querySelector('input');
@@ -797,6 +798,7 @@ describe('record integration tests', function (this: ISuite) {
       const ta = document.querySelector('textarea');
       ta.value = 'textarea attribute mutation should also be masked';
     });
+    await waitForRAF(page);
 
     await page.evaluate(() => {
       const el = document.querySelector('input');
@@ -811,6 +813,7 @@ describe('record integration tests', function (this: ISuite) {
         "textarea attribute mutation should also be masked (even though the new value doesn't take effect)",
       );
     });
+    await waitForRAF(page);
 
     await page.evaluate(() => {
       const ta = document.querySelector('textarea');
