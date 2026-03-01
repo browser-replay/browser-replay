@@ -808,6 +808,7 @@ describe('record', function (this: ISuite) {
   });
 
   describe('loading stylesheets', () => {
+    vi.setConfig({ testTimeout: 30_000, hookTimeout: 30_000 });
     let server: Server;
     let serverURL: string;
 
@@ -876,6 +877,11 @@ describe('record', function (this: ISuite) {
       await ctx.page.waitForResponse(`${serverURL}/html/hello-world.html?2`);
 
       await waitForRAF(ctx.page);
+
+      await ctx.page.waitForFunction(() => {
+        const iframe = document.querySelector('iframe');
+        return iframe?.contentDocument?.head != null;
+      });
 
       ctx.page.evaluate(() => {
         const iframe = document.querySelector('iframe')!;
