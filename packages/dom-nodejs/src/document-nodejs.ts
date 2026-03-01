@@ -33,7 +33,9 @@ export class RRDocument extends BaseRRDocument implements IRRDocument {
   private _nwsapi: NWSAPI | undefined;
 
   // nwsapi >= 2.2.5 registers event listeners during init; virtual DOM is a no-op
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   addEventListener() {}
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   removeEventListener() {}
 
   get nwsapi(): NWSAPI {
