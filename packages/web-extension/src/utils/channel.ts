@@ -36,8 +36,8 @@ class Channel {
      * Register message listener.
      */
     Browser.runtime.onMessage.addListener(
-      ((message: string, sender: Runtime.MessageSender) => {
-        const parsed = JSON.parse(message) as Message | null | undefined;
+      ((message: unknown, sender: Runtime.MessageSender) => {
+        const parsed = JSON.parse(message as string) as Message | null | undefined;
         if (!parsed || !parsed.type) {
           console.error(`Bad message: ${message}`);
           return;

@@ -31,6 +31,11 @@ export class RRWindow {
 export class RRDocument extends BaseRRDocument implements IRRDocument {
   readonly nodeName = '#document' as const;
   private _nwsapi: NWSAPI | undefined;
+
+  // nwsapi >= 2.2.5 registers event listeners during init; virtual DOM is a no-op
+  addEventListener() {}
+  removeEventListener() {}
+
   get nwsapi(): NWSAPI {
     if (!this._nwsapi) {
       this._nwsapi = nwsapi({
