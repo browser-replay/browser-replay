@@ -8,11 +8,7 @@ overrides:
   cssom: https://registry.npmjs.org/rrweb-cssom/-/rrweb-cssom-0.8.0.tgz
   '@types/dom-webcodecs': 0.1.5
   typescript: 5.8.2
-  basic-ftp: '>=5.2.0'
-  minimatch@<4: 3.1.5
-  minimatch@>=9.0.0 <9.0.7: 9.0.9
   minimatch@>=10.0.0 <10.2.3: 10.2.4
-  rollup@>=4.0.0 <4.59.0: 4.59.0
 
 importers:
 
@@ -1787,7 +1783,7 @@ packages:
     resolution: {integrity: sha512-5EdhGZtnu3V88ces7s53hhfK5KSASnJZv8Lulpc04cWO3REESroJXg73DFsOmgbU2BhwV0E20bu2IDZb3VKW4Q==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
-      rollup: 4.59.0
+      rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
     peerDependenciesMeta:
       rollup:
         optional: true
@@ -5582,7 +5578,7 @@ packages:
     hasBin: true
     peerDependencies:
       rolldown: 1.x || ^1.0.0-beta || ^1.0.0-rc
-      rollup: 4.59.0
+      rollup: 2.x || 3.x || 4.x
     peerDependenciesMeta:
       rolldown:
         optional: true

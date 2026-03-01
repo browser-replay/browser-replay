@@ -74,7 +74,8 @@
     "overrides": {
       "cssom": "https://registry.npmjs.org/rrweb-cssom/-/rrweb-cssom-0.8.0.tgz",
       "@types/dom-webcodecs": "0.1.5",
-      "typescript": "5.8.2"
+      "typescript": "5.8.2",
+      "minimatch@>=10.0.0 <10.2.3": "10.2.4"
     },
     "onlyBuiltDependencies": [
       "esbuild",
