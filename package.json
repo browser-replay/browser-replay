@@ -46,7 +46,6 @@
   "scripts": {
     "build:all": "NODE_OPTIONS='--max-old-space-size=4096' pnpm turbo run prepublish",
     "pack:local": "bash scripts/pack-local-dev.sh",
-    "sync:geo-kba": "bash scripts/sync-geo-kba-local.sh",
     "publish:gh": "bash scripts/publish-gh-packages.sh",
     "publish:gh:dry": "bash scripts/publish-gh-packages.sh --dry-run",
     "references:update": "pnpm workspaces-to-typescript-project-references",

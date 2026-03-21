@@ -1,26 +1,24 @@
 # Changelog
 
-## v1.0.0
+All notable changes to this project will be documented in this file.
 
-### Featrues & Improvements
+## [Unreleased]
 
-- Support record same-origin non-sandboxed iframe.
-- Support record open-mode shadow DOM.
-- Implement the plugin API.
-- Export `record.takeFullSnapshot` as a public API
-- Record and replay drag events.
-- Add options to mask texts (#540).
+## [0.0.1] - 2026-01-01
 
-### Fixes
+Initial public release of dom-replay, a fork of [rrweb](https://github.com/rrweb-io/rrweb) with its own name, repository, and roadmap.
 
-- Get the original MutationObserver when Angular patched it.
-- Fix RangeError: Maximum call stack size exceeded (#479).
-- Fix the linked-list implementation in the recorder.
-- Don't perform newly added actions if the player is paused (#539).
-- Fix inaccurate mouse position (#522)
+### Highlights
 
-### Breaking Changes
+- Renamed all packages under the `@dom-replay` scope
+- Monorepo restructured with Turborepo and pnpm workspaces
+- React-based player (`@dom-replay/player`)
+- Svelte-based player (`@dom-replay/player-svelte`)
+- CI pipeline with lint, typecheck, build, and test stages
+- OIDC-based npm publishing via GitHub Actions (no token required)
+- Plugin architecture for console recording/replay, canvas WebRTC, and sequential IDs
+- Full documentation site with guides and recipes
 
-- Deprecated the usage of `rrweb.mirror`. Please use `record.mirror` and `replayer.getMirror()` instead.
-- Deprecated the record option `recordLog `. See the new plugin API [here](./docs/recipes/console.md).
-- Deprecated the replay option ` `. See the new plugin API [here](./docs/recipes/console.md).
+### Attribution
+
+dom-replay is built on rrweb. See `LICENSE` and `NOTICE` for full attribution.

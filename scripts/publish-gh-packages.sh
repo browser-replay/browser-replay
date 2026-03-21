@@ -11,6 +11,9 @@ Usage:
 Options:
   --filter <pnpm-filter>   Publish only matching workspace packages (repeatable)
   --tag <dist-tag>         Publish with npm dist-tag (e.g. next)
+  --otp <code>             npm one-time password for 2FA. If omitted and stdin
+                           is a terminal, the script will prompt interactively
+                           and re-prompt when the code expires.
   --dry-run                Perform a dry run (no publish)
   --skip-install           Skip pnpm install step
   --skip-build             Skip pnpm build:all step
@@ -30,8 +33,13 @@ Auth:
   For npmjs.com: NPM_TOKEN or standard npm login
   Optional: REGISTRY (default: npmjs.com), GITHUB_OWNER (default: dom-replay)
 
+  Tip: To skip 2FA entirely in CI, create an npm automation token:
+    npm token create --type=automation
+  Automation tokens bypass OTP requirements.
+
 Examples:
   NPM_TOKEN=... scripts/publish-gh-packages.sh
+  NPM_TOKEN=... scripts/publish-gh-packages.sh --otp 123456
   NODE_AUTH_TOKEN=... REGISTRY=https://npm.pkg.github.com scripts/publish-gh-packages.sh --force
   scripts/publish-gh-packages.sh --bump-version --skip-install --skip-build
   scripts/publish-gh-packages.sh --filter @dom-replay/core
@@ -52,6 +60,7 @@ DEBUG='0'
 TAG=''
 DELETE_VERSION=''
 FORCE='0'
+OTP=''
 FILTER_ARGS=()
 
 while [[ $# -gt 0 ]]; do
@@ -62,6 +71,10 @@ while [[ $# -gt 0 ]]; do
       ;;
     --tag)
       TAG="$2"
+      shift 2
+      ;;
+    --otp)
+      OTP="$2"
       shift 2
       ;;
     --dry-run)
@@ -295,6 +308,66 @@ delete_github_package_version() {
   done
 }
 
+# Prompt for an OTP interactively (only when stdin is a terminal).
+prompt_otp() {
+  if [[ -t 0 ]]; then
+    local code
+    read -rp "Enter npm OTP: " code </dev/tty
+    OTP="${code}"
+  else
+    echo "Error: npm requires an OTP but stdin is not a terminal. Pass --otp <code>." >&2
+    return 1
+  fi
+}
+
+# Ensure OTP is available for npmjs.com publishes (prompt once at start).
+ensure_otp() {
+  [[ "${DRY_RUN}" == "1" ]] && return 0
+  [[ "${REGISTRY}" == "https://npm.pkg.github.com" ]] && return 0
+  [[ -n "${OTP}" ]] && return 0
+  echo "Publishing to npmjs.com with 2FA enabled." >&2
+  prompt_otp
+}
+
+# Build the full set of publish args including OTP when available.
+build_publish_cmd() {
+  PUBLISH_CMD=("pnpm" "publish" "${PUBLISH_ARGS[@]}")
+  if [[ -n "${OTP}" ]]; then
+    PUBLISH_CMD+=("--otp" "${OTP}")
+  fi
+}
+
+# Run pnpm publish, detecting OTP expiry and re-prompting up to 3 times.
+publish_with_otp() {
+  local dir="$1"
+  local max_retries=3
+  local attempt=0
+
+  while true; do
+    build_publish_cmd
+    local output
+    output=$( (cd "${dir}" && "${PUBLISH_CMD[@]}") 2>&1) && {
+      echo "${output}"
+      return 0
+    }
+    local exit_code=$?
+
+    if echo "${output}" | grep -qiE 'EOTP|one-time pass|OTP'; then
+      attempt=$((attempt + 1))
+      if [[ ${attempt} -ge ${max_retries} ]]; then
+        echo "${output}" >&2
+        echo "Error: OTP rejected ${max_retries} times for ${dir##*/}." >&2
+        return ${exit_code}
+      fi
+      echo "OTP expired or invalid. Re-prompting (attempt ${attempt}/${max_retries}) ..." >&2
+      prompt_otp || return 1
+    else
+      echo "${output}" >&2
+      return ${exit_code}
+    fi
+  done
+}
+
 # Publish each package separately so one failure (e.g. version already exists) doesn't stop the rest.
 # Use pnpm's default order (dependency order) so dependents are published after their deps.
 publish_one() {
@@ -333,7 +406,7 @@ publish_one() {
   fi
 
   echo "Publishing ${dir##*/} ..." >&2
-  (cd "${dir}" && pnpm publish "${PUBLISH_ARGS[@]}")
+  publish_with_otp "${dir}"
 
   # Restore original package.json
   echo "${original_content}" > "${dir}/package.json"
@@ -370,23 +443,23 @@ if [[ -n "${DELETE_VERSION}" ]]; then
   exit 0
 fi
 
-# Use per-package loop when filtering or when delete-existing (so delete runs before each publish)
-if [[ ${#FILTER_ARGS[@]} -gt 0 ]] || [[ "${DELETE_EXISTING}" == "1" ]]; then
-  set +e
-  dir_list=""
-  if [[ ${#FILTER_ARGS[@]} -gt 0 ]]; then
-    dir_list=$(pnpm -r "${FILTER_ARGS[@]}" exec pwd 2>/dev/null)
-  else
-    dir_list=$(pnpm -r exec pwd 2>/dev/null)
-  fi
-  while IFS= read -r dir; do
-    [[ -n "$dir" ]] || continue
-    publish_one "${dir}" || FAILED=$((FAILED + 1))
-  done <<< "$dir_list"
-  set -e
+# Prompt for OTP once before the publish loop begins (interactive npmjs.com only)
+ensure_otp
+
+# Always use per-package loop so OTP retry logic works for every package.
+# pnpm's `pnpm -r publish` doesn't support per-package OTP re-prompting.
+set +e
+dir_list=""
+if [[ ${#FILTER_ARGS[@]} -gt 0 ]]; then
+  dir_list=$(pnpm -r "${FILTER_ARGS[@]}" exec pwd 2>/dev/null)
 else
-  pnpm -r publish "${PUBLISH_ARGS[@]}" || FAILED=1
+  dir_list=$(pnpm -r exec pwd 2>/dev/null)
 fi
+while IFS= read -r dir; do
+  [[ -n "$dir" ]] || continue
+  publish_one "${dir}" || FAILED=$((FAILED + 1))
+done <<< "$dir_list"
+set -e
 [[ "$FAILED" -gt 0 ]] && exit 1
 exit 0
 

@@ -23,7 +23,7 @@ Treat everyone with respect. No harassment or discrimination.
 
 Violations will be handled by maintainers. First offense: warning. Repeated issues: ban.
 
-Report problems to vcatalano@hey.com.
+Report problems to vcatalano@gmail.com.
 
 ## Scope
 

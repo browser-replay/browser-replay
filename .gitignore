@@ -12,6 +12,10 @@ temp
 .pnpm-store/
 
 .env
+.env.local
+.env.*.local
+*.pem
+*.key
 
 .DS_Store
 

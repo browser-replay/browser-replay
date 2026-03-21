@@ -64,6 +64,19 @@ rm -rf node_modules/.vite
 
 Then restart the dev server.
 
+## Environment variables
+
+These are optional and only relevant for specific workflows:
+
+| Variable | Purpose |
+|---|---|
+| `PUPPETEER_HEADLESS` | Set to `true` to run Puppeteer tests in headless mode |
+| `TARGET_BROWSER` | `chrome` or `firefox` for web-extension builds |
+| `ZIP` | Set to produce zipped web-extension output |
+| `DISABLE_WORKER_INLINING` | Skip inlining workers during build |
+| `SKIP_UMD` | Skip UMD bundle generation |
+| `ANALYZE` | Generate bundle analysis HTML reports |
+
 ## Coding style
 
 See [documentation](docs/development/coding-style.md).
