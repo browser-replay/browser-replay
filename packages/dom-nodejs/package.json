@@ -40,7 +40,7 @@
   "devDependencies": {
     "@types/cssom": "^0.4.1",
     "@types/cssstyle": "^2.2.1",
-    "@types/node": "^22.0.0",
+    "@types/node": "^25.5.0",
     "@types/nwsapi": "^2.2.2",
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
