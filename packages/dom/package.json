@@ -37,7 +37,7 @@
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
     "eslint": "^8.15.0",
-    "jsdom": "^25.0.0",
+    "jsdom": "^29.0.1",
     "puppeteer": "^24.36.1",
     "typescript": "5.8.2",
     "vite": "^5.3.1",
