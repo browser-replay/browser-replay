@@ -207,18 +207,11 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
-      - name: Cache Playwright browsers
-        id: cache-playwright
-        uses: actions/cache@v4
+      - name: Setup Playwright browsers (with caching)
+        uses: ./.github/actions/setup-browsers
         with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-v1-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            playwright-${{ runner.os }}-v1-
-
-      - name: Install Playwright
-        if: steps.cache-playwright.outputs.cache-hit != 'true'
-        run: pnpm --filter @dom-replay/video exec playwright install chromium
+          filter: '@dom-replay/video'
+          type: playwright
 
       - name: Test (Video package)
         run: xvfb-run --server-args="-screen 0 1920x1080x24" pnpm --filter @dom-replay/video test -- --retry=1
@@ -263,21 +256,14 @@ jobs:
           restore-keys: |
             turbo-${{ runner.os }}-
 
-      - name: Cache Puppeteer browsers
-        id: cache-puppeteer
-        uses: actions/cache@v4
-        with:
-          path: ${{ env.PUPPETEER_CACHE_DIR }}
-          key: puppeteer-${{ runner.os }}-v1-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            puppeteer-${{ runner.os }}-v1-
-
       - name: Install
         run: pnpm install --frozen-lockfile
 
-      - name: Install Puppeteer Chrome
-        if: steps.cache-puppeteer.outputs.cache-hit != 'true'
-        run: pnpm --filter @dom-replay/core exec puppeteer browsers install chrome
+      - name: Setup Puppeteer browsers (with caching)
+        uses: ./.github/actions/setup-browsers
+        with:
+          filter: '@dom-replay/core'
+          type: puppeteer
 
       - name: Test (shard ${{ matrix.shard }}/${{ strategy.job-total }})
         run: |
