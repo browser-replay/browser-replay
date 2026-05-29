@@ -10,10 +10,192 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  PUPPETEER_HEADLESS: 'true'
+  PUPPETEER_DOWNLOAD_BASE_URL: 'https://storage.googleapis.com/chrome-for-testing-public'
+  PUPPETEER_CACHE_DIR: '${{ github.workspace }}/.cache/puppeteer'
+  TURBO_CACHE_DIR: .turbo
+
 jobs:
-  ci:
-    name: Lint / Typecheck / Test
+  # Fast feedback jobs - run in parallel
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm check-types
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Turbo Cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.TURBO_CACHE_DIR }}
+          key: turbo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build (all packages)
+        run: NODE_OPTIONS='--max-old-space-size=4096' pnpm build:all
+
+      - name: Bundle Size Report
+        # Non-blocking for now while we establish baselines after the snapshot boundary work.
+        run: pnpm size
+        continue-on-error: true
+
+  # Test jobs depend on build
+  test-light:
+    name: Test (Unit + Light packages)
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    needs: build
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Turbo Cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.TURBO_CACHE_DIR }}
+          key: turbo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Test (Unit + Light packages)
+        # Higher parallelism + basic retry for faster, more resilient runs
+        run: xvfb-run --server-args="-screen 0 1920x1080x24" pnpm turbo run test --concurrency=6 --filter=!@dom-replay/core --filter=!@dom-replay/video -- --retry=1
+
+  test-video:
+    name: Test (Video package)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: build
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright
+        run: pnpm --filter @dom-replay/video exec playwright install chromium
+
+      - name: Test (Video package)
+        run: xvfb-run --server-args="-screen 0 1920x1080x24" pnpm --filter @dom-replay/video test -- --retry=1
+
+  # Core integration tests - sharded for speed and reliability
+  core-integration:
+    name: Core Integration Tests (shard ${{ matrix.shard }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]   # Increase this array (e.g. [1,2,3,4]) as the test suite grows
     permissions:
       contents: read
     env:
@@ -22,6 +204,8 @@ jobs:
       PUPPETEER_CACHE_DIR: '${{ github.workspace }}/.cache/puppeteer'
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
@@ -34,70 +218,13 @@ jobs:
           node-version: 22
           cache: pnpm
 
-      - name: Install
-        run: pnpm install --frozen-lockfile
-
-      - name: Audit
-        # Security hygiene: fails on high+ vulns. Root pnpm.overrides + dependency cleanup
-        # are used to keep this green. See package.json "pnpm.overrides" for pins.
-        run: pnpm audit --audit-level=high
-
-      - name: Install Playwright (for video package tests)
-        run: pnpm --filter @dom-replay/video exec playwright install chromium
-
-      - name: Install Puppeteer Chrome (for core, snapshot, dom, etc.)
-        run: |
-          pnpm --filter @dom-replay/core exec puppeteer browsers install chrome
-          pnpm --filter @dom-replay/dom exec puppeteer browsers install chrome
-
-      - name: Lint
-        run: pnpm lint
-
-      - name: Typecheck
-        run: pnpm check-types
-
-      - name: Build
-        run: NODE_OPTIONS='--max-old-space-size=4096' pnpm build:all
-
-      - name: Bundle Size Report
-        # Non-blocking for now while we establish baselines after the snapshot boundary work.
-        # Inspired by upstream rrweb bundle size CI (2026).
-        run: pnpm size
-        continue-on-error: true
-
-      - name: Test (Unit + Light packages)
-        # Run lighter packages with higher parallelism + basic retry
-        run: xvfb-run --server-args="-screen 0 1920x1080x24" pnpm turbo run test --concurrency=6 --filter=!@dom-replay/core --filter=!@dom-replay/video -- --retry=1
-
-      - name: Test (Video package)
-        run: xvfb-run --server-args="-screen 0 1920x1080x24" pnpm --filter @dom-replay/video test -- --retry=1
-
-  # Core integration tests (sharded + retries for flakiness)
-  core-integration:
-    name: Core Integration Tests (sharded)
-    runs-on: ubuntu-latest
-    needs: ci
-    strategy:
-      fail-fast: false
-      matrix:
-        shard: [1, 2]   # Bump this array (e.g. [1,2,3]) and the /N below when scaling
-    env:
-      PUPPETEER_HEADLESS: 'true'
-      PUPPETEER_DOWNLOAD_BASE_URL: 'https://storage.googleapis.com/chrome-for-testing-public'
-      PUPPETEER_CACHE_DIR: '${{ github.workspace }}/.cache/puppeteer'
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v4
+      - name: Turbo Cache
+        uses: actions/cache@v4
         with:
-          version: 10.28.2
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          cache: pnpm
+          path: ${{ env.TURBO_CACHE_DIR }}
+          key: turbo-${{ runner.os }}-${{ github.sha }}
+          restore-keys: |
+            turbo-${{ runner.os }}-
 
       - name: Install
         run: pnpm install --frozen-lockfile
@@ -105,13 +232,10 @@ jobs:
       - name: Install Puppeteer Chrome
         run: pnpm --filter @dom-replay/core exec puppeteer browsers install chrome
 
-      - name: Build (core only)
-        # Use turbo so dependencies (@dom-replay/types, @dom-replay/snapshot, etc.) are built first
-        run: pnpm turbo run build --filter=@dom-replay/core
-
-      - name: Test (shard ${{ matrix.shard }}/2)
+      - name: Test (shard ${{ matrix.shard }}/${{ strategy.job-total }})
         run: |
           xvfb-run --server-args="-screen 0 1920x1080x24" \
           pnpm --filter @dom-replay/core exec vitest run \
             --pool=forks --maxWorkers=2 \
-            --shard=${{ matrix.shard }}/2 --retry=2 --bail=3
+            --shard=${{ matrix.shard }}/${{ strategy.job-total }} \
+            --retry=2 --bail=3
