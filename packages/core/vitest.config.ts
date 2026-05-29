@@ -16,5 +16,11 @@ export default mergeConfig(
       // correctly when running tests that import from them.
       conditions: ['development', 'node', 'import', 'require', 'default'],
     },
+    optimizeDeps: {
+      // Exclude workspace packages from Vite's pre-bundling.
+      // This is a common requirement in monorepos with strict exports maps
+      // to avoid "Failed to resolve entry for package" errors during tests.
+      exclude: ['@dom-replay/types', '@dom-replay/snapshot'],
+    },
   }),
 );

@@ -18,4 +18,10 @@ export default {
     // (@dom-replay/types, @dom-replay/snapshot, etc.) across the monorepo.
     conditions: ['development', 'node', 'import', 'require', 'default'],
   },
+
+  optimizeDeps: {
+    // Exclude workspace packages from pre-bundling to avoid resolution issues
+    // with strict exports maps in monorepos (common after Vite 6 modernization).
+    exclude: ['@dom-replay/types', '@dom-replay/snapshot'],
+  },
 };
