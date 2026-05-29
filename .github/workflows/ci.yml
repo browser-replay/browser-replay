@@ -1,6 +1,10 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -102,7 +106,8 @@ jobs:
         run: pnpm --filter @dom-replay/core exec puppeteer browsers install chrome
 
       - name: Build (core only)
-        run: pnpm --filter @dom-replay/core build
+        # Use turbo so dependencies (@dom-replay/types, @dom-replay/snapshot, etc.) are built first
+        run: pnpm turbo run build --filter=@dom-replay/core
 
       - name: Test (shard ${{ matrix.shard }}/2)
         run: |
