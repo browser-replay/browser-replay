@@ -75,4 +75,3 @@ new Replayer(events, {
 ```
 
 For a critical replay application, we strongly recommend keeping the default (protected) behavior and using the low-level sandboxed helpers when building custom players.
-

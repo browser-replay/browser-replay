@@ -86,6 +86,7 @@ export default tseslint.config(
     files: ['packages/dom-nodejs/**/*.ts'],
     rules: {
       '@typescript-eslint/no-var-requires': 'off',
+      '@typescript-eslint/no-require-imports': 'off',
     },
   },
   {

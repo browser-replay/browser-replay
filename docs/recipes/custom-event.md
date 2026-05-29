@@ -47,6 +47,8 @@ replayer.on('custom-event', (event) => {
   }}
 />
 ```
+
+```js
     events,
     // configure the color of tag which will be displayed on the timeline
     tags: {
