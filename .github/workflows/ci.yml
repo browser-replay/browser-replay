@@ -267,15 +267,14 @@ jobs:
 
       - name: Test (shard ${{ matrix.shard }}/${{ strategy.job-total }})
         run: |
-          xvfb-run --server-args="-screen 0 1920x1080x24" \
           # Uses the dedicated "test:ci:shard" script defined in the core package.
-          # This keeps sharding flags in CI while keeping Vitest configuration
-          # (pool, config) inside the package for better maintainability and
-          # consistent workspace package resolution.
-          pnpm --filter @dom-replay/core exec -- test:ci:shard \
-            --maxWorkers=2 \
-            --shard=${{ matrix.shard }}/${{ strategy.job-total }} \
-            --retry=2 --bail=3
+          # The "exec --" form + explicit config helps with workspace package
+          # resolution after the exports modernization.
+          xvfb-run --server-args="-screen 0 1920x1080x24" \
+            pnpm --filter @dom-replay/core exec -- test:ci:shard \
+              --maxWorkers=2 \
+              --shard=${{ matrix.shard }}/${{ strategy.job-total }} \
+              --retry=2 --bail=3
         env:
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
