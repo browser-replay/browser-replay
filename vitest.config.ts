@@ -12,4 +12,10 @@ export default {
     // Auto-retry in CI (helps with browser/image snapshot flakiness).
     retry: process.env.CI ? 2 : 0,
   },
+
+  resolve: {
+    // Helps Vitest resolve modern exports maps for workspace packages
+    // (@dom-replay/types, @dom-replay/snapshot, etc.) across the monorepo.
+    conditions: ['development', 'node', 'import', 'require', 'default'],
+  },
 };
