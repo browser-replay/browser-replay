@@ -1,10 +1,10 @@
 {
   "$schema": "https://turborepo.org/schema.json",
   "globalDependencies": [
-    ".eslintrc.js",
     ".prettierrc",
     "vite.config.default.ts",
-    "tsconfig.json"
+    "tsconfig.json",
+    "eslint.config.mjs"
   ],
   "globalPassThroughEnv": [
     "PUPPETEER_HEADLESS",
