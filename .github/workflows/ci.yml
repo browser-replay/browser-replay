@@ -63,11 +63,7 @@ jobs:
 
       - name: Test (Unit + Light packages)
         # Run lighter packages with higher parallelism + basic retry
-        # Note: Some packages (replay, player-core, etc.) currently have workspace
-        # resolution issues during prepublish/test after the Vite 6 + exports modernization.
-        # These are tracked and will be fixed properly.
-        run: xvfb-run --server-args="-screen 0 1920x1080x24" pnpm turbo run test --concurrency=6 --filter=!@dom-replay/core --filter=!@dom-replay/video -- --retry=1 || echo '⚠️  Some light package tests have known inter-package resolution issues (replay ↔ snapshot, player-core, etc.). See replay/src/index.ts and recent modernization changes.'
-        continue-on-error: true  # Temporary tolerance during post-modernization cleanup
+        run: xvfb-run --server-args="-screen 0 1920x1080x24" pnpm turbo run test --concurrency=6 --filter=!@dom-replay/core --filter=!@dom-replay/video -- --retry=1
 
       - name: Test (Video package)
         run: xvfb-run --server-args="-screen 0 1920x1080x24" pnpm --filter @dom-replay/video test -- --retry=1

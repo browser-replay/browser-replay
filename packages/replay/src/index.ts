@@ -10,16 +10,10 @@ import {
 //   import '@dom-replay/core/dist/style.css';
 // (The React @dom-replay/player package handles its own styles.)
 
-// Re-export the new safe rebuild helpers (recommended for untrusted sessions).
-// These come from the snapshot layer and were added in the upstream rrweb sandbox work.
-export {
-  createSandboxedIframe,
-  rebuildIntoSandboxedIframe,
-} from '@dom-replay/snapshot';
-
 export {
   Replayer,
   type playerConfig,
   type PlayerMachineState,
   type SpeedMachineState,
 };
+
