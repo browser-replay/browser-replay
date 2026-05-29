@@ -3,8 +3,18 @@ name: CI
 on:
   push:
     branches: [ main, master ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/PULL_REQUEST_TEMPLATE.md'
   pull_request:
     branches: [ main, master ]
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/PULL_REQUEST_TEMPLATE.md'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -104,11 +114,21 @@ jobs:
           restore-keys: |
             turbo-${{ runner.os }}-
 
+      # Remote Turborepo caching (strongly recommended for teams)
+      # When TURBO_TOKEN and TURBO_TEAM secrets are set, Turborepo will
+      # automatically use Vercel's remote cache (free for open source).
+      - name: Setup Turborepo Remote Cache
+        if: ${{ env.TURBO_TOKEN != '' && env.TURBO_TEAM != '' }}
+        run: echo "Remote Turborepo caching enabled via Vercel"
+
       - name: Install
         run: pnpm install --frozen-lockfile
 
       - name: Build (all packages)
         run: NODE_OPTIONS='--max-old-space-size=4096' pnpm build:all
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 
       - name: Bundle Size Report
         # Non-blocking for now while we establish baselines after the snapshot boundary work.
@@ -147,12 +167,19 @@ jobs:
           restore-keys: |
             turbo-${{ runner.os }}-
 
+      - name: Setup Turborepo Remote Cache
+        if: ${{ env.TURBO_TOKEN != '' && env.TURBO_TEAM != '' }}
+        run: echo "Remote Turborepo caching enabled via Vercel"
+
       - name: Install
         run: pnpm install --frozen-lockfile
 
       - name: Test (Unit + Light packages)
         # Higher parallelism + basic retry for faster, more resilient runs
         run: xvfb-run --server-args="-screen 0 1920x1080x24" pnpm turbo run test --concurrency=6 --filter=!@dom-replay/core --filter=!@dom-replay/video -- --retry=1
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 
   test-video:
     name: Test (Video package)
@@ -180,7 +207,17 @@ jobs:
       - name: Install
         run: pnpm install --frozen-lockfile
 
+      - name: Cache Playwright browsers
+        id: cache-playwright
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-v1-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            playwright-${{ runner.os }}-v1-
+
       - name: Install Playwright
+        if: steps.cache-playwright.outputs.cache-hit != 'true'
         run: pnpm --filter @dom-replay/video exec playwright install chromium
 
       - name: Test (Video package)
@@ -226,10 +263,20 @@ jobs:
           restore-keys: |
             turbo-${{ runner.os }}-
 
+      - name: Cache Puppeteer browsers
+        id: cache-puppeteer
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.PUPPETEER_CACHE_DIR }}
+          key: puppeteer-${{ runner.os }}-v1-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            puppeteer-${{ runner.os }}-v1-
+
       - name: Install
         run: pnpm install --frozen-lockfile
 
       - name: Install Puppeteer Chrome
+        if: steps.cache-puppeteer.outputs.cache-hit != 'true'
         run: pnpm --filter @dom-replay/core exec puppeteer browsers install chrome
 
       - name: Test (shard ${{ matrix.shard }}/${{ strategy.job-total }})
@@ -239,3 +286,6 @@ jobs:
             --pool=forks --maxWorkers=2 \
             --shard=${{ matrix.shard }}/${{ strategy.job-total }} \
             --retry=2 --bail=3
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
