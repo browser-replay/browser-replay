@@ -22,5 +22,11 @@ export default mergeConfig(
       // to avoid "Failed to resolve entry for package" errors during tests.
       exclude: ['@dom-replay/types', '@dom-replay/snapshot'],
     },
+    ssr: {
+      // Ensure workspace packages are not externalized during SSR-like resolution
+      // in Vitest (forks pool). Helps with the types/snapshot resolution issues
+      // after the exports map modernization.
+      noExternal: ['@dom-replay/types', '@dom-replay/snapshot'],
+    },
   }),
 );

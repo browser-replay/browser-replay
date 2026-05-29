@@ -20,14 +20,10 @@
   "typings": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/types.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/types.umd.cjs"
-      }
+      "types": "./dist/index.d.ts",
+      "import": "./dist/types.js",
+      "require": "./dist/types.cjs",
+      "default": "./dist/types.js"
     }
   },
   "files": [

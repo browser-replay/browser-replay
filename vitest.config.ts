@@ -24,4 +24,10 @@ export default {
     // with strict exports maps in monorepos (common after Vite 6 modernization).
     exclude: ['@dom-replay/types', '@dom-replay/snapshot'],
   },
+
+  ssr: {
+    // Ensure workspace packages are properly resolved (not externalized) in Vitest.
+    // Complements the conditions + optimizeDeps settings.
+    noExternal: ['@dom-replay/types', '@dom-replay/snapshot'],
+  },
 };
