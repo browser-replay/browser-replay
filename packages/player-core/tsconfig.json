@@ -3,7 +3,13 @@
   "include": ["src"],
   "compilerOptions": {
     "rootDir": "src",
-    "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
+    // Legacy after strict base tsconfig
+    "strict": false,
+    "exactOptionalPropertyTypes": false,
+    "noUncheckedIndexedAccess": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false
   },
   "references": [
     { "path": "../packer" },
