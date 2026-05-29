@@ -268,13 +268,12 @@ jobs:
       - name: Test (shard ${{ matrix.shard }}/${{ strategy.job-total }})
         run: |
           xvfb-run --server-args="-screen 0 1920x1080x24" \
-          # Use "exec --" (double dash) instead of plain "exec" for better
-          # workspace package resolution with Vite/Vitest in pnpm monorepos
-          # after the exports modernization. This form is more robust than
-          # the raw "exec vitest" we used before.
-          pnpm --filter @dom-replay/core exec -- vitest run \
-            --config packages/core/vitest.config.ts \
-            --pool=forks --maxWorkers=2 \
+          # Uses the dedicated "test:ci:shard" script defined in the core package.
+          # This keeps sharding flags in CI while keeping Vitest configuration
+          # (pool, config) inside the package for better maintainability and
+          # consistent workspace package resolution.
+          pnpm --filter @dom-replay/core exec -- test:ci:shard \
+            --maxWorkers=2 \
             --shard=${{ matrix.shard }}/${{ strategy.job-total }} \
             --retry=2 --bail=3
         env:
