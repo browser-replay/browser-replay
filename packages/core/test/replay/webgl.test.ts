@@ -2,29 +2,29 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { vi } from 'vitest';
 import { launchPuppeteer } from '../utils';
-import { toMatchImageSnapshot } from 'jest-image-snapshot';
 import type * as puppeteer from 'puppeteer';
 import events from '../events/webgl';
 
 interface ISuite {
   browser: puppeteer.Browser;
+  context: puppeteer.BrowserContext;
   page: puppeteer.Page;
 }
-
-expect.extend({ toMatchImageSnapshot });
 
 describe('replayer', function () {
   vi.setConfig({ testTimeout: 10_000 });
 
   let browser: ISuite['browser'];
+  let context: ISuite['context'];
   let page: ISuite['page'];
 
   beforeAll(async () => {
     browser = await launchPuppeteer();
+    context = await browser.createBrowserContext();
   });
 
   beforeEach(async () => {
-    page = await browser.newPage();
+    page = await context.newPage();
     await page.goto('about:blank');
     // mouse cursor canvas is large and pushes the replayer below the fold
     // lets hide it...
@@ -44,6 +44,7 @@ describe('replayer', function () {
   });
 
   afterAll(async () => {
+    if (context) await context.close();
     if (browser) await browser.close();
   });
 
@@ -54,6 +55,7 @@ describe('replayer', function () {
       const { Replayer } = domReplay;
       const replayer = new Replayer(events, {
         UNSAFE_replayCanvas: true,
+        UNSAFE_allowUnprotectedRebuild: true,
       });
       replayer.play(2500);
     `);

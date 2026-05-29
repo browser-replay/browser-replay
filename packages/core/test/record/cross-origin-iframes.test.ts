@@ -21,6 +21,7 @@ import type * as http from 'http';
 interface ISuite {
   code: string;
   browser: puppeteer.Browser;
+  context: puppeteer.BrowserContext;
   page: puppeteer.Page;
   events: eventWithTime[];
   server: http.Server;
@@ -93,6 +94,7 @@ const setup = function (
 
   beforeAll(async () => {
     ctx.browser = await launchPuppeteer();
+    ctx.context = await ctx.browser.createBrowserContext();
     ctx.server = await startServer();
     ctx.serverURL = getServerURL(ctx.server);
     ctx.serverB = await startServer();
@@ -103,7 +105,7 @@ const setup = function (
   });
 
   beforeEach(async () => {
-    ctx.page = await ctx.browser.newPage();
+    ctx.page = await ctx.context.newPage();
     await ctx.page.goto('about:blank');
     await ctx.page.setContent(
       content.replace(/\{SERVER_URL\}/g, ctx.serverURL),
@@ -126,6 +128,7 @@ const setup = function (
   });
 
   afterAll(async () => {
+    if (ctx.context) await ctx.context.close();
     await ctx.browser.close();
     ctx.server.close();
     ctx.serverB.close();

@@ -180,6 +180,14 @@ export type playerConfig = {
   insertStyleRules: string[];
   triggerFocus: boolean;
   UNSAFE_replayCanvas: boolean;
+  /**
+   * When true, allows the Replayer to rebuild snapshots directly into its internal
+   * iframe without the new sandbox protection checks.
+   *
+   * @default false
+   * @see https://github.com/rrweb-io/rrweb/pull/1834 (upstream sandbox work)
+   */
+  UNSAFE_allowUnprotectedRebuild?: boolean;
   pauseAnimation?: boolean;
   mouseTail:
     | boolean

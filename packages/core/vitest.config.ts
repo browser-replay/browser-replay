@@ -7,6 +7,8 @@ export default mergeConfig(
   defineProject({
     test: {
       globals: true,
+      // Automatically load robust image snapshot defaults + matcher registration
+      setupFiles: ['./test/setup.ts'],
     },
   }),
 );

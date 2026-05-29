@@ -29,9 +29,10 @@
       ]
     },
     "test": {
-      "dependsOn": [
-        "^prepublish"
-      ]
+      "dependsOn": ["^prepublish"],
+      "inputs": ["src/**/*.ts", "test/**/*", "vitest.config.*", "package.json"],
+      "outputs": ["coverage/**"],
+      "env": ["CI", "PUPPETEER_HEADLESS"]
     },
     "test:watch": {
       "persistent": true,

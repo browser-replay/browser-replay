@@ -39,3 +39,10 @@ export {
   _mirror as mirror,
   utils,
 };
+
+// Safe rebuild helpers ported from upstream rrweb (sandbox protection work).
+// Recommended for replaying untrusted sessions.
+export {
+  createSandboxedIframe,
+  rebuildIntoSandboxedIframe,
+} from '@dom-replay/snapshot';

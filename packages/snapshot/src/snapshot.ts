@@ -30,7 +30,7 @@ import {
   extractFileExtension,
   absolutifyURLs,
   markCssSplits,
-} from './utils';
+} from './snapshot-utils';
 import dom from '@dom-replay/utils';
 
 let _id = 1;

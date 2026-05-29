@@ -1,8 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { vi } from 'vitest';
-import { launchPuppeteer, waitForRAF } from '../utils';
-import { toMatchImageSnapshot } from 'jest-image-snapshot';
+import { launchPuppeteer, waitForRAF, defaultImageSnapshotOptions } from '../utils';
 import type * as puppeteer from 'puppeteer';
 import events from '../events/hover';
 
@@ -13,18 +12,18 @@ interface ISuite {
   page: puppeteer.Page;
 }
 
-expect.extend({ toMatchImageSnapshot });
-
 describe('replayer', function () {
   vi.setConfig({ testTimeout: 20_000, hookTimeout: 30_000 });
 
   let code: ISuite['code'];
   let styles: ISuite['styles'];
   let browser: ISuite['browser'];
+  let context: puppeteer.BrowserContext;
   let page: ISuite['page'];
 
   beforeAll(async () => {
     browser = await launchPuppeteer({ devtools: true });
+    context = await browser.createBrowserContext();
 
     const bundlePath = path.resolve(__dirname, '../../dist/core.umd.cjs');
     const stylePath = path.resolve(
@@ -36,7 +35,7 @@ describe('replayer', function () {
   });
 
   beforeEach(async () => {
-    page = await browser.newPage();
+    page = await context.newPage();
     await page.goto('about:blank');
     await page.addStyleTag({
       content: styles,
@@ -60,8 +59,8 @@ describe('replayer', function () {
       if (process.env.CI === 'true') return;
       await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
-      replayer.pause(110); // mouseDown event is at 100
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
+      replayer.pause(110);
     `);
 
       await waitForRAF(page);
@@ -69,7 +68,8 @@ describe('replayer', function () {
 
       const image = await page.screenshot();
       expect(image).toMatchImageSnapshot({
-        failureThreshold: 40,
+        ...defaultImageSnapshotOptions,
+        failureThreshold: 0.04,
       });
     });
   });

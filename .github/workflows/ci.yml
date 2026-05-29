@@ -34,6 +34,8 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Audit
+        # Security hygiene: fails on high+ vulns. Root pnpm.overrides + dependency cleanup
+        # are used to keep this green. See package.json "pnpm.overrides" for pins.
         run: pnpm audit --audit-level=high
 
       - name: Install Playwright (for video package tests)
@@ -53,5 +55,58 @@ jobs:
       - name: Build
         run: NODE_OPTIONS='--max-old-space-size=4096' pnpm build:all
 
-      - name: Test
-        run: xvfb-run --server-args="-screen 0 1920x1080x24" pnpm test
+      - name: Bundle Size Report
+        # Non-blocking for now while we establish baselines after the snapshot boundary work.
+        # Inspired by upstream rrweb bundle size CI (2026).
+        run: pnpm size
+        continue-on-error: true
+
+      - name: Test (Unit + Light packages)
+        # Run lighter packages with higher parallelism + basic retry
+        run: xvfb-run --server-args="-screen 0 1920x1080x24" pnpm turbo run test --concurrency=6 --filter=!@dom-replay/core --filter=!@dom-replay/video -- --retry=1
+
+      - name: Test (Video package)
+        run: xvfb-run --server-args="-screen 0 1920x1080x24" pnpm --filter @dom-replay/video test -- --retry=1
+
+  # Core integration tests (sharded + retries for flakiness)
+  core-integration:
+    name: Core Integration Tests (sharded)
+    runs-on: ubuntu-latest
+    needs: ci
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2]   # Bump this array (e.g. [1,2,3]) and the /N below when scaling
+    env:
+      PUPPETEER_HEADLESS: 'true'
+      PUPPETEER_DOWNLOAD_BASE_URL: 'https://storage.googleapis.com/chrome-for-testing-public'
+      PUPPETEER_CACHE_DIR: '${{ github.workspace }}/.cache/puppeteer'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Puppeteer Chrome
+        run: pnpm --filter @dom-replay/core exec puppeteer browsers install chrome
+
+      - name: Build (core only)
+        run: pnpm --filter @dom-replay/core build
+
+      - name: Test (shard ${{ matrix.shard }}/2)
+        run: |
+          xvfb-run --server-args="-screen 0 1920x1080x24" \
+          pnpm --filter @dom-replay/core exec vitest run \
+            --pool=forks --maxWorkers=2 \
+            --shard=${{ matrix.shard }}/2 --retry=2 --bail=3

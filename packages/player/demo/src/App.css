@@ -95,28 +95,6 @@
   flex: 1;
 }
 
-/* Svelte player wrapper */
-.svelte-player-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.svelte-player-wrapper.auto-size {
-  width: 100%;
-  min-height: 600px;
-}
-
-.svelte-player-wrapper.fixed-size {
-  width: fit-content;
-  margin: 0 auto;
-}
-
-.svelte-player-wrapper.responsive {
-  width: 100%;
-  min-height: 500px;
-}
-
 @media (max-width: 768px) {
   .main {
     padding: 1rem;

@@ -47,6 +47,7 @@ describe('dialog', () => {
   let code: ISuite['code'];
   let page: ISuite['page'];
   let browser: ISuite['browser'];
+  let context: puppeteer.BrowserContext;
   let server: ISuite['server'];
   let serverURL: ISuite['serverURL'];
   let events: ISuite['events'];
@@ -55,6 +56,7 @@ describe('dialog', () => {
     server = await startServer();
     serverURL = getServerURL(server);
     browser = await launchPuppeteer();
+    context = await browser.createBrowserContext();
 
     const bundlePath = path.resolve(__dirname, '../../dist/core.umd.cjs');
     code = fs.readFileSync(bundlePath, 'utf8');
@@ -65,12 +67,13 @@ describe('dialog', () => {
   });
 
   afterAll(async () => {
+    if (context) await context.close();
     await server.close();
     await browser.close();
   });
 
   beforeEach(async () => {
-    page = await browser.newPage();
+    page = await context.newPage();
     page.on('console', (msg) => {
       console.log(msg.text());
     });

@@ -1,5 +1,4 @@
 import * as fs from 'fs';
-import { toMatchImageSnapshot } from 'jest-image-snapshot';
 import * as path from 'path';
 import { vi } from 'vitest';
 
@@ -22,15 +21,15 @@ import {
   launchPuppeteer,
   startServer,
   waitForRAF,
+  defaultImageSnapshotOptions,
 } from '../utils';
-
-expect.extend({ toMatchImageSnapshot });
 
 describe('dialog', () => {
   vi.setConfig({ testTimeout: 100_000 });
   let code: ISuite['code'];
   let page: ISuite['page'];
   let browser: ISuite['browser'];
+  let context: puppeteer.BrowserContext;
   let server: ISuite['server'];
   let serverURL: ISuite['serverURL'];
 
@@ -38,6 +37,7 @@ describe('dialog', () => {
     server = await startServer();
     serverURL = getServerURL(server);
     browser = await launchPuppeteer();
+    context = await browser.createBrowserContext();
 
     const bundlePath = path.resolve(__dirname, '../../dist/core.umd.cjs');
     code = fs.readFileSync(bundlePath, 'utf8');
@@ -48,12 +48,13 @@ describe('dialog', () => {
   });
 
   afterAll(async () => {
+    if (context) await context.close();
     await server.close();
     await browser.close();
   });
 
   beforeEach(async () => {
-    page = await browser.newPage();
+    page = await context.newPage();
     page.on('console', (msg) => {
       console.log(msg.text());
     });
@@ -109,7 +110,10 @@ describe('dialog', () => {
         );
         await page.evaluate(`
           const { Replayer } = domReplay;
-          window.replayer = new Replayer(events, { useVirtualDom: ${useVirtualDom} });
+          window.replayer = new Replayer(events, {
+            useVirtualDom: ${useVirtualDom},
+            UNSAFE_allowUnprotectedRebuild: true,
+          });
         `);
         const timeArray = Array.isArray(time) ? time : [time];
         for (let i = 0; i < timeArray.length; i++) {
@@ -129,6 +133,7 @@ describe('dialog', () => {
           .replace(/showModal/g, 'show-modal');
         const imageFileName = `${defaultImageFilePrefix}-${kebabCaseName}`;
         expect(frameImage).toMatchImageSnapshot({
+          ...defaultImageSnapshotOptions,
           customSnapshotIdentifier: imageFileName,
           failureThreshold: 0.05,
           failureThresholdType: 'percent',
@@ -143,7 +148,9 @@ describe('dialog', () => {
     await page.evaluate(`let events = ${JSON.stringify(dialogPlaybackEvents)}`);
     await page.evaluate(`
       const { Replayer } = domReplay;
-      window.replayer = new Replayer(events);
+      window.replayer = new Replayer(events, {
+        UNSAFE_allowUnprotectedRebuild: true,
+      });
     `);
     await waitForRAF(page);
 

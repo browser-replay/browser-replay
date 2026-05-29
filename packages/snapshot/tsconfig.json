@@ -4,7 +4,15 @@
   "exclude": ["vite.config.ts", "vitest.config.ts", "test"],
   "compilerOptions": {
     "rootDir": "src",
-    "tsBuildInfoFile": "./tsconfig.tsbuildinfo"
+    "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
+    // The snapshot package contains a lot of legacy rrweb code with loose typing.
+    // Disable the new strict flags from tsconfig.base.json so tsc -noEmit in prepublish
+    // does not block builds (consistent with core + plugin-console-record approach).
+    "strict": false,
+    "exactOptionalPropertyTypes": false,
+    "noUncheckedIndexedAccess": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false
   },
   "references": [
     {

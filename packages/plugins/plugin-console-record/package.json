@@ -41,9 +41,9 @@
     "@dom-replay/utils": "workspace:*",
     "puppeteer": "^24.36.1",
     "typescript": "5.8.2",
-    "vite": "^5.3.1",
-    "vite-plugin-dts": "^4.5.4",
-    "vitest": "^1.4.0"
+    "vite": "^6.2.0",
+    "vite-plugin-dts": "^5.0.0",
+    "vitest": "^3.0.0"
   },
   "peerDependencies": {
     "@dom-replay/core": "workspace:*",

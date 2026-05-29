@@ -14,6 +14,7 @@ import {
 interface ISuite {
   code: string;
   browser: puppeteer.Browser;
+  context: puppeteer.BrowserContext;
   page: puppeteer.Page;
   events: eventWithTime[];
 }
@@ -37,13 +38,14 @@ const setup = function (
 
   beforeAll(async () => {
     ctx.browser = await launchPuppeteer();
+    ctx.context = await ctx.browser.createBrowserContext();
 
     const bundlePath = path.resolve(__dirname, '../../dist/core.umd.cjs');
     ctx.code = fs.readFileSync(bundlePath, 'utf8');
   });
 
   beforeEach(async () => {
-    ctx.page = await ctx.browser.newPage();
+    ctx.page = await ctx.context.newPage();
     await ctx.page.goto('about:blank');
     await ctx.page.setContent(content);
     await ctx.page.evaluate(ctx.code);
@@ -63,6 +65,7 @@ const setup = function (
   });
 
   afterAll(async () => {
+    if (ctx.context) await ctx.context.close();
     await ctx.browser.close();
   });
 

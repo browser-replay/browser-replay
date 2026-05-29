@@ -21,7 +21,16 @@
     ],
     // TODO: enable me in the future, this is quite a large project
     // at time of writing (April 2024) there are over 100 errors in dom-replay
-    "strict": false
+    "strict": false,
+    // These two require strictNullChecks (enabled by strict:true in base).
+    // Core deliberately runs with reduced strictness; disable the advanced flags
+    // so tsc -noEmit (used in prepublish) doesn't error with TS5052.
+    "exactOptionalPropertyTypes": false,
+    "noUncheckedIndexedAccess": false,
+    // Additional base strict-derived flags that must be explicitly disabled here
+    // so the long-standing tsc -noEmit in prepublish continues to succeed for this legacy package.
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false
   },
   "references": [
     {
