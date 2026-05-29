@@ -268,7 +268,7 @@ jobs:
       - name: Test (shard ${{ matrix.shard }}/${{ strategy.job-total }})
         run: |
           xvfb-run --server-args="-screen 0 1920x1080x24" \
-          pnpm --filter @dom-replay/core exec vitest run \
+          pnpm --filter @dom-replay/core -- vitest run \
             --pool=forks --maxWorkers=2 \
             --shard=${{ matrix.shard }}/${{ strategy.job-total }} \
             --retry=2 --bail=3
