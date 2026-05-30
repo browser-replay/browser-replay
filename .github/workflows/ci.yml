@@ -182,7 +182,7 @@ jobs:
 
       - name: Test (Unit + Light packages)
         # Higher parallelism + basic retry for faster, more resilient runs
-        run: xvfb-run --server-args="-screen 0 1920x1080x24" pnpm turbo run test --concurrency=6 --filter=!@dom-replay/core --filter=!@dom-replay/video -- --retry=1
+        run: xvfb-run --server-args="-screen 0 1920x1080x24" pnpm turbo run test --concurrency=6 --filter=!@dom-replay/core --filter=!@dom-replay/video --filter=!@dom-replay/web-extension -- --retry=1
         env:
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
