@@ -1,6 +1,6 @@
 # Recipes
 
-> You may also want to read the [guide](../../guide.md) to understand the APIs, or read the [design docs](../) to know more technical details of dom-replay.
+> You may also want to read the [guide](../../guide.md) to understand the APIs, or read the [design docs](../) to know more technical details of browser-replay.
 
 ## Scenarios
 
@@ -12,7 +12,7 @@ Record and Replay is the most common use case, which is suitable for any scenari
 
 ### Dive Into Events
 
-The events recorded by dom-replay are a set of strictly-typed JSON data. You may discover some flexible ways to use them when you are familiar with the details.
+The events recorded by browser-replay are a set of strictly-typed JSON data. You may discover some flexible ways to use them when you are familiar with the details.
 
 [link](./dive-into-event.md)
 
@@ -30,7 +30,7 @@ If you want to replay the events in a real-time way, you can use the live mode A
 
 ### Custom Event
 
-You may need to record some custom events along with the dom-replay events, and let them be played as other events. The custom event API was designed for this.
+You may need to record some custom events along with the browser-replay events, and let them be played as other events. The custom event API was designed for this.
 
 [link](./custom-event.md)
 
@@ -42,13 +42,13 @@ By default, the UI could not interact during replay. But you can use API to enab
 
 ### Customize The Replayer
 
-When dom-replay's Replayer and the @dom-replay/player UI do not fit your need, you can customize your own replayer UI.
+When browser-replay's Replayer and the @browser-replay/player UI do not fit your need, you can customize your own replayer UI.
 
 [link](./customize-replayer.md)
 
 ### Convert To Video
 
-The event data recorded by dom-replay is a performant, easy to compress, text-based format. And the replay is also pixel perfect.
+The event data recorded by browser-replay is a performant, easy to compress, text-based format. And the replay is also pixel perfect.
 
 But if you really need to convert it into a video format, there are some tools that can do this work.
 
@@ -56,13 +56,13 @@ But if you really need to convert it into a video format, there are some tools t
 
 ### Optimize The Storage Size
 
-In some Apps, dom-replay may record an unexpected amount of data. This part will help to find a suitable way to optimize the storage.
+In some Apps, browser-replay may record an unexpected amount of data. This part will help to find a suitable way to optimize the storage.
 
 [link](./optimize-storage.md)
 
 ### Canvas
 
-Canvas is a special HTML element, which will not be recorded by dom-replay by default. There are some options for recording and replaying Canvas.
+Canvas is a special HTML element, which will not be recorded by browser-replay by default. There are some options for recording and replaying Canvas.
 
 [link](./canvas.md)
 
@@ -75,6 +75,6 @@ This feature aims to provide developers with more information about the bug scen
 
 ### Plugin
 
-The plugin API is designed to extend the function of dom-replay without bumping the size and complexity of its core part.
+The plugin API is designed to extend the function of browser-replay without bumping the size and complexity of its core part.
 
 [link](./plugin.md)

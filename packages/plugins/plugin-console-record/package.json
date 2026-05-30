@@ -1,5 +1,5 @@
 {
-  "name": "@dom-replay/plugin-console-record",
+  "name": "@browser-replay/plugin-console-record",
   "version": "0.0.1",
   "description": "",
   "type": "module",
@@ -32,13 +32,13 @@
     "prepublish": "tsc -noEmit && vite build"
   },
   "keywords": [
-    "dom-replay"
+    "browser-replay"
   ],
   "license": "MIT",
   "devDependencies": {
-    "@dom-replay/core": "workspace:*",
-    "@dom-replay/types": "workspace:*",
-    "@dom-replay/utils": "workspace:*",
+    "@browser-replay/core": "workspace:*",
+    "@browser-replay/types": "workspace:*",
+    "@browser-replay/utils": "workspace:*",
     "puppeteer": "^24.36.1",
     "typescript": "5.8.2",
     "vite": "^6.2.0",
@@ -46,8 +46,8 @@
     "vitest": "^3.0.0"
   },
   "peerDependencies": {
-    "@dom-replay/core": "workspace:*",
-    "@dom-replay/utils": "workspace:*"
+    "@browser-replay/core": "workspace:*",
+    "@browser-replay/utils": "workspace:*"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",

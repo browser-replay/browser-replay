@@ -1,14 +1,14 @@
 {
-  "name": "dom-replay",
+  "name": "browser-replay",
   "description": "Record and replay DOM interactions.",
   "keywords": [
-    "dom-replay",
+    "browser-replay",
     "session-replay",
     "replay",
     "record",
     "dom"
   ],
-  "author": "dom-replay maintainers",
+  "author": "browser-replay maintainers",
   "license": "MIT",
   "private": true,
   "packageManager": "pnpm@10.28.2",
@@ -51,7 +51,7 @@
     "publish:gh:dry": "bash scripts/publish-gh-packages.sh --dry-run",
     "references:update": "pnpm workspaces-to-typescript-project-references",
     "test": "pnpm turbo run test --concurrency=4 --continue",
-    "install:puppeteer-chrome": "pnpm --filter @dom-replay/core exec puppeteer browsers install chrome",
+    "install:puppeteer-chrome": "pnpm --filter @browser-replay/core exec puppeteer browsers install chrome",
     "test:core:safe": "cd packages/core && pnpm build && cross-env PUPPETEER_HEADLESS=true pnpm exec vitest run --pool=forks --maxWorkers=1 --exclude test/benchmark",
     "test:watch": "pnpm turbo run test:watch",
     "test:update": "pnpm turbo run test:update",

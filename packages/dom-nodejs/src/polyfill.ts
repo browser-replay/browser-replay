@@ -1,4 +1,4 @@
-import { BaseRRNode } from '@dom-replay/dom';
+import { BaseRRNode } from '@browser-replay/dom';
 import { RRDocument } from './document-nodejs';
 
 /**

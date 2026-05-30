@@ -9,15 +9,15 @@ import type {
   DeprecatedMirror,
   textMutation,
   IMirror,
-} from '@dom-replay/types';
-import type { Mirror, SlimDOMOptions } from '@dom-replay/snapshot';
+} from '@browser-replay/types';
+import type { Mirror, SlimDOMOptions } from '@browser-replay/snapshot';
 import {
   isShadowRoot,
   IGNORED_NODE,
   classMatchesRegex,
-} from '@dom-replay/snapshot';
-import { RRNode, RRIFrameElement, BaseRRNode } from '@dom-replay/dom';
-import dom from '@dom-replay/utils';
+} from '@browser-replay/snapshot';
+import { RRNode, RRIFrameElement, BaseRRNode } from '@browser-replay/dom';
+import dom from '@browser-replay/utils';
 
 export function on(
   type: string,
@@ -243,13 +243,13 @@ export function isIgnored(
   slimDOMOptions: SlimDOMOptions,
 ): boolean {
   if ((n as Element).tagName === 'TITLE' && slimDOMOptions.headTitleMutations) {
-    // we do this check here but not in @dom-replay/snapshot
+    // we do this check here but not in @browser-replay/snapshot
     // to block mutations/animations on the title.
     // the headTitleMutations option isn't intended to block recording of the initial value
     return true;
   }
   // The main part of the slimDOM check happens in
-  // @dom-replay/snapshot::serializeNodeWithId
+  // @browser-replay/snapshot::serializeNodeWithId
   return mirror.getId(n) === IGNORED_NODE;
 }
 

@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { pack, unpack } from '../src';
-import { type eventWithTime, EventType } from '@dom-replay/types';
+import { type eventWithTime, EventType } from '@browser-replay/types';
 import { MARK } from '../src/base';
 
 const event: eventWithTime = {

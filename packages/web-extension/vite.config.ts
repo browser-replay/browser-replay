@@ -46,7 +46,7 @@ function useSpecialFormat(
 }
 
 /**
- * Get the extension version based on the @dom-replay/core version.
+ * Get the extension version based on the @browser-replay/core version.
  */
 function getExtensionVersion(coreVersion: string): string {
   const parsedVersion = semver.parse(coreVersion.replace('^', ''));
@@ -102,7 +102,7 @@ export default defineConfig({
           process.env.TARGET_BROWSER === 'chrome' ? 'chrome' : 'firefox';
         const commonManifest = originalManifest.common;
         const coreDependency =
-          packageJson.dependencies!['@dom-replay/core'] ??
+          packageJson.dependencies!['@browser-replay/core'] ??
           (packageJson.dependencies as Record<string, string>).rrweb;
         const coreVersion =
           coreDependency?.startsWith('workspace:') || coreDependency === '*'

@@ -15,8 +15,8 @@ import {
   ISuite,
 } from './utils';
 import type { recordOptions } from '../src/types';
-import { eventWithTime, NodeType, EventType } from '@dom-replay/types';
-import { visitSnapshot } from '@dom-replay/snapshot';
+import { eventWithTime, NodeType, EventType } from '@browser-replay/types';
+import { visitSnapshot } from '@browser-replay/snapshot';
 
 describe('record integration tests', function (this: ISuite) {
   vi.setConfig({ testTimeout: 10_000 });
@@ -146,7 +146,7 @@ describe('record integration tests', function (this: ISuite) {
       (t.childNodes[0] as Text).appendData('re');
       // this mutation is currently emitted, and shows up in snapshot
       // but we will check that it doesn't have any effect on the value
-      // there is nothing explicit in dom-replay which enforces this, but this test may protect against
+      // there is nothing explicit in browser-replay which enforces this, but this test may protect against
       // a future change where a mutation on a textarea incorrectly updates the .value
     });
     await waitForRAF(page);
@@ -1443,7 +1443,7 @@ describe('record integration tests', function (this: ISuite) {
         </body></html>
       `,
     );
-    // Start dom-replay recording
+    // Start browser-replay recording
     await page.evaluate(
       (code, recordSnippet) => {
         const script = document.createElement('script');
@@ -1538,7 +1538,7 @@ describe('record integration tests', function (this: ISuite) {
         </body></html>
       `,
     );
-    // Start dom-replay recording
+    // Start browser-replay recording
     await page.evaluate(
       (code, recordSnippet) => {
         const script = document.createElement('script');

@@ -1,6 +1,6 @@
-# Contributing to dom-replay
+# Contributing to browser-replay
 
-Thank you for your interest in contributing to dom-replay! We welcome contributions from the community.
+Thank you for your interest in contributing to browser-replay! We welcome contributions from the community.
 
 ## Getting Started
 
@@ -14,6 +14,6 @@ Please see our [main contributing guide](../CONTRIBUTING.md) for detailed inform
 
 ## Quick Links
 
-- [Issues](https://github.com/dom-replay/dom-replay/issues)
-- [Discussions](https://github.com/dom-replay/dom-replay/discussions)
-- [Documentation](https://github.com/dom-replay/dom-replay/tree/main/guide.md)
+- [Issues](https://github.com/browser-replay/browser-replay/issues)
+- [Discussions](https://github.com/browser-replay/browser-replay/discussions)
+- [Documentation](https://github.com/browser-replay/browser-replay/tree/main/guide.md)

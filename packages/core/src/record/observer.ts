@@ -4,7 +4,7 @@ import {
   Mirror,
   getInputType,
   toLowerCase,
-} from '@dom-replay/snapshot';
+} from '@browser-replay/snapshot';
 import type { FontFaceSet } from 'css-font-loading-module';
 import {
   throttle,
@@ -18,14 +18,14 @@ import {
   StyleSheetMirror,
   nowTimestamp,
 } from '../utils';
-import { patch } from '@dom-replay/utils';
+import { patch } from '@browser-replay/utils';
 import type { observerParam, MutationBufferParam } from '../types';
 import {
   IncrementalSource,
   MouseInteractions,
   PointerTypes,
   MediaInteractions,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import type {
   mutationCallBack,
   mousemoveCallBack,
@@ -49,10 +49,10 @@ import type {
   SelectionRange,
   selectionCallback,
   customElementCallback,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import MutationBuffer from './mutation';
 import { callbackWrapper } from './error-handler';
-import dom, { mutationObserverCtor } from '@dom-replay/utils';
+import dom, { mutationObserverCtor } from '@browser-replay/utils';
 
 export const mutationBuffers: MutationBuffer[] = [];
 

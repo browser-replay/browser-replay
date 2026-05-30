@@ -1,5 +1,5 @@
 import type * as React from 'react';
-import type { PlayerHandle, PlayerProps, PlayerStateSnapshot } from '@dom-replay/player-core';
+import type { PlayerHandle, PlayerProps, PlayerStateSnapshot } from '@browser-replay/player-core';
 
 export type DomReplayPlayerProps = PlayerProps & {
   className?: string;

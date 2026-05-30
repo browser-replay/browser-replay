@@ -44,7 +44,7 @@ const untaintedBasePrototype: Partial<BasePrototypeCache> = {};
  on global is a good-enough proxy for Angular
  to cover most cases
  (you can configure zone.js to have a different name
-  on the global object and should then manually run dom-replay
+  on the global object and should then manually run browser-replay
   outside the Zone)
  */
 export const isAngularZonePresent = (): boolean => {

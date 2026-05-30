@@ -8,8 +8,8 @@ This feature aims to provide developers with more information about the bug scen
 You can enable the logger using default option like this:
 
 ```js
-import { record } from '@dom-replay/record';
-import { getRecordConsolePlugin } from '@dom-replay/plugin-console-record';
+import { record } from '@browser-replay/record';
+import { getRecordConsolePlugin } from '@browser-replay/plugin-console-record';
 
 record({
   emit: function emit(event) {
@@ -30,8 +30,8 @@ You should call console.log.\_\_dr_original\_\_() instead.
 You can also customize the behavior of logger like this:
 
 ```js
-import { record } from '@dom-replay/record';
-import { getRecordConsolePlugin } from '@dom-replay/plugin-console-record';
+import { record } from '@browser-replay/record';
+import { getRecordConsolePlugin } from '@browser-replay/plugin-console-record';
 
 record({
   emit: function emit(event) {
@@ -71,8 +71,8 @@ All options are described below:
 If recorded events include data of console log type, we will automatically play them.
 
 ```js
-import { Replayer } from '@dom-replay/replay';
-import { getReplayConsolePlugin } from '@dom-replay/plugin-console-replay';
+import { Replayer } from '@browser-replay/replay';
+import { getReplayConsolePlugin } from '@browser-replay/plugin-console-replay';
 
 const replayer = new Replayer(events, {
   plugins: [

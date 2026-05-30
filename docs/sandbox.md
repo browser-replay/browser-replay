@@ -44,7 +44,7 @@ Note that this inserted style element does not exist in the original recorded pa
 
 ## Recommended: Use sandboxed rebuild helpers for untrusted data (2026 update)
 
-Starting with the port of upstream rrweb improvements (May 2026), `@dom-replay/snapshot` now ships strong protections around the rebuild process itself:
+Starting with the port of upstream rrweb improvements (May 2026), `@browser-replay/snapshot` now ships strong protections around the rebuild process itself:
 
 - `rebuild()` now **throws by default** if you attempt to rebuild a snapshot into an unprotected browser `Document`. This prevents scripts and other dangerous content from the recorded session from executing in your replay environment.
 - Use the new helpers for safe rebuilds:
@@ -54,7 +54,7 @@ Starting with the port of upstream rrweb improvements (May 2026), `@dom-replay/s
 Example (recommended pattern):
 
 ```ts
-import { rebuildIntoSandboxedIframe } from '@dom-replay/snapshot';
+import { rebuildIntoSandboxedIframe } from '@browser-replay/snapshot';
 
 const container = document.getElementById('replay-root')!;
 const { iframe, node } = rebuildIntoSandboxedIframe(fullSnapshotNode, {

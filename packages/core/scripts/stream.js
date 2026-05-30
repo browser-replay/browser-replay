@@ -199,7 +199,7 @@ void (async () => {
     if (!recordedPage) {
       throw new Error('No recorded page found');
     }
-    // disables content security policy which enables us to insert dom-replay as a script tag
+    // disables content security policy which enables us to insert browser-replay as a script tag
     await recordedPage.setBypassCSP(true);
 
     replayerPage.on('console', (msg) =>

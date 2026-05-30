@@ -13,7 +13,7 @@ import {
   createPlayerHandle,
   type PlayerHandle,
   type PlayerStateSnapshot,
-} from '@dom-replay/player-core';
+} from '@browser-replay/player-core';
 import type { DomReplayPlayerProps, DomReplayPlayerRef } from './types';
 import { Controller } from './Controller';
 

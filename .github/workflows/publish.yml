@@ -27,7 +27,7 @@ jobs:
 
       - name: Configure npm for GitHub Packages
         run: |
-          npm config set @dom-replay:registry https://npm.pkg.github.com
+          npm config set @browser-replay:registry https://npm.pkg.github.com
           npm config set //npm.pkg.github.com/:_authToken "${NODE_AUTH_TOKEN}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.DOM_REPLAY_PACKAGES_TOKEN }}

@@ -3,16 +3,16 @@ import type {
   mutationCallBack,
   scrollCallback,
   SamplingStrategy,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import {
   initMutationObserver,
   initScrollObserver,
   initAdoptedStyleSheetObserver,
 } from './observer';
 import { inDom } from '../utils';
-import type { Mirror } from '@dom-replay/snapshot';
-import { isNativeShadowDom } from '@dom-replay/snapshot';
-import dom, { patch } from '@dom-replay/utils';
+import type { Mirror } from '@browser-replay/snapshot';
+import { isNativeShadowDom } from '@browser-replay/snapshot';
+import dom, { patch } from '@browser-replay/utils';
 
 type BypassOptions = Omit<
   MutationBufferParam,

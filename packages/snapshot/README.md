@@ -1,6 +1,6 @@
-# @dom-replay/snapshot
+# @browser-replay/snapshot
 
-[![CI](https://github.com/dom-replay/dom-replay/actions/workflows/ci.yml/badge.svg)](https://github.com/dom-replay/dom-replay/actions/workflows/ci.yml)
+[![CI](https://github.com/browser-replay/browser-replay/actions/workflows/ci.yml/badge.svg)](https://github.com/browser-replay/browser-replay/actions/workflows/ci.yml)
 
 Snapshot the DOM into a stateful and serializable data structure.
 Also, provide the ability to rebuild the DOM via snapshot.

@@ -1,4 +1,4 @@
-# dom-replay canvas webrtc plugin
+# browser-replay canvas webrtc plugin
 
 Plugin that live streams contents of canvas elements via webrtc
 
@@ -13,8 +13,8 @@ https://user-images.githubusercontent.com/4106/186701616-fd71a107-5d53-423c-ba09
 ```js
 // Record side
 
-import { record } from '@dom-replay/record';
-import { RRWebPluginCanvasWebRTCRecord } from '@dom-replay/plugin-canvas-webrtc-record';
+import { record } from '@browser-replay/record';
+import { RRWebPluginCanvasWebRTCRecord } from '@browser-replay/plugin-canvas-webrtc-record';
 
 const webRTCRecordPlugin = new RRWebPluginCanvasWebRTCRecord({
   signalSendCallback: (msg) => {
@@ -42,8 +42,8 @@ record({
 
 ```js
 // Replay side
-import { Replayer } from '@dom-replay/replay';
-import { RRWebPluginCanvasWebRTCReplay } from '@dom-replay/plugin-canvas-webrtc-replay';
+import { Replayer } from '@browser-replay/replay';
+import { RRWebPluginCanvasWebRTCReplay } from '@browser-replay/plugin-canvas-webrtc-replay';
 
 const webRTCReplayPlugin = new RRWebPluginCanvasWebRTCReplay({
   canvasFoundCallback(canvas, context) {
@@ -71,4 +71,4 @@ replayer.addEvent(event); // call this whenever an event is received from the re
 
 ## More info
 
-https://github.com/dom-replay/dom-replay (canvas WebRTC streaming)
+https://github.com/browser-replay/browser-replay (canvas WebRTC streaming)

@@ -10,7 +10,7 @@ import {
   isNativeShadowDom,
   getInputType,
   toLowerCase,
-} from '@dom-replay/snapshot';
+} from '@browser-replay/snapshot';
 import type { observerParam, MutationBufferParam } from '../types';
 import type {
   mutationRecord,
@@ -19,7 +19,7 @@ import type {
   removedNodeMutation,
   addedNodeMutation,
   Optional,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import {
   isBlocked,
   isAncestorRemoved,
@@ -32,7 +32,7 @@ import {
   getShadowHost,
   closestElementOfNode,
 } from '../utils';
-import dom from '@dom-replay/utils';
+import dom from '@browser-replay/utils';
 
 type DoubleLinkedListNode = {
   previous: DoubleLinkedListNode | null;

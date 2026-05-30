@@ -1,5 +1,5 @@
 import type { Replayer } from '../';
-import { CanvasContext, type canvasMutationCommand } from '@dom-replay/types';
+import { CanvasContext, type canvasMutationCommand } from '@browser-replay/types';
 import { deserializeArg, variableListFor } from './deserialize-args';
 
 function getContext(

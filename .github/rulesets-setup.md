@@ -158,7 +158,7 @@ For urgent fixes that need to bypass rules:
 
 ## Your Repository Ruleset
 
-For `dom-replay`, use the "Main Branch Protection" configuration above with these specifics:
+For `browser-replay`, use the "Main Branch Protection" configuration above with these specifics:
 
 - **Target**: `main` branch
 - **CI Check**: `ci` workflow

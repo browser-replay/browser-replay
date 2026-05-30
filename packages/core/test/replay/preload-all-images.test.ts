@@ -11,7 +11,7 @@ import {
   IncrementalSource,
   EventType,
   eventWithTime,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 
 let replayer: Replayer;
 

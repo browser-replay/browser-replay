@@ -12,7 +12,7 @@ export default mergeConfig(
     },
     resolve: {
       // Important after exports map modernization + Vite 6.
-      // Helps Vitest resolve workspace packages (@dom-replay/types, @dom-replay/snapshot, etc.)
+      // Helps Vitest resolve workspace packages (@browser-replay/types, @browser-replay/snapshot, etc.)
       // correctly when running tests that import from them.
       conditions: ['development', 'node', 'import', 'require', 'default'],
     },
@@ -20,13 +20,13 @@ export default mergeConfig(
       // Exclude workspace packages from Vite's pre-bundling.
       // This is a common requirement in monorepos with strict exports maps
       // to avoid "Failed to resolve entry for package" errors during tests.
-      exclude: ['@dom-replay/types', '@dom-replay/snapshot'],
+      exclude: ['@browser-replay/types', '@browser-replay/snapshot'],
     },
     ssr: {
       // Ensure workspace packages are not externalized during SSR-like resolution
       // in Vitest (forks pool). Helps with the types/snapshot resolution issues
       // after the exports map modernization.
-      noExternal: ['@dom-replay/types', '@dom-replay/snapshot'],
+      noExternal: ['@browser-replay/types', '@browser-replay/snapshot'],
     },
   }),
 );

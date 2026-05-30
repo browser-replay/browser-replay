@@ -5,7 +5,7 @@ import type {
   nodeMetaMap,
 } from './types';
 
-import { NodeType } from '@dom-replay/types';
+import { NodeType } from '@browser-replay/types';
 import type {
   IMirror,
   serializedNodeWithId,
@@ -14,8 +14,8 @@ import type {
   documentTypeNode,
   textNode,
   elementNode,
-} from '@dom-replay/types';
-import dom from '@dom-replay/utils';
+} from '@browser-replay/types';
+import dom from '@browser-replay/utils';
 
 export function isElement(n: Node): n is Element {
   return n.nodeType === n.ELEMENT_NODE;

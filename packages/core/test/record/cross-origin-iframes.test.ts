@@ -7,8 +7,8 @@ import type {
   listenerHandler,
   eventWithTime,
   mutationData,
-} from '@dom-replay/types';
-import { EventType, IncrementalSource } from '@dom-replay/types';
+} from '@browser-replay/types';
+import { EventType, IncrementalSource } from '@browser-replay/types';
 import {
   assertSnapshot,
   getServerURL,
@@ -596,7 +596,7 @@ describe('cross origin iframes', function (this: ISuite) {
       await assertSnapshot(snapshots);
     });
 
-    it('should filter out forwarded cross origin dom-replay messages', async () => {
+    it('should filter out forwarded cross origin browser-replay messages', async () => {
       const frame = ctx.page.mainFrame().childFrames()[0];
       const iframe2URL = `${ctx.serverBURL}/html/blank.html`;
       await frame.evaluate((iframe2URL) => {

@@ -15,7 +15,7 @@ import {
   EventType,
   eventWithTime,
   listenerHandler,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import { recordOptions } from '../../src/types';
 
 interface IWindow extends Window {

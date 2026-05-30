@@ -1,6 +1,6 @@
-import { record } from '@dom-replay/core';
-import type { recordOptions } from '@dom-replay/core';
-import type { eventWithTime } from '@dom-replay/types';
+import { record } from '@browser-replay/core';
+import type { recordOptions } from '@browser-replay/core';
+import type { eventWithTime } from '@browser-replay/types';
 import { MessageName, type RecordStartedMessage } from '~/types';
 import { isInCrossOriginIFrame } from '~/utils';
 

@@ -1,5 +1,5 @@
-import type { attributeMutation } from '@dom-replay/types';
-import { RRNode } from '@dom-replay/dom';
+import type { attributeMutation } from '@browser-replay/types';
+import { RRNode } from '@browser-replay/dom';
 
 /**
  * Checks if the dialog is a top level dialog and applies the dialog to the top level

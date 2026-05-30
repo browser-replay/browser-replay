@@ -3,7 +3,7 @@ import config from '../../vite.config.default';
 
 export default config(
   path.resolve(__dirname, 'src/index.ts'),
-  'domReplayPlayerCore',
+  'browserReplayPlayerCore',
   {
     fileName: 'player-core',
   },

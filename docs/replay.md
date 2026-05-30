@@ -42,6 +42,6 @@ The specific method includes two parts:
 
 ## Play from any point in time
 
-In addition to the basic replay features, the player UI (such as `@dom-replay/player`) provides similar functionality to video players, such as seeking to any point in time.
+In addition to the basic replay features, the player UI (such as `@browser-replay/player`) provides similar functionality to video players, such as seeking to any point in time.
 
 In actual implementation, we pass a start time to the method. We can then divide the snapshot chain into two parts: The parts before and the part after the start time. Then, the snapshot chain before the start time is executed synchronously, and then the snapshot chain after the starting times uses the normal asynchronous execution. This way we can achieve starting replay from any point in time.

@@ -28,7 +28,7 @@ What actually happened instead.
 
 - **OS**: [e.g. macOS, Windows, Linux]
 - **Browser**: [e.g. Chrome 91, Firefox 89, Safari 14]
-- **Package Version**: [e.g. @dom-replay/core@0.0.2]
+- **Package Version**: [e.g. @browser-replay/core@0.0.2]
 - **Node Version**: [e.g. v18.17.0]
 
 ## Additional Context

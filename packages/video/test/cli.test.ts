@@ -42,7 +42,7 @@ describe('should be able to run cli', () => {
     );
     const outputFile = path.join(
       videoPkgRoot,
-      'dom-replay-video-output.webm',
+      'browser-replay-video-output.webm',
     );
     expect(fs.existsSync(outputFile)).toBe(true);
     fs.removeSync(outputFile);

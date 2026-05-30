@@ -1,9 +1,9 @@
-import type { Emitter } from '@dom-replay/types';
-import { MediaInteractions, ReplayerEvents } from '@dom-replay/types';
-import type { RRMediaElement } from '@dom-replay/dom';
+import type { Emitter } from '@browser-replay/types';
+import { MediaInteractions, ReplayerEvents } from '@browser-replay/types';
+import type { RRMediaElement } from '@browser-replay/dom';
 import type { createPlayerService, createSpeedService } from '../machine';
-import type { Mirror } from '@dom-replay/snapshot';
-import type { mediaInteractionData, mediaAttributes } from '@dom-replay/types';
+import type { Mirror } from '@browser-replay/snapshot';
+import type { mediaInteractionData, mediaAttributes } from '@browser-replay/types';
 
 type MediaState = {
   isPlaying: boolean;

@@ -1,7 +1,7 @@
-import type { ICanvas } from '@dom-replay/snapshot';
-import type { blockClass, IWindow, listenerHandler } from '@dom-replay/types';
+import type { ICanvas } from '@browser-replay/snapshot';
+import type { blockClass, IWindow, listenerHandler } from '@browser-replay/types';
 import { isBlocked } from '../../../utils';
-import { patch } from '@dom-replay/utils';
+import { patch } from '@browser-replay/utils';
 
 function getNormalizedContextName(contextType: string) {
   return contextType === 'experimental-webgl' ? 'webgl' : contextType;

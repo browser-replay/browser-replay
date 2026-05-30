@@ -15,7 +15,7 @@ import {
   defaultImageSnapshotOptions,
 } from '../utils';
 import type { recordOptions } from '../../src/types';
-import type { eventWithTime } from '@dom-replay/types';
+import type { eventWithTime } from '@browser-replay/types';
 
 
 describe('e2e webgl', () => {

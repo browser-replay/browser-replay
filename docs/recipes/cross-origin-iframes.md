@@ -1,7 +1,7 @@
 # Cross origin iframes
 
 By default browsers make it difficult to access the contents of an iframe that is hosted on a different domain. This is a security feature to prevent malicious sites from accessing sensitive information on other sites. It is possible to work around this security feature, but it is not recommended unless you [are very strict](https://stackoverflow.com/a/21629575) about allowing only the sites you trust to embed your website inside of an iframe.
-Since if you allow recording cross origin iframes, any malicious website can embed your website and as long as they have dom-replay running they can record all the contents of your website.
+Since if you allow recording cross origin iframes, any malicious website can embed your website and as long as they have browser-replay running they can record all the contents of your website.
 
 ## How to record cross origin iframes
 
@@ -18,27 +18,27 @@ Enable replaying cross-origin iframes in your child page:
 
 ```js
 domReplay.record({
-  emit(event) {}, // this is required for dom-replay, but the child page will not emit any events
+  emit(event) {}, // this is required for browser-replay, but the child page will not emit any events
   recordCrossOriginIframes: true,
 });
 ```
 
 ## Considerations
 
-When cross origin iframe recording is turned on dom-replay will check to see if it is being run in a top level window.
+When cross origin iframe recording is turned on browser-replay will check to see if it is being run in a top level window.
 If it isn't it'll send the events to the parent window via `postMessage`.
 
-If you don't have dom-replay running in the top level window, the events will be lost when `recordCrossOriginIframes` is turned on.
+If you don't have browser-replay running in the top level window, the events will be lost when `recordCrossOriginIframes` is turned on.
 
 If the top level window is a malicious website it can listen to the events and send them to a server of its choosing.
 
 Or if a malicious script is running in on your page they can listen in on `postMessage` and as communication between the child and parent window is not encrypted. And they can see the events.
 
-## Options for injecting dom-replay into cross origin iframes
+## Options for injecting browser-replay into cross origin iframes
 
-### 1. Website owners, add dom-replay in the iframes
+### 1. Website owners, add browser-replay in the iframes
 
-If you own the website that with the iframe and the website that is being embedded in an iframe, you can add dom-replay to both pages via a script tag.
+If you own the website that with the iframe and the website that is being embedded in an iframe, you can add browser-replay to both pages via a script tag.
 
 ### 2. Browser extension
 
@@ -89,7 +89,7 @@ await page.exposeFunction('_captureEvent', (event) => {
 });
 
 page.on('framenavigated', async (frame) => {
-  await injectRecording(frame); // injects dom-replay into the iframe
+  await injectRecording(frame); // injects browser-replay into the iframe
 });
 
 await page.goto('https://example.com');
@@ -104,7 +104,7 @@ const win = new BrowserWindow({
   width: 800,
   height: 600,
   webPreferences: {
-    preload: path.join(__dirname, 'dom-replay-recording-script.js'),
+    preload: path.join(__dirname, 'browser-replay-recording-script.js'),
     // this turns on preload inside iframes, but disables node integration
     nodeIntegrationInSubFrames: true,
     nodeIntegration: false,

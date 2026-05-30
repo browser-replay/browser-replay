@@ -1,9 +1,9 @@
 {
-  "name": "@dom-replay/types",
+  "name": "@browser-replay/types",
   "version": "0.0.1",
   "keywords": [
-    "dom-replay",
-    "@dom-replay/types"
+    "browser-replay",
+    "@browser-replay/types"
   ],
   "scripts": {
     "dev": "vite build --watch",

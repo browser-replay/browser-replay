@@ -9,7 +9,7 @@ import {
   EventType,
   IncrementalSource,
   CanvasContext,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import {
   assertSnapshot,
   launchPuppeteer,
@@ -17,7 +17,7 @@ import {
   waitForRAF,
   sleep,
 } from '../utils';
-import type { ICanvas } from '@dom-replay/snapshot';
+import type { ICanvas } from '@browser-replay/snapshot';
 
 interface ISuite {
   code: string;

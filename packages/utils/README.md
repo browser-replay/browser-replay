@@ -1,4 +1,4 @@
-# @dom-replay/utils
+# @browser-replay/utils
 
-This package contains the shared utility functions used across dom-replay packages.
+This package contains the shared utility functions used across browser-replay packages.
 See the [guide](../../guide.md) for more info.

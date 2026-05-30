@@ -3,7 +3,7 @@ import * as path from 'path';
 import type * as puppeteer from 'puppeteer';
 import { vi } from 'vitest';
 import type { recordOptions } from '../../src/types';
-import { listenerHandler, eventWithTime, EventType } from '@dom-replay/types';
+import { listenerHandler, eventWithTime, EventType } from '@browser-replay/types';
 import { launchPuppeteer, sleep } from '../utils';
 import {
   callbackWrapper,

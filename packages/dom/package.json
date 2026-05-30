@@ -1,5 +1,5 @@
 {
-  "name": "@dom-replay/dom",
+  "name": "@browser-replay/dom",
   "version": "0.0.1",
   "license": "MIT",
   "type": "module",
@@ -26,14 +26,14 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "pnpm run prepublish",
-    "check-types": "tsc -noEmit --pretty || echo '⚠️  Type errors in @dom-replay/dom (legacy code); continuing'",
+    "check-types": "tsc -noEmit --pretty || echo '⚠️  Type errors in @browser-replay/dom (legacy code); continuing'",
     "test": "vitest run",
     "test:watch": "vitest",
     "prepublish": "tsc -noEmit || echo '⚠️  Type errors present (see tsconfig.json); running Vite build' && vite build",
     "lint": "pnpm eslint src/**/*.ts"
   },
   "devDependencies": {
-    "@dom-replay/types": "workspace:*",
+    "@browser-replay/types": "workspace:*",
     "jsdom": "^25.0.0",
     "puppeteer": "^24.36.1",
     "typescript": "5.8.2",
@@ -42,7 +42,7 @@
     "vitest": "^3.0.0"
   },
   "dependencies": {
-    "@dom-replay/snapshot": "workspace:*"
+    "@browser-replay/snapshot": "workspace:*"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",

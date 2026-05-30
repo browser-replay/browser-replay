@@ -1,4 +1,4 @@
-import type { ICrossOriginIframeMirror } from '@dom-replay/types';
+import type { ICrossOriginIframeMirror } from '@browser-replay/types';
 export default class CrossOriginIframeMirror
   implements ICrossOriginIframeMirror
 {

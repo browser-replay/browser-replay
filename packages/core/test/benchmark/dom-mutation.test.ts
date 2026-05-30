@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { vi } from 'vitest';
 import type { Page } from 'puppeteer';
-import type { eventWithTime } from '@dom-replay/types';
+import type { eventWithTime } from '@browser-replay/types';
 import type { recordOptions } from '../../src/types';
 import {
   startServer,
@@ -146,7 +146,7 @@ describe('benchmark: mutation observer', () => {
                 resolve(lastEvent.timestamp - start);
               },
             };
-            const record = (window as any).domReplay.record;
+            const record = (window as any).browserReplay.record;
             record(options);
 
             start = Date.now();

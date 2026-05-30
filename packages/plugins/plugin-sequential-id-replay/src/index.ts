@@ -1,6 +1,6 @@
-import type { SequentialIdOptions } from '@dom-replay/plugin-sequential-id-record';
-import type { ReplayPlugin } from '@dom-replay/core';
-import type { eventWithTime } from '@dom-replay/types';
+import type { SequentialIdOptions } from '@browser-replay/plugin-sequential-id-record';
+import type { ReplayPlugin } from '@browser-replay/core';
+import type { eventWithTime } from '@browser-replay/types';
 
 type Options = SequentialIdOptions & {
   warnOnMissingId: boolean;

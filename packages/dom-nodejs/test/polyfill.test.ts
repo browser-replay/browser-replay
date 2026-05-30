@@ -9,7 +9,7 @@ import {
   polyfillDocument,
 } from '../src/polyfill';
 import { performance as nativePerformance } from 'perf_hooks';
-import { BaseRRNode } from '@dom-replay/dom';
+import { BaseRRNode } from '@browser-replay/dom';
 
 describe('polyfill for nodejs', () => {
   it('should polyfill performance api', () => {

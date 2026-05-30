@@ -1,5 +1,5 @@
 import type { Replayer } from '../';
-import type { canvasMutationCommand } from '@dom-replay/types';
+import type { canvasMutationCommand } from '@browser-replay/types';
 import { deserializeArg } from './deserialize-args';
 
 export default async function canvasMutation({

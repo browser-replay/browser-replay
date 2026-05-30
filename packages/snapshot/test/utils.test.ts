@@ -9,8 +9,8 @@ import {
   isNodeMetaEqual,
   stringifyStylesheet,
 } from '../src/utils';
-import { NodeType } from '@dom-replay/types';
-import type { serializedNode, serializedNodeWithId } from '@dom-replay/types';
+import { NodeType } from '@browser-replay/types';
+import type { serializedNode, serializedNodeWithId } from '@browser-replay/types';
 
 describe('utils', () => {
   describe('isNodeMetaEqual()', () => {

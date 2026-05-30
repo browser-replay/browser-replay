@@ -1,9 +1,9 @@
 {
-  "name": "@dom-replay/web-extension",
+  "name": "@browser-replay/web-extension",
   "private": true,
   "version": "0.0.1",
-  "description": "The web extension for dom-replay.",
-  "author": "dom-replay maintainers",
+  "description": "The web extension for browser-replay.",
+  "author": "browser-replay maintainers",
   "license": "MIT",
   "type": "module",
   "scripts": {
@@ -18,7 +18,7 @@
     "prepublish": "pnpm build"
   },
   "devDependencies": {
-    "@dom-replay/types": "workspace:*",
+    "@browser-replay/types": "workspace:*",
     "@types/chrome": "^0.1.37",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
@@ -35,8 +35,8 @@
   "//": "NOTE: This package is PRIVATE (not published). Several of its devDependencies (vite-plugin-web-extension and transitive web-ext-run / adbkit) pull in older node-forge and tmp with known high-severity CVEs. These are only used for local extension development/build. The root pnpm.overrides pins the worst offenders globally. If you need to run extension dev tooling, accept the risk or isolate this package further.",
   "dependencies": {
     "@chakra-ui/react": "^2.10.9",
-    "@dom-replay/core": "workspace:*",
-    "@dom-replay/player": "workspace:*",
+    "@browser-replay/core": "workspace:*",
+    "@browser-replay/player": "workspace:*",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "@tanstack/react-table": "^8.21.3",

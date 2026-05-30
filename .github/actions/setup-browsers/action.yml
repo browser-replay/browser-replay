@@ -3,7 +3,7 @@ description: 'Installs and caches Puppeteer or Playwright browsers for CI'
 
 inputs:
   filter:
-    description: 'pnpm filter for the package that needs the browser (e.g. @dom-replay/core)'
+    description: 'pnpm filter for the package that needs the browser (e.g. @browser-replay/core)'
     required: true
   type:
     description: 'Browser type to install'

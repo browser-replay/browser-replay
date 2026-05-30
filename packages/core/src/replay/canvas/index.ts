@@ -4,7 +4,7 @@ import {
   type canvasMutationCommand,
   type canvasMutationData,
   type canvasMutationParam,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import webglMutation from './webgl';
 import canvas2DMutation from './2d';
 

@@ -1,8 +1,8 @@
 /// <reference types="chrome"/>
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { DomReplayPlayer } from '@dom-replay/player';
-import '@dom-replay/player/dist/player.css';
+import { DomReplayPlayer } from '@browser-replay/player';
+import '@browser-replay/player/dist/player.css';
 import {
   Breadcrumb,
   BreadcrumbItem,

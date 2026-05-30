@@ -1,17 +1,17 @@
 # Publishing packages
 
-How to publish `@dom-replay/*` to npm and/or GitHub Packages **without entering OTP on every publish**.
+How to publish `@browser-replay/*` to npm and/or GitHub Packages **without entering OTP on every publish**.
 
 ## Deploy without OTP: use GitHub Actions (recommended)
 
 Publishing is done from CI using **npm Trusted Publishing (OIDC)**. No long-lived token and no OTP.
 
 1. **One-time setup on npm**  
-   For each `@dom-replay/*` package on [npmjs.com](https://www.npmjs.com/org/dom-replay):
+   For each `@browser-replay/*` package on [npmjs.com](https://www.npmjs.com/org/browser-replay):
    - Open the package → **Settings** → **Trusted publishing**
    - Add a trusted publisher: **GitHub Actions**
    - Workflow filename: `publish-npm.yml`
-   - Repository: `dom-replay/dom-replay`
+   - Repository: `browser-replay/browser-replay`
    - Save
 
    You only need to do this once per package (or when you add a new publishable package).  
@@ -26,7 +26,7 @@ Publishing is done from CI using **npm Trusted Publishing (OIDC)**. No long-live
      git push origin v0.0.2
      ```
 
-     The [Publish to npm](https://github.com/dom-replay/dom-replay/actions/workflows/publish-npm.yml) workflow runs and publishes all packages to npm.
+     The [Publish to npm](https://github.com/browser-replay/browser-replay/actions/workflows/publish-npm.yml) workflow runs and publishes all packages to npm.
    - **Manual run:**  
      In GitHub: **Actions** → **Publish to npm** → **Run workflow** (uses version from root `package.json`).
 

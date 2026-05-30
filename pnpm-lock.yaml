@@ -95,16 +95,16 @@ importers:
 
   packages/core:
     dependencies:
-      '@dom-replay/dom':
+      '@browser-replay/dom':
         specifier: workspace:*
         version: link:../dom
-      '@dom-replay/snapshot':
+      '@browser-replay/snapshot':
         specifier: workspace:*
         version: link:../snapshot
-      '@dom-replay/types':
+      '@browser-replay/types':
         specifier: workspace:*
         version: link:../types
-      '@dom-replay/utils':
+      '@browser-replay/utils':
         specifier: workspace:*
         version: link:../utils
       '@types/css-font-loading-module':
@@ -180,11 +180,11 @@ importers:
 
   packages/dom:
     dependencies:
-      '@dom-replay/snapshot':
+      '@browser-replay/snapshot':
         specifier: workspace:*
         version: link:../snapshot
     devDependencies:
-      '@dom-replay/types':
+      '@browser-replay/types':
         specifier: workspace:*
         version: link:../types
       jsdom:
@@ -208,10 +208,10 @@ importers:
 
   packages/dom-nodejs:
     dependencies:
-      '@dom-replay/dom':
+      '@browser-replay/dom':
         specifier: workspace:*
         version: link:../dom
-      '@dom-replay/types':
+      '@browser-replay/types':
         specifier: workspace:*
         version: link:../types
       cssom:
@@ -257,7 +257,7 @@ importers:
 
   packages/packer:
     dependencies:
-      '@dom-replay/types':
+      '@browser-replay/types':
         specifier: workspace:*
         version: link:../types
       fflate:
@@ -279,7 +279,7 @@ importers:
 
   packages/player:
     dependencies:
-      '@dom-replay/player-core':
+      '@browser-replay/player-core':
         specifier: workspace:*
         version: link:../player-core
       react:
@@ -310,16 +310,16 @@ importers:
 
   packages/player-core:
     dependencies:
-      '@dom-replay/packer':
+      '@browser-replay/packer':
         specifier: workspace:*
         version: link:../packer
-      '@dom-replay/replay':
+      '@browser-replay/replay':
         specifier: workspace:*
         version: link:../replay
-      '@dom-replay/snapshot':
+      '@browser-replay/snapshot':
         specifier: workspace:*
         version: link:../snapshot
-      '@dom-replay/types':
+      '@browser-replay/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -342,10 +342,10 @@ importers:
         specifier: ^9.10.0
         version: 9.10.0
     devDependencies:
-      '@dom-replay/core':
+      '@browser-replay/core':
         specifier: workspace:*
         version: link:../../core
-      '@dom-replay/types':
+      '@browser-replay/types':
         specifier: workspace:*
         version: link:../../types
       typescript:
@@ -364,13 +364,13 @@ importers:
         specifier: ^9.10.0
         version: 9.10.0
     devDependencies:
-      '@dom-replay/core':
+      '@browser-replay/core':
         specifier: workspace:*
         version: link:../../core
-      '@dom-replay/dom':
+      '@browser-replay/dom':
         specifier: workspace:*
         version: link:../../dom
-      '@dom-replay/snapshot':
+      '@browser-replay/snapshot':
         specifier: workspace:*
         version: link:../../snapshot
       typescript:
@@ -385,13 +385,13 @@ importers:
 
   packages/plugins/plugin-console-record:
     devDependencies:
-      '@dom-replay/core':
+      '@browser-replay/core':
         specifier: workspace:*
         version: link:../../core
-      '@dom-replay/types':
+      '@browser-replay/types':
         specifier: workspace:*
         version: link:../../types
-      '@dom-replay/utils':
+      '@browser-replay/utils':
         specifier: workspace:*
         version: link:../../utils
       puppeteer:
@@ -412,13 +412,13 @@ importers:
 
   packages/plugins/plugin-console-replay:
     devDependencies:
-      '@dom-replay/core':
+      '@browser-replay/core':
         specifier: workspace:*
         version: link:../../core
-      '@dom-replay/plugin-console-record':
+      '@browser-replay/plugin-console-record':
         specifier: workspace:*
         version: link:../plugin-console-record
-      '@dom-replay/types':
+      '@browser-replay/types':
         specifier: workspace:*
         version: link:../../types
       typescript:
@@ -433,10 +433,10 @@ importers:
 
   packages/plugins/plugin-sequential-id-record:
     devDependencies:
-      '@dom-replay/core':
+      '@browser-replay/core':
         specifier: workspace:*
         version: link:../../core
-      '@dom-replay/types':
+      '@browser-replay/types':
         specifier: workspace:*
         version: link:../../types
       typescript:
@@ -451,13 +451,13 @@ importers:
 
   packages/plugins/plugin-sequential-id-replay:
     devDependencies:
-      '@dom-replay/core':
+      '@browser-replay/core':
         specifier: workspace:*
         version: link:../../core
-      '@dom-replay/plugin-sequential-id-record':
+      '@browser-replay/plugin-sequential-id-record':
         specifier: workspace:*
         version: link:../plugin-sequential-id-record
-      '@dom-replay/types':
+      '@browser-replay/types':
         specifier: workspace:*
         version: link:../../types
       typescript:
@@ -472,13 +472,13 @@ importers:
 
   packages/record:
     dependencies:
-      '@dom-replay/core':
+      '@browser-replay/core':
         specifier: ^0.0.1
         version: link:../core
-      '@dom-replay/types':
+      '@browser-replay/types':
         specifier: ^0.0.1
         version: link:../types
-      '@dom-replay/utils':
+      '@browser-replay/utils':
         specifier: ^0.0.1
         version: link:../utils
     devDependencies:
@@ -500,10 +500,10 @@ importers:
 
   packages/replay:
     dependencies:
-      '@dom-replay/core':
+      '@browser-replay/core':
         specifier: workspace:*
         version: link:../core
-      '@dom-replay/types':
+      '@browser-replay/types':
         specifier: workspace:*
         version: link:../types
     devDependencies:
@@ -529,10 +529,10 @@ importers:
         specifier: ^8.5.6
         version: 8.5.6
     devDependencies:
-      '@dom-replay/types':
+      '@browser-replay/types':
         specifier: workspace:*
         version: link:../types
-      '@dom-replay/utils':
+      '@browser-replay/utils':
         specifier: workspace:*
         version: link:../utils
       '@types/jsdom':
@@ -598,7 +598,7 @@ importers:
 
   packages/video:
     dependencies:
-      '@dom-replay/player-core':
+      '@browser-replay/player-core':
         specifier: workspace:*
         version: link:../player-core
       cli-progress:
@@ -614,7 +614,7 @@ importers:
         specifier: ^1.58.1
         version: 1.58.1
     devDependencies:
-      '@dom-replay/types':
+      '@browser-replay/types':
         specifier: workspace:*
         version: link:../types
       '@types/cli-progress':
@@ -635,15 +635,15 @@ importers:
 
   packages/web-extension:
     dependencies:
+      '@browser-replay/core':
+        specifier: workspace:*
+        version: link:../core
+      '@browser-replay/player':
+        specifier: workspace:*
+        version: link:../player
       '@chakra-ui/react':
         specifier: ^2.10.9
         version: 2.10.9(@emotion/react@11.14.0(@types/react@18.3.27)(react@18.3.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@18.3.27)(react@18.3.1))(@types/react@18.3.27)(react@18.3.1))(@types/react@18.3.27)(framer-motion@7.10.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@dom-replay/core':
-        specifier: workspace:*
-        version: link:../core
-      '@dom-replay/player':
-        specifier: workspace:*
-        version: link:../player
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@18.3.27)(react@18.3.1)
@@ -678,7 +678,7 @@ importers:
         specifier: ^6.30.3
         version: 6.30.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
     devDependencies:
-      '@dom-replay/types':
+      '@browser-replay/types':
         specifier: workspace:*
         version: link:../types
       '@types/chrome':
@@ -5286,11 +5286,6 @@ packages:
 
   semver@7.5.4:
     resolution: {integrity: sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==}
-    engines: {node: '>=10'}
-    hasBin: true
-
-  semver@7.7.3:
-    resolution: {integrity: sha512-SdsKMrI9TdgjdweUSR9MweHA4EJ8YxHn8DFaDisvhVlUOe4BF1tLD7GAj0lIqWVl+dPb/rExr0Btby5loQm20Q==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -11962,8 +11957,6 @@ snapshots:
     dependencies:
       lru-cache: 6.0.0
     optional: true
-
-  semver@7.7.3: {}
 
   semver@7.7.4: {}
 

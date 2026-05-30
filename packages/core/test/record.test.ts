@@ -11,7 +11,7 @@ import {
   IncrementalSource,
   styleSheetRuleData,
   selectionData,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import {
   assertSnapshot,
   getServerURL,
@@ -457,7 +457,7 @@ describe('record', function (this: ISuite) {
         /* @ts-ignore: override CSSGroupingRule */
         CSSGroupingRule = undefined;
       });
-      // load a fresh dom-replay recorder without CSSGroupingRule
+      // load a fresh browser-replay recorder without CSSGroupingRule
       await ctx.page.evaluate(ctx.code);
     });
     it('captures nested stylesheet rules', captureNestedStylesheetRulesTest);
@@ -923,7 +923,7 @@ describe('record', function (this: ISuite) {
     }, corsStylesheetURL);
 
     await ctx.page.waitForResponse(corsStylesheetURL); // wait for stylesheet to be loaded
-    await waitForRAF(ctx.page); // wait for dom-replay to emit events
+    await waitForRAF(ctx.page); // wait for browser-replay to emit events
 
     await assertSnapshot(ctx.events);
   });

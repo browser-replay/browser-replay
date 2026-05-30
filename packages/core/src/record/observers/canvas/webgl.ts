@@ -5,9 +5,9 @@ import {
   type canvasMutationWithType,
   type IWindow,
   type listenerHandler,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import { hookSetter, isBlocked } from '../../../utils';
-import { patch } from '@dom-replay/utils';
+import { patch } from '@browser-replay/utils';
 import { saveWebGLVar, serializeArgs } from './serialize-args';
 
 function patchGLPrototype(

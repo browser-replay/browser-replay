@@ -1,19 +1,19 @@
-# @dom-replay/plugin-sequential-id-replay
+# @browser-replay/plugin-sequential-id-replay
 
-Use this plugin in combination with the [@dom-replay/plugin-sequential-id-record](../core-plugin-sequential-id-record) plugin to record and replay events with a sequential id.
+Use this plugin in combination with the [@browser-replay/plugin-sequential-id-record](../core-plugin-sequential-id-record) plugin to record and replay events with a sequential id.
 See the [guide](../../../guide.md) for more info.
 
 ## Installation
 
 ```bash
-npm install @dom-replay/plugin-sequential-id-replay
+npm install @browser-replay/plugin-sequential-id-replay
 ```
 
 ## Usage
 
 ```js
-import { Replayer } from '@dom-replay/replay';
-import { getReplaySequentialIdPlugin } from '@dom-replay/plugin-sequential-id-replay';
+import { Replayer } from '@browser-replay/replay';
+import { getReplaySequentialIdPlugin } from '@browser-replay/plugin-sequential-id-replay';
 
 const replayer = new Replayer(events, {
   plugins: [

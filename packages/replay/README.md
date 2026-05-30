@@ -1,4 +1,4 @@
-# @dom-replay/replay
+# @browser-replay/replay
 
 This package contains all the necessary code to replay recorded events.
 See the [guide](../../guide.md) for more info on rrweb.
@@ -6,13 +6,13 @@ See the [guide](../../guide.md) for more info on rrweb.
 ## Installation
 
 ```bash
-npm install @dom-replay/replay
+npm install @browser-replay/replay
 ```
 
 ## Usage
 
 ```js
-import { Replayer } from '@dom-replay/replay';
+import { Replayer } from '@browser-replay/replay';
 
 const replayer = new Replayer(events, {
   // options

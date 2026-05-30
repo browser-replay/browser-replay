@@ -1,5 +1,5 @@
 {
-  "name": "@dom-replay/plugin-sequential-id-record",
+  "name": "@browser-replay/plugin-sequential-id-record",
   "version": "0.0.1",
   "description": "",
   "type": "module",
@@ -30,18 +30,18 @@
     "prepublish": "tsc -noEmit || echo '⚠️  Type errors present; running Vite build' && vite build"
   },
   "keywords": [
-    "dom-replay"
+    "browser-replay"
   ],
   "license": "MIT",
   "devDependencies": {
-    "@dom-replay/core": "workspace:*",
-    "@dom-replay/types": "workspace:*",
+    "@browser-replay/core": "workspace:*",
+    "@browser-replay/types": "workspace:*",
     "typescript": "5.8.2",
     "vite": "^6.2.0",
     "vite-plugin-dts": "^5.0.0"
   },
   "peerDependencies": {
-    "@dom-replay/core": "workspace:*"
+    "@browser-replay/core": "workspace:*"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",

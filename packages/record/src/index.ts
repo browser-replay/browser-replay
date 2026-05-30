@@ -1,3 +1,3 @@
-import { record } from '@dom-replay/core';
+import { record } from '@browser-replay/core';
 
 export { record };

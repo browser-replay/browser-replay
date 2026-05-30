@@ -1,10 +1,10 @@
 {
-  "name": "@dom-replay/video",
+  "name": "@browser-replay/video",
   "version": "0.0.1",
-  "description": "Transform dom-replay sessions into video",
+  "description": "Transform browser-replay sessions into video",
   "main": "build/index.js",
   "bin": {
-    "dom-replay-video": "build/cli.js"
+    "browser-replay-video": "build/cli.js"
   },
   "files": [
     "build",
@@ -14,13 +14,13 @@
   "scripts": {
     "build": "tsc",
     "test": "pnpm build && vitest run",
-    "check-types": "tsc -noEmit --pretty || echo '⚠️  Type errors in @dom-replay/video (legacy resolution); continuing'",
+    "check-types": "tsc -noEmit --pretty || echo '⚠️  Type errors in @browser-replay/video (legacy resolution); continuing'",
     "prepublish": "pnpm build",
     "test:watch": "pnpm build && vitest watch"
   },
   "license": "MIT",
   "devDependencies": {
-    "@dom-replay/types": "workspace:*",
+    "@browser-replay/types": "workspace:*",
     "@types/cli-progress": "^3.11.6",
     "@types/fs-extra": "11.0.4",
     "@types/minimist": "^1.2.1",
@@ -28,7 +28,7 @@
     "vitest": "^3.0.0"
   },
   "dependencies": {
-    "@dom-replay/player-core": "workspace:*",
+    "@browser-replay/player-core": "workspace:*",
     "cli-progress": "^3.12.0",
     "fs-extra": "^11.3.3",
     "minimist": "^1.2.8",
