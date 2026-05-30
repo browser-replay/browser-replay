@@ -107,7 +107,7 @@ jobs:
           cache: pnpm
 
       - name: Turbo Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ env.TURBO_CACHE_DIR }}
           key: turbo-${{ runner.os }}-${{ github.sha }}
@@ -160,7 +160,7 @@ jobs:
           cache: pnpm
 
       - name: Turbo Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ env.TURBO_CACHE_DIR }}
           key: turbo-${{ runner.os }}-${{ github.sha }}
