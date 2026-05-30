@@ -222,10 +222,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build workspace dependencies
-        run: pnpm turbo run prepublish --filter=!@dom-replay/video
-        env:
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
+        run: pnpm --filter "...@dom-replay/video" --filter "!@dom-replay/video" -r run prepublish
 
       - name: Setup Playwright browsers (with caching)
         uses: ./.github/actions/setup-browsers
