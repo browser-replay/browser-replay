@@ -134,6 +134,7 @@ describe('benchmark: replayer fast-forward performance', () => {
           const duration = await page.evaluate(() => {
             const replayer = new (window as any).domReplay.Replayer(
               (window as any).events,
+              { UNSAFE_allowUnprotectedRebuild: true },
             );
             const start = Date.now();
             replayer.play(replayer.getMetaData().totalTime + 100);
