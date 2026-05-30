@@ -261,7 +261,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build workspace dependencies
-        run: pnpm --filter "@dom-replay/types" --filter "@dom-replay/utils" --filter "@dom-replay/snapshot" --filter "@dom-replay/dom" run prepublish
+        run: pnpm --filter "@dom-replay/types" --filter "@dom-replay/utils" --filter "@dom-replay/snapshot" --filter "@dom-replay/dom" --filter "@dom-replay/core" -r run prepublish
 
       - name: Setup Puppeteer browsers (with caching)
         uses: ./.github/actions/setup-browsers
