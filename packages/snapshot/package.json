@@ -4,7 +4,7 @@
   "description": "dom-replay's component to take a snapshot of DOM, aka DOM serializer",
   "scripts": {
     "retest": "vitest run",
-    "test": "pnpm build && vitest run",
+    "test": "vitest run",
     "test:watch": "vitest watch",
     "retest:update": "vitest run --update",
     "test:update": "pnpm build && vitest run --update",
