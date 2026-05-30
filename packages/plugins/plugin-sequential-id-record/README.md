@@ -1,7 +1,7 @@
 # @browser-replay/plugin-sequential-id-record
 
 Use this plugin in combination with the [@browser-replay/plugin-sequential-id-replay](../core-plugin-sequential-id-replay) plugin to record and replay events with a sequential id.
-See the [guide](../../../guide.md) for more info.
+See the [guide](../../../docs/guide.md) for more info.
 
 ## Installation
 

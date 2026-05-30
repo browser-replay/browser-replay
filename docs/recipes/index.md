@@ -1,6 +1,6 @@
 # Recipes
 
-> You may also want to read the [guide](../../guide.md) to understand the APIs, or read the [design docs](../) to know more technical details of browser-replay.
+> You may also want to read the [guide](../guide.md) to understand the APIs, or read the [design docs](../) to know more technical details of browser-replay.
 
 ## Scenarios
 

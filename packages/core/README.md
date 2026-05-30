@@ -13,7 +13,7 @@ browser-replay refers to 'record and replay the web', which is a tool for record
 
 ## Guide
 
-[**📚 Read the browser-replay guide here. 📚**](../../guide.md)
+[**📚 Read the browser-replay guide here. 📚**](../../docs/guide.md)
 
 [**🍳 Recipes 🍳**](../../docs/recipes/index.md)
 
@@ -58,4 +58,4 @@ Protip: You can run `pnpm test` in the root folder to run all the tests.
 
 In addition to adding integration tests and unit tests, browser-replay also provides a REPL testing tool.
 
-[Using the REPL tool](../../guide.md#REPL-tool)
+[Using the REPL tool](../../docs/guide.md#REPL-tool)

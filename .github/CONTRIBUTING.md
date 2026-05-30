@@ -16,4 +16,4 @@ Please see our [main contributing guide](../CONTRIBUTING.md) for detailed inform
 
 - [Issues](https://github.com/browser-replay/browser-replay/issues)
 - [Discussions](https://github.com/browser-replay/browser-replay/discussions)
-- [Documentation](https://github.com/browser-replay/browser-replay/tree/main/guide.md)
+- [Documentation](https://github.com/browser-replay/browser-replay/tree/main/docs/guide.md)
