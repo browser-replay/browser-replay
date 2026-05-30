@@ -41,7 +41,7 @@ import '@browser-replay/player/dist/style.css';
 <DomReplayPlayer events={events} />;
 ```
 
-See the [guide](guide.md) for full documentation.
+See the [guide](docs/guide.md) for full documentation.
 
 ## Packages
 
@@ -68,7 +68,7 @@ Additional packages: [snapshot](packages/snapshot), [dom](packages/dom), [packer
 
 ## Docs
 
-- [Guide](guide.md) – Installation, recording, replay, plugins
+- [Guide](docs/guide.md) – Installation, recording, replay, plugins
 - [Recipes](docs/recipes/index.md) – Use cases and examples
 
 ## Contributing

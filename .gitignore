@@ -45,6 +45,11 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
+# compiled vitest shared config artifacts (source is vitest.config.ts)
+vitest.config.js
+vitest.config.js.map
+vitest.config.d.ts
+
 # bundle analysis files
 *-bundle-analysis.html
 .pnpm-store/

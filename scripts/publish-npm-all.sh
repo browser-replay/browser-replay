@@ -1,8 +1,8 @@
 #!/bin/bash
 set -e
 
-# Publish all dom-replay packages to npmjs.com
-# Usage: NPM_TOKEN=... ./publish-all-to-npm.sh
+# Publish all browser-replay packages to npmjs.com
+# Usage: NPM_TOKEN=... ./scripts/publish-npm-all.sh
 
 if [ -z "$NPM_TOKEN" ]; then
   echo "Error: Set NPM_TOKEN environment variable first"
@@ -10,9 +10,9 @@ if [ -z "$NPM_TOKEN" ]; then
   exit 1
 fi
 
-ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 
-echo "Publishing dom-replay packages to npmjs.com..."
+echo "Publishing browser-replay packages to npmjs.com..."
 
 PACKAGES=(
   packages/types
@@ -41,7 +41,7 @@ FAILED=0
 for pkg_dir in "${PACKAGES[@]}"; do
   pkg_name=$(basename "$pkg_dir")
 
-  if [ ! -f "$pkg_dir/package.json" ]; then
+  if [ ! -f "$ROOT_DIR/$pkg_dir/package.json" ]; then
     echo "Skipping $pkg_name (no package.json)"
     continue
   fi
@@ -49,7 +49,7 @@ for pkg_dir in "${PACKAGES[@]}"; do
   echo ""
   echo "=== $pkg_name ==="
 
-  cd "$pkg_dir"
+  cd "$ROOT_DIR/$pkg_dir"
 
   # Backup original package.json
   cp package.json package.json.backup
@@ -78,4 +78,4 @@ if [ "$FAILED" -gt 0 ]; then
 else
   echo "All packages published successfully!"
 fi
-echo "Check: https://www.npmjs.com/org/dom-replay"
+echo "Check: https://www.npmjs.com/org/browser-replay"
