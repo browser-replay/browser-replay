@@ -20,14 +20,15 @@ import * as fs from 'fs';
 export async function launchPuppeteer(
   options?: Parameters<(typeof puppeteer)['launch']>[0],
 ) {
+  const { args: extraArgs = [], ...restOptions } = options ?? {};
   return await puppeteer.launch({
     headless: process.env.PUPPETEER_HEADLESS ? 'new' : false,
     defaultViewport: {
       width: 1920,
       height: 1080,
     },
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    ...options,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', ...extraArgs],
+    ...restOptions,
   });
 }
 
