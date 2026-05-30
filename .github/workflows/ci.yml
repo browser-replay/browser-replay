@@ -214,7 +214,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Build workspace dependencies
-        run: pnpm --filter "...@dom-replay/video" --filter "!@dom-replay/video" -r run prepublish
+        run: pnpm --filter "@dom-replay/video..." --filter "!@dom-replay/video" -r run prepublish
 
       - name: Setup Playwright browsers (with caching)
         uses: ./.github/actions/setup-browsers
