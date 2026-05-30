@@ -95,11 +95,13 @@ export function getUntaintedPrototype<T extends keyof BasePrototypeCache>(
     const iframeEl = document.createElement('iframe');
     document.body.appendChild(iframeEl);
     const win = iframeEl.contentWindow;
-    if (!win) return defaultObj.prototype as BasePrototypeCache[T];
+    if (!win) {
+      document.body.removeChild(iframeEl);
+      return defaultObj.prototype as BasePrototypeCache[T];
+    }
 
     const untaintedObject = (win as any)[key]
       .prototype as BasePrototypeCache[T];
-    // cleanup
     document.body.removeChild(iframeEl);
 
     if (!untaintedObject) return defaultPrototype;

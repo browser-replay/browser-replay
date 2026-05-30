@@ -10,8 +10,8 @@ import {
   initAdoptedStyleSheetObserver,
 } from './observer';
 import { inDom } from '../utils';
-import type { Mirror } from '@browser-replay/snapshot';
-import { isNativeShadowDom } from '@browser-replay/snapshot';
+import type { Mirror } from '@browser-replay/snapshot/snapshot-utils';
+import { isNativeShadowDom } from '@browser-replay/snapshot/snapshot-utils';
 import dom, { patch } from '@browser-replay/utils';
 
 type BypassOptions = Omit<

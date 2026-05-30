@@ -1,5 +1,5 @@
-import type { Mirror } from '@browser-replay/snapshot';
-import { genId } from '@browser-replay/snapshot';
+import type { Mirror } from '@browser-replay/snapshot/snapshot-utils';
+import { genId } from '@browser-replay/snapshot/snapshot-utils';
 import type { CrossOriginIframeMessageEvent } from '../types';
 import CrossOriginIframeMirror from './cross-origin-iframe-mirror';
 import { EventType, NodeType, IncrementalSource } from '@browser-replay/types';
@@ -25,6 +25,7 @@ export class IframeManager {
   private loadListener?: (iframeEl: HTMLIFrameElement) => unknown;
   private stylesheetManager: StylesheetManager;
   private recordCrossOriginIframes: boolean;
+  private boundMessageHandler?: (e: MessageEvent) => void;
 
   constructor(options: {
     mirror: Mirror;
@@ -44,7 +45,15 @@ export class IframeManager {
     );
     this.mirror = options.mirror;
     if (this.recordCrossOriginIframes) {
-      window.addEventListener('message', this.handleMessage.bind(this));
+      this.boundMessageHandler = this.handleMessage.bind(this);
+      window.addEventListener('message', this.boundMessageHandler);
+    }
+  }
+
+  public destroy() {
+    if (this.boundMessageHandler) {
+      window.removeEventListener('message', this.boundMessageHandler);
+      this.boundMessageHandler = undefined;
     }
   }
 

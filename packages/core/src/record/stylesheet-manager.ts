@@ -1,4 +1,4 @@
-import { stringifyRule } from '@browser-replay/snapshot';
+import { stringifyRule } from '@browser-replay/snapshot/snapshot-utils';
 import type {
   elementNode,
   serializedNodeWithId,

@@ -4,7 +4,7 @@ import {
   Mirror,
   getInputType,
   toLowerCase,
-} from '@browser-replay/snapshot';
+} from '@browser-replay/snapshot/snapshot-utils';
 import type { FontFaceSet } from 'css-font-loading-module';
 import {
   throttle,

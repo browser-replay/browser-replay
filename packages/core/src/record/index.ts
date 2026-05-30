@@ -3,7 +3,7 @@ import {
   slimDOMDefaults,
   type MaskInputOptions,
   createMirror,
-} from '@browser-replay/snapshot';
+} from '@browser-replay/snapshot/snapshot-utils';
 import { initObservers, mutationBuffers } from './observer';
 import {
   on,
@@ -615,6 +615,7 @@ function record<T = eventWithTime>(
         }
       });
       processedNodeManager.destroy();
+      iframeManager.destroy();
       recording = false;
       unregisterErrorHandler();
     };

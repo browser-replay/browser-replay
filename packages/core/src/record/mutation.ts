@@ -10,7 +10,7 @@ import {
   isNativeShadowDom,
   getInputType,
   toLowerCase,
-} from '@browser-replay/snapshot';
+} from '@browser-replay/snapshot/snapshot-utils';
 import type { observerParam, MutationBufferParam } from '../types';
 import type {
   mutationRecord,
