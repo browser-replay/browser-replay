@@ -25,6 +25,7 @@ import type { Server } from 'http';
 interface ISuite {
   code: string;
   browser: puppeteer.Browser;
+  context: puppeteer.BrowserContext;
   page: puppeteer.Page;
   events: eventWithTime[];
 }
@@ -50,13 +51,14 @@ const setup = function (this: ISuite, content: string): ISuite {
     ctx.browser = await launchPuppeteer({
       devtools: true,
     });
+    ctx.context = await ctx.browser.createBrowserContext();
 
     const bundlePath = path.resolve(__dirname, '../dist/core.umd.cjs');
     ctx.code = fs.readFileSync(bundlePath, 'utf8');
   });
 
   beforeEach(async () => {
-    ctx.page = await ctx.browser.newPage();
+    ctx.page = await ctx.context.newPage();
     await ctx.page.goto('about:blank');
     await ctx.page.setContent(content);
     await ctx.page.evaluate(ctx.code);
@@ -77,6 +79,7 @@ const setup = function (this: ISuite, content: string): ISuite {
   });
 
   afterAll(async () => {
+    if (ctx.context) await ctx.context.close();
     await ctx.browser.close();
   });
 
@@ -818,7 +821,7 @@ describe('record', function (this: ISuite) {
     });
 
     beforeEach(async () => {
-      ctx.page = await ctx.browser.newPage();
+      ctx.page = await ctx.context.newPage();
       await ctx.page.goto(`${serverURL}/html/hello-world.html`);
       await ctx.page.evaluate(ctx.code);
       ctx.events = [];

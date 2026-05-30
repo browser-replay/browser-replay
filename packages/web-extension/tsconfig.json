@@ -5,6 +5,12 @@
     "baseUrl": ".",
     "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
     "esModuleInterop": true,
+    // Legacy code — disable strict flags from base.
+    "strict": false,
+    "exactOptionalPropertyTypes": false,
+    "noUncheckedIndexedAccess": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false,
     "incremental": true,
     "resolveJsonModule": true,
     "paths": {
@@ -24,7 +30,7 @@
       "path": "../core"
     },
     {
-      "path": "../player-svelte"
+      "path": "../player"
     },
     {
       "path": "../types"

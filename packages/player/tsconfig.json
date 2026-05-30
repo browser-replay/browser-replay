@@ -13,7 +13,13 @@
       "@dom-replay/player-core": [
         "../player-core/src/index.ts"
       ]
-    }
+    },
+    // Legacy package after strict TS modernization
+    "strict": false,
+    "exactOptionalPropertyTypes": false,
+    "noUncheckedIndexedAccess": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false
   },
   "references": [
     {

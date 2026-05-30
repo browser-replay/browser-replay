@@ -1,9 +1,9 @@
 /// <reference types="chrome"/>
-import { useRef, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Replayer from '@dom-replay/player-svelte';
+import { DomReplayPlayer } from '@dom-replay/player';
+import '@dom-replay/player/dist/player.css';
 import {
-  Box,
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbLink,
@@ -12,13 +12,13 @@ import {
 import { getEvents, getSession } from '~/utils/storage';
 
 export default function Player() {
-  const playerElRef = useRef<HTMLDivElement>(null);
-  const playerRef = useRef<Replayer | null>(null);
   const { sessionId } = useParams();
   const [sessionName, setSessionName] = useState('');
+  const [events, setEvents] = useState<any[] | null>(null);
 
   useEffect(() => {
     if (!sessionId) return;
+
     getSession(sessionId)
       .then((session) => {
         setSessionName(session.name);
@@ -26,32 +26,14 @@ export default function Player() {
       .catch((err) => {
         console.error(err);
       });
-    getEvents(sessionId)
-      .then((events) => {
-        if (!playerElRef.current) return;
-        if (playerRef.current) return;
 
-        const manifest = chrome.runtime.getManifest();
-        const playerVersion = manifest.version_name || manifest.version;
-        const linkEl = document.createElement('link');
-        linkEl.href = `https://cdn.jsdelivr.net/npm/@dom-replay/player-svelte@${playerVersion}/dist/style.min.css`;
-        linkEl.rel = 'stylesheet';
-        document.head.appendChild(linkEl);
-        playerRef.current = new Replayer({
-          target: playerElRef.current as HTMLElement,
-          props: {
-            events,
-            autoPlay: true,
-          },
-        });
+    getEvents(sessionId)
+      .then((loadedEvents) => {
+        setEvents(loadedEvents);
       })
       .catch((err) => {
         console.error(err);
       });
-    return () => {
-      playerRef.current?.pause();
-      playerRef.current?.$destroy();
-    };
   }, [sessionId]);
 
   return (
@@ -65,7 +47,11 @@ export default function Player() {
         </BreadcrumbItem>
       </Breadcrumb>
       <Center>
-        <Box ref={playerElRef}></Box>
+        {events ? (
+          <DomReplayPlayer events={events} autoPlay />
+        ) : (
+          <div>Loading session...</div>
+        )}
       </Center>
     </>
   );

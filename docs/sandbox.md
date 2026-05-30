@@ -41,3 +41,37 @@ for (let idx = 0; idx < injectStyleRules.length; idx++) {
 ```
 
 Note that this inserted style element does not exist in the original recorded page, so we can't serialize it, otherwise the `id -> Node` mapping will be wrong.
+
+## Recommended: Use sandboxed rebuild helpers for untrusted data (2026 update)
+
+Starting with the port of upstream rrweb improvements (May 2026), `@dom-replay/snapshot` now ships strong protections around the rebuild process itself:
+
+- `rebuild()` now **throws by default** if you attempt to rebuild a snapshot into an unprotected browser `Document`. This prevents scripts and other dangerous content from the recorded session from executing in your replay environment.
+- Use the new helpers for safe rebuilds:
+  - `createSandboxedIframe({ root, iframeAttributes? })`
+  - `rebuildIntoSandboxedIframe(snapshotNode, options)` — preferred for most cases involving user-recorded sessions.
+
+Example (recommended pattern):
+
+```ts
+import { rebuildIntoSandboxedIframe } from '@dom-replay/snapshot';
+
+const container = document.getElementById('replay-root')!;
+const { iframe, node } = rebuildIntoSandboxedIframe(fullSnapshotNode, {
+  root: container,
+  hackCss: true,
+  cache: createCache(),
+  mirror: new Mirror(),
+  afterAppend,
+});
+```
+
+In the high-level `Replayer`, you can opt into the old (less protected) behavior with:
+
+```ts
+new Replayer(events, {
+  UNSAFE_allowUnprotectedRebuild: true,
+});
+```
+
+For a critical replay application, we strongly recommend keeping the default (protected) behavior and using the low-level sandboxed helpers when building custom players.

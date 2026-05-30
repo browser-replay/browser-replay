@@ -1,0 +1,48 @@
+name: 'Setup Browsers (with caching)'
+description: 'Installs and caches Puppeteer or Playwright browsers for CI'
+
+inputs:
+  filter:
+    description: 'pnpm filter for the package that needs the browser (e.g. @dom-replay/core)'
+    required: true
+  type:
+    description: 'Browser type to install'
+    required: true
+    default: 'puppeteer'
+    type: choice
+    options:
+      - puppeteer
+      - playwright
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Cache Puppeteer browsers
+      if: inputs.type == 'puppeteer'
+      id: cache-puppeteer
+      uses: actions/cache@v4
+      with:
+        path: ${{ env.PUPPETEER_CACHE_DIR }}
+        key: puppeteer-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          puppeteer-${{ runner.os }}-
+
+    - name: Cache Playwright browsers
+      if: inputs.type == 'playwright'
+      id: cache-playwright
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          playwright-${{ runner.os }}-
+
+    - name: Install Puppeteer Chrome
+      if: inputs.type == 'puppeteer' && steps.cache-puppeteer.outputs.cache-hit != 'true'
+      shell: bash
+      run: pnpm --filter ${{ inputs.filter }} exec puppeteer browsers install chrome
+
+    - name: Install Playwright
+      if: inputs.type == 'playwright' && steps.cache-playwright.outputs.cache-hit != 'true'
+      shell: bash
+      run: pnpm --filter ${{ inputs.filter }} exec playwright install chromium

@@ -163,7 +163,10 @@ describe('integration tests', function (this: ISuite) {
         (await page.evaluate(`${code}
         const x = new XMLSerializer();
         const snap = domReplaySnapshot.snapshot(document);
-        let out = x.serializeToString(domReplaySnapshot.rebuild(snap, { doc: document }));
+        let out = x.serializeToString(domReplaySnapshot.rebuild(snap, { 
+          doc: document, 
+          UNSAFE_allowUnprotectedRebuild: true 
+        }));
         if (document.querySelector('html').getAttribute('xmlns') !== 'http://www.w3.org/1999/xhtml') {
           // this is just an artefact of serializeToString
           out = out.replace(' xmlns=\"http://www.w3.org/1999/xhtml\"', '');
@@ -211,7 +214,10 @@ iframe.setAttribute('height', document.body.clientHeight)
 iframe.style.transform = 'scale(0.3)'; // mini-me
 document.body.appendChild(iframe);
 // magic here! rebuild in a new iframe
-const rebuildNode = domReplaySnapshot.rebuild(snap, { doc: iframe.contentDocument })[0];
+const rebuildNode = domReplaySnapshot.rebuild(snap, { 
+  doc: iframe.contentDocument,
+  UNSAFE_allowUnprotectedRebuild: true 
+})[0];
 iframe.contentDocument.querySelector('center').clientHeight
 `);
     const rebuildCompatMode = await page.evaluate(

@@ -86,18 +86,21 @@ describe('benchmark: replayer fast-forward performance', () => {
   let code: ISuite['code'];
   let page: ISuite['page'];
   let browser: ISuite['browser'];
+  let context: puppeteer.BrowserContext;
 
   beforeAll(async () => {
     browser = await launchPuppeteer({
       headless: 'new',
       args: ['--disable-dev-shm-usage'],
     });
+    context = await browser.createBrowserContext();
 
     const bundlePath = path.resolve(__dirname, '../../dist/core.umd.cjs');
     code = fs.readFileSync(bundlePath, 'utf8');
   }, 600_000);
 
   afterAll(async () => {
+    if (context) await context.close();
     await browser.close();
   });
 
@@ -118,7 +121,7 @@ describe('benchmark: replayer fast-forward performance', () => {
         suite.times = suite.times ?? 5;
         const durations: number[] = [];
         for (let i = 0; i < suite.times; i++) {
-          page = await browser.newPage();
+          page = await context.newPage();
           await page.goto('about:blank');
           await page.setContent(`<html>
             <script>
@@ -131,6 +134,7 @@ describe('benchmark: replayer fast-forward performance', () => {
           const duration = await page.evaluate(() => {
             const replayer = new (window as any).domReplay.Replayer(
               (window as any).events,
+              { UNSAFE_allowUnprotectedRebuild: true },
             );
             const start = Date.now();
             replayer.play(replayer.getMetaData().totalTime + 100);
@@ -157,7 +161,7 @@ describe('benchmark: replayer fast-forward performance', () => {
    * Get the recorded events after the mutation function is executed.
    */
   async function generateEvents(mutateNodesFn: string): Promise<string> {
-    const page = await browser.newPage();
+    const page = await context.newPage();
 
     await page.goto('about:blank');
     await page.setContent(`<html>

@@ -1,35 +1,26 @@
 {
   "compilerOptions": {
     "composite": true,
-    /**
-     * @see https://vitejs.dev/guide/features.html#target
-     */
-    "esModuleInterop": true,
-    "target": "ESNext",
+    "target": "ES2022",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "rootDir": "src",
     "outDir": "dist",
-    "lib": ["ES2017", "DOM"],
+    "lib": ["ES2022", "DOM"],
     "sourceMap": true,
     "skipLibCheck": true,
     "declaration": true,
     "verbatimModuleSyntax": true,
     "strict": true,
+    "exactOptionalPropertyTypes": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
     "removeComments": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
     "preserveConstEnums": true,
-    "strictBindCallApply": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
-    "downlevelIteration": true,
 
     // needed for vite
-    /**
-     * @see https://vitejs.dev/guide/features.html#isolatedmodules
-     */
     "isolatedModules": true
   },
   "exclude": ["**/vite.config.ts", "**/vitest.config.ts", "**/test"],

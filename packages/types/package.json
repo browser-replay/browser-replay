@@ -20,14 +20,10 @@
   "typings": "dist/index.d.ts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/types.js"
-      },
-      "require": {
-        "types": "./dist/index.d.cts",
-        "default": "./dist/types.umd.cjs"
-      }
+      "types": "./dist/index.d.ts",
+      "import": "./dist/types.js",
+      "require": "./dist/types.cjs",
+      "default": "./dist/types.js"
     }
   },
   "files": [
@@ -39,8 +35,8 @@
     "@types/jest": "^30.0.0",
     "@types/node": "^22.0.0",
     "@types/offscreencanvas": "^2019.6.4",
-    "vite": "^5.3.1",
-    "vite-plugin-dts": "^4.5.4"
+    "vite": "^6.2.0",
+    "vite-plugin-dts": "^5.0.0"
   },
   "browserslist": [
     "supports es6-class"

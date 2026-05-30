@@ -12,16 +12,17 @@ import {
   ISuite,
   hideMouseAnimation,
   fakeGoto,
+  defaultImageSnapshotOptions,
 } from '../utils';
 import type { recordOptions } from '../../src/types';
 import type { eventWithTime } from '@dom-replay/types';
-import { toMatchImageSnapshot } from 'jest-image-snapshot';
-expect.extend({ toMatchImageSnapshot });
+
 
 describe('e2e webgl', () => {
   let code: ISuite['code'];
   let page: ISuite['page'];
   let browser: ISuite['browser'];
+  let context: puppeteer.BrowserContext;
   let server: ISuite['server'];
   let serverURL: ISuite['serverURL'];
 
@@ -29,6 +30,7 @@ describe('e2e webgl', () => {
     server = await startServer();
     serverURL = getServerURL(server);
     browser = await launchPuppeteer();
+    context = await browser.createBrowserContext();
 
     const bundlePath = path.resolve(__dirname, '../../dist/core.umd.cjs');
     code = fs.readFileSync(bundlePath, 'utf8');
@@ -39,6 +41,7 @@ describe('e2e webgl', () => {
   });
 
   afterAll(async () => {
+    if (context) await context.close();
     await server.close();
     await browser.close();
   });
@@ -64,7 +67,7 @@ describe('e2e webgl', () => {
 
   // Image snapshots are sensitive to Chrome version and GPU; run with --update to refresh when environment changes
   it.skip('will record and replay a webgl square', async () => {
-    page = await browser.newPage();
+    page = await context.newPage();
     await fakeGoto(page, `${serverURL}/html/canvas-webgl-square.html`);
 
     await page.setContent(
@@ -77,7 +80,7 @@ describe('e2e webgl', () => {
       'window.snapshots',
     )) as eventWithTime[];
 
-    page = await browser.newPage();
+    page = await context.newPage();
 
     await page.goto('about:blank');
     await page.evaluate(code);
@@ -88,6 +91,7 @@ describe('e2e webgl', () => {
       const { Replayer } = domReplay;
       const replayer = new Replayer(events, {
         UNSAFE_replayCanvas: true,
+        UNSAFE_allowUnprotectedRebuild: true,
       });
       replayer.play(500);
     `);
@@ -95,11 +99,11 @@ describe('e2e webgl', () => {
 
     const frameImage = await page!.screenshot();
     await waitForRAF(page);
-    expect(frameImage).toMatchImageSnapshot();
+    expect(frameImage).toMatchImageSnapshot(defaultImageSnapshotOptions);
   });
 
   it.skip('will record and replay a webgl image', async () => {
-    page = await browser.newPage();
+    page = await context.newPage();
     await fakeGoto(page, `${serverURL}/html/canvas-webgl-image.html`);
 
     await page.setContent(
@@ -112,7 +116,7 @@ describe('e2e webgl', () => {
       'window.snapshots',
     )) as eventWithTime[];
 
-    page = await browser.newPage();
+    page = await context.newPage();
 
     await page.goto('about:blank');
     await page.evaluate(code);
@@ -123,6 +127,7 @@ describe('e2e webgl', () => {
       const { Replayer } = domReplay;
       const replayer = new Replayer(events, {
         UNSAFE_replayCanvas: true,
+        UNSAFE_allowUnprotectedRebuild: true,
       });
     `);
     // wait for iframe to get added and `preloadAllImages` to ge called

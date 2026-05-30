@@ -24,7 +24,7 @@ rrweb.record.addCustomEvent('some-error', {
 
 `addCustomEvent` accepts two parameters. The first one is a string-type `tag`, while the second one is an any-type `payload`.
 
-During the replay, we can add an event listener to custom events, or configure the style of custom events in @dom-replay/player-svelte's timeline.
+During the replay, you can listen to custom events and configure how they appear in the player timeline.
 
 **Listen to custom events**
 
@@ -36,12 +36,19 @@ replayer.on('custom-event', (event) => {
 });
 ```
 
-**Display in @dom-replay/player-svelte**
+**Display custom events in the timeline**
 
 ```js
-new rrwebPlayer({
-  target: document.body,
-  props: {
+<DomReplayPlayer
+  events={events}
+  tags={{
+    'submit-form': '#21e676',
+    'some-error': 'red',
+  }}
+/>
+```
+
+```js
     events,
     // configure the color of tag which will be displayed on the timeline
     tags: {

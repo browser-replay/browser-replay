@@ -26,7 +26,7 @@ PACKAGES=(
   packages/replay
   packages/player-core
   packages/player
-  packages/player-svelte
+
   packages/video
   packages/plugins/plugin-console-record
   packages/plugins/plugin-console-replay

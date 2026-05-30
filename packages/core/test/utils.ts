@@ -20,15 +20,28 @@ import * as fs from 'fs';
 export async function launchPuppeteer(
   options?: Parameters<(typeof puppeteer)['launch']>[0],
 ) {
+  const { args: extraArgs = [], ...restOptions } = options ?? {};
   return await puppeteer.launch({
     headless: process.env.PUPPETEER_HEADLESS ? 'new' : false,
     defaultViewport: {
       width: 1920,
       height: 1080,
     },
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    ...options,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', ...extraArgs],
+    ...restOptions,
   });
+}
+
+export async function createBrowserContext(
+  browser: puppeteer.Browser,
+): Promise<puppeteer.BrowserContext> {
+  return browser.createBrowserContext();
+}
+
+export async function createIsolatedPage(
+  context: puppeteer.BrowserContext,
+): Promise<puppeteer.Page> {
+  return context.newPage();
 }
 
 export const sleep = (ms: number): Promise<void> =>
@@ -43,6 +56,7 @@ export interface ISuite {
   serverURL: string;
   code: string;
   browser: puppeteer.Browser;
+  context: puppeteer.BrowserContext; // Better isolation than using main browser directly
   page: puppeteer.Page;
   events: eventWithTime[];
 }
@@ -819,6 +833,19 @@ export function generateRecordSnippet(options: recordOptions<eventWithTime>) {
     plugins: ${options.plugins}
   });
   `;
+}
+
+export const defaultImageSnapshotOptions = {
+  failureThreshold: 0.03,
+  failureThresholdType: 'percent' as const,
+  customDiffConfig: { threshold: 0.12 },
+  allowSizeMismatch: true,
+};
+
+export async function expectImageSnapshot(page: puppeteer.Page, options: any = {}) {
+  const image = await page.screenshot();
+  // @ts-ignore
+  expect(image).toMatchImageSnapshot({ ...defaultImageSnapshotOptions, ...options });
 }
 
 export async function hideMouseAnimation(p: puppeteer.Page): Promise<void> {

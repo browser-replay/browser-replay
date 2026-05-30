@@ -71,6 +71,7 @@ describe('benchmark: mutation observer', () => {
   vi.setConfig({ testTimeout: 240000 });
   let page: ISuite['page'];
   let browser: ISuite['browser'];
+  let context: puppeteer.BrowserContext;
   let server: ISuite['server'];
 
   beforeAll(async () => {
@@ -79,6 +80,7 @@ describe('benchmark: mutation observer', () => {
       dumpio: true,
       headless: 'new',
     });
+    context = await browser.createBrowserContext();
   });
 
   afterEach(async () => {
@@ -86,6 +88,7 @@ describe('benchmark: mutation observer', () => {
   });
 
   afterAll(async () => {
+    if (context) await context.close();
     server.close();
     await browser.close();
   });
@@ -108,7 +111,7 @@ describe('benchmark: mutation observer', () => {
 
   for (const suite of suites) {
     it(suite.title, async () => {
-      page = await browser.newPage();
+      page = await context.newPage();
       page.on('console', (message) =>
         console.log(`${message.type().toUpperCase()} ${message.text()}`),
       );

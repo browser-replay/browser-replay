@@ -198,6 +198,8 @@ export class Replayer {
       insertStyleRules: [],
       triggerFocus: true,
       UNSAFE_replayCanvas: false,
+      // Protected by default (security improvement). Test harnesses pass true explicitly.
+      UNSAFE_allowUnprotectedRebuild: false,
       pauseAnimation: true,
       mouseTail: defaultMouseTailConfig,
       useVirtualDom: true, // Virtual-dom optimization is enabled by default.
@@ -860,6 +862,7 @@ export class Replayer {
       afterAppend,
       cache: this.cache,
       mirror: this.mirror,
+      UNSAFE_allowUnprotectedRebuild: this.config.UNSAFE_allowUnprotectedRebuild,
     });
     afterAppend(this.iframe.contentDocument, event.data.node.id);
 

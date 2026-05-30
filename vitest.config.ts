@@ -1,19 +1,33 @@
 export default {
   test: {
-    /**
-     * Keeps old (pre-jest 29) snapshot format
-     * its a bit ugly and harder to read than the new format,
-     * so we might want to remove this in its own PR
-     */
     snapshotFormat: {
       escapeString: true,
       printBasicPrototype: true,
     },
-    /**
-     * Use forks instead of threads for Vite 6 compatibility
-     * Vite 6 has issues with worker threads not cleaning up properly
-     * causing tests to hang indefinitely
-     */
+
+    // 'forks' required for Vite 6 compatibility in browser-heavy packages.
+    // Lighter packages override to 'threads' in their own config.
     pool: 'forks',
+
+    // Auto-retry in CI (helps with browser/image snapshot flakiness).
+    retry: process.env.CI ? 2 : 0,
+  },
+
+  resolve: {
+    // Helps Vitest resolve modern exports maps for workspace packages
+    // (@dom-replay/types, @dom-replay/snapshot, etc.) across the monorepo.
+    conditions: ['development', 'node', 'import', 'require', 'default'],
+  },
+
+  optimizeDeps: {
+    // Exclude workspace packages from pre-bundling to avoid resolution issues
+    // with strict exports maps in monorepos (common after Vite 6 modernization).
+    exclude: ['@dom-replay/types', '@dom-replay/snapshot'],
+  },
+
+  ssr: {
+    // Ensure workspace packages are properly resolved (not externalized) in Vitest.
+    // Complements the conditions + optimizeDeps settings.
+    noExternal: ['@dom-replay/types', '@dom-replay/snapshot'],
   },
 };

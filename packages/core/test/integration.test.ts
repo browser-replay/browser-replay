@@ -45,23 +45,26 @@ describe('record integration tests', function (this: ISuite) {
   let serverURL: string;
   let code: ISuite['code'];
   let browser: ISuite['browser'];
+  let context: puppeteer.BrowserContext;
 
   beforeAll(async () => {
     server = await startServer();
     serverURL = getServerURL(server);
     browser = await launchPuppeteer();
+    context = await browser.createBrowserContext();
 
     const bundlePath = path.resolve(__dirname, '../dist/core.umd.cjs');
     code = fs.readFileSync(bundlePath, 'utf8');
   });
 
   afterAll(async () => {
+    if (context) await context.close();
     await browser.close();
     server.close();
   });
 
   it('can record clicks', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'link.html'));
     await page.click('span');
@@ -86,7 +89,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('can record form interactions', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'form.html'));
 
@@ -103,7 +106,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('can record and replay textarea mutations correctly', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'empty.html'));
 
@@ -157,7 +160,7 @@ describe('record integration tests', function (this: ISuite) {
     // check after each mutation and text input
     const replayTextareaValues = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(window.snapshots);
+      const replayer = new Replayer(window.snapshots, { UNSAFE_allowUnprotectedRebuild: true });
       const vals = [];
       window.snapshots.filter((e)=>e.data.attributes || e.data.source === 5).forEach((e)=>{
         replayer.pause((e.timestamp - window.snapshots[0].timestamp)+1);
@@ -185,7 +188,7 @@ describe('record integration tests', function (this: ISuite) {
   it('can record and replay style mutations', async () => {
     // This test shows that the `isStyle` attribute on textContent is not needed in a mutation
     // TODO: we could get a lot more elaborate here with mixed textContent and insertRule mutations
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto(`${serverURL}/html`);
     await page.setContent(getHtml.call(this, 'style.html'));
 
@@ -268,7 +271,7 @@ describe('record integration tests', function (this: ISuite) {
     // check after each mutation and text input
     const replayStyleValues = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(window.snapshots);
+      const replayer = new Replayer(window.snapshots, { UNSAFE_allowUnprotectedRebuild: true });
       const vals = [];
       window.snapshots.filter((e)=>e.data.attributes || e.data.source === 5).forEach((e)=>{
         replayer.pause((e.timestamp - window.snapshots[0].timestamp)+1);
@@ -308,7 +311,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('can record childList mutations', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'mutation-observer.html'));
 
@@ -328,7 +331,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('can record character data muatations', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'mutation-observer.html'));
 
@@ -350,7 +353,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('can record attribute mutation', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'mutation-observer.html'));
 
@@ -370,7 +373,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('handles null attribute values', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'mutation-observer.html', {}));
 
@@ -398,7 +401,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('can record node mutations', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'select2.html'), {
       waitUntil: 'networkidle0',
@@ -417,7 +420,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('can record style changes compactly and preserve css var() functions', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'blank.html'), {
       waitUntil: 'networkidle0',
@@ -467,7 +470,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('can freeze mutations', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'mutation-observer.html', { recordCanvas: true }),
@@ -503,7 +506,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should not record input events on ignored elements', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'ignore.html', {
@@ -519,7 +522,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should not record input values if maskAllInputs is enabled', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'form.html', { maskAllInputs: true }),
@@ -539,7 +542,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('can use maskInputOptions to configure which type of inputs should be masked', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'form.html', {
@@ -565,7 +568,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should mask password value attribute with maskInputOptions', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'password.html', {
@@ -589,7 +592,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should mask inputs via function call', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'form.html', {
@@ -619,7 +622,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record input userTriggered values if userTriggeredOnInput is enabled', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'form.html', { userTriggeredOnInput: true }),
@@ -639,7 +642,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should not record blocked elements and its child nodes', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'block.html'));
 
@@ -654,7 +657,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should not record blocked elements dynamically added', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'block.html'));
 
@@ -676,7 +679,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('mutations should work when blocked class is unblocked', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about: blank');
     await page.setContent(getHtml.call(this, 'blocked-unblocked.html'));
 
@@ -690,7 +693,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record DOM node movement 1', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'move-node.html'));
 
@@ -710,7 +713,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record DOM node movement 2', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'move-node.html'));
 
@@ -727,7 +730,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record dynamic CSS changes', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'react-styled-components.html'));
     await page.click('.toggle');
@@ -738,7 +741,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record canvas mutations', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'canvas.html', {
@@ -763,7 +766,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should not record input values if dynamically added and maskAllInputs is true', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'empty.html', { maskAllInputs: true }),
@@ -825,7 +828,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record webgl canvas mutations', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'canvas-webgl.html', {
@@ -840,7 +843,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('can correctly serialize a shader and multiple webgl contexts', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'canvas-webgl-shader.html', {
@@ -855,7 +858,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('will serialize node before record', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'mutation-observer.html'));
 
@@ -876,7 +879,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('will defer missing next node mutation', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'shuffle.html'));
 
@@ -900,7 +903,7 @@ describe('record integration tests', function (this: ISuite) {
   it(
     'should nest record iframe',
     async () => {
-      const page: puppeteer.Page = await browser.newPage();
+      const page: puppeteer.Page = await context.newPage();
       await page.goto(`${serverURL}/html`);
       await page.setContent(getHtml.call(this, 'main.html'));
 
@@ -917,7 +920,7 @@ describe('record integration tests', function (this: ISuite) {
   );
 
   it('should record images with blob url', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     page.on('console', (msg) => console.log(msg.text()));
     await page.goto(`${serverURL}/html`);
     page.setContent(
@@ -934,7 +937,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record images inside iframe with blob url', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     page.on('console', (msg) => console.log(msg.text()));
     await page.goto(`${serverURL}/html`);
     await page.setContent(
@@ -951,7 +954,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record images inside iframe with blob url after iframe was reloaded', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     page.on('console', (msg) => console.log(msg.text()));
     await page.goto(`${serverURL}/html`);
     await page.setContent(
@@ -974,7 +977,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record shadow DOM', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'shadow-dom.html'));
 
@@ -1024,7 +1027,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record shadow DOM 2', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'blank.html'));
     await page.evaluate(() => {
@@ -1049,7 +1052,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record shadow DOM 3', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'blank.html'));
 
@@ -1070,7 +1073,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record moved shadow DOM', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'blank.html'));
 
@@ -1099,7 +1102,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record moved shadow DOM 2', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'blank.html'));
 
@@ -1137,7 +1140,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record nested iframes and shadow doms', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'frame2.html'));
 
@@ -1182,7 +1185,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record mutations in iframes accross pages', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto(`${serverURL}/html`);
     page.on('console', (msg) => console.log(msg.text()));
     await page.setContent(getHtml.call(this, 'frame2.html'));
@@ -1213,7 +1216,7 @@ describe('record integration tests', function (this: ISuite) {
 
   // https://github.com/webcomponents/polyfills/tree/master/packages/shadydom
   it('should record shadow doms polyfilled by shadydom', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       // insert shadydom script
@@ -1247,7 +1250,7 @@ describe('record integration tests', function (this: ISuite) {
 
   // https://github.com/salesforce/lwc/tree/master/packages/%40lwc/synthetic-shadow
   it('should record shadow doms polyfilled by synthetic-shadow', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       // insert lwc's synthetic-shadow script
@@ -1288,7 +1291,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should mask texts', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'mask-text.html', {
@@ -1303,7 +1306,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should mask texts using maskTextFn', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'mask-text.html', {
@@ -1319,7 +1322,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should unmask texts using maskTextFn', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'mask-text.html', {
@@ -1339,7 +1342,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('can mask character data mutations', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(getHtml.call(this, 'mutation-observer.html'));
 
@@ -1368,7 +1371,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('can mask character data mutations with regexp', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'mutation-observer.html', {
@@ -1401,7 +1404,7 @@ describe('record integration tests', function (this: ISuite) {
   });
 
   it('should record after DOMContentLoaded event', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'blank.html', {
@@ -1420,7 +1423,7 @@ describe('record integration tests', function (this: ISuite) {
    * so this test could be dropped if we add more robust mixing of `insertRule` into 'can record and replay style mutations'
    */
   it('should record style mutations and replay them correctly', async () => {
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     const OldColor = 'rgb(255, 0, 0)'; // red color
     const NewColor = 'rgb(255, 255, 0)'; // yellow color
 
@@ -1494,7 +1497,7 @@ describe('record integration tests', function (this: ISuite) {
      */
     const changedColors = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(window.snapshots);
+      const replayer = new Replayer(window.snapshots, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(1000);
 
       // Get the color of the element after applying the style mutation event
@@ -1514,7 +1517,7 @@ describe('record integration tests', function (this: ISuite) {
   it('should record style mutations with multiple child nodes and replay them correctly', async () => {
     // ensure that presence of multiple text nodes doesn't interfere with programmatic insertRule operations
 
-    const page: puppeteer.Page = await browser.newPage();
+    const page: puppeteer.Page = await context.newPage();
     const Color = 'rgb(255, 0, 0)'; // red color
 
     await page.setContent(
@@ -1567,7 +1570,7 @@ describe('record integration tests', function (this: ISuite) {
      */
     const changedColors = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(window.snapshots);
+      const replayer = new Replayer(window.snapshots, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(1000);
 
       // Get the color of the element after applying the style mutation event

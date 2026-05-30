@@ -1,74 +1,89 @@
 # Customize the Replayer
 
-When rrweb's Replayer and the [@dom-replay/player-svelte](../../packages/player-svelte/) UI do not fit your need, you can customize your replayer UI.
+When the [@dom-replay/player](../../packages/player/) UI does not fit your needs, you can customize your own replayer UI.
 
 There are several ways to do this:
 
-1. Use [@dom-replay/player-svelte](../../packages/player-svelte/), and customize its CSS.
-2. Use [@dom-replay/player-svelte](../../packages/player-svelte/), and set `showController: false` to hide the controller UI. With this config, you can implement your controller UI.
-3. Use the `insertStyleRules` options to inject some CSS into the replay iframe.
-4. Develop a new replayer UI with rrweb's Replayer.
+1. Use [@dom-replay/player](../../packages/player/) and customize its CSS.
+2. Use the `insertStyleRules` option (passed to the underlying `Replayer`) to inject additional CSS into the replay iframe.
+3. Build a completely custom UI using the low-level `Replayer` from `@dom-replay/replay` + `@dom-replay/player-core`.
 
-## Implement Your Controller UI
+## Customizing the React Player
 
-When using @dom-replay/player-svelte, you can hide its controller UI:
+The easiest way to customize is to use the React player component and style it via CSS or pass props.
 
-```js
-import Player from '@dom-replay/player-svelte';
+```jsx
+import { DomReplayPlayer } from '@dom-replay/player';
+import '@dom-replay/player/dist/style.css';
 
-new Player({
-  target: document.body,
-  props: {
-    events,
-    showController: false,
-  },
-});
+// Basic usage
+<DomReplayPlayer 
+  events={events} 
+  autoPlay 
+  showController={false} 
+/>
+
+// With ref for programmatic control
+const playerRef = useRef(null);
+
+<DomReplayPlayer 
+  ref={playerRef} 
+  events={events} 
+/>
+
+// Programmatic control via ref
+playerRef.current?.play();
+playerRef.current?.pause();
+playerRef.current?.setSpeed(2);
+playerRef.current?.goto(3000);
 ```
 
-When you are implementing a controller UI, you may need to interact with @dom-replay/player-svelte.
+### Listening to Player State
 
-The follwing APIs show some common use case of a controller UI:
+The React player exposes state via the `onStateChange` prop and also forwards events from the underlying Replayer.
 
-```js
-// toggle between play and pause
-player.toggle();
-// play
-player.play();
-// pause
-player.pause();
-// update the dimension
-player.$set({
-  width: NEW_WIDTH,
-  height: NEW_HEIGHT,
-});
-player.triggerResize();
-// toggle whether to skip the inactive time
-player.toggleSkipInactive();
-// set replay speed
-player.setSpeed(2);
-// go to some timing
-player.goto(3000);
+```jsx
+<DomReplayPlayer 
+  events={events}
+  onStateChange={(state) => {
+    console.log('Current time:', state.currentTime);
+    console.log('Is playing:', state.playerState === 'playing');
+  }}
+/>
 ```
 
-And there are some ways to listen @dom-replay/player-svelte's state:
+You can also listen to low-level Replayer events:
 
-```js
-// get current timing
-player.addEventListener('ui-update-current-time', (event) => {
-  console.log(event.payload);
-});
+```jsx
+const playerRef = useRef(null);
 
-// get current state
-player.addEventListener('ui-update-player-state', (event) => {
-  console.log(event.payload);
-});
+<DomReplayPlayer 
+  ref={playerRef} 
+  events={events} 
+/>
 
-// get current progress
-player.addEventListener('ui-update-progress', (event) => {
-  console.log(event.payload);
-});
+// Listen to events
+useEffect(() => {
+  const handle = playerRef.current?.getReplayer();
+  if (handle) {
+    handle.on('finish', () => console.log('Replay finished'));
+  }
+}, []);
 ```
 
-## Develop a new replayer UI with rrweb's Replayer.
+## Full Custom UI with Low-Level Replayer
 
-Please refer [@dom-replay/player-svelte](https://github.com/rrweb-io/rrweb/tree/master/packages/@dom-replay/player-svelte/).
+For maximum control, use the core `Replayer` directly:
+
+```js
+import { Replayer } from '@dom-replay/replay';
+
+const replayer = new Replayer(events, {
+  root: document.getElementById('replay-container'),
+  // ... other options
+});
+
+replayer.play();
+```
+
+See the [customize-replayer recipe](./customize-replayer.md) in the recipes folder for more advanced patterns.

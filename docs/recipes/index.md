@@ -42,7 +42,7 @@ By default, the UI could not interact during replay. But you can use API to enab
 
 ### Customize The Replayer
 
-When dom-replay's Replayer and the @dom-replay/player-svelte UI do not fit your need, you can customize your own replayer UI.
+When dom-replay's Replayer and the @dom-replay/player UI do not fit your need, you can customize your own replayer UI.
 
 [link](./customize-replayer.md)
 

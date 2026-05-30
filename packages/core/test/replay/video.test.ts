@@ -10,13 +10,12 @@ import {
   ISuite,
   hideMouseAnimation,
   fakeGoto,
+  defaultImageSnapshotOptions,
 } from '../utils';
-import { toMatchImageSnapshot } from 'jest-image-snapshot';
 import { vi } from 'vitest';
 import { Replayer } from '../../src/replay';
 import videoPlaybackEvents from '../events/video-playback';
 import videoPlaybackOnFullSnapshotEvents from '../events/video-playback-on-full-snapshot';
-expect.extend({ toMatchImageSnapshot });
 
 type IWindow = typeof globalThis & Window & { replayer: Replayer };
 
@@ -40,6 +39,7 @@ describe('video', () => {
   let code: ISuite['code'];
   let page: ISuite['page'];
   let browser: ISuite['browser'];
+  let context: puppeteer.BrowserContext;
   let server: ISuite['server'];
   let serverURL: ISuite['serverURL'];
 
@@ -47,6 +47,7 @@ describe('video', () => {
     server = await startServer();
     serverURL = getServerURL(server);
     browser = await launchPuppeteer();
+    context = await browser.createBrowserContext();
 
     const bundlePath = path.resolve(__dirname, '../../dist/core.umd.cjs');
     code = fs.readFileSync(bundlePath, 'utf8');
@@ -57,12 +58,13 @@ describe('video', () => {
   });
 
   afterAll(async () => {
+    if (context) await context.close();
     await server.close();
     await browser.close();
   });
 
   beforeEach(async () => {
-    page = await browser.newPage();
+    page = await context.newPage();
 
     await fakeGoto(page, `${serverURL}/html/video.html`);
     await page.evaluate(code);
@@ -74,7 +76,7 @@ describe('video', () => {
     await page.evaluate(`let events = ${JSON.stringify(videoPlaybackEvents)}`);
     await page.evaluate(`
       const { Replayer } = domReplay;
-      window.replayer = new Replayer(events);
+      window.replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
     `);
     const wait = waitForVideoTo('seeked', page);
     // seek replayer to 6.5s
@@ -85,6 +87,7 @@ describe('video', () => {
     const frameImage = await page!.screenshot();
     await waitForRAF(page);
     expect(frameImage).toMatchImageSnapshot({
+      ...defaultImageSnapshotOptions,
       failureThreshold: 0.05,
       failureThresholdType: 'percent',
     });
@@ -94,7 +97,7 @@ describe('video', () => {
     await page.evaluate(`
       let events = ${JSON.stringify(videoPlaybackOnFullSnapshotEvents)};
       const { Replayer } = domReplay;
-      window.replayer = new Replayer(events);
+      window.replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
     `);
 
     const wait = waitForVideoTo('seeked', page);
@@ -106,6 +109,7 @@ describe('video', () => {
     const frameImage = await page!.screenshot();
     await waitForRAF(page);
     expect(frameImage).toMatchImageSnapshot({
+      ...defaultImageSnapshotOptions,
       failureThreshold: 0.05,
       failureThresholdType: 'percent',
     });
@@ -115,7 +119,7 @@ describe('video', () => {
     await page.evaluate(`
       let events = ${JSON.stringify(videoPlaybackEvents)};
       const { Replayer } = domReplay;
-      window.replayer = new Replayer(events);
+      window.replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
     `);
     await waitForVideoTo('canplaythrough', page);
 
@@ -126,6 +130,7 @@ describe('video', () => {
 
     await waitForRAF(page);
     expect(frameImage).toMatchImageSnapshot({
+      ...defaultImageSnapshotOptions,
       failureThreshold: 0.05,
       failureThresholdType: 'percent',
     });
@@ -137,6 +142,7 @@ describe('video', () => {
       const { Replayer } = domReplay;
       window.replayer = new Replayer(events, {
         UNSAFE_replayCanvas: true,
+        UNSAFE_allowUnprotectedRebuild: true,
       });
     `);
     await waitForRAF(page);
@@ -156,6 +162,7 @@ describe('video', () => {
     const frameImage = await page!.screenshot();
     await waitForRAF(page);
     expect(frameImage).toMatchImageSnapshot({
+      ...defaultImageSnapshotOptions,
       failureThreshold: 0.05,
       failureThresholdType: 'percent',
     });
@@ -167,7 +174,7 @@ describe('video', () => {
     await page.evaluate(`let events = ${JSON.stringify(videoPlaybackEvents)}`);
     await page.evaluate(`
       const { Replayer } = domReplay;
-      window.replayer = new Replayer(events);
+      window.replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
     `);
     const waitForPlaying = waitForVideoTo('playing', page);
     await page.evaluate(`window.replayer.play()`);
@@ -187,7 +194,7 @@ describe('video', () => {
     );
     await page.evaluate(`
       const { Replayer } = domReplay;
-      window.replayer = new Replayer(events);
+      window.replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
     `);
 
     const waitForPlaying = waitForVideoTo('playing', page);
@@ -208,7 +215,7 @@ describe('video', () => {
     );
     await page.evaluate(`
       const { Replayer } = domReplay;
-      window.replayer = new Replayer(events);
+      window.replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
     `);
 
     const waitForSeek = waitForVideoTo('seeked', page);
@@ -227,7 +234,7 @@ describe('video', () => {
     );
     await page.evaluate(`
       const { Replayer } = domReplay;
-      window.replayer = new Replayer(events);
+      window.replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
     `);
 
     const waitForSeek = waitForVideoTo('seeked', page);
@@ -251,6 +258,7 @@ describe('video', () => {
       const { Replayer } = domReplay;
       window.replayer = new Replayer(events, {
         speed: 8,
+        UNSAFE_allowUnprotectedRebuild: true,
       });
     `);
 

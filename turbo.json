@@ -1,10 +1,10 @@
 {
   "$schema": "https://turborepo.org/schema.json",
   "globalDependencies": [
-    ".eslintrc.js",
     ".prettierrc",
     "vite.config.default.ts",
-    "tsconfig.json"
+    "tsconfig.json",
+    "eslint.config.mjs"
   ],
   "globalPassThroughEnv": [
     "PUPPETEER_HEADLESS",
@@ -29,9 +29,10 @@
       ]
     },
     "test": {
-      "dependsOn": [
-        "^prepublish"
-      ]
+      "dependsOn": ["prepublish", "^prepublish"],
+      "inputs": ["src/**/*.ts", "test/**/*", "vitest.config.*", "package.json"],
+      "outputs": ["coverage/**"],
+      "env": ["CI", "PUPPETEER_HEADLESS"]
     },
     "test:watch": {
       "persistent": true,

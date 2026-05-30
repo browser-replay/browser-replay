@@ -26,13 +26,30 @@ If you see **"Could not find Chrome (ver. …)"**, you haven’t run this yet or
 3. **Pool: forks**
    - The repo uses Vitest’s `pool: 'forks'` (separate Node processes per worker). Forks use more memory than threads because each worker is a full process.
 
+## Bundle size checks (new)
+
+We now have basic bundle size reporting focused on the record path (critical for tree-shaking wins from the snapshot boundary work):
+
+```bash
+pnpm size                 # report current sizes
+ANALYZE=true pnpm build:all && pnpm size:analyze
+```
+
+This is inspired by upstream rrweb's 2026 bundle size CI. Thresholds are soft for now while we establish baselines.
+
 ## How to prevent crashes when running from Cursor
 
 ### 1. Run tests in an **external terminal** (recommended)
 
 Run `pnpm test` (or the commands below) in a normal terminal (e.g. outside Cursor), so the IDE and the test run don’t compete as much for the same process tree and I/O.
 
-### 2. Limit Vitest workers for the core package
+### 2. Use BrowserContext for better isolation (new recommended pattern)
+
+In core integration tests we now prefer creating a `BrowserContext` once per test file and pages from the context. This gives much better isolation between tests and reduces flakiness from shared browser state (cookies, localStorage, canvas caches, etc.).
+
+See the updated helpers in `packages/core/test/utils.ts` and examples in `replayer.test.ts` / webgl tests.
+
+### 3. Limit Vitest workers for the core package
 
 The core package has the most Puppeteer tests. Cap workers so you don’t run many Chrome instances at once:
 
@@ -48,7 +65,7 @@ cd packages/core && cross-env PUPPETEER_HEADLESS=true pnpm exec vitest run --poo
 
 Use `--maxWorkers=2` if your machine has enough RAM (e.g. 16GB+) and you want a bit more parallelism.
 
-### 3. Run only packages that don’t use a real browser
+### 4. Run only packages that don’t use a real browser
 
 For a quick check without starting Chrome:
 

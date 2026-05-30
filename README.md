@@ -50,7 +50,7 @@ See the [guide](guide.md) for full documentation.
 | [@dom-replay/record](packages/record)               | Record DOM events    |
 | [@dom-replay/replay](packages/replay)               | Replay engine        |
 | [@dom-replay/player](packages/player)               | React player UI      |
-| [@dom-replay/player-svelte](packages/player-svelte) | Svelte player UI     |
+
 | [@dom-replay/player-core](packages/player-core)     | Shared player logic  |
 | [@dom-replay/core](packages/core)                   | Record + replay core |
 

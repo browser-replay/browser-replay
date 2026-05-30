@@ -40,7 +40,7 @@ if [[ "${SKIP_BUILD}" != "1" ]]; then
     --filter @dom-replay/replay \
     --filter @dom-replay/player-core \
     --filter @dom-replay/player \
-    --filter @dom-replay/player-svelte
+    --filter @dom-replay/player
 fi
 
 # Pack in dependency order (not strictly required, but clearer).
@@ -54,7 +54,6 @@ pnpm -C "${ROOT_DIR}/packages/record" pack --pack-destination "${DEST_DIR}"
 pnpm -C "${ROOT_DIR}/packages/replay" pack --pack-destination "${DEST_DIR}"
 pnpm -C "${ROOT_DIR}/packages/player-core" pack --pack-destination "${DEST_DIR}"
 pnpm -C "${ROOT_DIR}/packages/player" pack --pack-destination "${DEST_DIR}"
-pnpm -C "${ROOT_DIR}/packages/player-svelte" pack --pack-destination "${DEST_DIR}"
 
 mkdir -p "${DEST_BASE}"
 echo "${DEST_DIR}" > "${DEST_BASE}/latest"

@@ -45,17 +45,19 @@ describe('replayer', function () {
 
   let code: ISuite['code'];
   let browser: ISuite['browser'];
+  let context: ISuite['context'];
   let page: ISuite['page'];
 
   beforeAll(async () => {
     browser = await launchPuppeteer();
+    context = await browser.createBrowserContext();
 
     const bundlePath = path.resolve(__dirname, '../dist/core.umd.cjs');
     code = fs.readFileSync(bundlePath, 'utf8');
   });
 
   beforeEach(async () => {
-    page = await browser.newPage();
+    page = await context.newPage();
     await page.goto('about:blank');
     await page.evaluate(code);
     await page.evaluate(`var events = ${JSON.stringify(events)}`);
@@ -68,13 +70,14 @@ describe('replayer', function () {
   });
 
   afterAll(async () => {
+    await context.close();
     await browser.close();
   });
 
   it('can get meta data', async () => {
     const meta = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.getMetaData();
     `);
     expect(meta).toEqual({
@@ -87,7 +90,7 @@ describe('replayer', function () {
   it('will start actions when play', async () => {
     const actionLength = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play();
       replayer['timer']['actions'].length;
     `);
@@ -97,7 +100,7 @@ describe('replayer', function () {
   it('will clean actions when pause', async () => {
     const actionLength = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play();
       replayer.pause();
       replayer['timer']['actions'].length;
@@ -108,7 +111,7 @@ describe('replayer', function () {
   it('can play at any time offset', async () => {
     const actionLength = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play(1500);
       replayer['timer']['actions'].length;
     `);
@@ -120,7 +123,7 @@ describe('replayer', function () {
   it('can play a second time in the future', async () => {
     const actionLength = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play(500);
       replayer.play(1500);
       replayer['timer']['actions'].length;
@@ -133,7 +136,7 @@ describe('replayer', function () {
   it('can play a second time to the past', async () => {
     const actionLength = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play(1500);
       replayer.play(500);
       replayer['timer']['actions'].length;
@@ -146,7 +149,7 @@ describe('replayer', function () {
   it('can pause at any time offset', async () => {
     const actionLength = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(2500);
       replayer['timer']['actions'].length;
     `);
@@ -165,7 +168,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(styleSheetRuleEvents)}`);
     const actionLength = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play(1500);
       replayer['timer']['actions'].length;
     `);
@@ -183,7 +186,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(styleSheetRuleEvents)}`);
     const result = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(1500);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
         (sheet) => [...sheet.rules],
@@ -198,7 +201,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(stylesheetRemoveEvents)}`);
     const actionLength = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play(2500);
       replayer['timer']['actions'].length;
     `);
@@ -215,7 +218,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(remoteStyleSheetEvents)}`);
     const actionLength = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play(2500);
       replayer['timer']['actions'].length;
     `);
@@ -234,7 +237,7 @@ describe('replayer', function () {
     /** check the first selection event */
     let [startOffset, endOffset] = (await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(360);
       var range = replayer.iframe.contentDocument.getSelection().getRangeAt(0);
       [range.startOffset, range.endOffset];
@@ -262,7 +265,7 @@ describe('replayer', function () {
 
     const actionLength = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(2600);
       replayer['timer']['actions'].length;
     `);
@@ -274,7 +277,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(styleSheetRuleEvents)}`);
     const result = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(3000);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
         (sheet) => [...sheet.rules],
@@ -289,7 +292,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(styleSheetRuleEvents)}`);
     const result = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(3500);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
         (sheet) => [...sheet.rules],
@@ -304,7 +307,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(styleSheetRuleEvents)}`);
     const result = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(3500);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
         (sheet) => [...sheet.rules],
@@ -322,7 +325,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(StyleSheetTextMutation)}`);
     const result = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(1600);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
         (sheet) => [...sheet.rules],
@@ -336,7 +339,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(StyleSheetTextMutation)}`);
     const result = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(2100);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
         (sheet) => [...sheet.rules],
@@ -350,7 +353,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(StyleSheetTextMutation)}`);
     const result = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(2600);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
         (sheet) => [...sheet.rules],
@@ -364,7 +367,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(StyleSheetTextMutation)}`);
     const result = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(3100);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
         (sheet) => [...sheet.rules],
@@ -378,7 +381,7 @@ describe('replayer', function () {
     await page.evaluate(`
       events = ${JSON.stringify(scrollEvents)};
       const { Replayer } = domReplay;
-      var replayer = new Replayer(events,{showDebug:true});
+      var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(550);
     `);
     // add the "#container" element at 500
@@ -437,7 +440,7 @@ describe('replayer', function () {
     await page.evaluate(`
       events = ${JSON.stringify(scrollWithParentStylesEvents)};
       const { Replayer } = domReplay;
-      var replayer = new Replayer(events,{showDebug:true});
+      var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(550);
     `);
     // add the ".container" element at 500
@@ -482,7 +485,7 @@ describe('replayer', function () {
     await page.evaluate(`
       events = ${JSON.stringify(inputEvents)};
       const { Replayer } = domReplay;
-      var replayer = new Replayer(events,{showDebug:true});
+      var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(1050);
     `);
     const iframe = await page.$('iframe');
@@ -558,7 +561,7 @@ describe('replayer', function () {
     await page.evaluate(`
       events = ${JSON.stringify(iframeEvents)};
       const { Replayer } = domReplay;
-      var replayer = new Replayer(events,{showDebug:true});
+      var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(250);
     `);
     const iframe = await page.$('iframe');
@@ -678,7 +681,7 @@ describe('replayer', function () {
     await page.evaluate(`
       events = ${JSON.stringify(shadowDomEvents)};
       const { Replayer } = domReplay;
-      var replayer = new Replayer(events,{showDebug:true});
+      var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(550);
     `);
     // add shadow dom 'one' at 500
@@ -723,7 +726,7 @@ describe('replayer', function () {
     await page.evaluate(`
       events = ${JSON.stringify(canvasInIframe)};
       const { Replayer } = domReplay;
-      var replayer = new Replayer(events,{showDebug:true});
+      var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(550);            
     `);
     const replayerIframe = await page.$('iframe');
@@ -748,7 +751,8 @@ describe('replayer', function () {
     const status = await page.evaluate(`
       const { Replayer } = domReplay;
       const replayer = new Replayer(events, {
-        liveMode: true
+        liveMode: true,
+        UNSAFE_allowUnprotectedRebuild: true,
       });
       replayer.startLive();
       replayer.service.state.value;
@@ -764,6 +768,7 @@ describe('replayer', function () {
         const { Replayer } = win.domReplay;
         const replayer = new Replayer([], {
           liveMode: true,
+          UNSAFE_allowUnprotectedRebuild: true,
         });
         replayer.on(FinishState, () => {
           triggeredFinish = true;
@@ -783,7 +788,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(orderingEvents)}`);
     await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play();
     `);
     await sleep(50);
@@ -795,7 +800,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(orderingEvents)}`);
     await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events.slice(0, events.length-2));
+      const replayer = new Replayer(events.slice(0, events.length-2), { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play();
       replayer.addEvent(events[events.length-2]);
       replayer.addEvent(events[events.length-1]);
@@ -809,7 +814,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(events)}`);
     await page.evaluate(`
       const { Replayer } = domReplay;
-      let replayer = new Replayer(events);
+      let replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play();      
     `);
 
@@ -826,7 +831,7 @@ describe('replayer', function () {
     await page.evaluate(`
       events = ${JSON.stringify(adoptedStyleSheet)};
       const { Replayer } = domReplay;
-      var replayer = new Replayer(events,{showDebug:true});
+      var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
       replayer.play();
     `);
     await sleep(600);
@@ -897,7 +902,7 @@ describe('replayer', function () {
     await page.evaluate(`
     events = ${JSON.stringify(adoptedStyleSheetModification)};
     const { Replayer } = domReplay;
-    var replayer = new Replayer(events,{showDebug:true});
+    var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
     replayer.pause(0);
 
     async function playTill(offsetTime) {
@@ -1075,7 +1080,7 @@ describe('replayer', function () {
     page.on('pageerror', errorThrown);
     await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play(500);
     `);
     await waitForRAF(page);
@@ -1091,7 +1096,7 @@ describe('replayer', function () {
 
     await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(550);
     `);
     const replayerIframe = await page.$('iframe');
@@ -1151,7 +1156,7 @@ describe('replayer', function () {
 
     const displayValue = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(200);
       const customElement = replayer.iframe.contentDocument.querySelector('custom-element');
       window.getComputedStyle(customElement).display;
@@ -1166,7 +1171,7 @@ describe('replayer', function () {
 
     const displayValue = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(100);
       const textarea = replayer.iframe.contentDocument.querySelector('textarea');
       textarea.value;
@@ -1181,7 +1186,7 @@ describe('replayer', function () {
 
     const changedColors = await page.evaluate(`
       const { Replayer } = domReplay;
-      const replayer = new Replayer(events);
+      const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(1000);
       // Get the color of the elements after applying the style mutation event
       [
