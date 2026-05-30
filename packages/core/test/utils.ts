@@ -814,7 +814,7 @@ export async function waitForIFrameLoad(
 
 export function generateRecordSnippet(options: recordOptions<eventWithTime>) {
   return `
-  domReplay.record({
+  browserReplay.record({
     emit: event => {
       if (!window.snapshots) window.snapshots = [];
       window.snapshots.push(event);

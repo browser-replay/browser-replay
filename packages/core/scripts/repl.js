@@ -23,7 +23,7 @@ void (async () => {
 
   async function injectRecording(frame) {
     try {
-      await frame.evaluate((domReplayCode) => {
+      await frame.evaluate((browserReplayCode) => {
         const win = window;
         if (win.__IS_RECORDING__) return;
         win.__IS_RECORDING__ = true;
@@ -42,10 +42,10 @@ void (async () => {
               });
             }
           }
-          loadScript(domReplayCode);
+          loadScript(browserReplayCode);
 
           win.events = [];
-          domReplay.record({
+          browserReplay.record({
             emit: (event) => {
               win.events.push(event);
               win._replLog(event);
@@ -201,7 +201,7 @@ void (async () => {
     });
     await page.evaluate(`${code}
       const events = ${JSON.stringify(events)};
-      const replayer = new domReplay.Replayer(events, {
+      const replayer = new browserReplay.Replayer(events, {
         UNSAFE_replayCanvas: true
       });
       replayer.play();
@@ -239,7 +239,7 @@ void (async () => {
         '<\\/script>',
       )};
       /*-->*/
-      const replayer = new domReplay.Replayer(events, {
+      const replayer = new browserReplay.Replayer(events, {
         UNSAFE_replayCanvas: true
       });
       replayer.play();

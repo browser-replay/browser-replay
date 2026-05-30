@@ -75,7 +75,7 @@ describe('video', () => {
   it('will seek to the correct moment', async () => {
     await page.evaluate(`let events = ${JSON.stringify(videoPlaybackEvents)}`);
     await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       window.replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
     `);
     const wait = waitForVideoTo('seeked', page);
@@ -96,7 +96,7 @@ describe('video', () => {
   it('will seek to the correct moment without media interaction events', async () => {
     await page.evaluate(`
       let events = ${JSON.stringify(videoPlaybackOnFullSnapshotEvents)};
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       window.replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
     `);
 
@@ -118,7 +118,7 @@ describe('video', () => {
   it("will be paused when the player wasn't started yet", async () => {
     await page.evaluate(`
       let events = ${JSON.stringify(videoPlaybackEvents)};
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       window.replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
     `);
     await waitForVideoTo('canplaythrough', page);
@@ -139,7 +139,7 @@ describe('video', () => {
   it('will play from the correct moment', async () => {
     await page.evaluate(`let events = ${JSON.stringify(videoPlaybackEvents)}`);
     await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       window.replayer = new Replayer(events, {
         UNSAFE_replayCanvas: true,
         UNSAFE_allowUnprotectedRebuild: true,
@@ -173,7 +173,7 @@ describe('video', () => {
   it('should play from the start', async () => {
     await page.evaluate(`let events = ${JSON.stringify(videoPlaybackEvents)}`);
     await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       window.replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
     `);
     const waitForPlaying = waitForVideoTo('playing', page);
@@ -193,7 +193,7 @@ describe('video', () => {
       `let events = ${JSON.stringify(videoPlaybackOnFullSnapshotEvents)}`,
     );
     await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       window.replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
     `);
 
@@ -214,7 +214,7 @@ describe('video', () => {
       `let events = ${JSON.stringify(videoPlaybackOnFullSnapshotEvents)}`,
     );
     await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       window.replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
     `);
 
@@ -233,7 +233,7 @@ describe('video', () => {
       `let events = ${JSON.stringify(videoPlaybackOnFullSnapshotEvents)}`,
     );
     await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       window.replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
     `);
 
@@ -255,7 +255,7 @@ describe('video', () => {
       `let events = ${JSON.stringify(videoPlaybackOnFullSnapshotEvents)}`,
     );
     await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       window.replayer = new Replayer(events, {
         speed: 8,
         UNSAFE_allowUnprotectedRebuild: true,

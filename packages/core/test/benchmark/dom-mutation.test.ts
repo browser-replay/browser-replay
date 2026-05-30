@@ -106,7 +106,7 @@ describe('benchmark: mutation observer', () => {
       scriptEl.src = url;
       document.head.append(scriptEl);
     }, scriptUrl);
-    await page.waitForFunction('window.domReplay');
+    await page.waitForFunction('window.browserReplay');
   };
 
   for (const suite of suites) {

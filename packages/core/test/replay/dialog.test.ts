@@ -109,7 +109,7 @@ describe('dialog', () => {
           `let events = ${JSON.stringify(dialogPlaybackEvents)}`,
         );
         await page.evaluate(`
-          const { Replayer } = domReplay;
+          const { Replayer } = browserReplay;
           window.replayer = new Replayer(events, {
             useVirtualDom: ${useVirtualDom},
             UNSAFE_allowUnprotectedRebuild: true,
@@ -147,7 +147,7 @@ describe('dialog', () => {
   it('closed dialogs show nothing', async () => {
     await page.evaluate(`let events = ${JSON.stringify(dialogPlaybackEvents)}`);
     await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       window.replayer = new Replayer(events, {
         UNSAFE_allowUnprotectedRebuild: true,
       });

@@ -159,7 +159,7 @@ describe('record integration tests', function (this: ISuite) {
 
     // check after each mutation and text input
     const replayTextareaValues = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(window.snapshots, { UNSAFE_allowUnprotectedRebuild: true });
       const vals = [];
       window.snapshots.filter((e)=>e.data.attributes || e.data.source === 5).forEach((e)=>{
@@ -270,7 +270,7 @@ describe('record integration tests', function (this: ISuite) {
 
     // check after each mutation and text input
     const replayStyleValues = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(window.snapshots, { UNSAFE_allowUnprotectedRebuild: true });
       const vals = [];
       window.snapshots.filter((e)=>e.data.attributes || e.data.source === 5).forEach((e)=>{
@@ -483,7 +483,7 @@ describe('record integration tests', function (this: ISuite) {
       li.setAttribute('foo', 'bar');
       document.body.setAttribute('test', 'true');
     });
-    await page.evaluate('domReplay.freezePage()');
+    await page.evaluate('browserReplay.freezePage()');
     await page.evaluate(() => {
       document.body.setAttribute('test', 'bad');
       const canvas = document.querySelector('canvas') as HTMLCanvasElement;
@@ -1496,7 +1496,7 @@ describe('record integration tests', function (this: ISuite) {
      * Replay the recorded events and check if the style mutation is applied correctly
      */
     const changedColors = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(window.snapshots, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(1000);
 
@@ -1569,7 +1569,7 @@ describe('record integration tests', function (this: ISuite) {
      * Replay the recorded events and check if the style mutation is applied correctly
      */
     const changedColors = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(window.snapshots, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(1000);
 

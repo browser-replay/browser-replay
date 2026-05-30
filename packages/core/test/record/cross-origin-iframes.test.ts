@@ -29,7 +29,7 @@ interface ISuite {
 }
 
 interface IWindow extends Window {
-  domReplay: {
+  browserReplay: {
     record: (
       options: recordOptions<eventWithTime>,
     ) => listenerHandler | undefined;
@@ -65,7 +65,7 @@ async function injectRecordScript(
   options = options || {};
   await frame.evaluate((options) => {
     (window as unknown as IWindow).snapshots = [];
-    const { record } = (window as unknown as IWindow).domReplay;
+    const { record } = (window as unknown as IWindow).browserReplay;
     const config: recordOptions<eventWithTime> = {
       recordCrossOriginIframes: true,
       recordCanvas: true,
@@ -391,7 +391,7 @@ describe('cross origin iframes', function (this: ISuite) {
       const frame = ctx.page.mainFrame().childFrames()[0];
       await frame.waitForSelector('span', { timeout: 15_000 });
       await frame.evaluate(() => {
-        (window as unknown as IWindow).domReplay.addCustomEvent('test', {
+        (window as unknown as IWindow).browserReplay.addCustomEvent('test', {
           id: 1,
           parentId: 1,
           nextId: 2,

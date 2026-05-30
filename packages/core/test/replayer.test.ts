@@ -38,7 +38,7 @@ interface ISuite {
 }
 
 type IWindow = Window &
-  typeof globalThis & { domReplay: typeof import('../src'); events: typeof events };
+  typeof globalThis & { browserReplay: typeof import('../src'); events: typeof events };
 
 describe('replayer', function () {
   vi.setConfig({ testTimeout: 10_000 });
@@ -76,7 +76,7 @@ describe('replayer', function () {
 
   it('can get meta data', async () => {
     const meta = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.getMetaData();
     `);
@@ -89,7 +89,7 @@ describe('replayer', function () {
 
   it('will start actions when play', async () => {
     const actionLength = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play();
       replayer['timer']['actions'].length;
@@ -99,7 +99,7 @@ describe('replayer', function () {
 
   it('will clean actions when pause', async () => {
     const actionLength = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play();
       replayer.pause();
@@ -110,7 +110,7 @@ describe('replayer', function () {
 
   it('can play at any time offset', async () => {
     const actionLength = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play(1500);
       replayer['timer']['actions'].length;
@@ -122,7 +122,7 @@ describe('replayer', function () {
 
   it('can play a second time in the future', async () => {
     const actionLength = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play(500);
       replayer.play(1500);
@@ -135,7 +135,7 @@ describe('replayer', function () {
 
   it('can play a second time to the past', async () => {
     const actionLength = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play(1500);
       replayer.play(500);
@@ -148,7 +148,7 @@ describe('replayer', function () {
 
   it('can pause at any time offset', async () => {
     const actionLength = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(2500);
       replayer['timer']['actions'].length;
@@ -167,7 +167,7 @@ describe('replayer', function () {
   it('can fast forward past StyleSheetRule changes on virtual elements', async () => {
     await page.evaluate(`events = ${JSON.stringify(styleSheetRuleEvents)}`);
     const actionLength = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play(1500);
       replayer['timer']['actions'].length;
@@ -185,7 +185,7 @@ describe('replayer', function () {
   it('should apply fast forwarded StyleSheetRules that where added', async () => {
     await page.evaluate(`events = ${JSON.stringify(styleSheetRuleEvents)}`);
     const result = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(1500);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
@@ -200,7 +200,7 @@ describe('replayer', function () {
   it('can handle removing style elements', async () => {
     await page.evaluate(`events = ${JSON.stringify(stylesheetRemoveEvents)}`);
     const actionLength = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play(2500);
       replayer['timer']['actions'].length;
@@ -217,7 +217,7 @@ describe('replayer', function () {
   it('can handle remote stylesheets', async () => {
     await page.evaluate(`events = ${JSON.stringify(remoteStyleSheetEvents)}`);
     const actionLength = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play(2500);
       replayer['timer']['actions'].length;
@@ -236,7 +236,7 @@ describe('replayer', function () {
 
     /** check the first selection event */
     let [startOffset, endOffset] = (await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(360);
       var range = replayer.iframe.contentDocument.getSelection().getRangeAt(0);
@@ -264,7 +264,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(styleSheetRuleEvents)}`);
 
     const actionLength = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(2600);
       replayer['timer']['actions'].length;
@@ -276,7 +276,7 @@ describe('replayer', function () {
   it('should delete fast forwarded StyleSheetRules that where removed', async () => {
     await page.evaluate(`events = ${JSON.stringify(styleSheetRuleEvents)}`);
     const result = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(3000);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
@@ -291,7 +291,7 @@ describe('replayer', function () {
   it("should overwrite all StyleSheetRules by replacing style element's textContent while fast-forwarding", async () => {
     await page.evaluate(`events = ${JSON.stringify(styleSheetRuleEvents)}`);
     const result = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(3500);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
@@ -306,7 +306,7 @@ describe('replayer', function () {
   it('should apply fast-forwarded StyleSheetRules that came after stylesheet textContent overwrite', async () => {
     await page.evaluate(`events = ${JSON.stringify(styleSheetRuleEvents)}`);
     const result = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(3500);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
@@ -324,7 +324,7 @@ describe('replayer', function () {
   it('should overwrite all StyleSheetRules by appending a text node to stylesheet element while fast-forwarding', async () => {
     await page.evaluate(`events = ${JSON.stringify(StyleSheetTextMutation)}`);
     const result = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(1600);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
@@ -338,7 +338,7 @@ describe('replayer', function () {
   it('should apply fast-forwarded StyleSheetRules that came after appending text node to stylesheet element', async () => {
     await page.evaluate(`events = ${JSON.stringify(StyleSheetTextMutation)}`);
     const result = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(2100);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
@@ -352,7 +352,7 @@ describe('replayer', function () {
   it('should overwrite all StyleSheetRules by removing text node from stylesheet element while fast-forwarding', async () => {
     await page.evaluate(`events = ${JSON.stringify(StyleSheetTextMutation)}`);
     const result = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(2600);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
@@ -366,7 +366,7 @@ describe('replayer', function () {
   it('should apply fast-forwarded StyleSheetRules that came after removing text node from stylesheet element', async () => {
     await page.evaluate(`events = ${JSON.stringify(StyleSheetTextMutation)}`);
     const result = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(3100);
       const rules = [...replayer.iframe.contentDocument.styleSheets].map(
@@ -380,7 +380,7 @@ describe('replayer', function () {
   it('can fast forward scroll events', async () => {
     await page.evaluate(`
       events = ${JSON.stringify(scrollEvents)};
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(550);
     `);
@@ -439,7 +439,7 @@ describe('replayer', function () {
   it('can fast forward scroll events w/ a parent node that affects a child nodes height', async () => {
     await page.evaluate(`
       events = ${JSON.stringify(scrollWithParentStylesEvents)};
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(550);
     `);
@@ -484,7 +484,7 @@ describe('replayer', function () {
   it('can fast forward input events', async () => {
     await page.evaluate(`
       events = ${JSON.stringify(inputEvents)};
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(1050);
     `);
@@ -560,7 +560,7 @@ describe('replayer', function () {
   it('can fast-forward mutation events containing nested iframe elements', async () => {
     await page.evaluate(`
       events = ${JSON.stringify(iframeEvents)};
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(250);
     `);
@@ -680,7 +680,7 @@ describe('replayer', function () {
   it('can fast-forward mutation events containing nested shadow doms', async () => {
     await page.evaluate(`
       events = ${JSON.stringify(shadowDomEvents)};
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(550);
     `);
@@ -725,7 +725,7 @@ describe('replayer', function () {
   it('can fast-forward mutation events containing painted canvas in iframe', async () => {
     await page.evaluate(`
       events = ${JSON.stringify(canvasInIframe)};
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(550);            
     `);
@@ -749,7 +749,7 @@ describe('replayer', function () {
 
   it('can stream events in live mode', async () => {
     const status = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, {
         liveMode: true,
         UNSAFE_allowUnprotectedRebuild: true,
@@ -765,7 +765,7 @@ describe('replayer', function () {
       return new Promise((resolve) => {
         const win = window as IWindow;
         let triggeredFinish = false;
-        const { Replayer } = win.domReplay;
+        const { Replayer } = win.browserReplay;
         const replayer = new Replayer([], {
           liveMode: true,
           UNSAFE_allowUnprotectedRebuild: true,
@@ -787,7 +787,7 @@ describe('replayer', function () {
   it('replays same timestamp events in correct order', async () => {
     await page.evaluate(`events = ${JSON.stringify(orderingEvents)}`);
     await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play();
     `);
@@ -799,7 +799,7 @@ describe('replayer', function () {
   it('replays same timestamp events in correct order (with addAction)', async () => {
     await page.evaluate(`events = ${JSON.stringify(orderingEvents)}`);
     await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events.slice(0, events.length-2), { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play();
       replayer.addEvent(events[events.length-2]);
@@ -813,7 +813,7 @@ describe('replayer', function () {
   it('should destroy the replayer after calling destroy()', async () => {
     await page.evaluate(`events = ${JSON.stringify(events)}`);
     await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       let replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play();      
     `);
@@ -830,7 +830,7 @@ describe('replayer', function () {
   it('can replay adopted stylesheet events', async () => {
     await page.evaluate(`
       events = ${JSON.stringify(adoptedStyleSheet)};
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
       replayer.play();
     `);
@@ -901,7 +901,7 @@ describe('replayer', function () {
   it('can replay modification events for adoptedStyleSheet', async () => {
     await page.evaluate(`
     events = ${JSON.stringify(adoptedStyleSheetModification)};
-    const { Replayer } = domReplay;
+    const { Replayer } = browserReplay;
     var replayer = new Replayer(events, { showDebug: true, UNSAFE_allowUnprotectedRebuild: true });
     replayer.pause(0);
 
@@ -1079,7 +1079,7 @@ describe('replayer', function () {
     const errorThrown = vi.fn();
     page.on('pageerror', errorThrown);
     await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.play(500);
     `);
@@ -1095,7 +1095,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(hoverInIframeShadowDom)}`);
 
     await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(550);
     `);
@@ -1155,7 +1155,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(customElementDefineClass)}`);
 
     const displayValue = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(200);
       const customElement = replayer.iframe.contentDocument.querySelector('custom-element');
@@ -1170,7 +1170,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(badTextareaEvents)}`);
 
     const displayValue = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(100);
       const textarea = replayer.iframe.contentDocument.querySelector('textarea');
@@ -1185,7 +1185,7 @@ describe('replayer', function () {
     await page.evaluate(`events = ${JSON.stringify(badStyleEvents)}`);
 
     const changedColors = await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(1000);
       // Get the color of the elements after applying the style mutation event

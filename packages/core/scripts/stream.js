@@ -31,9 +31,9 @@ async function injectRecording(frame, serverURL) {
 
       (async () => {
         win.events = [];
-        window.record = win.domReplay.record;
+        window.record = win.browserReplay.record;
         window.plugin =
-          new domReplayPluginCanvasWebRTCRecord.RRWebPluginCanvasWebRTCRecord({
+          new browserReplayPluginCanvasWebRTCRecord.RRWebPluginCanvasWebRTCRecord({
             signalSendCallback: (msg) => {
               // [record#callback] provides canvas id, stream, and webrtc sdpOffer signal & connect message
               _signal(msg);
@@ -87,7 +87,7 @@ async function startReplay(page, serverURL, recordedPage) {
 
   return page.evaluate(() => {
     window.plugin =
-      new domReplayPluginCanvasWebRTCReplay.RRWebPluginCanvasWebRTCReplay({
+      new browserReplayPluginCanvasWebRTCReplay.RRWebPluginCanvasWebRTCReplay({
         canvasFoundCallback(canvas, context) {
           console.log('canvas', canvas, context);
           // [replay#onBuild] gets id of canvas element and sends to recorded page
@@ -98,7 +98,7 @@ async function startReplay(page, serverURL, recordedPage) {
         },
       });
 
-    window.replayer = new domReplay.Replayer([], {
+    window.replayer = new browserReplay.Replayer([], {
       UNSAFE_replayCanvas: true,
       liveMode: true,
       plugins: [window.plugin.initPlugin()],

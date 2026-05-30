@@ -20,7 +20,7 @@ interface ISuite {
 }
 
 interface IWindow extends Window {
-  domReplay: {
+  browserReplay: {
     record: (
       options: recordOptions<eventWithTime>,
     ) => listenerHandler | undefined;
@@ -104,7 +104,7 @@ describe('error-handler', function (this: ISuite) {
       });
 
       await ctx.page.evaluate(() => {
-        const { record } = (window as unknown as IWindow).domReplay;
+        const { record } = (window as unknown as IWindow).browserReplay;
         record({
           errorHandler: (error) => {
             document.getElementById('out')!.innerText = `${error}`;
@@ -139,7 +139,7 @@ describe('error-handler', function (this: ISuite) {
       });
 
       await ctx.page.evaluate(() => {
-        const { record } = (window as unknown as IWindow).domReplay;
+        const { record } = (window as unknown as IWindow).browserReplay;
         record({
           errorHandler: (error) => {
             document.getElementById('out')!.innerText = `${error}`;
@@ -173,7 +173,7 @@ describe('error-handler', function (this: ISuite) {
       });
 
       await ctx.page.evaluate(() => {
-        const { record } = (window as unknown as IWindow).domReplay;
+        const { record } = (window as unknown as IWindow).browserReplay;
         record({
           errorHandler: (error) => {
             document.getElementById('out')!.innerText = `${error}`;
@@ -208,7 +208,7 @@ describe('error-handler', function (this: ISuite) {
       });
 
       await ctx.page.evaluate(() => {
-        const { record } = (window as unknown as IWindow).domReplay;
+        const { record } = (window as unknown as IWindow).browserReplay;
         record({
           errorHandler: (error) => {
             document.getElementById('out')!.innerText = `${error}`;
@@ -243,7 +243,7 @@ describe('error-handler', function (this: ISuite) {
       });
 
       await ctx.page.evaluate(() => {
-        const { record } = (window as unknown as IWindow).domReplay;
+        const { record } = (window as unknown as IWindow).browserReplay;
         record({
           errorHandler: (error) => {
             document.getElementById('out')!.innerText = `${error}`;
@@ -284,7 +284,7 @@ describe('error-handler', function (this: ISuite) {
       });
 
       await ctx.page.evaluate(() => {
-        const { record } = (window as unknown as IWindow).domReplay;
+        const { record } = (window as unknown as IWindow).browserReplay;
         record({
           errorHandler: (error) => {
             document.getElementById('out')!.innerText = `${error}`;
@@ -322,7 +322,7 @@ describe('error-handler', function (this: ISuite) {
       });
 
       await ctx.page.evaluate(() => {
-        const { record } = (window as unknown as IWindow).domReplay;
+        const { record } = (window as unknown as IWindow).browserReplay;
         record({
           errorHandler: (error) => {
             document.getElementById('out')!.innerText = `${error}`;
@@ -360,7 +360,7 @@ describe('error-handler', function (this: ISuite) {
       });
 
       await ctx.page.evaluate(() => {
-        const { record } = (window as unknown as IWindow).domReplay;
+        const { record } = (window as unknown as IWindow).browserReplay;
         record({
           errorHandler: (error) => {
             document.getElementById('out')!.innerText = `${error}`;
@@ -391,7 +391,7 @@ describe('error-handler', function (this: ISuite) {
 
   it('triggers for errors from mutation observer', async () => {
     await ctx.page.evaluate(() => {
-      const { record } = (window as unknown as IWindow).domReplay;
+      const { record } = (window as unknown as IWindow).browserReplay;
       record({
         errorHandler: (error) => {
           document.getElementById('out')!.innerText = `${error}`;

@@ -19,7 +19,7 @@ import {
 import { recordOptions } from '../../src/types';
 
 interface IWindow extends Window {
-  domReplay: {
+  browserReplay: {
     record: (
       options: recordOptions<eventWithTime>,
     ) => listenerHandler | undefined;
@@ -95,7 +95,7 @@ describe('dialog', () => {
     page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
 
     await page.evaluate(() => {
-      const { record } = (window as unknown as IWindow).domReplay;
+      const { record } = (window as unknown as IWindow).browserReplay;
       record({
         emit: (window as unknown as IWindow).emit,
       });

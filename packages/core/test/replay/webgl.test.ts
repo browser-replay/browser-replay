@@ -52,7 +52,7 @@ describe('replayer', function () {
     it('should output simple webgl object', async () => {
       if (process.env.CI === 'true') return;
       await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, {
         UNSAFE_replayCanvas: true,
         UNSAFE_allowUnprotectedRebuild: true,
