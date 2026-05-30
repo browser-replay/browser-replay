@@ -587,9 +587,8 @@ function serializeElementNode(
   }
   // remote css
   if (tagName === 'link' && inlineStylesheet) {
-    //TODO: maybe replace this `.styleSheets` with original one
     const stylesheet = Array.from(doc.styleSheets).find((s) => {
-      return s.href === (n as HTMLLinkElement).href;
+      return s.ownerNode === n;
     });
     let cssText: string | null = null;
     if (stylesheet) {

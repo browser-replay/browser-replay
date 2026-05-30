@@ -336,6 +336,10 @@ export class Replayer {
     });
     this.emitter.on(ReplayerEvents.PlayBack, () => {
       this.firstFullSnapshot = null;
+      if (this.usingVirtualDom) {
+        this.virtualDom.destroyTree();
+        this.usingVirtualDom = false;
+      }
       this.mirror.reset();
       this.styleMirror.reset();
       this.mediaManager.reset();
@@ -664,8 +668,8 @@ export class Replayer {
       switch (event.type) {
         case EventType.DomContentLoaded:
         case EventType.Load:
-        case EventType.Custom:
           continue;
+        case EventType.Custom:
         case EventType.FullSnapshot:
         case EventType.Meta:
         case EventType.Plugin:
