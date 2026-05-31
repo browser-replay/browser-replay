@@ -3,6 +3,12 @@
   "version": "0.0.1",
   "description": "Transform browser-replay sessions into video",
   "main": "build/index.js",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "default": "./build/index.js"
+    }
+  },
   "bin": {
     "browser-replay-video": "build/cli.js"
   },
