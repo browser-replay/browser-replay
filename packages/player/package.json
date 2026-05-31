@@ -54,10 +54,10 @@
   "devDependencies": {
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
-    "typescript": "5.8.2",
-    "vite": "^6.2.0",
+    "typescript": "6.0.3",
+    "vite": "^8.0.14",
     "vite-plugin-dts": "^5.0.0",
-    "vitest": "^3.0.0"
+    "vitest": "^4.1.7"
   },
   "browserslist": [
     "supports es6-class"

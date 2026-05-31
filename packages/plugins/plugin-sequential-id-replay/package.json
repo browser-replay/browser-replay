@@ -37,8 +37,8 @@
     "@browser-replay/core": "workspace:*",
     "@browser-replay/plugin-sequential-id-record": "workspace:*",
     "@browser-replay/types": "workspace:*",
-    "typescript": "5.8.2",
-    "vite": "^6.2.0",
+    "typescript": "6.0.3",
+    "vite": "^8.0.14",
     "vite-plugin-dts": "^5.0.0"
   },
   "peerDependencies": {
