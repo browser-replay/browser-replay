@@ -53,7 +53,7 @@
     "@browser-replay/dom": "workspace:*",
     "@browser-replay/types": "workspace:*",
     "cssom": "^0.5.0",
-    "cssstyle": "^2.3.0",
+    "cssstyle": "^6.2.0",
     "nwsapi": "2.2.23"
   },
   "publishConfig": {

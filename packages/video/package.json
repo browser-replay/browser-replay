@@ -30,7 +30,7 @@
   "dependencies": {
     "@browser-replay/player-core": "workspace:*",
     "cli-progress": "^3.12.0",
-    "fs-extra": "^11.3.3",
+    "fs-extra": "^11.3.5",
     "minimist": "^1.2.8",
     "playwright": "^1.60.0"
   },
