@@ -14,7 +14,7 @@ import type {
   BuildCache,
   textNode,
 } from '../src/types';
-import { NodeType } from '@dom-replay/types';
+import { NodeType } from '@browser-replay/types';
 import { Window } from 'happy-dom';
 
 describe('css parser', () => {

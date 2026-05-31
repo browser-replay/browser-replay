@@ -1,7 +1,7 @@
 {
-  "name": "@dom-replay/snapshot",
+  "name": "@browser-replay/snapshot",
   "version": "0.0.1",
-  "description": "dom-replay's component to take a snapshot of DOM, aka DOM serializer",
+  "description": "browser-replay's component to take a snapshot of DOM, aka DOM serializer",
   "scripts": {
     "retest": "vitest run",
     "test": "vitest run",
@@ -11,13 +11,13 @@
     "bench": "vite build && vitest bench",
     "dev": "vite build --watch",
     "build": "pnpm run prepublish",
-    "check-types": "tsc --noEmit --pretty || echo '⚠️  Type errors detected in @dom-replay/snapshot (legacy rrweb code); continuing with Vite build'",
-    "prepublish": "pnpm check-types || echo '⚠️  Type errors in @dom-replay/snapshot (legacy code — see tsconfig.json TODO); continuing with Vite emit' && vite build",
+    "check-types": "tsc --noEmit --pretty || echo '⚠️  Type errors detected in @browser-replay/snapshot (legacy rrweb code); continuing with Vite build'",
+    "prepublish": "pnpm check-types || echo '⚠️  Type errors in @browser-replay/snapshot (legacy code — see tsconfig.json TODO); continuing with Vite emit' && vite build",
     "lint": "pnpm eslint src"
   },
   "type": "module",
   "keywords": [
-    "dom-replay",
+    "browser-replay",
     "snapshot",
     "DOM"
   ],
@@ -46,12 +46,12 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "@dom-replay/types": "workspace:*",
-    "@dom-replay/utils": "workspace:*",
+    "@browser-replay/types": "workspace:*",
+    "@browser-replay/utils": "workspace:*",
     "@types/jsdom": "^28.0.0",
-    "@types/node": "^22.0.0",
+    "@types/node": "^22.19.0",
     "jsdom": "^28.0.0",
-    "puppeteer": "^24.36.1",
+    "puppeteer": "^24.43.1",
     "ts-node": "^10.9.2",
     "tslib": "^2.8.1",
     "typescript": "5.8.2",

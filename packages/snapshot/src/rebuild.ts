@@ -5,7 +5,7 @@ import {
   NodeType,
   type elementNode,
   type legacyAttributes,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import { type tagMap, type BuildCache } from './types';
 import {
   isElement,
@@ -16,9 +16,9 @@ import {
 import postcss from 'postcss';
 
 const REBUILD_TARGET_ERROR =
-  'dom-replay-snapshot.rebuild() cannot rebuild into an unprotected browser document. Use rebuildIntoSandboxedIframe() or set UNSAFE_allowUnprotectedRebuild: true only when you accept the script-execution risk.';
+  'browser-replay-snapshot.rebuild() cannot rebuild into an unprotected browser document. Use rebuildIntoSandboxedIframe() or set UNSAFE_allowUnprotectedRebuild: true only when you accept the script-execution risk.';
 const SANDBOXED_IFRAME_ROOT_ERROR =
-  'dom-replay-snapshot.createSandboxedIframe() requires root to be connected to a document before creating a sandboxed iframe.';
+  'browser-replay-snapshot.createSandboxedIframe() requires root to be connected to a document before creating a sandboxed iframe.';
 
 const sandboxedRebuildDocuments = new WeakSet<Document>();
 
@@ -329,7 +329,7 @@ function buildNode(
         node = doc.createElement(tagName);
       }
       /**
-       * Attribute names start with `dr_` are internal attributes added by dom-replay.
+       * Attribute names start with `dr_` are internal attributes added by browser-replay.
        * They often overwrite other attributes on the element.
        * We need to parse them last so they can overwrite conflicting attributes.
        */
@@ -501,7 +501,7 @@ function buildNode(
           (node as HTMLDialogElement).setAttribute(
             'dr_open_mode',
             value as string,
-          ); // keep this attribute for dom-replay to trigger showModal
+          ); // keep this attribute for browser-replay to trigger showModal
         }
       }
 

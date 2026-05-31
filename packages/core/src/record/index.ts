@@ -3,7 +3,7 @@ import {
   slimDOMDefaults,
   type MaskInputOptions,
   createMirror,
-} from '@dom-replay/snapshot';
+} from '@browser-replay/snapshot/snapshot-utils';
 import { initObservers, mutationBuffers } from './observer';
 import {
   on,
@@ -27,13 +27,13 @@ import {
   type scrollCallback,
   type canvasMutationParam,
   type adoptedStyleSheetParam,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import type { CrossOriginIframeMessageEventContent } from '../types';
 import { IframeManager } from './iframe-manager';
 import { ShadowDomManager } from './shadow-dom-manager';
 import { CanvasManager } from './observers/canvas/canvas-manager';
 import { StylesheetManager } from './stylesheet-manager';
-import dom from '@dom-replay/utils';
+import dom from '@browser-replay/utils';
 import ProcessedNodeManager from './processed-node-manager';
 import {
   callbackWrapper,
@@ -201,7 +201,7 @@ function record<T = eventWithTime>(
       emit?.(eventProcessor(e), isCheckout);
     } else if (passEmitsToParent) {
       const message: CrossOriginIframeMessageEventContent<T> = {
-        type: 'dom-replay',
+        type: 'browser-replay',
         event: eventProcessor(e),
         origin: window.location.origin,
         isCheckout,
@@ -615,6 +615,7 @@ function record<T = eventWithTime>(
         }
       });
       processedNodeManager.destroy();
+      iframeManager.destroy();
       recording = false;
       unregisterErrorHandler();
     };

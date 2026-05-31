@@ -1,5 +1,5 @@
 import { strFromU8, strToU8, zlibSync } from 'fflate';
-import type { PackFn } from '@dom-replay/types';
+import type { PackFn } from '@browser-replay/types';
 import { type eventWithTimeAndPacker, MARK } from './base';
 
 export const pack: PackFn = (event) => {

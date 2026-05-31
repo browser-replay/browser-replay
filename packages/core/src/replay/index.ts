@@ -7,7 +7,7 @@ import {
   Mirror,
   createMirror,
   toLowerCase,
-} from '@dom-replay/snapshot';
+} from '@browser-replay/snapshot';
 import {
   RRDocument,
   createOrGetNode,
@@ -15,7 +15,7 @@ import {
   buildFromDom,
   diff,
   getDefaultSN,
-} from '@dom-replay/dom';
+} from '@browser-replay/dom';
 import type {
   RRNode,
   RRElement,
@@ -25,7 +25,7 @@ import type {
   RRCanvasElement,
   ReplayerHandler,
   Mirror as RRDOMMirror,
-} from '@dom-replay/dom';
+} from '@browser-replay/dom';
 import * as mittProxy from 'mitt';
 import { polyfill as smoothscrollPolyfill } from './smoothscroll';
 import { Timer } from './timer';
@@ -42,7 +42,7 @@ import {
   IncrementalSource,
   MouseInteractions,
   ReplayerEvents,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import type {
   attributes,
   fullSnapshotEvent,
@@ -70,7 +70,7 @@ import type {
   styleDeclarationData,
   adoptedStyleSheetData,
   serializedElementNodeWithId,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import {
   polyfill,
   queueToResolveTrees,
@@ -336,6 +336,10 @@ export class Replayer {
     });
     this.emitter.on(ReplayerEvents.PlayBack, () => {
       this.firstFullSnapshot = null;
+      if (this.usingVirtualDom) {
+        this.virtualDom.destroyTree();
+        this.usingVirtualDom = false;
+      }
       this.mirror.reset();
       this.styleMirror.reset();
       this.mediaManager.reset();
@@ -664,8 +668,8 @@ export class Replayer {
       switch (event.type) {
         case EventType.DomContentLoaded:
         case EventType.Load:
-        case EventType.Custom:
           continue;
+        case EventType.Custom:
         case EventType.FullSnapshot:
         case EventType.Meta:
         case EventType.Plugin:

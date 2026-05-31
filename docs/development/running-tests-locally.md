@@ -16,8 +16,8 @@ If you see **"Could not find Chrome (ver. …)"**, you haven’t run this yet or
 
 1. **Heavy resource use**
    - **Turbo** runs one package at a time (`--concurrency=1`), but **Vitest** inside each package uses multiple workers (by default, one per CPU core when not in watch mode).
-   - **Puppeteer/Chrome**: Many tests in `@dom-replay/core`, `@dom-replay/snapshot`, `@dom-replay/dom`, and some plugins launch a full Chromium instance per test file or suite. Each Chrome process can use **300–500+ MB** of RAM.
-   - **Playwright** is used in `@dom-replay/video` (another browser process).
+   - **Puppeteer/Chrome**: Many tests in `@browser-replay/core`, `@browser-replay/snapshot`, `@browser-replay/dom`, and some plugins launch a full Chromium instance per test file or suite. Each Chrome process can use **300–500+ MB** of RAM.
+   - **Playwright** is used in `@browser-replay/video` (another browser process).
    - So: several Vitest worker processes + several Chrome instances at once = **several GB of RAM** and high CPU.
 
 2. **Cursor/IDE on top**
@@ -70,13 +70,13 @@ Use `--maxWorkers=2` if your machine has enough RAM (e.g. 16GB+) and you want a 
 For a quick check without starting Chrome:
 
 ```bash
-pnpm --filter @dom-replay/packer test
-pnpm --filter @dom-replay/snapshot test
-pnpm --filter @dom-replay/utils test
+pnpm --filter @browser-replay/packer test
+pnpm --filter @browser-replay/snapshot test
+pnpm --filter @browser-replay/utils test
 # etc.
 ```
 
-`@dom-replay/core` and `@dom-replay/video` are the ones that launch browsers; others use happy-dom or no DOM.
+`@browser-replay/core` and `@browser-replay/video` are the ones that launch browsers; others use happy-dom or no DOM.
 
 ### 4. Run a single test file
 

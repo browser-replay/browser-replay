@@ -11,7 +11,7 @@ import {
   EventType,
   type Emitter,
   IncrementalSource,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import { Timer, addDelay } from './timer';
 
 export type PlayerContext = {

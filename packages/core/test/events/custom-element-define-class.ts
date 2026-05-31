@@ -1,5 +1,5 @@
-import { EventType } from '@dom-replay/types';
-import type { eventWithTime } from '@dom-replay/types';
+import { EventType } from '@browser-replay/types';
+import type { eventWithTime } from '@browser-replay/types';
 
 const now = Date.now();
 const events: eventWithTime[] = [

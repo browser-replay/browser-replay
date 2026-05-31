@@ -1,4 +1,4 @@
-# Publish @dom-replay/* packages to npm (registry.npmjs.org) using Trusted Publishing (OIDC).
+# Publish @browser-replay/* packages to npm (registry.npmjs.org) using Trusted Publishing (OIDC).
 # No NPM_TOKEN or OTP required once trusted publishers are configured on npm.
 # See docs/publishing.md for one-time setup.
 name: Publish to npm
@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6
         with:
           version: 10.28.2
 

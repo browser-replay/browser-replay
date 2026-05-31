@@ -3,7 +3,7 @@ import {
   type eventWithTime,
   EventType,
   IncrementalSource,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 
 export class Timer {
   public timeOffset = 0;

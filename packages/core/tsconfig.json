@@ -11,7 +11,7 @@
       "vite/client",
       "@types/dom-mediacapture-transform",
       "@types/offscreencanvas",
-      // dom-replay specific:
+      // browser-replay specific:
       /*
        * @see https://vitest.dev/config/#globals
        * if we remove the --globals flag from the vite test command, we can remove this
@@ -20,7 +20,7 @@
       "vitest/globals"
     ],
     // TODO: enable me in the future, this is quite a large project
-    // at time of writing (April 2024) there are over 100 errors in dom-replay
+    // at time of writing (April 2024) there are over 100 errors in browser-replay
     "strict": false,
     // These two require strictNullChecks (enabled by strict:true in base).
     // Core deliberately runs with reduced strictness; disable the advanced flags

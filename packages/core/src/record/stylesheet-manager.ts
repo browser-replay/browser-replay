@@ -1,4 +1,4 @@
-import { stringifyRule } from '@dom-replay/snapshot';
+import { stringifyRule } from '@browser-replay/snapshot/snapshot-utils';
 import type {
   elementNode,
   serializedNodeWithId,
@@ -6,7 +6,7 @@ import type {
   adoptedStyleSheetParam,
   attributeMutation,
   mutationCallBack,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import { StyleSheetMirror } from '../utils';
 
 export class StylesheetManager {

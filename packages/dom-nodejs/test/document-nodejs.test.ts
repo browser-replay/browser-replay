@@ -4,7 +4,7 @@
 import { describe, it, expect, beforeAll } from 'vitest';
 import * as fs from 'fs';
 import * as path from 'path';
-import { NodeType as RRNodeType } from '@dom-replay/types';
+import { NodeType as RRNodeType } from '@browser-replay/types';
 import {
   RRCanvasElement,
   RRCDATASection,
@@ -17,7 +17,7 @@ import {
   RRStyleElement,
   RRText,
 } from '../src/document-nodejs';
-import { buildFromDom } from '@dom-replay/dom';
+import { buildFromDom } from '@browser-replay/dom';
 
 describe('RRDocument for nodejs environment', () => {
   describe('RRDocument API', () => {

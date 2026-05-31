@@ -4,7 +4,7 @@ import {
   Mirror,
   getInputType,
   toLowerCase,
-} from '@dom-replay/snapshot';
+} from '@browser-replay/snapshot/snapshot-utils';
 import type { FontFaceSet } from 'css-font-loading-module';
 import {
   throttle,
@@ -18,14 +18,14 @@ import {
   StyleSheetMirror,
   nowTimestamp,
 } from '../utils';
-import { patch } from '@dom-replay/utils';
+import { patch } from '@browser-replay/utils';
 import type { observerParam, MutationBufferParam } from '../types';
 import {
   IncrementalSource,
   MouseInteractions,
   PointerTypes,
   MediaInteractions,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import type {
   mutationCallBack,
   mousemoveCallBack,
@@ -49,10 +49,10 @@ import type {
   SelectionRange,
   selectionCallback,
   customElementCallback,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import MutationBuffer from './mutation';
 import { callbackWrapper } from './error-handler';
-import dom, { mutationObserverCtor } from '@dom-replay/utils';
+import dom, { mutationObserverCtor } from '@browser-replay/utils';
 
 export const mutationBuffers: MutationBuffer[] = [];
 
@@ -598,8 +598,9 @@ function initStyleSheetObserver(
     };
   }
 
+  const NativeProxy = win.Proxy;
   const insertRule = win.CSSStyleSheet.prototype.insertRule;
-  win.CSSStyleSheet.prototype.insertRule = new Proxy(insertRule, {
+  win.CSSStyleSheet.prototype.insertRule = new NativeProxy(insertRule, {
     apply: callbackWrapper(
       (
         target: typeof insertRule,
@@ -638,7 +639,7 @@ function initStyleSheetObserver(
   };
 
   const deleteRule = win.CSSStyleSheet.prototype.deleteRule;
-  win.CSSStyleSheet.prototype.deleteRule = new Proxy(deleteRule, {
+  win.CSSStyleSheet.prototype.deleteRule = new NativeProxy(deleteRule, {
     apply: callbackWrapper(
       (
         target: typeof deleteRule,
@@ -677,7 +678,7 @@ function initStyleSheetObserver(
 
   if (win.CSSStyleSheet.prototype.replace) {
     replace = win.CSSStyleSheet.prototype.replace;
-    win.CSSStyleSheet.prototype.replace = new Proxy(replace, {
+    win.CSSStyleSheet.prototype.replace = new NativeProxy(replace, {
       apply: callbackWrapper(
         (
           target: typeof replace,
@@ -708,7 +709,7 @@ function initStyleSheetObserver(
   let replaceSync: (text: string) => void;
   if (win.CSSStyleSheet.prototype.replaceSync) {
     replaceSync = win.CSSStyleSheet.prototype.replaceSync;
-    win.CSSStyleSheet.prototype.replaceSync = new Proxy(replaceSync, {
+    win.CSSStyleSheet.prototype.replaceSync = new NativeProxy(replaceSync, {
       apply: callbackWrapper(
         (
           target: typeof replaceSync,
@@ -770,7 +771,7 @@ function initStyleSheetObserver(
       deleteRule: type.prototype.deleteRule,
     };
 
-    type.prototype.insertRule = new Proxy(
+    type.prototype.insertRule = new NativeProxy(
       unmodifiedFunctions[typeKey].insertRule,
       {
         apply: callbackWrapper(
@@ -808,7 +809,7 @@ function initStyleSheetObserver(
       },
     );
 
-    type.prototype.deleteRule = new Proxy(
+    type.prototype.deleteRule = new NativeProxy(
       unmodifiedFunctions[typeKey].deleteRule,
       {
         apply: callbackWrapper(
@@ -925,8 +926,9 @@ function initStyleDeclarationObserver(
   }: observerParam,
   { win }: { win: IWindow },
 ): listenerHandler {
+  const NativeProxy = win.Proxy;
   const setProperty = win.CSSStyleDeclaration.prototype.setProperty;
-  win.CSSStyleDeclaration.prototype.setProperty = new Proxy(setProperty, {
+  win.CSSStyleDeclaration.prototype.setProperty = new NativeProxy(setProperty, {
     apply: callbackWrapper(
       (
         target: typeof setProperty,
@@ -963,7 +965,7 @@ function initStyleDeclarationObserver(
   });
 
   const removeProperty = win.CSSStyleDeclaration.prototype.removeProperty;
-  win.CSSStyleDeclaration.prototype.removeProperty = new Proxy(removeProperty, {
+  win.CSSStyleDeclaration.prototype.removeProperty = new NativeProxy(removeProperty, {
     apply: callbackWrapper(
       (
         target: typeof removeProperty,

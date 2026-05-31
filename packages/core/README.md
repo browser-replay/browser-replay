@@ -2,31 +2,31 @@
   <img width="100px" height="100px" src="https://www.rrweb.io/favicon.png">
 </p>
 <p align="center">
-  <a href="https://github.com/dom-replay/dom-replay" style="font-weight: bold">dom-replay</a> (built on <a href="https://github.com/rrweb-io/rrweb">rrweb</a>)
+  <a href="https://github.com/browser-replay/browser-replay" style="font-weight: bold">browser-replay</a> (built on <a href="https://github.com/rrweb-io/rrweb">rrweb</a>)
 </p>
 
-# @dom-replay/core
+# @browser-replay/core
 
-**This is a simpler version of the [original README](../../README.md) within this dom-replay subpackage**
+**This is a simpler version of the [original README](../../README.md) within this browser-replay subpackage**
 
-dom-replay refers to 'record and replay the web', which is a tool for recording and replaying users' interactions on the web.
+browser-replay refers to 'record and replay the web', which is a tool for recording and replaying users' interactions on the web.
 
 ## Guide
 
-[**📚 Read the dom-replay guide here. 📚**](../../guide.md)
+[**📚 Read the browser-replay guide here. 📚**](../../docs/guide.md)
 
 [**🍳 Recipes 🍳**](../../docs/recipes/index.md)
 
 ## Project Structure
 
-**dom-replay** (built on [rrweb](https://github.com/rrweb-io/rrweb)) mainly includes two functions:
+**browser-replay** (built on [rrweb](https://github.com/rrweb-io/rrweb)) mainly includes two functions:
 
 - **Record**: The record function is used to record all the mutations in the DOM
 - **Replay**: The replay function is to replay the recorded mutations one by one according to the corresponding timestamp.
 
 ## Roadmap
 
-- storage engine: do deduplication on a large number of dom-replay sessions
+- storage engine: do deduplication on a large number of browser-replay sessions
 - compact mutation data in common patterns
 - provide plugins via the new plugin API, including:
   - XHR plugin
@@ -43,7 +43,7 @@ dom-replay refers to 'record and replay the web', which is a tool for recording 
 
 ## Contribute Guide
 
-Since we want the record and replay sides to share a strongly typed data structure, dom-replay is developed with typescript which provides stronger type support.
+Since we want the record and replay sides to share a strongly typed data structure, browser-replay is developed with typescript which provides stronger type support.
 
 [Typescript handbook](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html)
 
@@ -56,6 +56,6 @@ Since we want the record and replay sides to share a strongly typed data structu
 
 Protip: You can run `pnpm test` in the root folder to run all the tests.
 
-In addition to adding integration tests and unit tests, dom-replay also provides a REPL testing tool.
+In addition to adding integration tests and unit tests, browser-replay also provides a REPL testing tool.
 
-[Using the REPL tool](../../guide.md#REPL-tool)
+[Using the REPL tool](../../docs/guide.md#REPL-tool)

@@ -846,6 +846,6 @@ export type DataURLOptions = Partial<{
   quality: number;
 }>;
 
-// Types for @dom-replay/packer
+// Types for @browser-replay/packer
 export type PackFn = (event: eventWithTime) => string;
 export type UnpackFn = (raw: string) => eventWithTime;

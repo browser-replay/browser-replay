@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as https from 'https';
 import { vi } from 'vitest';
-import type { eventWithTime } from '@dom-replay/types';
+import type { eventWithTime } from '@browser-replay/types';
 import type { recordOptions } from '../../src/types';
 import { launchPuppeteer, ISuite } from '../utils';
 
@@ -132,7 +132,7 @@ describe('benchmark: replayer fast-forward performance', () => {
             </script>
           </html>`);
           const duration = await page.evaluate(() => {
-            const replayer = new (window as any).domReplay.Replayer(
+            const replayer = new (window as any).browserReplay.Replayer(
               (window as any).events,
               { UNSAFE_allowUnprotectedRebuild: true },
             );
@@ -177,7 +177,7 @@ describe('benchmark: replayer fast-forward performance', () => {
             events.push(event);
           },
         };
-        const record = (window as any).domReplay.record;
+        const record = (window as any).browserReplay.record;
         record(options);
         eval(mutateNodesFn)().then(() => {
           resolve(JSON.stringify(events));

@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { NodeType as RRNodeType } from '@dom-replay/types';
+import { NodeType as RRNodeType } from '@browser-replay/types';
 import {
   BaseRRDocument,
   BaseRRDocumentType,
@@ -355,7 +355,7 @@ describe('Basic RRDocument implementation', () => {
       expect(node.childNodes.length).toEqual(0);
     });
 
-    it('can cover the usage of write() in @dom-replay/snapshot', () => {
+    it('can cover the usage of write() in @browser-replay/snapshot', () => {
       const node = new RRDocument();
       node.write(
         '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "">',

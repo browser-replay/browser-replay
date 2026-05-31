@@ -6,7 +6,7 @@ export default config(
     'core-record': 'src/entries/record.ts',
     'core-replay': 'src/entries/replay.ts',
   },
-  'domReplay',
+  'browserReplay',
   // { outputDir: 'dist/alt' },
   { outputDir: 'dist' },
 );

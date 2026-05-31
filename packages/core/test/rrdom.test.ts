@@ -3,9 +3,9 @@
  */
 import { EventType, IncrementalSource, Replayer, eventWithTime } from '../src';
 import { vi, type MockInstance } from 'vitest';
-import type { styleDeclarationData, styleSheetRuleData } from '@dom-replay/types';
-import { createMirror, Mirror as NodeMirror } from '@dom-replay/snapshot';
-import type { ReplayerHandler } from '@dom-replay/dom';
+import type { styleDeclarationData, styleSheetRuleData } from '@browser-replay/types';
+import { createMirror, Mirror as NodeMirror } from '@browser-replay/snapshot';
+import type { ReplayerHandler } from '@browser-replay/dom';
 
 describe('diff algorithm for rrdom', () => {
   let mirror: NodeMirror;

@@ -15,19 +15,19 @@ export default {
 
   resolve: {
     // Helps Vitest resolve modern exports maps for workspace packages
-    // (@dom-replay/types, @dom-replay/snapshot, etc.) across the monorepo.
+    // (@browser-replay/types, @browser-replay/snapshot, etc.) across the monorepo.
     conditions: ['development', 'node', 'import', 'require', 'default'],
   },
 
   optimizeDeps: {
     // Exclude workspace packages from pre-bundling to avoid resolution issues
     // with strict exports maps in monorepos (common after Vite 6 modernization).
-    exclude: ['@dom-replay/types', '@dom-replay/snapshot'],
+    exclude: ['@browser-replay/types', '@browser-replay/snapshot'],
   },
 
   ssr: {
     // Ensure workspace packages are properly resolved (not externalized) in Vitest.
     // Complements the conditions + optimizeDeps settings.
-    noExternal: ['@dom-replay/types', '@dom-replay/snapshot'],
+    noExternal: ['@browser-replay/types', '@browser-replay/snapshot'],
   },
 };

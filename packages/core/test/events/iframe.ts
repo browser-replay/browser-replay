@@ -1,5 +1,5 @@
-import { EventType, IncrementalSource } from '@dom-replay/types';
-import type { eventWithTime } from '@dom-replay/types';
+import { EventType, IncrementalSource } from '@browser-replay/types';
+import type { eventWithTime } from '@browser-replay/types';
 
 const now = Date.now();
 

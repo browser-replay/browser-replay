@@ -1,6 +1,6 @@
 import { discardPriorSnapshots } from '../src/replay/machine';
 import { sampleEvents } from './utils';
-import { EventType } from '@dom-replay/types';
+import { EventType } from '@browser-replay/types';
 
 const events = sampleEvents.filter(
   (e) => ![EventType.DomContentLoaded, EventType.Load].includes(e.type),

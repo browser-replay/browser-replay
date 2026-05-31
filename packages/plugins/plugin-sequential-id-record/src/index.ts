@@ -1,4 +1,4 @@
-import type { RecordPlugin } from '@dom-replay/types';
+import type { RecordPlugin } from '@browser-replay/types';
 
 export type SequentialIdOptions = {
   key: string;

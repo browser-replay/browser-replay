@@ -1,4 +1,4 @@
-import type { eventWithTime } from '@dom-replay/types';
+import type { eventWithTime } from '@browser-replay/types';
 
 const events: eventWithTime[] = [
   { type: 0, data: {}, timestamp: 1900000001 },

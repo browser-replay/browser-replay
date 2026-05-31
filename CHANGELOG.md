@@ -12,7 +12,7 @@ Initial public release of dom-replay, a fork of [rrweb](https://github.com/rrweb
 
 - Renamed all packages under the `@dom-replay` scope
 - Monorepo restructured with Turborepo and pnpm workspaces
-- React-based player (`@dom-replay/player`)
+- React-based player (`@browser-replay/player`)
 - CI pipeline with lint, typecheck, build, and test stages
 - OIDC-based npm publishing via GitHub Actions (no token required)
 - Plugin architecture for console recording/replay, canvas WebRTC, and sequential IDs

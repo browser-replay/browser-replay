@@ -1,9 +1,9 @@
 {
-  "name": "@dom-replay/packer",
+  "name": "@browser-replay/packer",
   "version": "0.0.1",
   "keywords": [
-    "dom-replay",
-    "@dom-replay/packer"
+    "browser-replay",
+    "@browser-replay/packer"
   ],
   "scripts": {
     "dev": "vite build --watch",
@@ -66,7 +66,7 @@
     "vitest": "^3.0.0"
   },
   "dependencies": {
-    "@dom-replay/types": "workspace:*",
+    "@browser-replay/types": "workspace:*",
     "fflate": "^0.8.2"
   },
   "browserslist": [

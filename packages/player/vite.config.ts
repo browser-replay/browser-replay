@@ -11,7 +11,7 @@ export default defineConfig({
         'player': resolve(__dirname, 'src/index.ts'),
         headless: resolve(__dirname, 'src/headless.ts'),
       },
-      name: 'domReplayPlayer',
+      name: 'browserReplayPlayer',
       formats: ['es', 'cjs'],
     },
     outDir: 'dist',

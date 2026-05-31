@@ -1,8 +1,8 @@
-import { unpack } from '@dom-replay/packer/unpack';
-import { EventType } from '@dom-replay/types';
-import type { eventWithTime, playerMetaData } from '@dom-replay/types';
-import { Replayer, type playerConfig } from '@dom-replay/replay';
-import type { Handler } from '@dom-replay/types';
+import { unpack } from '@browser-replay/packer/unpack';
+import { EventType } from '@browser-replay/types';
+import type { eventWithTime, playerMetaData } from '@browser-replay/types';
+import { Replayer, type playerConfig } from '@browser-replay/replay';
+import type { Handler } from '@browser-replay/types';
 import {
   exitFullscreen,
   getInactivePeriods,

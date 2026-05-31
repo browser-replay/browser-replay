@@ -12,13 +12,13 @@ const ROOT = path.resolve(__dirname, '..');
 
 const TARGETS = [
   {
-    name: '@dom-replay/record',
+    name: '@browser-replay/record',
     dist: 'packages/record/dist/record.js',
     label: 'record (ESM)',
     maxGzippedKB: 180,
   },
   {
-    name: '@dom-replay/snapshot',
+    name: '@browser-replay/snapshot',
     dist: 'packages/snapshot/dist/snapshot.js',
     label: 'snapshot (full)',
     maxGzippedKB: 220,
@@ -41,7 +41,7 @@ function getSize(filePath) {
   };
 }
 
-console.log('\n📦 dom-replay Bundle Size Report (Record Path Focus)\n');
+console.log('\n📦 browser-replay Bundle Size Report (Record Path Focus)\n');
 
 let failed = false;
 
@@ -52,7 +52,7 @@ TARGETS.forEach((target) => {
   if (!size.exists) {
     console.log(`❌ ${target.label}`);
     console.log(`   Missing: ${target.dist}`);
-    console.log(`   Run: pnpm --filter @dom-replay/record build (or pnpm build:all)\n`);
+    console.log(`   Run: pnpm --filter @browser-replay/record build (or pnpm build:all)\n`);
     failed = true;
     return;
   }

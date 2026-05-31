@@ -4,7 +4,7 @@ import type {
   CustomEventMarker,
   InactivePeriodMarker,
   PlayerStateSnapshot,
-} from '@dom-replay/player-core';
+} from '@browser-replay/player-core';
 
 type ControllerProps = {
   state: PlayerStateSnapshot;

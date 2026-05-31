@@ -10,7 +10,7 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@dom-replay/player-core": [
+      "@browser-replay/player-core": [
         "../player-core/src/index.ts"
       ]
     },

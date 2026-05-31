@@ -2,10 +2,10 @@ import {
   type LogLevel,
   type LogData,
   PLUGIN_NAME,
-} from '@dom-replay/plugin-console-record';
-import type { eventWithTime } from '@dom-replay/types';
-import { EventType, IncrementalSource } from '@dom-replay/types';
-import type { ReplayPlugin, Replayer } from '@dom-replay/core';
+} from '@browser-replay/plugin-console-record';
+import type { eventWithTime } from '@browser-replay/types';
+import { EventType, IncrementalSource } from '@browser-replay/types';
+import type { ReplayPlugin, Replayer } from '@browser-replay/core';
 
 /**
  * define an interface to replay log records

@@ -1,4 +1,4 @@
-import { IncrementalSource, MouseInteractions } from '@dom-replay/types';
+import { IncrementalSource, MouseInteractions } from '@browser-replay/types';
 import type { eventWithTime } from '../../../types/src';
 
 const events: eventWithTime[] = [

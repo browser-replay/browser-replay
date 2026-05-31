@@ -1,7 +1,7 @@
 {
-  "name": "@dom-replay/player-core",
+  "name": "@browser-replay/player-core",
   "version": "0.0.1",
-  "description": "Framework-agnostic headless player built on @dom-replay/replay.",
+  "description": "Framework-agnostic headless player built on @browser-replay/replay.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/player-core.cjs",
@@ -28,15 +28,15 @@
     "build": "pnpm run prepublish",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest watch",
-    "check-types": "tsc -noEmit --pretty || echo '⚠️  Type errors in @dom-replay/player-core (legacy); continuing'",
+    "check-types": "tsc -noEmit --pretty || echo '⚠️  Type errors in @browser-replay/player-core (legacy); continuing'",
     "prepublish": "tsc -noEmit --pretty || echo '⚠️  Type errors (legacy); continuing with Vite build' && vite build",
     "lint": "pnpm eslint 'src/**/*.{ts,tsx}'"
   },
   "dependencies": {
-    "@dom-replay/packer": "workspace:*",
-    "@dom-replay/replay": "workspace:*",
-    "@dom-replay/snapshot": "workspace:*",
-    "@dom-replay/types": "workspace:*"
+    "@browser-replay/packer": "workspace:*",
+    "@browser-replay/replay": "workspace:*",
+    "@browser-replay/snapshot": "workspace:*",
+    "@browser-replay/types": "workspace:*"
   },
   "devDependencies": {
     "typescript": "5.8.2",

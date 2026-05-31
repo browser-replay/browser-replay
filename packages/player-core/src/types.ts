@@ -1,11 +1,11 @@
-import type { eventWithTime, playerMetaData } from '@dom-replay/types';
+import type { eventWithTime, playerMetaData } from '@browser-replay/types';
 import type {
   Replayer,
   playerConfig,
   PlayerMachineState,
   SpeedMachineState,
-} from '@dom-replay/replay';
-import type { Mirror } from '@dom-replay/snapshot';
+} from '@browser-replay/replay';
+import type { Mirror } from '@browser-replay/snapshot';
 
 export type PlayerProps = {
   events: eventWithTime[];

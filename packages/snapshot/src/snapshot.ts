@@ -7,7 +7,7 @@ import type {
   ICanvas,
   DialogAttributes,
 } from './types';
-import { NodeType } from '@dom-replay/types';
+import { NodeType } from '@browser-replay/types';
 import type {
   serializedNode,
   serializedNodeWithId,
@@ -16,7 +16,7 @@ import type {
   attributes,
   mediaAttributes,
   DataURLOptions,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import {
   Mirror,
   is2DCanvasBlank,
@@ -31,7 +31,7 @@ import {
   absolutifyURLs,
   markCssSplits,
 } from './snapshot-utils';
-import dom from '@dom-replay/utils';
+import dom from '@browser-replay/utils';
 
 let _id = 1;
 const tagNameRegex = new RegExp('[^a-z0-9-_:]');
@@ -587,9 +587,8 @@ function serializeElementNode(
   }
   // remote css
   if (tagName === 'link' && inlineStylesheet) {
-    //TODO: maybe replace this `.styleSheets` with original one
     const stylesheet = Array.from(doc.styleSheets).find((s) => {
-      return s.href === (n as HTMLLinkElement).href;
+      return s.ownerNode === n;
     });
     let cssText: string | null = null;
     if (stylesheet) {
@@ -648,7 +647,7 @@ function serializeElementNode(
   if (tagName === 'dialog' && (n as HTMLDialogElement).open) {
     // register what type of dialog is this
     // `modal` or `non-modal`
-    // this is used to trigger `showModal()` or `show()` on replay (outside of @dom-replay/snapshot, in dom-replay)
+    // this is used to trigger `showModal()` or `show()` on replay (outside of @browser-replay/snapshot, in browser-replay)
     (attributes as DialogAttributes).dr_open_mode = n.matches('dialog:modal')
       ? 'modal'
       : 'non-modal';
@@ -745,7 +744,7 @@ function serializeElementNode(
   if (!newlyAddedElement) {
     // `scrollTop` and `scrollLeft` are expensive calls because they trigger reflow.
     // Since `scrollTop` & `scrollLeft` are always 0 when an element is added to the DOM.
-    // And scrolls also get picked up by dom-replay's ScrollObserver
+    // And scrolls also get picked up by browser-replay's ScrollObserver
     // So we can safely skip the `scrollTop/Left` calls for newly added elements
     if (n.scrollLeft) {
       attributes.dr_scrollLeft = n.scrollLeft;

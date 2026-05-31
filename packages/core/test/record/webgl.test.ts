@@ -9,7 +9,7 @@ import {
   EventType,
   IncrementalSource,
   CanvasContext,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import {
   assertSnapshot,
   launchPuppeteer,
@@ -17,7 +17,7 @@ import {
   waitForRAF,
   sleep,
 } from '../utils';
-import type { ICanvas } from '@dom-replay/snapshot';
+import type { ICanvas } from '@browser-replay/snapshot';
 
 interface ISuite {
   code: string;
@@ -28,7 +28,7 @@ interface ISuite {
 }
 
 interface IWindow extends Window {
-  domReplay: {
+  browserReplay: {
     record: (
       options: recordOptions<eventWithTime>,
     ) => listenerHandler | undefined;
@@ -67,7 +67,7 @@ const setup = function (
     ctx.page.on('console', (msg) => console.log('PAGE LOG:', msg.text()));
 
     await ctx.page.evaluate((canvasSample) => {
-      const { record } = (window as unknown as IWindow).domReplay;
+      const { record } = (window as unknown as IWindow).browserReplay;
       record({
         recordCanvas: true,
         sampling: {

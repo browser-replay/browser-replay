@@ -4,9 +4,9 @@ This document outlines recommended settings for making this repository public.
 
 ## General Settings
 
-- **Repository name**: `dom-replay`
+- **Repository name**: `browser-replay`
 - **Description**: Record and replay DOM interactions for web applications
-- **Website**: https://dom-replay.dev (if you have a website)
+- **Website**: https://browser-replay.dev (if you have a website)
 - **Topics**:
   - dom
   - session-replay

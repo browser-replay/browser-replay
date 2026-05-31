@@ -3,7 +3,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import minimist from 'minimist';
 import cliProgress from 'cli-progress';
-import type { PlayerProps } from '@dom-replay/player-core';
+import type { PlayerProps } from '@browser-replay/player-core';
 import { transformToVideo } from './index';
 
 const argv = minimist(process.argv.slice(2));

@@ -1,11 +1,11 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import { chromium } from 'playwright';
-import { EventType, eventWithTime } from '@dom-replay/types';
-import type { PlayerProps } from '@dom-replay/player-core';
+import { EventType, eventWithTime } from '@browser-replay/types';
+import type { PlayerProps } from '@browser-replay/player-core';
 
 const playerScriptPath = path.resolve(
-  path.dirname(require.resolve('@dom-replay/player-core')),
+  path.dirname(require.resolve('@browser-replay/player-core')),
   'player-core.umd.cjs',
 );
 const playerUmdSource = fs.readFileSync(playerScriptPath, 'utf-8');
@@ -25,7 +25,7 @@ type VideoConfig = {
 
 const defaultConfig: Required<VideoConfig> = {
   input: '',
-  output: 'dom-replay-video-output.webm',
+  output: 'browser-replay-video-output.webm',
   headless: true,
   // A good trade-off value between quality and file size.
   resolutionRatio: 0.8,
@@ -63,7 +63,7 @@ function getHtml(events: Array<eventWithTime>, config?: VideoConfig): string {
         /<\/script>/g,
         '<\\/script>',
       )};
-      const lib = (typeof domReplayPlayerCore !== 'undefined' ? domReplayPlayerCore : (typeof globalThis !== 'undefined' ? globalThis : window).domReplayPlayerCore);
+      const lib = (typeof browserReplayPlayerCore !== 'undefined' ? browserReplayPlayerCore : (typeof globalThis !== 'undefined' ? globalThis : window).browserReplayPlayerCore);
       const handle = lib.createPlayerHandle(playerProps);
       handle.mount(document.body);
       handle.addEventListener('finish', () => window.onReplayFinish());
@@ -93,7 +93,7 @@ function getMaxViewport(events: eventWithTime[]) {
 }
 
 export async function transformToVideo(options: VideoConfig) {
-  const defaultVideoDir = '__dom-replay-video__temp__';
+  const defaultVideoDir = '__browser-replay-video__temp__';
   const config = { ...defaultConfig };
   if (!options.input) throw new Error('input is required');
   // If the output is not specified or undefined, use the default value.

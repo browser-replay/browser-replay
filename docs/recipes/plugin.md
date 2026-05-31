@@ -1,19 +1,19 @@
 # Plugin
 
-The plugin API is designed to extend the function of dom-replay without increasing the size and complexity of the core packages.
+The plugin API is designed to extend the function of browser-replay without increasing the size and complexity of the core packages.
 
 # Available plugins
 
-- [@dom-replay/plugin-console-record](packages/plugins/plugin-console-record): A plugin for recording console logs.
-- [@dom-replay/plugin-console-replay](packages/plugins/plugin-console-replay): A plugin for replaying console logs.
-- [@dom-replay/plugin-sequential-id-record](packages/plugins/plugin-sequential-id-record): A plugin for recording sequential IDs.
-- [@dom-replay/plugin-sequential-id-replay](packages/plugins/plugin-sequential-id-replay): A plugin for replaying sequential IDs.
-- [@dom-replay/plugin-canvas-webrtc-record](packages/plugins/plugin-canvas-webrtc-record): A plugin for stream `<canvas>` via WebRTC.
-- [@dom-replay/plugin-canvas-webrtc-replay](packages/plugins/plugin-canvas-webrtc-replay): A plugin for playing streamed `<canvas>` via WebRTC.
+- [@browser-replay/plugin-console-record](packages/plugins/plugin-console-record): A plugin for recording console logs.
+- [@browser-replay/plugin-console-replay](packages/plugins/plugin-console-replay): A plugin for replaying console logs.
+- [@browser-replay/plugin-sequential-id-record](packages/plugins/plugin-sequential-id-record): A plugin for recording sequential IDs.
+- [@browser-replay/plugin-sequential-id-replay](packages/plugins/plugin-sequential-id-replay): A plugin for replaying sequential IDs.
+- [@browser-replay/plugin-canvas-webrtc-record](packages/plugins/plugin-canvas-webrtc-record): A plugin for stream `<canvas>` via WebRTC.
+- [@browser-replay/plugin-canvas-webrtc-replay](packages/plugins/plugin-canvas-webrtc-replay): A plugin for playing streamed `<canvas>` via WebRTC.
 
 ## Interface
 
-As with other functionality in dom-replay, a plugin can implement record or replay or both features.
+As with other functionality in browser-replay, a plugin can implement record or replay or both features.
 
 ```ts
 export type RecordPlugin<TOptions = unknown> = {
@@ -101,8 +101,8 @@ A replay plugin can interact with the replayer by using `context.replayer`.
 
 A record plugin should have a unique name, and it will be stored in the event it emits.
 
-**Since we will have both plugins in the dom-replay repo and plugins in users' own codebase, which may cause naming conflicts in the future, we strongly recommend users name their own plugins in this way:**
+**Since we will have both plugins in the browser-replay repo and plugins in users' own codebase, which may cause naming conflicts in the future, we strongly recommend users name their own plugins in this way:**
 
 > scope/name@version
 
-For example `@dom-replay/console@1` or `github/pr@2`.
+For example `@browser-replay/console@1` or `github/pr@2`.

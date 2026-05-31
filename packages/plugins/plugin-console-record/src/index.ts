@@ -1,5 +1,5 @@
-import type { listenerHandler, RecordPlugin, IWindow } from '@dom-replay/types';
-import { patch } from '@dom-replay/utils';
+import type { listenerHandler, RecordPlugin, IWindow } from '@browser-replay/types';
+import { patch } from '@browser-replay/utils';
 import { ErrorStackParser, StackFrame } from './error-stack-parser';
 import { stringify } from './stringify';
 
@@ -230,7 +230,7 @@ function initLogObserver(
               });
             }
           } catch (error) {
-            original('dom-replay logger error:', error, ...args);
+            original('browser-replay logger error:', error, ...args);
           } finally {
             inStack = false;
           }
@@ -240,7 +240,7 @@ function initLogObserver(
   }
 }
 
-export const PLUGIN_NAME = '@dom-replay/console@1';
+export const PLUGIN_NAME = '@browser-replay/console@1';
 
 export const getRecordConsolePlugin: (
   options?: LogRecordOptions,

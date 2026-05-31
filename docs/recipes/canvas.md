@@ -1,6 +1,6 @@
 # Canvas
 
-Canvas is a special HTML element, and will not be recorded by dom-replay by default.
+Canvas is a special HTML element, and will not be recorded by browser-replay by default.
 There are some options for recording and replaying Canvas.
 
 Enable recording Canvas：
@@ -40,5 +40,5 @@ replayer.play();
 
 **Enable replaying Canvas will remove the sandbox, which may cause a potential security issue.**
 
-Alternatively you can stream canvas elements via webrtc with the [@dom-replay/plugin-canvas-webrtc-record](../../packages/plugins/plugin-canvas-webrtc-record/) & [@dom-replay/plugin-canvas-webrtc-replay](../../packages/plugins/plugin-canvas-webrtc-replay) plugins.
+Alternatively you can stream canvas elements via webrtc with the [@browser-replay/plugin-canvas-webrtc-record](../../packages/plugins/plugin-canvas-webrtc-record/) & [@browser-replay/plugin-canvas-webrtc-replay](../../packages/plugins/plugin-canvas-webrtc-replay) plugins.
 For more information see [canvas-webrtc documentation](../../packages/plugins/plugin-canvas-webrtc-record/Readme.md)

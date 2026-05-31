@@ -44,7 +44,7 @@ const untaintedBasePrototype: Partial<BasePrototypeCache> = {};
  on global is a good-enough proxy for Angular
  to cover most cases
  (you can configure zone.js to have a different name
-  on the global object and should then manually run dom-replay
+  on the global object and should then manually run browser-replay
   outside the Zone)
  */
 export const isAngularZonePresent = (): boolean => {
@@ -95,11 +95,13 @@ export function getUntaintedPrototype<T extends keyof BasePrototypeCache>(
     const iframeEl = document.createElement('iframe');
     document.body.appendChild(iframeEl);
     const win = iframeEl.contentWindow;
-    if (!win) return defaultObj.prototype as BasePrototypeCache[T];
+    if (!win) {
+      document.body.removeChild(iframeEl);
+      return defaultObj.prototype as BasePrototypeCache[T];
+    }
 
     const untaintedObject = (win as any)[key]
       .prototype as BasePrototypeCache[T];
-    // cleanup
     document.body.removeChild(iframeEl);
 
     if (!untaintedObject) return defaultPrototype;

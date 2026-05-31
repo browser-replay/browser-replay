@@ -1,4 +1,4 @@
-import type { ICanvas, Mirror } from '@dom-replay/snapshot';
+import type { ICanvas, Mirror } from '@browser-replay/snapshot';
 import type {
   blockClass,
   canvasManagerMutationCallback,
@@ -9,9 +9,9 @@ import type {
   listenerHandler,
   CanvasArg,
   DataURLOptions,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import { isBlocked } from '../../../utils';
-import { CanvasContext } from '@dom-replay/types';
+import { CanvasContext } from '@browser-replay/types';
 import initCanvas2DMutationObserver from './2d';
 import initCanvasContextObserver from './canvas';
 import initCanvasWebGLMutationObserver from './webgl';

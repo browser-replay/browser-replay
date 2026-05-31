@@ -1,6 +1,6 @@
-# Contributing to dom-replay
+# Contributing to browser-replay
 
-Thanks for your interest in contributing to dom-replay! We welcome contributions from the community.
+Thanks for your interest in contributing to browser-replay! We welcome contributions from the community.
 
 ## Development Process
 
@@ -32,11 +32,11 @@ Please include enough detail to reproduce the problem. For replay-related bugs, 
 
 ## Local development with a consuming app
 
-When iterating on dom-replay while testing in another project, use the **pack-local-dev** workflow instead of publishing to a registry.
+When iterating on browser-replay while testing in another project, use the **pack-local-dev** workflow instead of publishing to a registry.
 
 ### 1. Build and pack tarballs
 
-From the dom-replay repo root:
+From the browser-replay repo root:
 
 ```bash
 bash scripts/pack-local-dev.sh
@@ -49,7 +49,7 @@ This builds the packages needed for record + replay + player and writes tarballs
 From the consuming project:
 
 ```bash
-bash scripts/update-dom-replay-local.sh --repo /path/to/dom-replay --packs-dir /path/to/dom-replay/.cache/dev-packs/<timestamp>
+bash scripts/update-browser-replay-local.sh --repo /path/to/browser-replay --packs-dir /path/to/browser-replay/.cache/dev-packs/<timestamp>
 ```
 
 (If your consuming app has a different install script, use that.)

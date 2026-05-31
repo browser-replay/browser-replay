@@ -15,7 +15,7 @@ export {
   MouseInteractions,
   ReplayerEvents,
   type eventWithTime,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 
 // exports style.css from replay
 import './replay/styles/style.css';
@@ -45,4 +45,4 @@ export {
 export {
   createSandboxedIframe,
   rebuildIntoSandboxedIframe,
-} from '@dom-replay/snapshot';
+} from '@browser-replay/snapshot';

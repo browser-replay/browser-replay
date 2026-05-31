@@ -1,5 +1,5 @@
 {
-  "name": "@dom-replay/player-demo",
+  "name": "@browser-replay/player-demo",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -13,10 +13,10 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@dom-replay/player": "workspace:*",
-    "@dom-replay/player-core": "workspace:*",
-    "@dom-replay/replay": "workspace:*",
-    "@dom-replay/types": "workspace:*",
+    "@browser-replay/player": "workspace:*",
+    "@browser-replay/player-core": "workspace:*",
+    "@browser-replay/replay": "workspace:*",
+    "@browser-replay/types": "workspace:*",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react": "^4.3.4",

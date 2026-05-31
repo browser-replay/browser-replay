@@ -1,7 +1,7 @@
 {
-  "name": "@dom-replay/player",
+  "name": "@browser-replay/player",
   "version": "0.0.1",
-  "description": "React wrapper around @dom-replay/player-core.",
+  "description": "React wrapper around @browser-replay/player-core.",
   "license": "MIT",
   "type": "module",
   "main": "./dist/player.cjs",
@@ -40,7 +40,7 @@
     "start": "vite --config demo/vite.config.ts",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest watch",
-    "check-types": "tsc -p tsconfig.build.json --noEmit --pretty || echo '⚠️  Type errors in @dom-replay/player (legacy); continuing'",
+    "check-types": "tsc -p tsconfig.build.json --noEmit --pretty || echo '⚠️  Type errors in @browser-replay/player (legacy); continuing'",
     "prepublish": "tsc -p tsconfig.build.json --noEmit --pretty || echo '⚠️  Type errors (see tsconfig); continuing with Vite build' && vite build",
     "lint": "pnpm eslint 'src/**/*.{ts,tsx}'"
   },
@@ -49,7 +49,7 @@
     "react-dom": ">=18.0.0"
   },
   "dependencies": {
-    "@dom-replay/player-core": "workspace:*"
+    "@browser-replay/player-core": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",

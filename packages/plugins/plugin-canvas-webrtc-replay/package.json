@@ -1,5 +1,5 @@
 {
-  "name": "@dom-replay/plugin-canvas-webrtc-replay",
+  "name": "@browser-replay/plugin-canvas-webrtc-replay",
   "version": "0.0.1",
   "description": "",
   "type": "module",
@@ -30,19 +30,19 @@
     "prepublish": "tsc -noEmit || echo '⚠️  Type errors present; running Vite build' && vite build"
   },
   "keywords": [
-    "dom-replay"
+    "browser-replay"
   ],
   "license": "MIT",
   "devDependencies": {
-    "@dom-replay/core": "workspace:*",
-    "@dom-replay/dom": "workspace:*",
-    "@dom-replay/snapshot": "workspace:*",
+    "@browser-replay/core": "workspace:*",
+    "@browser-replay/dom": "workspace:*",
+    "@browser-replay/snapshot": "workspace:*",
     "typescript": "5.8.2",
     "vite": "^6.2.0",
     "vite-plugin-dts": "^5.0.0"
   },
   "peerDependencies": {
-    "@dom-replay/core": "workspace:*"
+    "@browser-replay/core": "workspace:*"
   },
   "dependencies": {
     "simple-peer-light": "^9.10.0"

@@ -1,18 +1,18 @@
-# @dom-replay/record
+# @browser-replay/record
 
 This package contains all the record related code in rrweb.
-See the [guide](../../guide.md) for more info on rrweb.
+See the [guide](../../docs/guide.md) for more info on rrweb.
 
 ## Installation
 
 ```bash
-npm install @dom-replay/record
+npm install @browser-replay/record
 ```
 
 ## Usage
 
 ```js
-import { record } from '@dom-replay/record';
+import { record } from '@browser-replay/record';
 
 record({
   emit(event) {

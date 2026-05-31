@@ -15,7 +15,7 @@ import {
   defaultImageSnapshotOptions,
 } from '../utils';
 import type { recordOptions } from '../../src/types';
-import type { eventWithTime } from '@dom-replay/types';
+import type { eventWithTime } from '@browser-replay/types';
 
 
 describe('e2e webgl', () => {
@@ -88,7 +88,7 @@ describe('e2e webgl', () => {
     await hideMouseAnimation(page);
     await page.evaluate(`let events = ${JSON.stringify(snapshots)}`);
     await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, {
         UNSAFE_replayCanvas: true,
         UNSAFE_allowUnprotectedRebuild: true,
@@ -124,7 +124,7 @@ describe('e2e webgl', () => {
     await hideMouseAnimation(page);
     await page.evaluate(`let events = ${JSON.stringify(snapshots)}`);
     await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, {
         UNSAFE_replayCanvas: true,
         UNSAFE_allowUnprotectedRebuild: true,

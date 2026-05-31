@@ -58,7 +58,7 @@ describe('replayer', function () {
     it('should trigger hover on mouseDown', async () => {
       if (process.env.CI === 'true') return;
       await page.evaluate(`
-      const { Replayer } = domReplay;
+      const { Replayer } = browserReplay;
       const replayer = new Replayer(events, { UNSAFE_allowUnprotectedRebuild: true });
       replayer.pause(110);
     `);

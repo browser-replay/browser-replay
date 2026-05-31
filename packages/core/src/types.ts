@@ -4,11 +4,11 @@ import type {
   SlimDOMOptions,
   MaskInputFn,
   MaskTextFn,
-} from '@dom-replay/snapshot';
+} from '@browser-replay/snapshot';
 import type { IframeManager } from './record/iframe-manager';
 import type { ShadowDomManager } from './record/shadow-dom-manager';
 import type { Replayer } from './replay';
-import type { RRNode } from '@dom-replay/dom';
+import type { RRNode } from '@browser-replay/dom';
 import type { CanvasManager } from './record/observers/canvas/canvas-manager';
 import type { StylesheetManager } from './record/stylesheet-manager';
 import type {
@@ -38,7 +38,7 @@ import type {
   viewportResizeCallback,
   PackFn,
   UnpackFn,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import type ProcessedNodeManager from './record/processed-node-manager';
 
 export type recordOptions<T> = {
@@ -222,9 +222,9 @@ declare global {
 }
 
 export type CrossOriginIframeMessageEventContent<T = eventWithTime> = {
-  type: 'dom-replay';
+  type: 'browser-replay';
   event: T;
-  // The origin of the iframe which originally emits this message. It is used to check the integrity of message and to filter out the dom-replay messages which are forwarded by some sites.
+  // The origin of the iframe which originally emits this message. It is used to check the integrity of message and to filter out the browser-replay messages which are forwarded by some sites.
   origin: string;
   isCheckout?: boolean;
 };

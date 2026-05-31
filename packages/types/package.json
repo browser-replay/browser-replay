@@ -1,9 +1,9 @@
 {
-  "name": "@dom-replay/types",
+  "name": "@browser-replay/types",
   "version": "0.0.1",
   "keywords": [
-    "dom-replay",
-    "@dom-replay/types"
+    "browser-replay",
+    "@browser-replay/types"
   ],
   "scripts": {
     "dev": "vite build --watch",
@@ -33,7 +33,7 @@
   "devDependencies": {
     "@types/dom-mediacapture-transform": "0.1.11",
     "@types/jest": "^30.0.0",
-    "@types/node": "^22.0.0",
+    "@types/node": "^22.19.0",
     "@types/offscreencanvas": "^2019.6.4",
     "vite": "^6.2.0",
     "vite-plugin-dts": "^5.0.0"

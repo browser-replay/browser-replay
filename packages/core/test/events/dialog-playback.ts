@@ -1,4 +1,4 @@
-import { eventWithTime, IncrementalSource } from '@dom-replay/types';
+import { eventWithTime, IncrementalSource } from '@browser-replay/types';
 
 const startTime = 1900000000;
 export const closedFullSnapshotTime = 132;

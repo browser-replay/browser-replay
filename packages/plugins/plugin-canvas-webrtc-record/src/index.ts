@@ -3,7 +3,7 @@ import type {
   RecordPlugin,
   ICrossOriginIframeMirror,
   IMirror,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import type { WebRTCDataChannel } from './types';
 
 export const PLUGIN_NAME = 'rrweb/canvas-webrtc@1';

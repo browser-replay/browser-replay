@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import * as puppeteer from 'puppeteer';
 import { vi, MockInstance } from 'vitest';
-import { createMirror, Mirror as NodeMirror } from '@dom-replay/snapshot';
+import { createMirror, Mirror as NodeMirror } from '@browser-replay/snapshot';
 import {
   buildFromDom,
   getDefaultSN,
@@ -26,12 +26,12 @@ import type {
   serializedNodeWithId,
   canvasMutationData,
   styleSheetRuleData,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import {
   NodeType as RRNodeType,
   EventType,
   IncrementalSource,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 
 const elementSn = {
   type: RRNodeType.Element,

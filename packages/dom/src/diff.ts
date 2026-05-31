@@ -1,5 +1,5 @@
-import { type Mirror as NodeMirror } from '@dom-replay/snapshot';
-import { NodeType as RRNodeType } from '@dom-replay/types';
+import { type Mirror as NodeMirror } from '@browser-replay/snapshot';
+import { NodeType as RRNodeType } from '@browser-replay/types';
 import type {
   canvasMutationData,
   canvasEventWithTime,
@@ -8,7 +8,7 @@ import type {
   scrollData,
   styleDeclarationData,
   styleSheetRuleData,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import type {
   IRRCDATASection,
   IRRComment,
@@ -87,11 +87,11 @@ export type ReplayerHandler = {
     data: styleDeclarationData | styleSheetRuleData,
     styleSheet: CSSStyleSheet,
   ) => void;
-  // Similar to the `afterAppend` callback in the `@dom-replay/snapshot` package. It's a postorder traversal of the newly appended nodes.
+  // Similar to the `afterAppend` callback in the `@browser-replay/snapshot` package. It's a postorder traversal of the newly appended nodes.
   afterAppend?(node: Node, id: number): void;
 };
 
-// A set contains newly appended nodes. It's used to make sure the afterAppend callback can iterate newly appended nodes in the same traversal order as that in the `@dom-replay/snapshot` package.
+// A set contains newly appended nodes. It's used to make sure the afterAppend callback can iterate newly appended nodes in the same traversal order as that in the `@browser-replay/snapshot` package.
 let createdNodeSet: WeakSet<Node> | null = null;
 
 /**

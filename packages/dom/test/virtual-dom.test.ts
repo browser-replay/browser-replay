@@ -6,7 +6,7 @@ import * as path from 'path';
 import * as puppeteer from 'puppeteer';
 import { vi } from 'vitest';
 import { JSDOM } from 'jsdom';
-import { buildNodeWithSN, Mirror } from '@dom-replay/snapshot';
+import { buildNodeWithSN, Mirror } from '@browser-replay/snapshot';
 import {
   cdataNode,
   commentNode,
@@ -16,7 +16,7 @@ import {
   NodeType,
   NodeType as RRNodeType,
   textNode,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import {
   buildFromDom,
   buildFromNode,

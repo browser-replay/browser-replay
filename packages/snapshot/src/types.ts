@@ -1,4 +1,4 @@
-import type { serializedNodeWithId } from '@dom-replay/types';
+import type { serializedNodeWithId } from '@browser-replay/types';
 
 export type tagMap = {
   [key: string]: string;

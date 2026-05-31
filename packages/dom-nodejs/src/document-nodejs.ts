@@ -1,4 +1,4 @@
-import { NodeType as RRNodeType } from '@dom-replay/types';
+import { NodeType as RRNodeType } from '@browser-replay/types';
 import type { NWSAPI } from 'nwsapi';
 import type { CSSStyleDeclaration as CSSStyleDeclarationType } from 'cssstyle';
 import {
@@ -13,7 +13,7 @@ import {
   ClassList,
   type IRRDocument,
   type CSSStyleDeclaration,
-} from '@dom-replay/dom';
+} from '@browser-replay/dom';
 const nwsapi = require('nwsapi');
 const cssom = require('cssom');
 const cssstyle = require('cssstyle');

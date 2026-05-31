@@ -1,14 +1,14 @@
-import type { Mirror } from '@dom-replay/snapshot';
-import { genId } from '@dom-replay/snapshot';
+import type { Mirror } from '@browser-replay/snapshot/snapshot-utils';
+import { genId } from '@browser-replay/snapshot/snapshot-utils';
 import type { CrossOriginIframeMessageEvent } from '../types';
 import CrossOriginIframeMirror from './cross-origin-iframe-mirror';
-import { EventType, NodeType, IncrementalSource } from '@dom-replay/types';
+import { EventType, NodeType, IncrementalSource } from '@browser-replay/types';
 import type {
   eventWithTime,
   eventWithoutTime,
   serializedNodeWithId,
   mutationCallBack,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import type { StylesheetManager } from './stylesheet-manager';
 
 export class IframeManager {
@@ -25,6 +25,7 @@ export class IframeManager {
   private loadListener?: (iframeEl: HTMLIFrameElement) => unknown;
   private stylesheetManager: StylesheetManager;
   private recordCrossOriginIframes: boolean;
+  private boundMessageHandler?: (e: MessageEvent) => void;
 
   constructor(options: {
     mirror: Mirror;
@@ -44,7 +45,15 @@ export class IframeManager {
     );
     this.mirror = options.mirror;
     if (this.recordCrossOriginIframes) {
-      window.addEventListener('message', this.handleMessage.bind(this));
+      this.boundMessageHandler = this.handleMessage.bind(this);
+      window.addEventListener('message', this.boundMessageHandler);
+    }
+  }
+
+  public destroy() {
+    if (this.boundMessageHandler) {
+      window.removeEventListener('message', this.boundMessageHandler);
+      this.boundMessageHandler = undefined;
     }
   }
 
@@ -98,8 +107,8 @@ export class IframeManager {
   private handleMessage(message: MessageEvent | CrossOriginIframeMessageEvent) {
     const crossOriginMessageEvent = message as CrossOriginIframeMessageEvent;
     if (
-      crossOriginMessageEvent.data.type !== 'dom-replay' ||
-      // To filter out the dom-replay messages which are forwarded by some sites.
+      crossOriginMessageEvent.data.type !== 'browser-replay' ||
+      // To filter out the browser-replay messages which are forwarded by some sites.
       crossOriginMessageEvent.origin !== crossOriginMessageEvent.data.origin
     )
       return;

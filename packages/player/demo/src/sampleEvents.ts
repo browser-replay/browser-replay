@@ -1,4 +1,4 @@
-import type { eventWithTime } from '@dom-replay/types';
+import type { eventWithTime } from '@browser-replay/types';
 
 declare const events: eventWithTime[] | undefined;
 

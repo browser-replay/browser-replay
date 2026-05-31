@@ -1,6 +1,6 @@
-import { createMirror as createNodeMirror } from '@dom-replay/snapshot';
-import type { Mirror as NodeMirror } from '@dom-replay/snapshot';
-import { NodeType as RRNodeType } from '@dom-replay/types';
+import { createMirror as createNodeMirror } from '@browser-replay/snapshot';
+import type { Mirror as NodeMirror } from '@browser-replay/snapshot';
+import { NodeType as RRNodeType } from '@browser-replay/types';
 import type {
   IMirror,
   serializedNodeWithId,
@@ -10,7 +10,7 @@ import type {
   scrollData,
   styleSheetRuleData,
   styleDeclarationData,
-} from '@dom-replay/types';
+} from '@browser-replay/types';
 import {
   BaseRRNode as RRNode,
   BaseRRCDATASection,
@@ -200,7 +200,7 @@ type RRElementType<K extends keyof HTMLElementTagNameMap> =
   K extends keyof RRElementTagNameMap ? RRElementTagNameMap[K] : RRElement;
 
 function getValidTagName(element: HTMLElement): string {
-  // https://github.com/rrweb-io/@dom-replay/snapshot/issues/56
+  // https://github.com/rrweb-io/@browser-replay/snapshot/issues/56
   if (element instanceof HTMLFormElement) {
     return 'FORM';
   }
@@ -340,7 +340,7 @@ export function createMirror(): Mirror {
   return new Mirror();
 }
 
-// based on Mirror from @dom-replay/snapshots
+// based on Mirror from @browser-replay/snapshots
 export class Mirror implements IMirror<RRNode> {
   private idNodeMap: Map<number, RRNode> = new Map();
   private nodeMetaMap: WeakMap<RRNode, serializedNodeWithId> = new WeakMap();

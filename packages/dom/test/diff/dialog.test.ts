@@ -6,8 +6,8 @@ import {
   createMirror,
   Mirror as NodeMirror,
   serializedNodeWithId,
-} from '@dom-replay/snapshot';
-import { NodeType as RRNodeType } from '@dom-replay/types';
+} from '@browser-replay/snapshot';
+import { NodeType as RRNodeType } from '@browser-replay/types';
 import { RRDocument } from '../../src';
 import { diff, ReplayerHandler } from '../../src/diff';
 
