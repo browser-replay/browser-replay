@@ -62,7 +62,7 @@
     "fast-mhtml": "^2.1.0",
     "identity-obj-proxy": "^3.0.0",
     "ignore-styles": "^5.0.1",
-    "inquirer": "^9.3.8",
+    "inquirer": "^14.0.1",
     "jest-image-snapshot": "^6.2.0",
     "puppeteer": "^24.43.1",
     "simple-peer-light": "^9.10.0",
