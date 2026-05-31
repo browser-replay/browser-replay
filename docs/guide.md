@@ -320,10 +320,10 @@ The replayer accepts options as its constructor's second parameter, and it has t
 ##### Usage (React)
 
 ```jsx
-import { DomReplayPlayer } from '@browser-replay/player';
+import { BrowserReplayPlayer } from '@browser-replay/player';
 import '@browser-replay/player/dist/style.css';
 
-<DomReplayPlayer events={events} autoPlay />;
+<BrowserReplayPlayer events={events} autoPlay />;
 ```
 
 ##### Options

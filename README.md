@@ -35,10 +35,10 @@ npm install @browser-replay/player react react-dom
 ```
 
 ```jsx
-import { DomReplayPlayer } from '@browser-replay/player';
+import { BrowserReplayPlayer } from '@browser-replay/player';
 import '@browser-replay/player/dist/style.css';
 
-<DomReplayPlayer events={events} />;
+<BrowserReplayPlayer events={events} />;
 ```
 
 See the [guide](docs/guide.md) for full documentation.

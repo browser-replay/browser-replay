@@ -2,7 +2,6 @@
 
 `@browser-replay/video` transforms a recorded `browser-replay` session (events JSON) into a video.
 
-![Demo Video](./demo/demo.gif)
 
 ## Install
 

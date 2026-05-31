@@ -13,11 +13,11 @@ There are several ways to do this:
 The easiest way to customize is to use the React player component and style it via CSS or pass props.
 
 ```jsx
-import { DomReplayPlayer } from '@browser-replay/player';
+import { BrowserReplayPlayer } from '@browser-replay/player';
 import '@browser-replay/player/dist/style.css';
 
 // Basic usage
-<DomReplayPlayer 
+<BrowserReplayPlayer 
   events={events} 
   autoPlay 
   showController={false} 
@@ -26,7 +26,7 @@ import '@browser-replay/player/dist/style.css';
 // With ref for programmatic control
 const playerRef = useRef(null);
 
-<DomReplayPlayer 
+<BrowserReplayPlayer 
   ref={playerRef} 
   events={events} 
 />
@@ -43,7 +43,7 @@ playerRef.current?.goto(3000);
 The React player exposes state via the `onStateChange` prop and also forwards events from the underlying Replayer.
 
 ```jsx
-<DomReplayPlayer 
+<BrowserReplayPlayer 
   events={events}
   onStateChange={(state) => {
     console.log('Current time:', state.currentTime);
@@ -57,7 +57,7 @@ You can also listen to low-level Replayer events:
 ```jsx
 const playerRef = useRef(null);
 
-<DomReplayPlayer 
+<BrowserReplayPlayer 
   ref={playerRef} 
   events={events} 
 />

@@ -115,14 +115,12 @@ export class RRWebPluginCanvasWebRTCReplay {
         // trickle: false,
       });
 
-      this.peer.on('error', (err: Error) => {
+      this.peer.on('error', (_err: Error) => {
         this.peer = null;
-        console.log('error', err);
       });
 
       this.peer.on('close', () => {
         this.peer = null;
-        console.log('closing');
       });
 
       this.peer.on('signal', (data: RTCSessionDescriptionInit) => {

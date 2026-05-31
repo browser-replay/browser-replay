@@ -120,12 +120,10 @@ export class RRWebPluginCanvasWebRTCRecord {
 
     peer.on('error', (err: Error) => {
       resetPeer(source);
-      console.log('error', err);
     });
 
     peer.on('close', () => {
       resetPeer(source);
-      console.log('closing');
     });
 
     peer.on('signal', (data: RTCSessionDescriptionInit) => {
