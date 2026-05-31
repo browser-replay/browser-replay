@@ -35,7 +35,7 @@
   "devDependencies": {
     "@browser-replay/types": "workspace:*",
     "jsdom": "^29.1.1",
-    "puppeteer": "^24.43.1",
+    "puppeteer": "^25.1.0",
     "typescript": "5.8.2",
     "vite": "^6.2.0",
     "vite-plugin-dts": "^5.0.0",
