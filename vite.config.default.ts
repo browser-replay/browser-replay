@@ -126,6 +126,8 @@ function buildFile({
   return build({
     entryPoints: [input],
     outfile: output,
+    bundle: !isCss,
+    platform: isCss ? undefined : 'browser',
     minify,
     sourcemap: true,
     format: isCss ? undefined : ('umd' as Format),
