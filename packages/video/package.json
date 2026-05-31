@@ -14,7 +14,7 @@
   "scripts": {
     "build": "tsc",
     "test": "pnpm build && vitest run",
-    "check-types": "tsc -noEmit --pretty || echo '⚠️  Type errors in @browser-replay/video (legacy resolution); continuing'",
+    "check-types": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors in @browser-replay/video (legacy resolution); continuing'",
     "prepublish": "pnpm build",
     "test:watch": "pnpm build && vitest watch"
   },
@@ -37,5 +37,20 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
-  }
+  },
+  "author": "browser-replay maintainers",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/browser-replay/browser-replay.git",
+    "directory": "packages/video"
+  },
+  "bugs": "https://github.com/browser-replay/browser-replay/issues",
+  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/video#readme",
+  "keywords": [
+    "browser-replay",
+    "video",
+    "session-replay",
+    "export",
+    "mp4"
+  ]
 }

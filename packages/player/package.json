@@ -40,8 +40,8 @@
     "start": "vite --config demo/vite.config.ts",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest watch",
-    "check-types": "tsc -p tsconfig.build.json --noEmit --pretty || echo '⚠️  Type errors in @browser-replay/player (legacy); continuing'",
-    "prepublish": "tsc -p tsconfig.build.json --noEmit --pretty || echo '⚠️  Type errors (see tsconfig); continuing with Vite build' && vite build",
+    "check-types": "tsc -p tsconfig.build.json --noEmit --pretty || echo '\u26a0\ufe0f  Type errors in @browser-replay/player (legacy); continuing'",
+    "prepublish": "tsc -p tsconfig.build.json --noEmit --pretty || echo '\u26a0\ufe0f  Type errors (see tsconfig); continuing with Vite build' && vite build",
     "lint": "pnpm eslint 'src/**/*.{ts,tsx}'"
   },
   "peerDependencies": {
@@ -65,5 +65,20 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
-  }
+  },
+  "author": "browser-replay maintainers",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/browser-replay/browser-replay.git",
+    "directory": "packages/player"
+  },
+  "bugs": "https://github.com/browser-replay/browser-replay/issues",
+  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/player#readme",
+  "keywords": [
+    "browser-replay",
+    "player",
+    "react",
+    "session-replay",
+    "replay"
+  ]
 }

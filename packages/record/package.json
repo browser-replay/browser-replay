@@ -10,8 +10,8 @@
     "build": "pnpm run prepublish",
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "check-types": "tsc -noEmit --pretty || echo '⚠️  Type errors in @browser-replay/record (legacy code); continuing'",
-    "prepublish": "tsc -noEmit || echo '⚠️  Type errors present (see tsconfig.json); running Vite build' && vite build",
+    "check-types": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors in @browser-replay/record (legacy code); continuing'",
+    "prepublish": "tsc -noEmit || echo '\u26a0\ufe0f  Type errors present (see tsconfig.json); running Vite build' && vite build",
     "lint": "pnpm eslint src/**/*.ts"
   },
   "license": "MIT",
@@ -54,5 +54,14 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
-  }
+  },
+  "author": "browser-replay maintainers",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/browser-replay/browser-replay.git",
+    "directory": "packages/record"
+  },
+  "bugs": "https://github.com/browser-replay/browser-replay/issues",
+  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/record#readme",
+  "description": "DOM recording module for browser-replay"
 }

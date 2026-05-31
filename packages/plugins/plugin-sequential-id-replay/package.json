@@ -1,7 +1,7 @@
 {
   "name": "@browser-replay/plugin-sequential-id-replay",
   "version": "0.0.1",
-  "description": "",
+  "description": "browser-replay plugin for sequential node IDs during replay",
   "type": "module",
   "main": "./dist/plugin-sequential-id-replay.umd.cjs",
   "module": "./dist/plugin-sequential-id-replay.js",
@@ -26,8 +26,8 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "pnpm run prepublish",
-    "check-types": "tsc -noEmit --pretty || echo '⚠️  Type errors (legacy plugin); continuing'",
-    "prepublish": "tsc -noEmit || echo '⚠️  Type errors present; running Vite build' && vite build"
+    "check-types": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors (legacy plugin); continuing'",
+    "prepublish": "tsc -noEmit || echo '\u26a0\ufe0f  Type errors present; running Vite build' && vite build"
   },
   "keywords": [
     "browser-replay"
@@ -47,5 +47,13 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
-  }
+  },
+  "author": "browser-replay maintainers",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/browser-replay/browser-replay.git",
+    "directory": "packages/plugins/plugin-sequential-id-replay"
+  },
+  "bugs": "https://github.com/browser-replay/browser-replay/issues",
+  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/plugins/plugin-sequential-id-replay#readme"
 }

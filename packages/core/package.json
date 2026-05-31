@@ -16,8 +16,8 @@
     "live-stream": "pnpm build && node scripts/stream.js",
     "dev": "vite build --watch",
     "build": "pnpm run prepublish",
-    "check-types": "tsc -noEmit --pretty || echo '⚠️  Type errors present (legacy code, see tsconfig.json TODO); this does not block builds/tests'",
-    "prepublish": "tsc -noEmit --pretty || echo '⚠️  Type errors detected in @browser-replay/core (legacy rrweb codebase — see TODO + strict:false in tsconfig.json); continuing with Vite build for runtime artifacts and tests' && vite build",
+    "check-types": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors present (legacy code, see tsconfig.json TODO); this does not block builds/tests'",
+    "prepublish": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors detected in @browser-replay/core (legacy rrweb codebase \u2014 see TODO + strict:false in tsconfig.json); continuing with Vite build for runtime artifacts and tests' && vite build",
     "lint": "pnpm eslint src",
     "benchmark": "vitest run --maxConcurrency 1 --no-file-parallelism test/benchmark",
     "test:ci:shard": "vitest run --pool=forks --config vitest.config.ts"
@@ -86,5 +86,13 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
-  }
+  },
+  "author": "browser-replay maintainers",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/browser-replay/browser-replay.git",
+    "directory": "packages/core"
+  },
+  "bugs": "https://github.com/browser-replay/browser-replay/issues",
+  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/core#readme"
 }

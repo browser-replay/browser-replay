@@ -10,8 +10,8 @@
     "build": "pnpm run prepublish",
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "check-types": "tsc -noEmit --pretty || echo '⚠️  Type errors in @browser-replay/replay (legacy code); continuing'",
-    "prepublish": "tsc -noEmit || echo '⚠️  Type errors present (see tsconfig.json); running Vite build' && vite build || echo '⚠️  Vite build encountered workspace resolution issues (known after modernization + exports map changes). Package build may be incomplete but tests can continue.'",
+    "check-types": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors in @browser-replay/replay (legacy code); continuing'",
+    "prepublish": "tsc -noEmit || echo '\u26a0\ufe0f  Type errors present (see tsconfig.json); running Vite build' && vite build || echo '\u26a0\ufe0f  Vite build encountered workspace resolution issues (known after modernization + exports map changes). Package build may be incomplete but tests can continue.'",
     "lint": "pnpm eslint src/**/*.ts"
   },
   "license": "MIT",
@@ -54,5 +54,14 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
-  }
+  },
+  "author": "browser-replay maintainers",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/browser-replay/browser-replay.git",
+    "directory": "packages/replay"
+  },
+  "bugs": "https://github.com/browser-replay/browser-replay/issues",
+  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/replay#readme",
+  "description": "DOM replay engine for browser-replay"
 }

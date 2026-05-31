@@ -11,8 +11,8 @@
     "bench": "vite build && vitest bench",
     "dev": "vite build --watch",
     "build": "pnpm run prepublish",
-    "check-types": "tsc --noEmit --pretty || echo '⚠️  Type errors detected in @browser-replay/snapshot (legacy rrweb code); continuing with Vite build'",
-    "prepublish": "pnpm check-types || echo '⚠️  Type errors in @browser-replay/snapshot (legacy code — see tsconfig.json TODO); continuing with Vite emit' && vite build",
+    "check-types": "tsc --noEmit --pretty || echo '\u26a0\ufe0f  Type errors detected in @browser-replay/snapshot (legacy rrweb code); continuing with Vite build'",
+    "prepublish": "pnpm check-types || echo '\u26a0\ufe0f  Type errors in @browser-replay/snapshot (legacy code \u2014 see tsconfig.json TODO); continuing with Vite emit' && vite build",
     "lint": "pnpm eslint src"
   },
   "type": "module",
@@ -65,5 +65,13 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
-  }
+  },
+  "author": "browser-replay maintainers",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/browser-replay/browser-replay.git",
+    "directory": "packages/snapshot"
+  },
+  "bugs": "https://github.com/browser-replay/browser-replay/issues",
+  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/snapshot#readme"
 }

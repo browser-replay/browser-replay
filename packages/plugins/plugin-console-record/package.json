@@ -1,7 +1,7 @@
 {
   "name": "@browser-replay/plugin-console-record",
   "version": "0.0.1",
-  "description": "",
+  "description": "browser-replay plugin to record console output",
   "type": "module",
   "main": "./dist/plugin-console-record.umd.cjs",
   "module": "./dist/plugin-console-record.js",
@@ -52,5 +52,13 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
-  }
+  },
+  "author": "browser-replay maintainers",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/browser-replay/browser-replay.git",
+    "directory": "packages/plugins/plugin-console-record"
+  },
+  "bugs": "https://github.com/browser-replay/browser-replay/issues",
+  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/plugins/plugin-console-record#readme"
 }

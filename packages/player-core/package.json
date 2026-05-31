@@ -28,8 +28,8 @@
     "build": "pnpm run prepublish",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest watch",
-    "check-types": "tsc -noEmit --pretty || echo '⚠️  Type errors in @browser-replay/player-core (legacy); continuing'",
-    "prepublish": "tsc -noEmit --pretty || echo '⚠️  Type errors (legacy); continuing with Vite build' && vite build",
+    "check-types": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors in @browser-replay/player-core (legacy); continuing'",
+    "prepublish": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors (legacy); continuing with Vite build' && vite build",
     "lint": "pnpm eslint 'src/**/*.{ts,tsx}'"
   },
   "dependencies": {
@@ -50,5 +50,19 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
-  }
+  },
+  "author": "browser-replay maintainers",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/browser-replay/browser-replay.git",
+    "directory": "packages/player-core"
+  },
+  "bugs": "https://github.com/browser-replay/browser-replay/issues",
+  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/player-core#readme",
+  "keywords": [
+    "browser-replay",
+    "player",
+    "session-replay",
+    "replay"
+  ]
 }
