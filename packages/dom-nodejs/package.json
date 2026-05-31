@@ -43,7 +43,7 @@
     "@types/node": "^22.19.0",
     "@types/nwsapi": "^2.2.2",
     "compare-versions": "^6.1.1",
-    "puppeteer": "^24.43.1",
+    "puppeteer": "24.36.1",
     "typescript": "5.8.2",
     "vite": "^6.2.0",
     "vite-plugin-dts": "^5.0.0",
