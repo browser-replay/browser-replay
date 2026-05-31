@@ -54,7 +54,7 @@ const exampleRecordPlugin: RecordPlugin<{ foo: string }> = {
   },
 };
 
-domReplay.record({
+browserReplay.record({
   emit(event) {},
   plugins: [exampleRecordPlugin],
 });
@@ -90,7 +90,7 @@ const exampleReplayPlugin: ReplayPlugin = {
   },
 };
 
-const replayer = new domReplay.Replayer(events, {
+const replayer = new browserReplay.Replayer(events, {
   plugins: [exampleReplayPlugin],
 });
 ```

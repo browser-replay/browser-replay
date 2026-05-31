@@ -6,7 +6,7 @@ There are some options for recording and replaying Canvas.
 Enable recording Canvas：
 
 ```js
-domReplay.record({
+browserReplay.record({
   emit(event) {},
   recordCanvas: true,
 });
@@ -15,7 +15,7 @@ domReplay.record({
 Alternatively enable image snapshot recording of Canvas at a maximum of 15 frames per second：
 
 ```js
-domReplay.record({
+browserReplay.record({
   emit(event) {},
   recordCanvas: true,
   sampling: {
@@ -32,7 +32,7 @@ domReplay.record({
 Enable replaying Canvas：
 
 ```js
-const replayer = new domReplay.Replayer(events, {
+const replayer = new browserReplay.Replayer(events, {
   UNSAFE_replayCanvas: true,
 });
 replayer.play();

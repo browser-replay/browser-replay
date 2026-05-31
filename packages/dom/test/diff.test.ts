@@ -1459,28 +1459,28 @@ describe('diff algorithm for rrdom', () => {
           const iframeEl = document.querySelector('iframe');
 
           // Construct a virtual dom tree.
-          const rrDocument = new domReplayDom.RRDocument();
+          const rrDocument = new browserReplayDom.RRDocument();
           const rrIframeEl = rrDocument.createElement('iframe');
-          rrDocument.mirror.add(rrIframeEl, domReplayDom.getDefaultSN(rrIframeEl, ${iframeElId}));
+          rrDocument.mirror.add(rrIframeEl, browserReplayDom.getDefaultSN(rrIframeEl, ${iframeElId}));
           rrDocument.appendChild(rrIframeEl);
           rrDocument.mirror.add(
             rrIframeEl.contentDocument,
-            domReplayDom.getDefaultSN(rrIframeEl.contentDocument, ${iframeDomId}),
+            browserReplayDom.getDefaultSN(rrIframeEl.contentDocument, ${iframeDomId}),
           );
           const rrDocType = rrDocument.createDocumentType('html', '', '');
           rrIframeEl.contentDocument.appendChild(rrDocType);
           const rrHtmlEl = rrDocument.createElement('html');
-          rrDocument.mirror.add(rrHtmlEl, domReplayDom.getDefaultSN(rrHtmlEl, ${htmlElId}));
+          rrDocument.mirror.add(rrHtmlEl, browserReplayDom.getDefaultSN(rrHtmlEl, ${htmlElId}));
           rrIframeEl.contentDocument.appendChild(rrHtmlEl);
           
           const replayer = {
-            mirror: domReplayDom.createMirror(),
+            mirror: browserReplayDom.createMirror(),
             applyCanvas: () => {},
             applyInput: () => {},
             applyScroll: () => {},
             applyStyleSheetMutation: () => {},
           };
-          domReplayDom.diff(iframeEl, rrIframeEl, replayer);
+          browserReplayDom.diff(iframeEl, rrIframeEl, replayer);
           
           iframeEl.contentDocument.documentElement.className =
             '${className.toLowerCase()}';
