@@ -229,6 +229,74 @@ describe('form', () => {
   });
 });
 
+describe('masking hidden inputs', () => {
+  const serializeInput = (
+    input: HTMLInputElement,
+    maskInputOptions: Record<string, boolean>,
+  ) =>
+    serializeNodeWithId(input, {
+      doc: document,
+      mirror: new Mirror(),
+      blockClass: 'blockblock',
+      blockSelector: null,
+      maskTextClass: 'maskmask',
+      maskTextSelector: null,
+      skipChild: false,
+      inlineStylesheet: true,
+      maskTextFn: undefined,
+      maskInputFn: undefined,
+      maskInputOptions,
+      slimDOMOptions: {},
+    }) as elementNode;
+
+  it('masks type="hidden" value when hidden: true is set', () => {
+    const el = document.createElement('input');
+    el.type = 'hidden';
+    el.value = 'csrf-secret-token';
+    document.body.appendChild(el);
+    const result = serializeInput(el, { hidden: true });
+    expect(result.attributes.value).toBe('*'.repeat('csrf-secret-token'.length));
+    document.body.removeChild(el);
+  });
+
+  it('does not mask type="hidden" value when hidden is not set', () => {
+    const el = document.createElement('input');
+    el.type = 'hidden';
+    el.value = 'csrf-secret-token';
+    document.body.appendChild(el);
+    const result = serializeInput(el, { password: true });
+    expect(result.attributes.value).toBe('csrf-secret-token');
+    document.body.removeChild(el);
+  });
+
+  it('maskAllInputs snapshot expansion includes hidden', () => {
+    const doc = document.implementation.createHTMLDocument();
+    const form = doc.createElement('form');
+    const hidden = doc.createElement('input');
+    hidden.type = 'hidden';
+    hidden.value = 'secret';
+    form.appendChild(hidden);
+    doc.body.appendChild(form);
+
+    const sn = snapshot(doc, { maskAllInputs: true });
+    const formNode = sn?.childNodes
+      .find((n) => n.type === 2 && (n as elementNode).tagName === 'html')
+      ?.childNodes.find(
+        (n) => n.type === 2 && (n as elementNode).tagName === 'body',
+      )
+      ?.childNodes.find(
+        (n) => n.type === 2 && (n as elementNode).tagName === 'form',
+      );
+    const hiddenNode = formNode?.childNodes.find(
+      (n) =>
+        n.type === 2 &&
+        (n as elementNode).tagName === 'input' &&
+        (n as elementNode).attributes.type === 'hidden',
+    ) as elementNode | undefined;
+    expect(hiddenNode?.attributes.value).toBe('*'.repeat('secret'.length));
+  });
+});
+
 describe('jsdom snapshot', () => {
   const render = (html: string): Document => {
     document.write(html);
