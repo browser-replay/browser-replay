@@ -26,6 +26,6 @@ export const unpack: UnpackFn = (raw: string) => {
     );
   } catch (error) {
     console.error(error);
-    throw new Error('Unknown data format.');
+    throw new Error('Unknown data format.', { cause: error });
   }
 };

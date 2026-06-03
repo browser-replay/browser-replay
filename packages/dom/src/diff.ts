@@ -387,8 +387,8 @@ function diffChildren(
     oldEndNode = oldChildren[oldEndIndex],
     newStartNode = newChildren[newStartIndex],
     newEndNode = newChildren[newEndIndex];
-  let oldIdToIndex: Record<number, number> | undefined = undefined,
-    indexInOld: number | undefined = undefined;
+  let oldIdToIndex: Record<number, number> | undefined = undefined;
+  let indexInOld: number | undefined;
   while (oldStartIndex <= oldEndIndex && newStartIndex <= newEndIndex) {
     if (oldStartNode === undefined) {
       oldStartNode = oldChildren[++oldStartIndex];
