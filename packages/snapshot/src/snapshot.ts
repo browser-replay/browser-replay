@@ -1113,8 +1113,8 @@ export function serializeNodeWithId(
       }
     }
 
-    let shadowRootEl: ShadowRoot | null = null;
-    if (isElement(n) && (shadowRootEl = dom.shadowRoot(n))) {
+    const shadowRootEl = isElement(n) ? dom.shadowRoot(n) : null;
+    if (shadowRootEl) {
       for (const childN of Array.from(dom.childNodes(shadowRootEl))) {
         const serializedChildNode = serializeNodeWithId(childN, bypassOptions);
         if (serializedChildNode) {
