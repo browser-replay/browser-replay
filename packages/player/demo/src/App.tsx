@@ -1,5 +1,5 @@
 import React from 'react';
-import { DomReplayPlayer } from '../../src';
+import { BrowserReplayPlayer } from '../../src';
 import '../../src/style.css';
 import { sampleEvents } from './sampleEvents';
 import './App.css';
@@ -17,7 +17,7 @@ function PlayerWithControls({
     <div className="player-container">
       <h2>{title}</h2>
       <div className={`player-wrapper ${className}`}>
-        <DomReplayPlayer
+        <BrowserReplayPlayer
           events={sampleEvents}
           autoPlay={false}
           skipInactive={true}
@@ -35,7 +35,7 @@ function App() {
   return (
     <div className="app">
       <header className="header">
-        <h1>Dom Replay Player React Demo</h1>
+        <h1>Browser Replay Player React Demo</h1>
         <p>Full-featured player with React-based controls</p>
       </header>
 

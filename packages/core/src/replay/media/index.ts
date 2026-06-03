@@ -215,12 +215,9 @@ export class MediaManager {
       | mediaAttributes
       | Record<string, never>;
 
-    let isPlaying = false;
-    if (mediaAttributes.dr_mediaState) {
-      isPlaying = mediaAttributes.dr_mediaState === 'played';
-    } else {
-      isPlaying = target.getAttribute('autoplay') !== null;
-    }
+    const isPlaying = mediaAttributes.dr_mediaState
+      ? mediaAttributes.dr_mediaState === 'played'
+      : target.getAttribute('autoplay') !== null;
     if (isPlaying && playerIsPaused) target.pause();
 
     let playbackRate = 1;
@@ -228,19 +225,15 @@ export class MediaManager {
       playbackRate = mediaAttributes.dr_mediaPlaybackRate;
     }
 
-    let muted = false;
-    if (typeof mediaAttributes.dr_mediaMuted === 'boolean') {
-      muted = mediaAttributes.dr_mediaMuted;
-    } else {
-      muted = target.getAttribute('muted') !== null;
-    }
+    const muted =
+      typeof mediaAttributes.dr_mediaMuted === 'boolean'
+        ? mediaAttributes.dr_mediaMuted
+        : target.getAttribute('muted') !== null;
 
-    let loop = false;
-    if (typeof mediaAttributes.dr_mediaLoop === 'boolean') {
-      loop = mediaAttributes.dr_mediaLoop;
-    } else {
-      loop = target.getAttribute('loop') !== null;
-    }
+    const loop =
+      typeof mediaAttributes.dr_mediaLoop === 'boolean'
+        ? mediaAttributes.dr_mediaLoop
+        : target.getAttribute('loop') !== null;
 
     let volume = 1;
     if (typeof mediaAttributes.dr_mediaVolume === 'number') {

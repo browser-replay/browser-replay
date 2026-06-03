@@ -8,7 +8,7 @@ Since if you allow recording cross origin iframes, any malicious website can emb
 Enable recording cross-origin iframes in your parent page:
 
 ```js
-domReplay.record({
+browserReplay.record({
   emit(event) {}, // all events will be emitted here, including events from cross origin iframes
   recordCrossOriginIframes: true,
 });
@@ -17,7 +17,7 @@ domReplay.record({
 Enable replaying cross-origin iframes in your child page:
 
 ```js
-domReplay.record({
+browserReplay.record({
   emit(event) {}, // this is required for browser-replay, but the child page will not emit any events
   recordCrossOriginIframes: true,
 });
@@ -69,7 +69,7 @@ async function injectRecording(frame) {
       }
       loadScript(domReplayCode);
 
-      window.domReplay.record({
+      window.browserReplay.record({
         emit: (event) => {
           window._captureEvent(event);
         },

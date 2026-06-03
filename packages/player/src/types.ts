@@ -1,7 +1,7 @@
 import type * as React from 'react';
 import type { PlayerHandle, PlayerProps, PlayerStateSnapshot } from '@browser-replay/player-core';
 
-export type DomReplayPlayerProps = PlayerProps & {
+export type BrowserReplayPlayerProps = PlayerProps & {
   className?: string;
   style?: React.CSSProperties;
   /**
@@ -12,7 +12,7 @@ export type DomReplayPlayerProps = PlayerProps & {
   onStateChange?: (state: PlayerStateSnapshot) => void;
 };
 
-export type DomReplayPlayerRef = Omit<PlayerHandle, 'mount' | 'destroy'> & {
+export type BrowserReplayPlayerRef = Omit<PlayerHandle, 'mount' | 'destroy'> & {
   getContainer(): HTMLDivElement | null;
 };
 

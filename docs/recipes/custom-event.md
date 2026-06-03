@@ -39,7 +39,7 @@ replayer.on('custom-event', (event) => {
 **Display custom events in the timeline**
 
 ```js
-<DomReplayPlayer
+<BrowserReplayPlayer
   events={events}
   tags={{
     'submit-form': '#21e676',
