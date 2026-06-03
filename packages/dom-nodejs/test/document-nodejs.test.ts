@@ -398,12 +398,12 @@ describe('RRDocument for nodejs environment', () => {
       expect(style.display).toEqual('inline-block');
       expect(style.margin).toEqual('0px auto');
       expect(style.border).toEqual('5px solid rgb(186, 218, 85)');
-      expect(style.fontSize).toEqual('.75em');
+      expect(style.fontSize).toEqual('0.75em');
       expect(style.position).toEqual('absolute');
       expect(style.width).toEqual('33.3%');
       expect(style.zIndex).toEqual('1337');
       expect(style.fontFamily).toEqual(
-        '"Goudy Bookletter 1911", Gill Sans Extrabold, sans-serif',
+        '"Goudy Bookletter 1911", "Gill Sans Extrabold", sans-serif',
       );
 
       // multiple of same property
@@ -414,7 +414,7 @@ describe('RRDocument for nodejs environment', () => {
       node.attributes.style =
         'background-image: url("http://example.com/img.png")';
       expect(node.style.backgroundImage).toEqual(
-        'url(http://example.com/img.png)',
+        'url("http://example.com/img.png")',
       );
 
       // comment
