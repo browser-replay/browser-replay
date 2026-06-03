@@ -73,10 +73,10 @@ browser-replay does **not** support IE11 and below because it uses the `Mutation
 
 ### Record
 
-The following sample code will use a local variable named `domReplay` for convenience.
+The following sample code will use a local variable named `browserReplay` for convenience.
 
 ```js
-domReplay.record({
+browserReplay.record({
   emit(event) {
     // store the event in any way you like
   },
@@ -88,7 +88,7 @@ During recording, the recorder will emit when there is some event incurred, all 
 The `record` method returns a function which can be called to stop events from firing:
 
 ```js
-let stopFn = domReplay.record({
+let stopFn = browserReplay.record({
   emit(event) {
     if (events.length > 100) {
       // stop after 100 events
@@ -103,7 +103,7 @@ A more real-world usage may look like this:
 ```js
 let events = [];
 
-domReplay.record({
+browserReplay.record({
   emit(event) {
     // push event into the events array
     events.push(event);
@@ -129,7 +129,7 @@ setInterval(save, 10 * 1000);
 
 #### Options
 
-The parameter of `domReplay.record` accepts the following options.
+The parameter of `browserReplay.record` accepts the following options.
 
 | key                      | default            | description                                                                                                                                                                                                                         |
 | ------------------------ | ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -182,7 +182,7 @@ By default, all the emitted events are required to replay a session and if you d
 // We use a two-dimensional array to store multiple events array
 const eventsMatrix = [[]];
 
-domReplay.record({
+browserReplay.record({
   emit(event, isCheckout) {
     // isCheckout is a flag to tell you the events has been checkout
     if (isCheckout) {
@@ -217,7 +217,7 @@ Similarly, you can also configure `checkoutEveryNms` to capture the last N minut
 // We use a two-dimensional array to store multiple events array
 const eventsMatrix = [[]];
 
-domReplay.record({
+browserReplay.record({
   emit(event, isCheckout) {
     // isCheckout is a flag to tell you the events has been checkout
     if (isCheckout) {
@@ -262,14 +262,14 @@ And then initialize the replayer with the following code:
 ```js
 const events = YOUR_EVENTS;
 
-const replayer = new domReplay.Replayer(events);
+const replayer = new browserReplay.Replayer(events);
 replayer.play();
 ```
 
 #### Control the replayer by API
 
 ```js
-const replayer = new domReplay.Replayer(events);
+const replayer = new browserReplay.Replayer(events);
 
 // play
 replayer.play();
@@ -320,10 +320,10 @@ The replayer accepts options as its constructor's second parameter, and it has t
 ##### Usage (React)
 
 ```jsx
-import { DomReplayPlayer } from '@browser-replay/player';
+import { BrowserReplayPlayer } from '@browser-replay/player';
 import '@browser-replay/player/dist/style.css';
 
-<DomReplayPlayer events={events} autoPlay />;
+<BrowserReplayPlayer events={events} autoPlay />;
 ```
 
 ##### Options
@@ -346,7 +346,7 @@ Developers may want to extend the browser-replay replayer or respond to its even
 browser-replay exposes a public API `on` which allows developers to listen to the events and customize the reactions, and it has the following events:
 
 ```js
-const replayer = new domReplay.Replayer(events);
+const replayer = new browserReplay.Replayer(events);
 replayer.on(EVENT_NAME, (payload) => {
   ...
 })

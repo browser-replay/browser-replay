@@ -1,6 +1,6 @@
 import './style.css';
 
-export { DomReplayPlayer } from './DomReplayPlayer';
+export { BrowserReplayPlayer } from './BrowserReplayPlayer';
 export { Controller } from './Controller';
-export type { DomReplayPlayerProps, DomReplayPlayerRef } from './types';
+export type { BrowserReplayPlayerProps, BrowserReplayPlayerRef } from './types';
 

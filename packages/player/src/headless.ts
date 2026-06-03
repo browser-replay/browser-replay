@@ -1,7 +1,7 @@
 /**
- * Headless entry: DomReplayPlayer and Controller without built-in styles.
+ * Headless entry: BrowserReplayPlayer and Controller without built-in styles.
  * Import styles separately if needed: import '@browser-replay/player/dist/style.css'
  */
-export { DomReplayPlayer } from './DomReplayPlayer';
+export { BrowserReplayPlayer } from './BrowserReplayPlayer';
 export { Controller } from './Controller';
-export type { DomReplayPlayerProps, DomReplayPlayerRef } from './types';
+export type { BrowserReplayPlayerProps, BrowserReplayPlayerRef } from './types';

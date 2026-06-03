@@ -1,7 +1,7 @@
 /// <reference types="chrome"/>
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { DomReplayPlayer } from '@browser-replay/player';
+import { BrowserReplayPlayer } from '@browser-replay/player';
 import '@browser-replay/player/dist/player.css';
 import {
   Breadcrumb,
@@ -48,7 +48,7 @@ export default function Player() {
       </Breadcrumb>
       <Center>
         {events ? (
-          <DomReplayPlayer events={events} autoPlay />
+          <BrowserReplayPlayer events={events} autoPlay />
         ) : (
           <div>Loading session...</div>
         )}

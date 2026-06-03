@@ -14,7 +14,7 @@ import {
   type PlayerHandle,
   type PlayerStateSnapshot,
 } from '@browser-replay/player-core';
-import type { DomReplayPlayerProps, DomReplayPlayerRef } from './types';
+import type { BrowserReplayPlayerProps, BrowserReplayPlayerRef } from './types';
 import { Controller } from './Controller';
 
 function tailSignature(events: unknown[] | undefined) {
@@ -26,9 +26,9 @@ function tailSignature(events: unknown[] | undefined) {
 /** Throttle interval (ms) for state updates during playback. Reduces re-renders from ~60/sec to ~10/sec. */
 const STATE_UPDATE_THROTTLE_MS = 100;
 
-export const DomReplayPlayer: ForwardRefExoticComponent<
-  PropsWithoutRef<DomReplayPlayerProps> & RefAttributes<DomReplayPlayerRef>
-> = forwardRef<DomReplayPlayerRef, DomReplayPlayerProps>(function DomReplayPlayer(
+export const BrowserReplayPlayer: ForwardRefExoticComponent<
+  PropsWithoutRef<BrowserReplayPlayerProps> & RefAttributes<BrowserReplayPlayerRef>
+> = forwardRef<BrowserReplayPlayerRef, BrowserReplayPlayerProps>(function BrowserReplayPlayer(
   props,
   ref,
 ) {
@@ -240,10 +240,10 @@ export const DomReplayPlayer: ForwardRefExoticComponent<
 
   useImperativeHandle(
     ref,
-    (): DomReplayPlayerRef => ({
+    (): BrowserReplayPlayerRef => ({
       addEventListener: ((event: any, handler: any) => {
         return getHandle()?.addEventListener(event as any, handler as any) as any;
-      }) as DomReplayPlayerRef['addEventListener'],
+      }) as BrowserReplayPlayerRef['addEventListener'],
       addEvent: (event) => {
         getHandle()?.addEvent(event as any);
       },
@@ -314,4 +314,4 @@ export const DomReplayPlayer: ForwardRefExoticComponent<
   );
 });
 
-DomReplayPlayer.displayName = 'DomReplayPlayer';
+BrowserReplayPlayer.displayName = 'BrowserReplayPlayer';

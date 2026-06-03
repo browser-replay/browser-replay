@@ -39,11 +39,11 @@ function printRRDom(rootNode, mirror) {
 }
 function walk(node, mirror, blankSpace) {
   let printText = \`\${blankSpace}\${mirror.getId(node)} \${node.toString()}\n\`;
-  if(node instanceof domReplayDom.RRElement && node.shadowRoot)
+  if(node instanceof browserReplayDom.RRElement && node.shadowRoot)
     printText += walk(node.shadowRoot, mirror, blankSpace + '  ');
   for (const child of node.childNodes)
     printText += walk(child, mirror, blankSpace + '  ');
-  if (node instanceof domReplayDom.RRIFrameElement)
+  if (node instanceof browserReplayDom.RRIFrameElement)
     printText += walk(node.contentDocument, mirror, blankSpace + '  ');
   return printText;
 }
@@ -266,8 +266,8 @@ describe('RRDocument for browser environment', () => {
     it('can build from a common html', async () => {
       await page.setContent(getHtml('main.html'));
       const result = await page.evaluate(`
-        const doc = new domReplayDom.RRDocument();
-        domReplayDom.buildFromDom(document, undefined, doc);
+        const doc = new browserReplayDom.RRDocument();
+        browserReplayDom.buildFromDom(document, undefined, doc);
         printRRDom(doc, doc.mirror);
       `);
       expect(result).toMatchSnapshot();
@@ -276,8 +276,8 @@ describe('RRDocument for browser environment', () => {
     it('can build from an iframe html ', async () => {
       await page.setContent(getHtml('iframe.html'));
       const result = await page.evaluate(`
-        const doc = new domReplayDom.RRDocument();
-        domReplayDom.buildFromDom(document, undefined, doc);
+        const doc = new browserReplayDom.RRDocument();
+        browserReplayDom.buildFromDom(document, undefined, doc);
         printRRDom(doc, doc.mirror);
       `);
       expect(result).toMatchSnapshot();
@@ -286,8 +286,8 @@ describe('RRDocument for browser environment', () => {
     it('can build from a html containing nested shadow doms', async () => {
       await page.setContent(getHtml('shadow-dom.html'));
       const result = await page.evaluate(`
-        const doc = new domReplayDom.RRDocument();
-        domReplayDom.buildFromDom(document, undefined, doc);
+        const doc = new browserReplayDom.RRDocument();
+        browserReplayDom.buildFromDom(document, undefined, doc);
         printRRDom(doc, doc.mirror);
       `);
       expect(result).toMatchSnapshot();
@@ -300,8 +300,8 @@ describe('RRDocument for browser environment', () => {
       docu.getElementsByTagName('xml')[0].appendChild(cdata);
       // Displays: <xml><![CDATA[Some <CDATA> data & then some]]></xml>
 
-      const doc = new domReplayDom.RRDocument();
-      domReplayDom.buildFromDom(docu, undefined, doc);
+      const doc = new browserReplayDom.RRDocument();
+      browserReplayDom.buildFromDom(docu, undefined, doc);
       printRRDom(doc, doc.mirror);
       `);
       expect(result).toMatchSnapshot();
