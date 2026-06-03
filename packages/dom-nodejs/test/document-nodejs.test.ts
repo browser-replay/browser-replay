@@ -397,7 +397,7 @@ describe('RRDocument for nodejs environment', () => {
       const style = node.style;
       expect(style.display).toEqual('inline-block');
       expect(style.margin).toEqual('0px auto');
-      expect(style.border).toEqual('5px solid #bada55');
+      expect(style.border).toEqual('5px solid rgb(186, 218, 85)');
       expect(style.fontSize).toEqual('.75em');
       expect(style.position).toEqual('absolute');
       expect(style.width).toEqual('33.3%');
