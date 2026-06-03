@@ -2091,7 +2091,6 @@ export class Replayer {
     if (!targetHost) return;
     // Create StyleSheet objects which will be adopted after.
     data.styles?.forEach((style) => {
-      let newStyleSheet: CSSStyleSheet | null = null;
       /**
        * Constructed StyleSheet can't share across multiple documents.
        * The replayer has to get the correct host window to recreate a StyleSheetObject.
@@ -2104,7 +2103,7 @@ export class Replayer {
 
       if (!hostWindow) return;
       try {
-        newStyleSheet = new hostWindow.CSSStyleSheet();
+        const newStyleSheet = new hostWindow.CSSStyleSheet();
         this.styleMirror.add(newStyleSheet, style.styleId);
         // To reuse the code of applying stylesheet rules
         this.applyStyleSheetRule(

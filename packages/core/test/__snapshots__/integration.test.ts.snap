@@ -3456,7 +3456,7 @@ exports[`record integration tests > can record node mutations 1`] = `
                       },
                       {
                         \\"type\\": 3,
-                        \\"textContent\\": \\"\\\\n    In the 3.5 version it use a quite complicated DOM generation strategy which is a good battle-test for dom-replay's recorder.\\\\n  \\",
+                        \\"textContent\\": \\"\\\\n    In the 3.5 version it use a quite complicated DOM generation strategy which is a good battle-test for browser-replay's recorder.\\\\n  \\",
                         \\"id\\": 23
                       }
                     ],
