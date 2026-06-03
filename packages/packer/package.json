@@ -67,7 +67,7 @@
   },
   "dependencies": {
     "@browser-replay/types": "workspace:*",
-    "fflate": "^0.8.2"
+    "fflate": "^0.8.3"
   },
   "browserslist": [
     "supports es6-class"
