@@ -1,73 +1,90 @@
 # Publishing packages
 
-How to publish `@browser-replay/*` to npm and/or GitHub Packages **without entering OTP on every publish**.
+How to publish the `@browser-replay/*` packages to npm.
 
-## Deploy without OTP: use GitHub Actions (recommended)
+> **Heads-up:** Publishing currently runs **locally** from a maintainer's machine via
+> [`scripts/publish-npm-all.sh`](../../scripts/publish-npm-all.sh). There is no CI publish
+> workflow — the GitHub Actions publish workflows were removed. If you want OIDC-based
+> Trusted Publishing from CI, that has to be re-added as a workflow first.
 
-Publishing is done from CI using **npm Trusted Publishing (OIDC)**. No long-lived token and no OTP.
+## What gets published
 
-1. **One-time setup on npm**  
-   For each `@browser-replay/*` package on [npmjs.com](https://www.npmjs.com/org/browser-replay):
-   - Open the package → **Settings** → **Trusted publishing**
-   - Add a trusted publisher: **GitHub Actions**
-   - Workflow filename: `publish-npm.yml`
-   - Repository: `browser-replay/browser-replay`
-   - Save
+Every non-private workspace package under `packages/*` and `packages/plugins/*` — 18
+packages, all scoped `@browser-replay/*` and published with **public** access.
+`@browser-replay/web-extension` is `private: true` and is **not** published (it's the
+demo app, and the publish build skips it).
 
-   You only need to do this once per package (or when you add a new publishable package).  
-   **New packages:** If a package does not exist on npm yet, publish it once with `NPM_TOKEN` and `./publish-all-to-npm.sh`, then add the trusted publisher so future releases use OIDC.
+## Prerequisites
 
-2. **Deploy**
-   - **From a tag:**  
-     Bump versions in the repo, then push a version tag:
+1. **npm org + membership.** The packages are scoped to the `browser-replay` npm org. The
+   org must exist and your npm account must be a member with publish rights. Create it
+   once at [npmjs.com](https://www.npmjs.com/org/create) (free for public packages) if it
+   doesn't exist yet.
 
-     ```bash
-     git tag v0.0.2
-     git push origin v0.0.2
-     ```
+2. **Authenticate without OTP prompts.** The script publishes ~18 packages in a loop;
+   interactive 2FA would prompt for a one-time password on *every* package. Use an
+   **Automation token** (bypasses OTP), stored in `~/.npmrc`:
 
-     The [Publish to npm](https://github.com/browser-replay/browser-replay/actions/workflows/publish-npm.yml) workflow runs and publishes all packages to npm.
-   - **Manual run:**  
-     In GitHub: **Actions** → **Publish to npm** → **Run workflow** (uses version from root `package.json`).
+   ```bash
+   # npmjs.com -> Access Tokens -> Generate New Token -> Automation
+   echo "//registry.npmjs.org/:_authToken=npm_YOUR_TOKEN" >> ~/.npmrc
+   ```
 
-No `NPM_TOKEN` or OTP is required in the workflow; npm authenticates via OIDC.
+   The script verifies `npm whoami` before doing anything.
 
-## Alternative: publish from your machine
+3. **Clean git state on `master`.** The script refuses to run with a dirty working tree or
+   off `master`.
 
-If you need to publish from your machine (e.g. one-off fix):
-
-- **With 2FA enabled:**  
-  Use a [Granular Access Token](https://www.npmjs.com/settings/~/tokens) with **Publish** scope and, if your org allows it, **Bypass two-factor authentication for automation**. Set it as `NPM_TOKEN` and run:
-
-  ```bash
-  NPM_TOKEN=... ./publish-all-to-npm.sh
-  ```
-
-  If npm still asks for OTP, the bypass option may not be available for your account (npm is tightening 2FA).
-
-- **Temporarily disable 2FA:**  
-
-  ```bash
-  npm profile disable-2fa --otp=YOUR_OTP
-  NPM_TOKEN=... ./publish-all-to-npm.sh
-  npm profile enable-2fa auth-and-writes
-  ```
-
-## GitHub Packages
-
-To publish to GitHub Packages (in addition to or instead of npm):
+## Publish
 
 ```bash
-NODE_AUTH_TOKEN=... REGISTRY=https://npm.pkg.github.com ./scripts/publish-gh-packages.sh
+# Preview — builds and packs everything, publishes nothing:
+./scripts/publish-npm-all.sh --dry-run
+
+# For real — builds, publishes all packages in dependency order, then tags the release:
+./scripts/publish-npm-all.sh
 ```
 
-Or use the **Publish (GitHub Packages)** workflow on tag push or manual dispatch (uses secret `DOM_REPLAY_PACKAGES_TOKEN`).
+The script:
+
+- builds the publishable packages (`turbo run prepublish`, excluding the private demo app);
+- publishes each in dependency order with `pnpm publish --access public --no-git-checks`
+  (each package is published at its own `package.json` version);
+- tags the release `v<root package.json version>` and pushes the tag.
+
+### Versioning
+
+Each package is published at the `version` in its own `package.json`; the git tag uses the
+**root** `package.json` version. For a coordinated release keep them in sync (e.g. all at
+`0.0.1` for the first release).
+
+### First publish of a scoped package
+
+A scoped package can only be published once the `browser-replay` org exists and you're a
+member. The script already passes `--access public`, which is required so the first
+publish of each scoped package is public (a scoped package defaults to restricted, which
+fails for accounts without a paid plan).
+
+## Alternative: GitHub Packages
+
+To publish to GitHub Packages instead of / in addition to npm:
+
+```bash
+pnpm publish:gh        # wraps scripts/publish-gh-packages.sh
+pnpm publish:gh:dry    # dry run
+```
+
+[`scripts/publish-gh-packages.sh`](../../scripts/publish-gh-packages.sh) supports
+`--filter`, `--tag`, `--dry-run`, `--bump-version`, `--force`, and more
+(`scripts/publish-gh-packages.sh --help`). Auth via `NODE_AUTH_TOKEN` / `GITHUB_TOKEN`
+with `write:packages`.
+
+> Note: that script's `GITHUB_OWNER` still defaults to the old `dom-replay` owner — pass
+> `GITHUB_OWNER=browser-replay` (or fix the default) when using it.
 
 ## Scripts reference
 
 | Script | Purpose |
-|--------|--------|
-| `./publish-all-to-npm.sh` | Publish all packages to npm (requires `NPM_TOKEN`) |
-| `./scripts/publish-gh-packages.sh` | Publish to npm or GitHub Packages; supports `--filter`, `--bump-version`, `--force` |
-
-See `scripts/publish-gh-packages.sh --help` for full options.
+|--------|---------|
+| `./scripts/publish-npm-all.sh` | Publish all public packages to npm (auth via `~/.npmrc`). `--dry-run` to preview. |
+| `./scripts/publish-gh-packages.sh` | Publish to GitHub Packages (or npm); supports `--filter`, `--bump-version`, `--force`, etc. |
