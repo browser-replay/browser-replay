@@ -11,6 +11,11 @@ updates:
     schedule:
       interval: 'weekly'
     open-pull-requests-limit: 5
+    ignore:
+      # @browser-replay/web-extension is a private demo app (not published) pinned
+      # to Chakra UI v2. We are not migrating to v3, so skip its major-version bumps.
+      - dependency-name: '@chakra-ui/react'
+        update-types: ['version-update:semver-major']
     groups:
       devDependencies:
         dependency-type: 'development'
