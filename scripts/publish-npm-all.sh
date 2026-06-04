@@ -88,8 +88,11 @@ echo ""
 # ---------------------------------------------------------------------------
 # Build
 # ---------------------------------------------------------------------------
-echo "Building all packages..."
-NODE_OPTIONS='--max-old-space-size=4096' pnpm turbo run prepublish
+echo "Building publishable packages..."
+# Build only what we publish. @browser-replay/web-extension is private (never
+# published) and is intentionally excluded so a build failure in the demo app
+# can't abort a real package release.
+NODE_OPTIONS='--max-old-space-size=4096' pnpm turbo run prepublish --filter='!@browser-replay/web-extension'
 echo ""
 
 # ---------------------------------------------------------------------------
