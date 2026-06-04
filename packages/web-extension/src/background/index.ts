@@ -103,6 +103,7 @@ void (async () => {
         .then((tabs) => tabs[0]?.title)
         .catch(() => {
           // ignore error
+          return undefined;
         })) ?? 'new session';
     const newSession = generateSession(title);
     await addSession(newSession, events).catch((e) => {

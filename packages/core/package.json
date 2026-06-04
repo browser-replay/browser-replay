@@ -16,8 +16,8 @@
     "live-stream": "pnpm build && node scripts/stream.js",
     "dev": "vite build --watch",
     "build": "pnpm run prepublish",
-    "check-types": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors present (legacy code, see tsconfig.json TODO); this does not block builds/tests'",
-    "prepublish": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors detected in @browser-replay/core (legacy rrweb codebase \u2014 see TODO + strict:false in tsconfig.json); continuing with Vite build for runtime artifacts and tests' && vite build",
+    "check-types": "tsc -noEmit --pretty",
+    "prepublish": "tsc -noEmit --pretty && vite build",
     "lint": "pnpm eslint src",
     "benchmark": "vitest run --maxConcurrency 1 --no-file-parallelism test/benchmark",
     "test:ci:shard": "vitest run --pool=forks --config vitest.config.ts"
@@ -36,21 +36,22 @@
   "typings": "dist/core.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/core.d.ts",
-      "import": "./dist/core.js",
-      "require": "./dist/core.cjs"
+      "import": {
+        "types": "./dist/core.d.ts",
+        "default": "./dist/core.js"
+      },
+      "require": {
+        "types": "./dist/core.d.cts",
+        "default": "./dist/core.cjs"
+      }
     },
-    "./dist/style.css": {
-      "import": "./dist/style.css",
-      "require": "./dist/style.css",
-      "default": "./dist/style.css"
-    }
+    "./dist/core.css": "./dist/core.css"
   },
   "files": [
     "dist",
     "package.json"
   ],
-  "sideEffects": false,
+  "sideEffects": ["**/*.css"],
   "license": "MIT",
   "devDependencies": {
     "@types/dom-mediacapture-transform": "0.1.11",
@@ -88,9 +89,12 @@
     "access": "public"
   },
   "author": "browser-replay maintainers",
+  "engines": {
+    "node": ">=20"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/browser-replay/browser-replay.git",
+    "url": "git+https://github.com/browser-replay/browser-replay.git",
     "directory": "packages/core"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",

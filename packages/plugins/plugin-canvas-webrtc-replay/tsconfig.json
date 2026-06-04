@@ -9,6 +9,8 @@
   "compilerOptions": {
     "rootDir": "src",
     "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
+    // For the experimental MediaStreamTrackProcessor global; not auto-included.
+    "types": ["dom-mediacapture-transform"],
     // Legacy — disable strict flags from base.
     "strict": false,
     "exactOptionalPropertyTypes": false,

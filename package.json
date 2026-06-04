@@ -20,16 +20,16 @@
     "packages/plugins/*"
   ],
   "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.3",
+    "@eslint/js": "^10.0.1",
     "@monorepo-utils/workspaces-to-typescript-project-references": "^2.8.2",
     "@types/dom-mediacapture-transform": "0.1.11",
     "@types/offscreencanvas": "^2019.6.4",
-    "typescript-eslint": "^8.29.0",
     "browserslist": "^4.28.2",
     "concurrently": "^10.0.0",
     "cross-env": "^10.1.0",
     "esbuild": "^0.28.0",
     "esbuild-plugin-umd-wrapper": "^3.0.0",
-    "@eslint/js": "^10.0.1",
     "eslint": "^10.4.1",
     "eslint-plugin-compat": "^7.0.2",
     "eslint-plugin-jest": "^29.15.2",
@@ -40,12 +40,14 @@
     "markdownlint": "^0.40.0",
     "markdownlint-cli": "0.48.0",
     "prettier": "3.8.3",
+    "publint": "^0.3.21",
     "rollup-plugin-visualizer": "^7.0.1",
     "turbo": "^2.9.16",
-    "typescript": "6.0.3"
+    "typescript": "6.0.3",
+    "typescript-eslint": "^8.29.0"
   },
   "scripts": {
-    "build:all": "NODE_OPTIONS='--max-old-space-size=4096' pnpm turbo run prepublish || echo '⚠️  Some legacy build/type issues in packages (non-blocking for CI).'",
+    "build:all": "NODE_OPTIONS='--max-old-space-size=4096' pnpm turbo run prepublish",
     "pack:local": "bash scripts/pack-local-dev.sh",
     "publish:gh": "bash scripts/publish-gh-packages.sh",
     "publish:gh:dry": "bash scripts/publish-gh-packages.sh --dry-run",
@@ -55,7 +57,9 @@
     "test:core:safe": "cd packages/core && pnpm build && cross-env PUPPETEER_HEADLESS=true pnpm exec vitest run --pool=forks --maxWorkers=1 --exclude test/benchmark",
     "test:watch": "pnpm turbo run test:watch",
     "test:update": "pnpm turbo run test:update",
-    "check-types": "pnpm turbo run check-types --continue || echo '⚠️  Some legacy type errors remain (non-blocking). See individual package warnings.'",
+    "check-types": "pnpm turbo run check-types --continue",
+    "lint:publint": "pnpm --filter '@browser-replay/*' --filter '!@browser-replay/web-extension' exec publint --strict",
+    "lint:attw": "pnpm --filter '@browser-replay/*' --filter '!@browser-replay/web-extension' exec attw --pack . --format table",
     "format": "pnpm prettier --write '**/*.{ts,md}'",
     "format:check": "pnpm prettier --check '**/*.{ts,md}'",
     "format:head": "git diff --name-only HEAD^ |grep '\\.ts$\\|\\.md$' |xargs pnpm prettier --write",
@@ -103,7 +107,7 @@
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/browser-replay/browser-replay.git"
+    "url": "git+https://github.com/browser-replay/browser-replay.git"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",
   "homepage": "https://github.com/browser-replay/browser-replay#readme"

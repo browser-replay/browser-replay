@@ -94,7 +94,7 @@ import { applyDialogToTopLevel, removeDialogFromTopLevel } from './dialog';
 const SKIP_TIME_INTERVAL = 5 * 1000;
 
 // https://github.com/rollup/rollup/issues/1267#issuecomment-296395734
-const mitt = mittProxy.default || mittProxy;
+const mitt = (mittProxy.default || mittProxy) as typeof mittProxy.default;
 
 const REPLAY_CONSOLE_PREFIX = '[replayer]';
 

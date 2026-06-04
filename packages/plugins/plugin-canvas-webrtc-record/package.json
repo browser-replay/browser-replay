@@ -26,8 +26,8 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "pnpm run prepublish",
-    "check-types": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors (legacy plugin); continuing'",
-    "prepublish": "tsc -noEmit || echo '\u26a0\ufe0f  Type errors present; running Vite build' && vite build"
+    "check-types": "tsc -noEmit --pretty",
+    "prepublish": "tsc -noEmit && vite build"
   },
   "keywords": [
     "browser-replay"
@@ -51,9 +51,13 @@
     "access": "public"
   },
   "author": "browser-replay maintainers",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/browser-replay/browser-replay.git",
+    "url": "git+https://github.com/browser-replay/browser-replay.git",
     "directory": "packages/plugins/plugin-canvas-webrtc-record"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",

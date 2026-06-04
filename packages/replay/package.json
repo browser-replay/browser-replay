@@ -10,8 +10,8 @@
     "build": "pnpm run prepublish",
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "check-types": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors in @browser-replay/replay (legacy code); continuing'",
-    "prepublish": "tsc -noEmit || echo '\u26a0\ufe0f  Type errors present (see tsconfig.json); running Vite build' && vite build || echo '\u26a0\ufe0f  Vite build encountered workspace resolution issues (known after modernization + exports map changes). Package build may be incomplete but tests can continue.'",
+    "check-types": "tsc -noEmit --pretty",
+    "prepublish": "tsc -noEmit && vite build",
     "lint": "pnpm eslint src/**/*.ts"
   },
   "license": "MIT",
@@ -30,8 +30,7 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/replay.cjs"
       }
-    },
-    "./dist/style.css": "./dist/style.css"
+    }
   },
   "files": [
     "dist",
@@ -56,9 +55,13 @@
     "access": "public"
   },
   "author": "browser-replay maintainers",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/browser-replay/browser-replay.git",
+    "url": "git+https://github.com/browser-replay/browser-replay.git",
     "directory": "packages/replay"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",

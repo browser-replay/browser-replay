@@ -20,10 +20,14 @@
   "typings": "dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/types.js",
-      "require": "./dist/types.cjs",
-      "default": "./dist/types.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/types.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/types.cjs"
+      }
     }
   },
   "files": [
@@ -46,9 +50,13 @@
     "access": "public"
   },
   "author": "browser-replay maintainers",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/browser-replay/browser-replay.git",
+    "url": "git+https://github.com/browser-replay/browser-replay.git",
     "directory": "packages/types"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",

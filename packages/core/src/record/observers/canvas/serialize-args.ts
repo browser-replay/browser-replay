@@ -47,7 +47,7 @@ export function serializeArg(
   if (value instanceof Array) {
     return value.map((arg) => serializeArg(arg, win, ctx));
   } else if (value === null) {
-    return value;
+    return null;
   } else if (
     value instanceof Float32Array ||
     value instanceof Float64Array ||

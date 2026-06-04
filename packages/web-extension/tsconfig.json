@@ -2,7 +2,6 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": ".",
-    "baseUrl": ".",
     "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
     "esModuleInterop": true,
     // Legacy code — disable strict flags from base.
@@ -15,7 +14,7 @@
     "resolveJsonModule": true,
     "paths": {
       "~/*": [
-        "src/*"
+        "./src/*"
       ]
     },
     "jsx": "react-jsx"

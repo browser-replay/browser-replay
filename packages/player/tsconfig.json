@@ -8,6 +8,8 @@
     "rootDir": "src",
     "tsBuildInfoFile": "./tsconfig.tsbuildinfo",
     "jsx": "react-jsx",
+    // Don't remove baseUrl — paths→source resolution needs it (else TS6305).
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@browser-replay/player-core": [

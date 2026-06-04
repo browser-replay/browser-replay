@@ -130,6 +130,15 @@ jobs:
           TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
           TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 
+      - name: Validate package exports (publint)
+        run: pnpm lint:publint
+
+      - name: Validate type resolution (attw)
+        # Advisory until the .d.ts bundling (rollupTypes) emits self-contained
+        # declarations; tracked separately. Flip to blocking once attw is green.
+        run: pnpm lint:attw
+        continue-on-error: true
+
       - name: Bundle Size Report
         # Non-blocking for now while we establish baselines after the snapshot boundary work.
         run: pnpm size

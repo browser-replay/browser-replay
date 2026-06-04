@@ -206,6 +206,12 @@ fi
 if [[ "${DRY_RUN}" == "1" ]]; then
   PUBLISH_ARGS+=(--dry-run)
 fi
+# Opt-in npm provenance. Requires publishing to npmjs.com from CI with OIDC
+# (GitHub Actions `permissions: id-token: write`); not supported for manual/local
+# or GitHub Packages publishing. Off by default.
+if [[ "${PROVENANCE:-}" == "1" || "${PROVENANCE:-}" == "true" ]]; then
+  PUBLISH_ARGS+=(--provenance)
+fi
 
 # Replace workspace:* dependencies with published versions for publishing
 prepare_package_for_publish() {

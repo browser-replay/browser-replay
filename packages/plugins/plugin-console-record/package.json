@@ -54,9 +54,13 @@
     "access": "public"
   },
   "author": "browser-replay maintainers",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/browser-replay/browser-replay.git",
+    "url": "git+https://github.com/browser-replay/browser-replay.git",
     "directory": "packages/plugins/plugin-console-record"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",

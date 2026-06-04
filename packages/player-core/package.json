@@ -28,8 +28,8 @@
     "build": "pnpm run prepublish",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest watch",
-    "check-types": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors in @browser-replay/player-core (legacy); continuing'",
-    "prepublish": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors (legacy); continuing with Vite build' && vite build",
+    "check-types": "tsc -noEmit --pretty",
+    "prepublish": "tsc -noEmit --pretty && vite build",
     "lint": "pnpm eslint 'src/**/*.{ts,tsx}'"
   },
   "dependencies": {
@@ -52,9 +52,13 @@
     "access": "public"
   },
   "author": "browser-replay maintainers",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/browser-replay/browser-replay.git",
+    "url": "git+https://github.com/browser-replay/browser-replay.git",
     "directory": "packages/player-core"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",
