@@ -13,6 +13,10 @@ export default defineConfig({
       },
       name: 'browserReplayPlayer',
       formats: ['es', 'cjs'],
+      // Emit the bundled stylesheet as dist/style.css to match the public
+      // `./dist/style.css` export (otherwise Vite names it after the entry key
+      // -> dist/player.css, which the exports map doesn't expose).
+      cssFileName: 'style',
     },
     outDir: 'dist',
     emptyOutDir: !process.argv.includes('--watch'),

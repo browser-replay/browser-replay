@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { BrowserReplayPlayer } from '@browser-replay/player';
-import '@browser-replay/player/dist/player.css';
+import '@browser-replay/player/dist/style.css';
 import {
   Breadcrumb,
   BreadcrumbItem,
