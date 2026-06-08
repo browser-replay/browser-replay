@@ -202,7 +202,11 @@ fi
 # Access level is taken from each package's `publishConfig.access` (all public),
 # so we don't force `--access` here. Forcing `restricted` would fail for public
 # scoped packages on npmjs.com.
-PUBLISH_ARGS=(--no-git-checks)
+# `--ignore-scripts`: the artifacts are already built and validated above by
+# `pnpm build:all` (which runs tsdown + publint + are-the-types-wrong per
+# package). Without this, `pnpm publish` re-runs each package's `prepublish`
+# script, triggering a redundant rebuild and a nested pack that fails.
+PUBLISH_ARGS=(--no-git-checks --ignore-scripts)
 if [[ -n "${TAG}" ]]; then
   PUBLISH_ARGS+=(--tag "${TAG}")
 fi
