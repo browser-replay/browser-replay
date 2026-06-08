@@ -20,10 +20,10 @@
   },
   "references": [
     {
-      "path": "../../core"
+      "path": "../plugin-sequential-id-record"
     },
     {
-      "path": "../plugin-sequential-id-record"
+      "path": "../../core"
     },
     {
       "path": "../../types"

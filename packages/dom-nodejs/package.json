@@ -2,12 +2,12 @@
   "name": "@browser-replay/dom-nodejs",
   "version": "0.0.1",
   "scripts": {
-    "dev": "vite build --watch",
+    "dev": "tsdown --watch",
     "build": "pnpm run prepublish",
-    "check-types": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors in @browser-replay/dom-nodejs (legacy); continuing'",
+    "check-types": "tsc -noEmit --pretty",
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "prepublish": "tsc -noEmit || echo '\u26a0\ufe0f  Type errors present; running Vite build' && vite build",
+    "prepublish": "tsc -noEmit && tsdown",
     "lint": "pnpm eslint src/**/*.ts"
   },
   "keywords": [
@@ -17,19 +17,18 @@
   ],
   "license": "MIT",
   "type": "module",
-  "main": "./dist/dom-nodejs.umd.cjs",
-  "module": "./dist/dom-nodejs.js",
-  "unpkg": "./dist/dom-nodejs.umd.cjs",
-  "typings": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/dom-nodejs.js"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
       "require": {
         "types": "./dist/index.d.cts",
-        "default": "./dist/dom-nodejs.umd.cjs"
+        "default": "./dist/index.cjs"
       }
     }
   },
@@ -61,9 +60,13 @@
     "access": "public"
   },
   "author": "browser-replay maintainers",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/browser-replay/browser-replay.git",
+    "url": "git+https://github.com/browser-replay/browser-replay.git",
     "directory": "packages/dom-nodejs"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",

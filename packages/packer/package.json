@@ -6,35 +6,34 @@
     "@browser-replay/packer"
   ],
   "scripts": {
-    "dev": "vite build --watch",
+    "dev": "tsdown --watch",
     "build": "pnpm run prepublish",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "check-types": "tsc -noEmit",
-    "prepublish": "tsc -noEmit && vite build",
+    "prepublish": "tsc -noEmit && tsdown",
     "lint": "pnpm eslint src/**/*.ts"
   },
   "license": "MIT",
   "type": "module",
-  "main": "./dist/packer.cjs",
-  "module": "./dist/packer.js",
-  "unpkg": "./dist/packer.js",
-  "typings": "dist/packer.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/packer.d.ts",
-        "default": "./dist/packer.js"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/packer.d.cts",
-        "default": "./dist/packer.cjs"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     },
     "./pack": {
       "import": {
-        "types": "./dist/pack.d.ts",
-        "default": "./dist/pack.js"
+        "types": "./dist/pack.d.mts",
+        "default": "./dist/pack.mjs"
       },
       "require": {
         "types": "./dist/pack.d.cts",
@@ -43,8 +42,8 @@
     },
     "./unpack": {
       "import": {
-        "types": "./dist/unpack.d.ts",
-        "default": "./dist/unpack.js"
+        "types": "./dist/unpack.d.mts",
+        "default": "./dist/unpack.mjs"
       },
       "require": {
         "types": "./dist/unpack.d.cts",
@@ -53,9 +52,6 @@
     }
   },
   "files": [
-    "pack",
-    "unpack",
-    "build",
     "dist",
     "package.json"
   ],
@@ -77,9 +73,13 @@
     "access": "public"
   },
   "author": "browser-replay maintainers",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/browser-replay/browser-replay.git",
+    "url": "git+https://github.com/browser-replay/browser-replay.git",
     "directory": "packages/packer"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",

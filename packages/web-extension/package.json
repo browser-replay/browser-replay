@@ -13,7 +13,7 @@
     "build:firefox": "cross-env TARGET_BROWSER=firefox vite build",
     "pack:chrome": "cross-env TARGET_BROWSER=chrome ZIP=true vite build",
     "pack:firefox": "cross-env TARGET_BROWSER=firefox ZIP=true vite build",
-    "check-types": "tsc -noEmit --pretty || echo '⚠️  Type errors in web-extension (legacy); continuing'",
+    "check-types": "tsc -noEmit --pretty",
     "build": "npm run pack:chrome && npm run pack:firefox",
     "prepublish": "pnpm build"
   },

@@ -6,24 +6,27 @@
     "@browser-replay/types"
   ],
   "scripts": {
-    "dev": "vite build --watch",
+    "dev": "tsdown --watch",
     "build": "pnpm run prepublish",
     "check-types": "tsc -noEmit",
-    "prepublish": "tsc -noEmit && vite build",
+    "prepublish": "tsdown",
     "lint": "pnpm eslint src/**/*.ts"
   },
   "license": "MIT",
   "type": "module",
-  "main": "./dist/types.umd.cjs",
-  "module": "./dist/types.js",
-  "unpkg": "./dist/types.umd.cjs",
-  "typings": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/types.js",
-      "require": "./dist/types.cjs",
-      "default": "./dist/types.js"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "files": [
@@ -46,9 +49,13 @@
     "access": "public"
   },
   "author": "browser-replay maintainers",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/browser-replay/browser-replay.git",
+    "url": "git+https://github.com/browser-replay/browser-replay.git",
     "directory": "packages/types"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",

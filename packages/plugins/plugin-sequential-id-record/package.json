@@ -3,19 +3,18 @@
   "version": "0.0.1",
   "description": "browser-replay plugin for sequential node IDs during recording",
   "type": "module",
-  "main": "./dist/plugin-sequential-id-record.umd.cjs",
-  "module": "./dist/plugin-sequential-id-record.js",
-  "unpkg": "./dist/plugin-sequential-id-record.umd.cjs",
-  "typings": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/plugin-sequential-id-record.js"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
       "require": {
         "types": "./dist/index.d.cts",
-        "default": "./dist/plugin-sequential-id-record.cjs"
+        "default": "./dist/index.cjs"
       }
     }
   },
@@ -24,10 +23,10 @@
     "package.json"
   ],
   "scripts": {
-    "dev": "vite build --watch",
+    "dev": "tsdown --watch",
     "build": "pnpm run prepublish",
-    "check-types": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors (legacy plugin); continuing'",
-    "prepublish": "tsc -noEmit || echo '\u26a0\ufe0f  Type errors present; running Vite build' && vite build"
+    "check-types": "tsc -noEmit --pretty",
+    "prepublish": "tsc -noEmit && tsdown"
   },
   "keywords": [
     "browser-replay"
@@ -41,16 +40,21 @@
     "vite-plugin-dts": "^5.0.0"
   },
   "peerDependencies": {
-    "@browser-replay/core": "workspace:*"
+    "@browser-replay/core": "workspace:^",
+    "@browser-replay/types": "workspace:^"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "author": "browser-replay maintainers",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/browser-replay/browser-replay.git",
+    "url": "git+https://github.com/browser-replay/browser-replay.git",
     "directory": "packages/plugins/plugin-sequential-id-record"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",

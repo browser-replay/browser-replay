@@ -154,6 +154,7 @@ export default function (
   plugins?: Plugin[];
   /** Use "named" to fix mixed default+named export warning in libs like utils */
   outputExports?: 'default' | 'named' | 'none' | 'auto';
+  external?: (string | RegExp)[];
 },
 ) {
   const {
@@ -161,6 +162,7 @@ export default function (
     outputDir: outDir = 'dist',
     plugins = [],
     outputExports,
+    external,
   } = options || {};
 
   let formats: LibraryFormats[] = ['es', 'cjs'];
@@ -189,7 +191,7 @@ export default function (
       sourcemap: true,
 
       rollupOptions: {
-        maxParallelFileOps: 32,
+        ...(external != null && { external }),
         ...(outputExports != null && {
           output: { exports: outputExports },
         }),
@@ -198,8 +200,6 @@ export default function (
     plugins: [
       dts({
         insertTypesEntry: true,
-        rollupTypes: true,
-        skipDiagnostics: true,
         afterBuild: (emittedFiles: Map<string, string>) => {
           // To pass publint (`npm x publint@latest`) and ensure the
           // package is supported by all consumers, we must export types that are

@@ -3,19 +3,18 @@
   "version": "0.0.1",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/dom.cjs",
-  "module": "./dist/dom.js",
-  "unpkg": "./dist/dom.umd.cjs",
-  "types": "./dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/dom.js"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
       "require": {
         "types": "./dist/index.d.cts",
-        "default": "./dist/dom.cjs"
+        "default": "./dist/index.cjs"
       }
     }
   },
@@ -24,16 +23,15 @@
     "package.json"
   ],
   "scripts": {
-    "dev": "vite build --watch",
+    "dev": "tsdown --watch",
     "build": "pnpm run prepublish",
-    "check-types": "tsc -noEmit --pretty || echo '\u26a0\ufe0f  Type errors in @browser-replay/dom (legacy code); continuing'",
+    "check-types": "tsc -noEmit --pretty",
     "test": "vitest run",
     "test:watch": "vitest",
-    "prepublish": "tsc -noEmit || echo '\u26a0\ufe0f  Type errors present (see tsconfig.json); running Vite build' && vite build",
+    "prepublish": "tsc -noEmit && tsdown",
     "lint": "pnpm eslint src/**/*.ts"
   },
   "devDependencies": {
-    "@browser-replay/types": "workspace:*",
     "jsdom": "^29.1.1",
     "puppeteer": "^25.1.0",
     "typescript": "6.0.3",
@@ -42,16 +40,21 @@
     "vitest": "^4.1.7"
   },
   "dependencies": {
-    "@browser-replay/snapshot": "workspace:*"
+    "@browser-replay/snapshot": "workspace:*",
+    "@browser-replay/types": "workspace:*"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "author": "browser-replay maintainers",
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/browser-replay/browser-replay.git",
+    "url": "git+https://github.com/browser-replay/browser-replay.git",
     "directory": "packages/dom"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",

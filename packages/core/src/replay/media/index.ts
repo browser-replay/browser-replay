@@ -98,7 +98,7 @@ export class MediaManager {
       if (
         target.loop &&
         // RRMediaElement doesn't have a duration property
-        duration !== false
+        typeof duration === 'number'
       ) {
         seekToTime = seekToTime % duration;
       }
