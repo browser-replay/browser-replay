@@ -2,12 +2,12 @@
   "name": "@browser-replay/dom-nodejs",
   "version": "0.0.1",
   "scripts": {
-    "dev": "vite build --watch",
+    "dev": "tsdown --watch",
     "build": "pnpm run prepublish",
     "check-types": "tsc -noEmit --pretty",
     "test": "vitest run",
     "test:watch": "vitest watch",
-    "prepublish": "tsc -noEmit && vite build",
+    "prepublish": "tsc -noEmit && tsdown",
     "lint": "pnpm eslint src/**/*.ts"
   },
   "keywords": [
@@ -17,19 +17,18 @@
   ],
   "license": "MIT",
   "type": "module",
-  "main": "./dist/dom-nodejs.umd.cjs",
-  "module": "./dist/dom-nodejs.js",
-  "unpkg": "./dist/dom-nodejs.umd.cjs",
-  "typings": "dist/index.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/index.d.ts",
-        "default": "./dist/dom-nodejs.js"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
       "require": {
         "types": "./dist/index.d.cts",
-        "default": "./dist/dom-nodejs.umd.cjs"
+        "default": "./dist/index.cjs"
       }
     }
   },

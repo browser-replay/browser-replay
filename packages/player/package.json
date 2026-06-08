@@ -4,24 +4,24 @@
   "description": "React wrapper around @browser-replay/player-core.",
   "license": "MIT",
   "type": "module",
-  "main": "./dist/player.cjs",
-  "module": "./dist/player.js",
-  "typings": "./dist/player.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/player.d.ts",
-        "default": "./dist/player.js"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/player.d.cts",
-        "default": "./dist/player.cjs"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     },
     "./headless": {
       "import": {
-        "types": "./dist/headless.d.ts",
-        "default": "./dist/headless.js"
+        "types": "./dist/headless.d.mts",
+        "default": "./dist/headless.mjs"
       },
       "require": {
         "types": "./dist/headless.d.cts",
@@ -36,13 +36,13 @@
   ],
   "sideEffects": ["**/*.css"],
   "scripts": {
-    "dev": "vite build --watch",
+    "dev": "tsdown --watch",
     "build": "pnpm run prepublish",
     "start": "vite --config demo/vite.config.ts",
     "test": "vitest run --passWithNoTests",
     "test:watch": "vitest watch",
     "check-types": "tsc -p tsconfig.build.json --noEmit --pretty",
-    "prepublish": "tsc -p tsconfig.build.json --noEmit --pretty && vite build",
+    "prepublish": "tsc -p tsconfig.build.json --noEmit --pretty && tsdown",
     "lint": "pnpm eslint 'src/**/*.{ts,tsx}'"
   },
   "peerDependencies": {

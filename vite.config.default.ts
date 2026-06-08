@@ -200,8 +200,6 @@ export default function (
     plugins: [
       dts({
         insertTypesEntry: true,
-        rollupTypes: true,
-        skipDiagnostics: true,
         afterBuild: (emittedFiles: Map<string, string>) => {
           // To pass publint (`npm x publint@latest`) and ensure the
           // package is supported by all consumers, we must export types that are

@@ -31,7 +31,7 @@ Options:
 Auth:
   For GitHub Packages: NODE_AUTH_TOKEN or GITHUB_TOKEN (write:packages)
   For npmjs.com: NPM_TOKEN or standard npm login
-  Optional: REGISTRY (default: npmjs.com), GITHUB_OWNER (default: dom-replay)
+  Optional: REGISTRY (default: npmjs.com), GITHUB_OWNER (default: browser-replay)
 
   Tip: To skip 2FA entirely in CI, create an npm automation token:
     npm token create --type=automation
@@ -42,15 +42,15 @@ Examples:
   NPM_TOKEN=... scripts/publish-gh-packages.sh --otp 123456
   NODE_AUTH_TOKEN=... REGISTRY=https://npm.pkg.github.com scripts/publish-gh-packages.sh --force
   scripts/publish-gh-packages.sh --bump-version --skip-install --skip-build
-  scripts/publish-gh-packages.sh --filter @dom-replay/core
+  scripts/publish-gh-packages.sh --filter @browser-replay/core
 EOF
 }
 
-SCOPE='@dom-replay'
+SCOPE='@browser-replay'
 REGISTRY="${REGISTRY:-https://registry.npmjs.org/}"
-GITHUB_OWNER="${GITHUB_OWNER:-dom-replay}"
-# Repository for package lookup (e.g. dom-replay/dom-replay). Used when org/user APIs return 404.
-GITHUB_REPO="${GITHUB_REPO:-dom-replay/dom-replay}"
+GITHUB_OWNER="${GITHUB_OWNER:-browser-replay}"
+# Repository for package lookup (e.g. browser-replay/browser-replay). Used when org/user APIs return 404.
+GITHUB_REPO="${GITHUB_REPO:-browser-replay/browser-replay}"
 SKIP_INSTALL='0'
 SKIP_BUILD='0'
 DRY_RUN='0'
@@ -199,7 +199,10 @@ if [[ "${SKIP_BUILD}" != "1" ]]; then
   pnpm build:all
 fi
 
-PUBLISH_ARGS=(--access restricted --no-git-checks)
+# Access level is taken from each package's `publishConfig.access` (all public),
+# so we don't force `--access` here. Forcing `restricted` would fail for public
+# scoped packages on npmjs.com.
+PUBLISH_ARGS=(--no-git-checks)
 if [[ -n "${TAG}" ]]; then
   PUBLISH_ARGS+=(--tag "${TAG}")
 fi
@@ -212,16 +215,6 @@ fi
 if [[ "${PROVENANCE:-}" == "1" || "${PROVENANCE:-}" == "true" ]]; then
   PUBLISH_ARGS+=(--provenance)
 fi
-
-# Replace workspace:* dependencies with published versions for publishing
-prepare_package_for_publish() {
-  local pkg_json="$1"
-  # Get the current version from package.json
-  local current_version
-  current_version=$(node -e "console.log(JSON.parse(require('fs').readFileSync(process.argv[1],'utf8')).version)" "$pkg_json" 2>/dev/null) || current_version="0.0.2"
-  # Replace workspace:* with ^${current_version} in dependencies (but not devDependencies)
-  sed -i "/\"dependencies\": {/,/},/ { s/\"workspace:\*\"/\"^${current_version}\"/g; }" "$pkg_json"
-}
 
 # Delete a package version from GitHub Packages (so we can republish).
 # Requires token with delete:packages. Uses org API for scoped packages.
@@ -382,10 +375,9 @@ publish_one() {
   grep -q '"private": *true' "${dir}/package.json" 2>/dev/null && return 0
   grep -q '"publishConfig"' "${dir}/package.json" 2>/dev/null || return 0
 
-  # Temporarily modify package.json for publishing (replace workspace:* with published versions)
-  local original_content
-  original_content=$(cat "${dir}/package.json")
-  prepare_package_for_publish "${dir}/package.json"
+  # NOTE: `workspace:*` / `workspace:^` dependencies are replaced with the
+  # resolved published versions automatically by `pnpm publish`; no manual
+  # rewriting of package.json is needed.
 
   if [[ "${DELETE_EXISTING}" == "1" ]]; then
     # Only attempt deletion for GitHub Packages, not npmjs.com
@@ -413,9 +405,6 @@ publish_one() {
 
   echo "Publishing ${dir##*/} ..." >&2
   publish_with_otp "${dir}"
-
-  # Restore original package.json
-  echo "${original_content}" > "${dir}/package.json"
 }
 
 FAILED=0

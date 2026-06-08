@@ -14,10 +14,10 @@
     "retest:update": "cross-env PUPPETEER_HEADLESS=true pnpm retest --update",
     "repl": "pnpm build && node scripts/repl.js",
     "live-stream": "pnpm build && node scripts/stream.js",
-    "dev": "vite build --watch",
+    "dev": "tsdown --watch",
     "build": "pnpm run prepublish",
     "check-types": "tsc -noEmit --pretty",
-    "prepublish": "tsc -noEmit --pretty && vite build",
+    "prepublish": "tsc -noEmit --pretty && tsdown",
     "lint": "pnpm eslint src",
     "benchmark": "vitest run --maxConcurrency 1 --no-file-parallelism test/benchmark",
     "test:ci:shard": "vitest run --pool=forks --config vitest.config.ts"
@@ -30,22 +30,21 @@
     "replay",
     "dom"
   ],
-  "main": "./dist/core.umd.cjs",
-  "module": "./dist/core.js",
-  "unpkg": "./dist/core.umd.cjs",
-  "typings": "dist/core.d.ts",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
   "exports": {
     ".": {
       "import": {
-        "types": "./dist/core.d.ts",
-        "default": "./dist/core.js"
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
       },
       "require": {
-        "types": "./dist/core.d.cts",
-        "default": "./dist/core.cjs"
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
       }
     },
-    "./dist/core.css": "./dist/core.css"
+    "./dist/style.css": "./dist/style.css"
   },
   "files": [
     "dist",

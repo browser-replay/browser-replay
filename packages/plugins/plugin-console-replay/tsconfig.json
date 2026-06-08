@@ -20,10 +20,10 @@
   },
   "references": [
     {
-      "path": "../../core"
+      "path": "../plugin-console-record"
     },
     {
-      "path": "../plugin-console-record"
+      "path": "../../core"
     },
     {
       "path": "../../types"
