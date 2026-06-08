@@ -3,6 +3,7 @@
   "globalDependencies": [
     ".prettierrc",
     "vite.config.default.ts",
+    "tsdown.config.base.mjs",
     "tsconfig.json",
     "eslint.config.mjs"
   ],

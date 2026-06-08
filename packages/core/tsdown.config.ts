@@ -1,15 +1,22 @@
 import { defineConfig } from 'tsdown';
 import { rolldown } from 'rolldown';
 import type { Plugin } from 'rolldown';
-import { baseConfig } from '../../tsdown.config.base.mjs';
+import { baseConfig, umdBundleConfig } from '../../tsdown.config.base.mjs';
 
 const WORKER_SUFFIX = '?worker&inline';
 
 /**
  * Replicates Vite's `?worker&inline` import: the referenced module is bundled
  * into a single self-contained classic worker script, inlined as base64, and
- * exposed as a `Worker` subclass. This keeps the published package fully
- * self-contained (no separate worker chunk to resolve at runtime).
+ * exposed as a newable factory that constructs a `Worker` from a Blob URL. This
+ * keeps the published package fully self-contained (no separate worker chunk to
+ * resolve at runtime).
+ *
+ * The factory is a plain function (not a `class … extends Worker`) so the
+ * `Worker` global is only referenced when a worker is actually instantiated.
+ * A static `extends Worker` would evaluate `Worker` at module-load time and
+ * throw `ReferenceError: Worker is not defined` in non-DOM environments (Node,
+ * jsdom) the moment `@browser-replay/core` is imported — even transitively.
  */
 function inlineWorkerPlugin(): Plugin {
   return {
@@ -44,25 +51,36 @@ function __decodeWorker(b64) {
   for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
   return bytes;
 }
-export default class InlineWorker extends Worker {
-  constructor(options) {
-    const blob = new Blob([__decodeWorker(__workerCode)], {
-      type: 'application/javascript',
-    });
-    const url = URL.createObjectURL(blob);
-    super(url, options);
-    URL.revokeObjectURL(url);
-  }
+export default function InlineWorker(options) {
+  const blob = new Blob([__decodeWorker(__workerCode)], {
+    type: 'application/javascript',
+  });
+  const url = URL.createObjectURL(blob);
+  const worker = new Worker(url, options);
+  URL.revokeObjectURL(url);
+  return worker;
 }
 `;
     },
   };
 }
 
-export default defineConfig({
-  ...baseConfig,
-  entry: ['src/index.ts'],
-  plugins: [inlineWorkerPlugin()],
-  // `./dist/style.css` is a stylesheet, not a JS/types entrypoint.
-  attw: { profile: 'node16', entrypoints: ['.'] },
-});
+export default defineConfig([
+  // Published dual ESM + CJS build with matching types.
+  {
+    ...baseConfig,
+    entry: ['src/index.ts'],
+    plugins: [inlineWorkerPlugin()],
+    // `./dist/style.css` is a stylesheet, not a JS/types entrypoint.
+    attw: { profile: 'node16', entrypoints: ['.'] },
+  },
+
+  // Self-contained UMD bundle injected into a page by the Puppeteer
+  // record/replay test harnesses (global `window.browserReplay`). Needs the
+  // same inline-worker plugin so the canvas worker is embedded.
+  umdBundleConfig({
+    globalName: 'browserReplay',
+    fileName: 'core.umd.cjs',
+    plugins: [inlineWorkerPlugin()],
+  }),
+]);
