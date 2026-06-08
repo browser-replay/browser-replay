@@ -27,7 +27,7 @@
     "@types/dom-mediacapture-transform": "0.1.11",
     "@types/offscreencanvas": "^2019.6.4",
     "browserslist": "^4.28.2",
-    "concurrently": "^10.0.0",
+    "concurrently": "^10.0.3",
     "cross-env": "^10.1.0",
     "esbuild": "^0.28.0",
     "esbuild-plugin-umd-wrapper": "^3.0.0",
@@ -37,7 +37,7 @@
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-tsdoc": "^0.5.2",
     "globals": "^17.6.0",
-    "happy-dom": "^20.8.9",
+    "happy-dom": "^20.10.2",
     "markdownlint": "^0.40.0",
     "markdownlint-cli": "0.48.0",
     "prettier": "3.8.3",
@@ -47,7 +47,7 @@
     "tsdown": "^0.22.2",
     "turbo": "^2.9.16",
     "typescript": "6.0.3",
-    "typescript-eslint": "^8.29.0"
+    "typescript-eslint": "^8.61.0"
   },
   "scripts": {
     "build:all": "NODE_OPTIONS='--max-old-space-size=4096' pnpm turbo run prepublish",
@@ -94,7 +94,7 @@
       "lodash": "^4.18.0",
       "basic-ftp": "^5.3.1",
       "fast-uri": "^3.1.2",
-      "happy-dom": "^20.8.9",
+      "happy-dom": "^20.10.2",
       "picomatch": "^4.0.4",
       "@sveltejs/kit": "^2.5.27"
     },
