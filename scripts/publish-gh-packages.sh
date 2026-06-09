@@ -30,8 +30,13 @@ Options:
 
 Auth:
   For GitHub Packages: NODE_AUTH_TOKEN or GITHUB_TOKEN (write:packages)
-  For npmjs.com: NPM_TOKEN or standard npm login
+  For npmjs.com: NPM_TOKEN, or an Automation/Publish token in ~/.npmrc
   Optional: REGISTRY (default: npmjs.com), GITHUB_OWNER (default: browser-replay)
+
+  npmjs.com: if NPM_TOKEN is unset, the script reads
+  //registry.npmjs.org/:_authToken from ~/.npmrc (npm config get cannot
+  retrieve protected tokens). Store your token there:
+    echo "//registry.npmjs.org/:_authToken=npm_YOUR_TOKEN" >> ~/.npmrc
 
   Tip: To skip 2FA entirely in CI, create an npm automation token:
     npm token create --type=automation
@@ -129,6 +134,17 @@ if [[ -z "${ROOT_DIR}" ]]; then
   exit 1
 fi
 
+# Read //registry.npmjs.org/:_authToken from an npmrc file. `npm config get` cannot
+# return protected auth tokens, so callers with a token only in ~/.npmrc need this.
+read_npmjs_auth_token_from_npmrc() {
+  local npmrc="${1:-${HOME}/.npmrc}"
+  [[ -f "${npmrc}" ]] || return 1
+  grep -E '^//registry\.npmjs\.org/:_authToken=' "${npmrc}" 2>/dev/null \
+    | tail -1 \
+    | cut -d= -f2- \
+    | tr -d '[:space:]'
+}
+
 # Set authentication based on registry
 if [[ "${REGISTRY}" == "https://npm.pkg.github.com" ]]; then
   TOKEN="${NODE_AUTH_TOKEN:-${GITHUB_TOKEN:-}}"
@@ -139,7 +155,11 @@ if [[ "${REGISTRY}" == "https://npm.pkg.github.com" ]]; then
 else
   TOKEN="${NPM_TOKEN:-${NODE_AUTH_TOKEN:-${GITHUB_TOKEN:-}}}"
   if [[ -z "${TOKEN}" ]]; then
-    echo "Error: set NPM_TOKEN (or NODE_AUTH_TOKEN/GITHUB_TOKEN) for npm publishing." >&2
+    TOKEN="$(read_npmjs_auth_token_from_npmrc)" || true
+  fi
+  if [[ -z "${TOKEN}" ]]; then
+    echo "Error: set NPM_TOKEN, or add an auth token to ~/.npmrc:" >&2
+    echo "  echo '//registry.npmjs.org/:_authToken=npm_YOUR_TOKEN' >> ~/.npmrc" >&2
     exit 1
   fi
 fi
