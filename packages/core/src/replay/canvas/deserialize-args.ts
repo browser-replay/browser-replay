@@ -27,7 +27,7 @@ export function variableListFor(
 }
 
 export function isSerializedArg(arg: unknown): arg is SerializedCanvasArg {
-  return Boolean(arg && typeof arg === 'object' && 'dr_type' in arg);
+  return Boolean(arg && typeof arg === 'object' && 'br_type' in arg);
 }
 
 export function deserializeArg(
@@ -42,18 +42,18 @@ export function deserializeArg(
   },
 ): (arg: CanvasArg) => Promise<any> {
   return async (arg: CanvasArg): Promise<any> => {
-    if (arg && typeof arg === 'object' && 'dr_type' in arg) {
+    if (arg && typeof arg === 'object' && 'br_type' in arg) {
       if (preload) preload.isUnchanged = false;
-      if (arg.dr_type === 'ImageBitmap' && 'args' in arg) {
+      if (arg.br_type === 'ImageBitmap' && 'args' in arg) {
         const args = await deserializeArg(imageMap, ctx, preload)(arg.args);
         // eslint-disable-next-line prefer-spread
         return await createImageBitmap.apply(null, args);
       } else if ('index' in arg) {
         if (preload || ctx === null) return arg; // we are preloading, ctx is unknown
-        const { dr_type: name, index } = arg;
+        const { br_type: name, index } = arg;
         return variableListFor(ctx, name)[index];
       } else if ('args' in arg) {
-        const { dr_type: name, args } = arg;
+        const { br_type: name, args } = arg;
         const ctor = window[name as keyof Window];
 
         return new ctor(
@@ -73,7 +73,7 @@ export function deserializeArg(
           imageMap.set(arg.src, image);
           return image;
         }
-      } else if ('data' in arg && arg.dr_type === 'Blob') {
+      } else if ('data' in arg && arg.br_type === 'Blob') {
         const blobContents = await Promise.all(
           arg.data.map(deserializeArg(imageMap, ctx, preload)),
         );

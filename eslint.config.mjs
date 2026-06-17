@@ -60,7 +60,7 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'off',
 
       camelcase: ['error', {
-        allow: ['legacy_.*', 'UNSAFE_.*', '__dr_.*', 'dr_.*'],
+        allow: ['legacy_.*', 'UNSAFE_.*', '__br_.*', 'br_.*'],
       }],
 
       // Migration-friendly rules (tighten over time)

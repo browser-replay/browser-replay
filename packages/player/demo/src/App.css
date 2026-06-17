@@ -57,8 +57,8 @@
   background: #fafafa;
 }
 
-/* The .dr-player__frame inside DomReplayPlayer needs explicit size */
-.player-wrapper .dr-player__frame {
+/* The .br-player__frame inside DomReplayPlayer needs explicit size */
+.player-wrapper .br-player__frame {
   flex: 1;
   min-height: 0; /* Important for flex children */
 }

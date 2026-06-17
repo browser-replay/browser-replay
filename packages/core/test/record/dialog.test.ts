@@ -125,7 +125,7 @@ describe('dialog', () => {
     const lastEvent = events[events.length - 1];
 
     expect(lastEvent).toMatchObject(
-      attributeMutationFactory({ dr_open_mode: 'modal' }),
+      attributeMutationFactory({ br_open_mode: 'modal' }),
     );
   });
 

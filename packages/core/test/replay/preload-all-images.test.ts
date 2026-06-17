@@ -49,7 +49,7 @@ describe('preloadAllImages', () => {
     replayer.service.state.context.events = [
       canvasMutationEventWithArgs([
         {
-          dr_type: 'HTMLImageElement',
+          br_type: 'HTMLImageElement',
           src: 'http://example.com',
         },
       ]),
@@ -68,10 +68,10 @@ describe('preloadAllImages', () => {
     replayer.service.state.context.events = [
       canvasMutationEventWithArgs([
         {
-          dr_type: 'Array',
+          br_type: 'Array',
           args: [
             {
-              dr_type: 'HTMLImageElement',
+              br_type: 'HTMLImageElement',
               src: 'http://example.com',
             },
           ],
@@ -93,11 +93,11 @@ describe('preloadAllImages', () => {
     replayer.service.state.context.events = [
       canvasMutationEventWithArgs([
         {
-          dr_type: 'HTMLImageElement',
+          br_type: 'HTMLImageElement',
           src: 'http://example.com/img1.png',
         },
         {
-          dr_type: 'HTMLImageElement',
+          br_type: 'HTMLImageElement',
           src: 'http://example.com/img2.png',
         },
       ]),

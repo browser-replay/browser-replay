@@ -18,7 +18,7 @@ type LogReplayConfig = {
   replayLogger?: ReplayLogger;
 };
 
-const ORIGINAL_ATTRIBUTE_NAME = '__dr_original__';
+const ORIGINAL_ATTRIBUTE_NAME = '__br_original__';
 type PatchedConsoleLog = {
   [ORIGINAL_ATTRIBUTE_NAME]: typeof console.log;
 };

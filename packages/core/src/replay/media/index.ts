@@ -215,34 +215,34 @@ export class MediaManager {
       | mediaAttributes
       | Record<string, never>;
 
-    const isPlaying = mediaAttributes.dr_mediaState
-      ? mediaAttributes.dr_mediaState === 'played'
+    const isPlaying = mediaAttributes.br_mediaState
+      ? mediaAttributes.br_mediaState === 'played'
       : target.getAttribute('autoplay') !== null;
     if (isPlaying && playerIsPaused) target.pause();
 
     let playbackRate = 1;
-    if (typeof mediaAttributes.dr_mediaPlaybackRate === 'number') {
-      playbackRate = mediaAttributes.dr_mediaPlaybackRate;
+    if (typeof mediaAttributes.br_mediaPlaybackRate === 'number') {
+      playbackRate = mediaAttributes.br_mediaPlaybackRate;
     }
 
     const muted =
-      typeof mediaAttributes.dr_mediaMuted === 'boolean'
-        ? mediaAttributes.dr_mediaMuted
+      typeof mediaAttributes.br_mediaMuted === 'boolean'
+        ? mediaAttributes.br_mediaMuted
         : target.getAttribute('muted') !== null;
 
     const loop =
-      typeof mediaAttributes.dr_mediaLoop === 'boolean'
-        ? mediaAttributes.dr_mediaLoop
+      typeof mediaAttributes.br_mediaLoop === 'boolean'
+        ? mediaAttributes.br_mediaLoop
         : target.getAttribute('loop') !== null;
 
     let volume = 1;
-    if (typeof mediaAttributes.dr_mediaVolume === 'number') {
-      volume = mediaAttributes.dr_mediaVolume;
+    if (typeof mediaAttributes.br_mediaVolume === 'number') {
+      volume = mediaAttributes.br_mediaVolume;
     }
 
     let currentTimeAtLastInteraction = 0;
-    if (typeof mediaAttributes.dr_mediaCurrentTime === 'number') {
-      currentTimeAtLastInteraction = mediaAttributes.dr_mediaCurrentTime;
+    if (typeof mediaAttributes.br_mediaCurrentTime === 'number') {
+      currentTimeAtLastInteraction = mediaAttributes.br_mediaCurrentTime;
     }
 
     this.mediaMap.set(target, {

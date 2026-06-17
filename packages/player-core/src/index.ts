@@ -296,10 +296,10 @@ export function createPlayerHandle(initialProps: PlayerProps): PlayerHandle {
     if (replayer) return;
 
     rootEl = document.createElement('div');
-    rootEl.className = 'dr-player';
+    rootEl.className = 'br-player';
 
     frameEl = document.createElement('div');
-    frameEl.className = 'dr-player__frame';
+    frameEl.className = 'br-player__frame';
 
     rootEl.appendChild(frameEl);
     target.appendChild(rootEl);

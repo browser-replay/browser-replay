@@ -257,7 +257,7 @@ iframe.contentDocument.querySelector('center').clientHeight
         attributes: {
           src: expect.stringMatching(/images\/robot.png$/),
           alt: 'This is a robot',
-          dr_dataURL: expect.stringMatching(/^data:image\/webp;base64,/),
+          br_dataURL: expect.stringMatching(/^data:image\/webp;base64,/),
         },
       }),
     );
@@ -309,7 +309,7 @@ iframe.contentDocument.querySelector('center').clientHeight
         attributes: {
           src: serverUrl + '/images/browser-replay-favicon-20x20.png',
           alt: 'CORS restricted but has access-control-allow-origin: *',
-          dr_dataURL: expect.stringMatching(/^data:image\/webp;base64,/),
+          br_dataURL: expect.stringMatching(/^data:image\/webp;base64,/),
         },
       }),
     );
@@ -332,7 +332,7 @@ iframe.contentDocument.querySelector('center').clientHeight
     const snapshot = (await page.evaluate(
       'JSON.stringify(snapshot, null, 2);',
     )) as string;
-    assert(snapshot.includes('"dr_dataURL"'));
+    assert(snapshot.includes('"br_dataURL"'));
     assert(snapshot.includes('data:image/webp;base64,'));
   });
 
@@ -357,7 +357,7 @@ iframe.contentDocument.querySelector('center').clientHeight
     const snapshot = (await page.evaluate(
       'JSON.stringify(window.snapshot, null, 2);',
     )) as string;
-    assert(snapshot.includes('"dr_dataURL"'));
+    assert(snapshot.includes('"br_dataURL"'));
     assert(snapshot.includes('data:image/webp;base64,'));
   });
 
@@ -382,7 +382,7 @@ iframe.contentDocument.querySelector('center').clientHeight
     const snapshot = (await page.evaluate(
       'JSON.stringify(window.snapshot, null, 2);',
     )) as string;
-    assert(snapshot.includes('"dr_dataURL"'));
+    assert(snapshot.includes('"br_dataURL"'));
     assert(snapshot.includes('data:image/webp;base64,'));
   });
 

@@ -207,14 +207,14 @@ export function stringifySnapshots(snapshots: eventWithTime[]): string {
               // strip blob:urls as they are different every time
               stripBlobURLsFromAttributes(add.node);
 
-              // strip dr_dataURL as they are not consistent
+              // strip br_dataURL as they are not consistent
               if (
-                'dr_dataURL' in add.node.attributes &&
-                add.node.attributes.dr_dataURL &&
-                typeof add.node.attributes.dr_dataURL === 'string'
+                'br_dataURL' in add.node.attributes &&
+                add.node.attributes.br_dataURL &&
+                typeof add.node.attributes.br_dataURL === 'string'
               ) {
-                add.node.attributes.dr_dataURL =
-                  add.node.attributes.dr_dataURL.replace(/,.+$/, ',...');
+                add.node.attributes.br_dataURL =
+                  add.node.attributes.br_dataURL.replace(/,.+$/, ',...');
               }
             }
           });
