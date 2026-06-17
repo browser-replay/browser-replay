@@ -1,6 +1,6 @@
 {
   "name": "@browser-replay/player",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "React wrapper around @browser-replay/player-core.",
   "license": "MIT",
   "type": "module",
@@ -34,7 +34,9 @@
     "dist",
     "package.json"
   ],
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "scripts": {
     "dev": "tsdown --watch",
     "build": "pnpm run prepublish",
