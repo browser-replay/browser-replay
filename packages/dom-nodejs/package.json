@@ -53,7 +53,7 @@
     "@browser-replay/types": "workspace:*",
     "cssom": "^0.5.0",
     "cssstyle": "^6.2.0",
-    "nwsapi": "2.2.23"
+    "nwsapi": "2.2.24"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
