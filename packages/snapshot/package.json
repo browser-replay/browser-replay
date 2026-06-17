@@ -1,6 +1,6 @@
 {
   "name": "@browser-replay/snapshot",
-  "version": "0.1.0",
+  "version": "0.0.2",
   "description": "browser-replay's component to take a snapshot of DOM, aka DOM serializer",
   "scripts": {
     "retest": "vitest run",

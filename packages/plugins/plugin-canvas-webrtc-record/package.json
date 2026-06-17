@@ -1,6 +1,6 @@
 {
   "name": "@browser-replay/plugin-canvas-webrtc-record",
-  "version": "0.1.0",
+  "version": "0.0.2",
   "description": "browser-replay plugin to record canvas via WebRTC",
   "type": "module",
   "main": "./dist/index.cjs",

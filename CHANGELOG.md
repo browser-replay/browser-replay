@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-## [0.1.0] - 2026-06-17
+## [0.0.2] - 2026-06-17
 
 Second public release. **Breaking change:** recordings and integrations using the legacy `dr-*` / `dr_*` naming from dom-replay must migrate to `br-*` / `br_*`. Sessions recorded before this release will not replay.
 

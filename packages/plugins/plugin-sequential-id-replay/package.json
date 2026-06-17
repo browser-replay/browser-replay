@@ -1,6 +1,6 @@
 {
   "name": "@browser-replay/plugin-sequential-id-replay",
-  "version": "0.1.0",
+  "version": "0.0.2",
   "description": "browser-replay plugin for sequential node IDs during replay",
   "type": "module",
   "main": "./dist/index.cjs",

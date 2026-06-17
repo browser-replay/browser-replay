@@ -1,6 +1,6 @@
 {
   "name": "@browser-replay/player-core",
-  "version": "0.1.0",
+  "version": "0.0.2",
   "description": "Framework-agnostic headless player built on @browser-replay/replay.",
   "license": "MIT",
   "type": "module",
