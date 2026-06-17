@@ -206,7 +206,7 @@ export function applyCssSplits(
       childTextNodes.push(scn);
     }
   }
-  const cssTextSplits = cssText.split('/* dr_split */');
+  const cssTextSplits = cssText.split('/* br_split */');
   while (
     cssTextSplits.length > 1 &&
     cssTextSplits.length > childTextNodes.length
@@ -263,7 +263,7 @@ export function applyCssSplits(
  * out any text nodes. This function reverses that and also handles cases where
  * there were no textNode children present (dynamic css/or a <link> element) as
  * well as multiple textNodes, which need to be repopulated (based on presence of
- * a special `dr_split` marker in case they are modified by subsequent mutations.
+ * a special `br_split` marker in case they are modified by subsequent mutations.
  */
 export function buildStyleNode(
   n: serializedElementNodeWithId,
@@ -329,7 +329,7 @@ function buildNode(
         node = doc.createElement(tagName);
       }
       /**
-       * Attribute names start with `dr_` are internal attributes added by browser-replay.
+       * Attribute names start with `br_` are internal attributes added by browser-replay.
        * They often overwrite other attributes on the element.
        * We need to parse them last so they can overwrite conflicting attributes.
        */
@@ -361,7 +361,7 @@ function buildNode(
          */
         if (value === true) value = '';
 
-        if (name.startsWith('dr_')) {
+        if (name.startsWith('br_')) {
           specialAttributes[name] = value;
           continue;
         }
@@ -419,7 +419,7 @@ function buildNode(
           } else if (
             tagName === 'img' &&
             n.attributes.srcset &&
-            n.attributes.dr_dataURL
+            n.attributes.br_dataURL
           ) {
             // backup original img srcset
             node.setAttribute(
@@ -437,7 +437,7 @@ function buildNode(
       for (const name in specialAttributes) {
         const value = specialAttributes[name];
         // handle internal attributes
-        if (tagName === 'canvas' && name === 'dr_dataURL') {
+        if (tagName === 'canvas' && name === 'br_dataURL') {
           const image = doc.createElement('img');
           image.onload = () => {
             const ctx = (node as HTMLCanvasElement).getContext('2d');
@@ -448,12 +448,12 @@ function buildNode(
           image.src = value.toString();
           type RRCanvasElement = {
             RRNodeType: NodeType;
-            dr_dataURL: string;
+            br_dataURL: string;
           };
           // If the canvas element is created in RRDom runtime (seeking to a time point), the canvas context isn't supported. So the data has to be stored and not handled until diff process. https://github.com/rrweb-io/rrweb/pull/944
           if ((node as unknown as RRCanvasElement).RRNodeType)
-            (node as unknown as RRCanvasElement).dr_dataURL = value.toString();
-        } else if (tagName === 'img' && name === 'dr_dataURL') {
+            (node as unknown as RRCanvasElement).br_dataURL = value.toString();
+        } else if (tagName === 'img' && name === 'br_dataURL') {
           const image = node as HTMLImageElement;
           if (!image.currentSrc.startsWith('data:')) {
             // Backup original img src. It may not have been set yet.
@@ -465,16 +465,16 @@ function buildNode(
           }
         }
 
-        if (name === 'dr_width') {
+        if (name === 'br_width') {
           (node as HTMLElement).style.setProperty('width', value.toString());
-        } else if (name === 'dr_height') {
+        } else if (name === 'br_height') {
           (node as HTMLElement).style.setProperty('height', value.toString());
         } else if (
-          name === 'dr_mediaCurrentTime' &&
+          name === 'br_mediaCurrentTime' &&
           typeof value === 'number'
         ) {
           (node as HTMLMediaElement).currentTime = value;
-        } else if (name === 'dr_mediaState') {
+        } else if (name === 'br_mediaState') {
           switch (value) {
             case 'played':
               (node as HTMLMediaElement)
@@ -487,19 +487,19 @@ function buildNode(
             default:
           }
         } else if (
-          name === 'dr_mediaPlaybackRate' &&
+          name === 'br_mediaPlaybackRate' &&
           typeof value === 'number'
         ) {
           (node as HTMLMediaElement).playbackRate = value;
-        } else if (name === 'dr_mediaMuted' && typeof value === 'boolean') {
+        } else if (name === 'br_mediaMuted' && typeof value === 'boolean') {
           (node as HTMLMediaElement).muted = value;
-        } else if (name === 'dr_mediaLoop' && typeof value === 'boolean') {
+        } else if (name === 'br_mediaLoop' && typeof value === 'boolean') {
           (node as HTMLMediaElement).loop = value;
-        } else if (name === 'dr_mediaVolume' && typeof value === 'number') {
+        } else if (name === 'br_mediaVolume' && typeof value === 'number') {
           (node as HTMLMediaElement).volume = value;
-        } else if (name === 'dr_open_mode') {
+        } else if (name === 'br_open_mode') {
           (node as HTMLDialogElement).setAttribute(
-            'dr_open_mode',
+            'br_open_mode',
             value as string,
           ); // keep this attribute for browser-replay to trigger showModal
         }
@@ -694,16 +694,16 @@ function handleScroll(node: Node, mirror: Mirror) {
     if (
       !(
         Object.prototype.hasOwnProperty.call(n.attributes, name) &&
-        name.startsWith('dr_')
+        name.startsWith('br_')
       )
     ) {
       continue;
     }
     const value = n.attributes[name];
-    if (name === 'dr_scrollLeft') {
+    if (name === 'br_scrollLeft') {
       el.scrollLeft = value as number;
     }
-    if (name === 'dr_scrollTop') {
+    if (name === 'br_scrollTop') {
       el.scrollTop = value as number;
     }
   }

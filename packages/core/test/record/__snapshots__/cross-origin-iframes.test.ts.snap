@@ -65,7 +65,7 @@ exports[`cross origin iframes > audio.html > should emit contents of iframe once
                     \\"type\\": 2,
                     \\"tagName\\": \\"iframe\\",
                     \\"attributes\\": {
-                      \\"dr_src\\": \\"http://localhost:3030/html/audio.html\\"
+                      \\"br_src\\": \\"http://localhost:3030/html/audio.html\\"
                     },
                     \\"childNodes\\": [],
                     \\"id\\": 9
@@ -1016,7 +1016,7 @@ exports[`cross origin iframes > blank.html > should record same-origin iframe in
                     \\"type\\": 2,
                     \\"tagName\\": \\"iframe\\",
                     \\"attributes\\": {
-                      \\"dr_src\\": \\"http://localhost:3030/html/blank.html\\"
+                      \\"br_src\\": \\"http://localhost:3030/html/blank.html\\"
                     },
                     \\"childNodes\\": [],
                     \\"id\\": 9
@@ -2044,7 +2044,7 @@ exports[`cross origin iframes > move-node.html > captures mutations on adopted s
                     \\"type\\": 2,
                     \\"tagName\\": \\"iframe\\",
                     \\"attributes\\": {
-                      \\"dr_src\\": \\"http://localhost:3030/html/move-node.html\\"
+                      \\"br_src\\": \\"http://localhost:3030/html/move-node.html\\"
                     },
                     \\"childNodes\\": [],
                     \\"id\\": 9
@@ -3138,7 +3138,7 @@ exports[`cross origin iframes > move-node.html > captures mutations on styleshee
                     \\"type\\": 2,
                     \\"tagName\\": \\"iframe\\",
                     \\"attributes\\": {
-                      \\"dr_src\\": \\"http://localhost:3030/html/move-node.html\\"
+                      \\"br_src\\": \\"http://localhost:3030/html/move-node.html\\"
                     },
                     \\"childNodes\\": [],
                     \\"id\\": 9
@@ -4237,7 +4237,7 @@ exports[`cross origin iframes > move-node.html > should record DOM attribute cha
                     \\"type\\": 2,
                     \\"tagName\\": \\"iframe\\",
                     \\"attributes\\": {
-                      \\"dr_src\\": \\"http://localhost:3030/html/move-node.html\\"
+                      \\"br_src\\": \\"http://localhost:3030/html/move-node.html\\"
                     },
                     \\"childNodes\\": [],
                     \\"id\\": 9
@@ -5205,7 +5205,7 @@ exports[`cross origin iframes > move-node.html > should record DOM node movement
                     \\"type\\": 2,
                     \\"tagName\\": \\"iframe\\",
                     \\"attributes\\": {
-                      \\"dr_src\\": \\"http://localhost:3030/html/move-node.html\\"
+                      \\"br_src\\": \\"http://localhost:3030/html/move-node.html\\"
                     },
                     \\"childNodes\\": [],
                     \\"id\\": 9
@@ -6228,7 +6228,7 @@ exports[`cross origin iframes > move-node.html > should record DOM node removal 
                     \\"type\\": 2,
                     \\"tagName\\": \\"iframe\\",
                     \\"attributes\\": {
-                      \\"dr_src\\": \\"http://localhost:3030/html/move-node.html\\"
+                      \\"br_src\\": \\"http://localhost:3030/html/move-node.html\\"
                     },
                     \\"childNodes\\": [],
                     \\"id\\": 9
@@ -7194,7 +7194,7 @@ exports[`cross origin iframes > move-node.html > should record canvas elements 1
                     \\"type\\": 2,
                     \\"tagName\\": \\"iframe\\",
                     \\"attributes\\": {
-                      \\"dr_src\\": \\"http://localhost:3030/html/move-node.html\\"
+                      \\"br_src\\": \\"http://localhost:3030/html/move-node.html\\"
                     },
                     \\"childNodes\\": [],
                     \\"id\\": 9
@@ -8115,7 +8115,7 @@ exports[`cross origin iframes > move-node.html > should record canvas elements 1
           \\"property\\": \\"linkProgram\\",
           \\"args\\": [
             {
-              \\"dr_type\\": \\"WebGLProgram\\",
+              \\"br_type\\": \\"WebGLProgram\\",
               \\"index\\": 0
             }
           ]
@@ -8197,7 +8197,7 @@ exports[`cross origin iframes > move-node.html > should record custom events 1`]
                     \\"type\\": 2,
                     \\"tagName\\": \\"iframe\\",
                     \\"attributes\\": {
-                      \\"dr_src\\": \\"http://localhost:3030/html/move-node.html\\"
+                      \\"br_src\\": \\"http://localhost:3030/html/move-node.html\\"
                     },
                     \\"childNodes\\": [],
                     \\"id\\": 9

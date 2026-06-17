@@ -46,7 +46,7 @@ describe('rebuild', function () {
     cache = createCache();
   });
 
-  describe('dr_dataURL', function () {
+  describe('br_dataURL', function () {
     it('should rebuild dataURL', function () {
       const dataURI =
         'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
@@ -56,7 +56,7 @@ describe('rebuild', function () {
           tagName: 'img',
           type: NodeType.Element,
           attributes: {
-            dr_dataURL: dataURI,
+            br_dataURL: dataURI,
             src: 'http://example.com/image.png',
           },
           childNodes: [],
@@ -72,7 +72,7 @@ describe('rebuild', function () {
     });
   });
 
-  describe('dr_width/dr_height', function () {
+  describe('br_width/br_height', function () {
     it('rebuild blocked element with correct dimensions', function () {
       const node = buildNodeWithSN(
         {
@@ -81,8 +81,8 @@ describe('rebuild', function () {
           type: NodeType.Element,
           isSVG: true,
           attributes: {
-            dr_width: '50px',
-            dr_height: '50px',
+            br_width: '50px',
+            br_height: '50px',
           },
           childNodes: [],
         },

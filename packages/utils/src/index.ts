@@ -252,7 +252,7 @@ export function patch(
     if (typeof wrapped === 'function') {
       wrapped.prototype = wrapped.prototype || {};
       Object.defineProperties(wrapped, {
-        __dr_original__: {
+        __br_original__: {
           enumerable: false,
           value: original,
         },

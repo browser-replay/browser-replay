@@ -384,24 +384,24 @@ export enum CanvasContext {
 
 export type SerializedCanvasArg =
   | {
-      dr_type: 'ArrayBuffer';
+      br_type: 'ArrayBuffer';
       base64: string; // base64
     }
   | {
-      dr_type: 'Blob';
+      br_type: 'Blob';
       data: Array<CanvasArg>;
       type?: string;
     }
   | {
-      dr_type: string;
+      br_type: string;
       src: string; // url of image
     }
   | {
-      dr_type: string;
+      br_type: string;
       args: Array<CanvasArg>;
     }
   | {
-      dr_type: string;
+      br_type: string;
       index: number;
     };
 
@@ -734,7 +734,7 @@ type cssTextKeyAttr = {
 export type attributes = cssTextKeyAttr & {
   [key: string]:
     | string
-    | number // properties e.g. dr_scrollLeft or dr_mediaCurrentTime
+    | number // properties e.g. br_scrollLeft or br_mediaCurrentTime
     | true // e.g. checked  on <input type="radio">
     | null; // an indication that an attribute was removed (during a mutation)
 };
@@ -748,24 +748,24 @@ export type legacyAttributes = {
 };
 
 export type mediaAttributes = {
-  dr_mediaState: 'played' | 'paused';
-  dr_mediaCurrentTime: number;
+  br_mediaState: 'played' | 'paused';
+  br_mediaCurrentTime: number;
   /**
    * for backwards compatibility this is optional but should always be set
    */
-  dr_mediaPlaybackRate?: number;
+  br_mediaPlaybackRate?: number;
   /**
    * for backwards compatibility this is optional but should always be set
    */
-  dr_mediaMuted?: boolean;
+  br_mediaMuted?: boolean;
   /**
    * for backwards compatibility this is optional but should always be set
    */
-  dr_mediaLoop?: boolean;
+  br_mediaLoop?: boolean;
   /**
    * for backwards compatibility this is optional but should always be set
    */
-  dr_mediaVolume?: number;
+  br_mediaVolume?: number;
 };
 
 export type elementNode = {

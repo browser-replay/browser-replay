@@ -510,12 +510,12 @@ describe('record integration tests', function (this: ISuite) {
     await page.goto('about:blank');
     await page.setContent(
       getHtml.call(this, 'ignore.html', {
-        ignoreSelector: '[data-dr-ignore]',
+        ignoreSelector: '[data-br-ignore]',
       }),
     );
 
-    await page.type('.dr-ignore', 'secret');
-    await page.type('[data-dr-ignore]', 'secret');
+    await page.type('.br-ignore', 'secret');
+    await page.type('[data-br-ignore]', 'secret');
     await page.type('.dont-ignore', 'not secret');
 
     await assertSnapshot(page);
@@ -663,12 +663,12 @@ describe('record integration tests', function (this: ISuite) {
 
     await page.evaluate(() => {
       const el = document.createElement('button');
-      el.className = 'dr-block';
+      el.className = 'br-block';
       el.style.width = '100px';
       el.style.height = '100px';
       el.innerText = 'Should not be recorded';
 
-      const nextElement = document.querySelector('.dr-block')!;
+      const nextElement = document.querySelector('.br-block')!;
       nextElement.parentNode!.insertBefore(el, nextElement);
     });
 
@@ -756,8 +756,8 @@ describe('record integration tests', function (this: ISuite) {
     for (const event of snapshots) {
       if (event.type === EventType.FullSnapshot) {
         visitSnapshot(event.data.node, (n) => {
-          if (n.type === NodeType.Element && n.attributes.dr_dataURL) {
-            n.attributes.dr_dataURL = `LOOKS LIKE WE COULD NOT GET STABLE BASE64 FROM SAME IMAGE.`;
+          if (n.type === NodeType.Element && n.attributes.br_dataURL) {
+            n.attributes.br_dataURL = `LOOKS LIKE WE COULD NOT GET STABLE BASE64 FROM SAME IMAGE.`;
           }
         });
       }
@@ -1351,7 +1351,7 @@ describe('record integration tests', function (this: ISuite) {
       const ul = document.querySelector('ul') as HTMLUListElement;
       const p = document.querySelector('p') as HTMLParagraphElement;
       [li, p].forEach((element) => {
-        element.className = 'dr-mask';
+        element.className = 'br-mask';
       });
       ul.appendChild(li);
       li.innerText = 'new list item';

@@ -256,7 +256,7 @@ function diffAfterUpdatingChildren(
         case 'CANVAS': {
           const rrCanvasElement = newTree as RRCanvasElement;
           // This canvas element is created with initial data in an iframe element. https://github.com/rrweb-io/rrweb/pull/944
-          if (rrCanvasElement.dr_dataURL !== null) {
+          if (rrCanvasElement.br_dataURL !== null) {
             const image = document.createElement('img');
             image.onload = () => {
               const ctx = (oldElement as HTMLCanvasElement).getContext('2d');
@@ -264,7 +264,7 @@ function diffAfterUpdatingChildren(
                 ctx.drawImage(image, 0, 0, image.width, image.height);
               }
             };
-            image.src = rrCanvasElement.dr_dataURL;
+            image.src = rrCanvasElement.br_dataURL;
           }
           rrCanvasElement.canvasMutations.forEach((canvasMutation) =>
             replayer.applyCanvas(
@@ -342,7 +342,7 @@ function diffProps(
     const sn = rrnodeMirror.getMeta(newTree) as elementNode | null;
     if (sn?.isSVG && NAMESPACES[name])
       oldTree.setAttributeNS(NAMESPACES[name], name, newValue);
-    else if (newTree.tagName === 'CANVAS' && name === 'dr_dataURL') {
+    else if (newTree.tagName === 'CANVAS' && name === 'br_dataURL') {
       const image = document.createElement('img');
       image.src = newValue;
       image.onload = () => {

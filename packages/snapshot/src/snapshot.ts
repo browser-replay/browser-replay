@@ -648,7 +648,7 @@ function serializeElementNode(
     // register what type of dialog is this
     // `modal` or `non-modal`
     // this is used to trigger `showModal()` or `show()` on replay (outside of @browser-replay/snapshot, in browser-replay)
-    (attributes as DialogAttributes).dr_open_mode = n.matches('dialog:modal')
+    (attributes as DialogAttributes).br_open_mode = n.matches('dialog:modal')
       ? 'modal'
       : 'non-modal';
   }
@@ -658,7 +658,7 @@ function serializeElementNode(
     if ((n as ICanvas).__context === '2d') {
       // only record this on 2d canvas
       if (!is2DCanvasBlank(n as HTMLCanvasElement)) {
-        attributes.dr_dataURL = (n as HTMLCanvasElement).toDataURL(
+        attributes.br_dataURL = (n as HTMLCanvasElement).toDataURL(
           dataURLOptions.type,
           dataURLOptions.quality,
         );
@@ -681,7 +681,7 @@ function serializeElementNode(
 
       // no need to save dataURL if it's the same as blank canvas
       if (canvasDataURL !== blankCanvasDataURL) {
-        attributes.dr_dataURL = canvasDataURL;
+        attributes.br_dataURL = canvasDataURL;
       }
     }
   }
@@ -701,7 +701,7 @@ function serializeElementNode(
         canvasService!.width = image.naturalWidth;
         canvasService!.height = image.naturalHeight;
         canvasCtx!.drawImage(image, 0, 0);
-        attributes.dr_dataURL = canvasService!.toDataURL(
+        attributes.br_dataURL = canvasService!.toDataURL(
           dataURLOptions.type,
           dataURLOptions.quality,
         );
@@ -731,14 +731,14 @@ function serializeElementNode(
   // media elements
   if (['audio', 'video'].includes(tagName)) {
     const mediaAttributes = attributes as mediaAttributes;
-    mediaAttributes.dr_mediaState = (n as HTMLMediaElement).paused
+    mediaAttributes.br_mediaState = (n as HTMLMediaElement).paused
       ? 'paused'
       : 'played';
-    mediaAttributes.dr_mediaCurrentTime = (n as HTMLMediaElement).currentTime;
-    mediaAttributes.dr_mediaPlaybackRate = (n as HTMLMediaElement).playbackRate;
-    mediaAttributes.dr_mediaMuted = (n as HTMLMediaElement).muted;
-    mediaAttributes.dr_mediaLoop = (n as HTMLMediaElement).loop;
-    mediaAttributes.dr_mediaVolume = (n as HTMLMediaElement).volume;
+    mediaAttributes.br_mediaCurrentTime = (n as HTMLMediaElement).currentTime;
+    mediaAttributes.br_mediaPlaybackRate = (n as HTMLMediaElement).playbackRate;
+    mediaAttributes.br_mediaMuted = (n as HTMLMediaElement).muted;
+    mediaAttributes.br_mediaLoop = (n as HTMLMediaElement).loop;
+    mediaAttributes.br_mediaVolume = (n as HTMLMediaElement).volume;
   }
   // Scroll
   if (!newlyAddedElement) {
@@ -747,10 +747,10 @@ function serializeElementNode(
     // And scrolls also get picked up by browser-replay's ScrollObserver
     // So we can safely skip the `scrollTop/Left` calls for newly added elements
     if (n.scrollLeft) {
-      attributes.dr_scrollLeft = n.scrollLeft;
+      attributes.br_scrollLeft = n.scrollLeft;
     }
     if (n.scrollTop) {
-      attributes.dr_scrollTop = n.scrollTop;
+      attributes.br_scrollTop = n.scrollTop;
     }
   }
   // block element
@@ -758,8 +758,8 @@ function serializeElementNode(
     const { width, height } = n.getBoundingClientRect();
     attributes = {
       class: attributes.class,
-      dr_width: `${width}px`,
-      dr_height: `${height}px`,
+      br_width: `${width}px`,
+      br_height: `${height}px`,
     };
   }
   // iframe
@@ -767,7 +767,7 @@ function serializeElementNode(
     if (!(n as HTMLIFrameElement).contentDocument) {
       // we can't record it directly as we can't see into it
       // preserve the src attribute so a decision can be taken at replay time
-      attributes.dr_src = attributes.src;
+      attributes.br_src = attributes.src;
     }
     delete attributes.src; // prevent auto loading
   }
@@ -1266,9 +1266,9 @@ function snapshot(
 ): serializedNodeWithId | null {
   const {
     mirror = new Mirror(),
-    blockClass = 'dr-block',
+    blockClass = 'br-block',
     blockSelector = null,
-    maskTextClass = 'dr-mask',
+    maskTextClass = 'br-mask',
     maskTextSelector = null,
     inlineStylesheet = true,
     inlineImages = false,

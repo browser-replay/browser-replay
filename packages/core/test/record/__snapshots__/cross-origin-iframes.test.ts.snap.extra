@@ -67,7 +67,7 @@ exports[`cross origin iframes > form.html > should replace the existing DOM node
                     \\"tagName\\": \\"iframe\\",
                     \\"attributes\\": {
                       \\"style\\": \\"width: 400px; height: 400px;\\",
-                      \\"dr_src\\": \\"http://localhost:3030/html/form.html\\"
+                      \\"br_src\\": \\"http://localhost:3030/html/form.html\\"
                     },
                     \\"childNodes\\": [],
                     \\"id\\": 9
@@ -637,7 +637,7 @@ exports[`cross origin iframes > form.html > should replace the existing DOM node
         {
           \\"id\\": 9,
           \\"attributes\\": {
-            \\"dr_src\\": \\"http://localhost:3030/html/empty.html\\"
+            \\"br_src\\": \\"http://localhost:3030/html/empty.html\\"
           }
         }
       ],

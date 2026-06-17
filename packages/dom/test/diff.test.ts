@@ -467,7 +467,7 @@ describe('diff algorithm for rrdom', () => {
       const rrCanvas = rrDocument.createElement('canvas');
       const sn = Object.assign({}, elementSn, { tagName: 'canvas' });
       rrDocument.mirror.add(rrCanvas, sn);
-      rrCanvas.attributes['dr_dataURL'] = 'data:image/png;base64,';
+      rrCanvas.attributes['br_dataURL'] = 'data:image/png;base64,';
 
       vi.spyOn(document, 'createElement');
 

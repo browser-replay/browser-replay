@@ -136,12 +136,12 @@ The parameter of `browserReplay.record` accepts the following options.
 | emit                     | required           | the callback function to get emitted events                                                                                                                                                                                         |
 | checkoutEveryNth         | -                  | take a full snapshot after every N events<br />refer to the [checkout](#checkout) chapter                                                                                                                                           |
 | checkoutEveryNms         | -                  | take a full snapshot after every N ms<br />refer to the [checkout](#checkout) chapter                                                                                                                                               |
-| blockClass               | 'dr-block'         | Use a string or RegExp to configure which elements should be blocked, refer to the [privacy](#privacy) chapter                                                                                                                      |
+| blockClass               | 'br-block'         | Use a string or RegExp to configure which elements should be blocked, refer to the [privacy](#privacy) chapter                                                                                                                      |
 | blockSelector            | null               | Use a string to configure which selector should be blocked, refer to the [privacy](#privacy) chapter                                                                                                                                |
-| ignoreClass              | 'dr-ignore'        | Use a string or RegExp to configure which elements should be ignored, refer to the [privacy](#privacy) chapter                                                                                                                      |
+| ignoreClass              | 'br-ignore'        | Use a string or RegExp to configure which elements should be ignored, refer to the [privacy](#privacy) chapter                                                                                                                      |
 | ignoreSelector           | null               | Use a string to configure which selector should be ignored, refer to the [privacy](#privacy) chapter                                                                                                                                |
 | ignoreCSSAttributes      | null               | array of CSS attributes that should be ignored                                                                                                                                                                                      |
-| maskTextClass            | 'dr-mask'          | Use a string or RegExp to configure which elements should be masked, refer to the [privacy](#privacy) chapter                                                                                                                       |
+| maskTextClass            | 'br-mask'          | Use a string or RegExp to configure which elements should be masked, refer to the [privacy](#privacy) chapter                                                                                                                       |
 | maskTextSelector         | null               | Use a string to configure which selector should be masked, refer to the [privacy](#privacy) chapter                                                                                                                                 |
 | maskAllInputs            | false              | mask all input content as \*                                                                                                                                                                                                        |
 | maskInputOptions         | { password: true } | mask some kinds of input \*<br />refer to the [list](https://github.com/browser-replay/browser-replay/blob/master/packages/snapshot/src/types.ts#L77-L95)                                                                                   |
@@ -166,9 +166,9 @@ The parameter of `browserReplay.record` accepts the following options.
 
 You may find some contents on the webpage which are not willing to be recorded, then you can use the following approaches:
 
-- An element with the class name `.dr-block` will not be recorded. Instead, it will replay as a placeholder with the same dimension.
-- An element with the class name `.dr-ignore` will not record its input events.
-- All text of elements with the class name `.dr-mask` and their children will be masked.
+- An element with the class name `.br-block` will not be recorded. Instead, it will replay as a placeholder with the same dimension.
+- An element with the class name `.br-ignore` will not record its input events.
+- All text of elements with the class name `.br-mask` and their children will be masked.
 - `input[type="password"]` will be masked by default.
 - Mask options to mask the content in input elements.
 
@@ -300,7 +300,7 @@ The replayer accepts options as its constructor's second parameter, and it has t
 | inactivePeriodThreshold | 10000         | the threshold in milliseconds for what should be considered an inactive period                                                                                                                                |
 | showWarning             | true          | whether to print warning messages during replay                                                                                                                                                               |
 | showDebug               | false         | whether to print debug messages during replay                                                                                                                                                                 |
-| blockClass              | 'dr-block'    | element with the class name will display as a blocked area                                                                                                                                                    |
+| blockClass              | 'br-block'    | element with the class name will display as a blocked area                                                                                                                                                    |
 | liveMode                | false         | whether to enable live mode                                                                                                                                                                                   |
 | insertStyleRules        | []            | accepts multiple CSS rule string, which will be injected into the replay iframe                                                                                                                               |
 | triggerFocus            | true          | whether to trigger focus during replay                                                                                                                                                                        |

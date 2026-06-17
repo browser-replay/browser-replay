@@ -611,7 +611,7 @@ export default class MutationBuffer {
           if (!(target as HTMLIFrameElement).contentDocument) {
             // we can't record it directly as we can't see into it
             // preserve the src attribute so a decision can be taken at replay time
-            attributeName = 'dr_src';
+            attributeName = 'br_src';
           } else {
             return;
           }
@@ -634,7 +634,7 @@ export default class MutationBuffer {
           target.tagName === 'INPUT' &&
           (m.oldValue || '').toLowerCase() === 'password'
         ) {
-          target.setAttribute('data-dr-is-password', 'true');
+          target.setAttribute('data-br-is-password', 'true');
         }
 
         if (!ignoreAttribute(target.tagName, attributeName, value)) {
@@ -685,9 +685,9 @@ export default class MutationBuffer {
             }
           } else if (attributeName === 'open' && target.tagName === 'DIALOG') {
             if (target.matches('dialog:modal')) {
-              item.attributes['dr_open_mode'] = 'modal';
+              item.attributes['br_open_mode'] = 'modal';
             } else {
-              item.attributes['dr_open_mode'] = 'non-modal';
+              item.attributes['br_open_mode'] = 'non-modal';
             }
           }
         }

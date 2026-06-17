@@ -282,7 +282,7 @@ export function toLowerCase<T extends string>(str: T): Lowercase<T> {
   return str.toLowerCase() as unknown as Lowercase<T>;
 }
 
-const ORIGINAL_ATTRIBUTE_NAME = '__dr_original__';
+const ORIGINAL_ATTRIBUTE_NAME = '__br_original__';
 type PatchedGetImageData = {
   [ORIGINAL_ATTRIBUTE_NAME]: CanvasImageData['getImageData'];
 } & CanvasImageData['getImageData'];
@@ -357,7 +357,7 @@ export function getInputType(element: HTMLElement): Lowercase<string> | null {
   // when omitting the type of input element(e.g. <input />), the type is treated as text
   const type = (element as HTMLInputElement).type;
 
-  return element.hasAttribute('data-dr-is-password')
+  return element.hasAttribute('data-br-is-password')
     ? 'password'
     : type
     ? toLowerCase(type)
@@ -586,5 +586,5 @@ export function markCssSplits(
   cssText: string,
   style: HTMLStyleElement,
 ): string {
-  return splitCssText(cssText, style).join('/* dr_split */');
+  return splitCssText(cssText, style).join('/* br_split */');
 }

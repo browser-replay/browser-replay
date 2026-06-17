@@ -14,8 +14,8 @@ import { getRecordConsolePlugin } from '@browser-replay/plugin-console-record';
 record({
   emit: function emit(event) {
     // you should use console.log in this way to avoid errors.
-    const defaultLog = console.log['__dr_original__']
-      ? console.log['__dr_original__']
+    const defaultLog = console.log['__br_original__']
+      ? console.log['__br_original__']
       : console.log;
     defaultLog(event);
   },
@@ -25,7 +25,7 @@ record({
 ```
 
 **alert**: You shouldn't call console.log(warn, error .etc) in the emit function or you would get the error: `Uncaught RangeError: Maximum call stack size exceeded`.
-You should call console.log.\_\_dr_original\_\_() instead.
+You should call console.log.\_\_br_original\_\_() instead.
 
 You can also customize the behavior of logger like this:
 
@@ -36,8 +36,8 @@ import { getRecordConsolePlugin } from '@browser-replay/plugin-console-record';
 record({
   emit: function emit(event) {
     // you should use console.log in this way to avoid errors.
-    const defaultLog = console.log['__dr_original__']
-      ? console.log['__dr_original__']
+    const defaultLog = console.log['__br_original__']
+      ? console.log['__br_original__']
       : console.log;
     defaultLog(event);
   },

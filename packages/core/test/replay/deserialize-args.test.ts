@@ -17,7 +17,7 @@ describe('deserializeArg', () => {
         new Map(),
         context,
       )({
-        dr_type: 'Float32Array',
+        br_type: 'Float32Array',
         args: [[-1, -1, 3, -1, -1, 3]],
       }),
     ).toEqual(new Float32Array([-1, -1, 3, -1, -1, 3]));
@@ -29,7 +29,7 @@ describe('deserializeArg', () => {
         new Map(),
         context,
       )({
-        dr_type: 'Float64Array',
+        br_type: 'Float64Array',
         args: [[-1, -1, 3, -1, -1, 3]],
       }),
     ).toEqual(new Float64Array([-1, -1, 3, -1, -1, 3]));
@@ -42,7 +42,7 @@ describe('deserializeArg', () => {
         new Map(),
         context,
       )({
-        dr_type: 'ArrayBuffer',
+        br_type: 'ArrayBuffer',
         base64: 'AQIABA==',
       }),
     ).toStrictEqual(new Uint8Array(contents).buffer);
@@ -54,10 +54,10 @@ describe('deserializeArg', () => {
         new Map(),
         context,
       )({
-        dr_type: 'DataView',
+        br_type: 'DataView',
         args: [
           {
-            dr_type: 'ArrayBuffer',
+            br_type: 'ArrayBuffer',
             base64: 'AAAAAAAAAAAAAAAAAAAAAA==',
           },
           0,
@@ -75,10 +75,10 @@ describe('deserializeArg', () => {
   it('should deserialize complex objects', async () => {
     const serializedArg = [
       {
-        dr_type: 'DataView',
+        br_type: 'DataView',
         args: [
           {
-            dr_type: 'ArrayBuffer',
+            br_type: 'ArrayBuffer',
             args: [16],
           },
           0,
@@ -105,7 +105,7 @@ describe('deserializeArg', () => {
         new Map(),
         context,
       )({
-        dr_type: 'HTMLImageElement',
+        br_type: 'HTMLImageElement',
         src: 'http://example.com/image.png',
       }),
     ).toStrictEqual(image);
@@ -122,7 +122,7 @@ describe('deserializeArg', () => {
         imageMap,
         context,
       )({
-        dr_type: 'HTMLImageElement',
+        br_type: 'HTMLImageElement',
         src: 'http://example.com/image.png',
       }),
     ).toBe(image);
@@ -136,10 +136,10 @@ describe('deserializeArg', () => {
       new Map(),
       context,
     )({
-      dr_type: 'Blob',
+      br_type: 'Blob',
       data: [
         {
-          dr_type: 'ArrayBuffer',
+          br_type: 'ArrayBuffer',
           base64: 'AQIABA==',
         },
       ],
@@ -176,7 +176,7 @@ describe('deserializeArg', () => {
         context,
         status,
       )({
-        dr_type: 'Float64Array',
+        br_type: 'Float64Array',
         args: [[-1, -1, 3, -1, -1, 3]],
       });
       expect(status.isUnchanged).toBeFalsy();
@@ -193,7 +193,7 @@ describe('deserializeArg', () => {
         status,
       )([
         {
-          dr_type: 'Float64Array',
+          br_type: 'Float64Array',
           args: [[-1, -1, 3, -1, -1, 3]],
         },
       ]);

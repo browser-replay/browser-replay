@@ -193,7 +193,7 @@ export class Replayer {
       inactivePeriodThreshold: 10 * 1000,
       showWarning: true,
       showDebug: false,
-      blockClass: 'dr-block',
+      blockClass: 'br-block',
       liveMode: false,
       insertStyleRules: [],
       triggerFocus: true,
@@ -527,7 +527,7 @@ export class Replayer {
     }
     this.iframe.contentDocument
       ?.getElementsByTagName('html')[0]
-      ?.classList.remove('dr-paused');
+      ?.classList.remove('br-paused');
     this.emitter.emit(ReplayerEvents.Start);
   }
 
@@ -541,7 +541,7 @@ export class Replayer {
     }
     this.iframe.contentDocument
       ?.getElementsByTagName('html')[0]
-      ?.classList.add('dr-paused');
+      ?.classList.add('br-paused');
     this.emitter.emit(ReplayerEvents.Pause);
   }
 
@@ -882,7 +882,7 @@ export class Replayer {
     if (!this.service.state.matches('playing')) {
       this.iframe.contentDocument
         .getElementsByTagName('html')[0]
-        .classList.add('dr-paused');
+        .classList.add('br-paused');
     }
     this.emitter.emit(ReplayerEvents.FullsnapshotRebuilded, event);
     if (!isSync) {
@@ -902,7 +902,7 @@ export class Replayer {
     ).concat(this.config.insertStyleRules);
     if (this.config.pauseAnimation) {
       injectStylesRules.push(
-        'html.dr-paused *, html.dr-paused *:before, html.dr-paused *:after { animation-play-state: paused !important; }',
+        'html.br-paused *, html.br-paused *:before, html.br-paused *:after { animation-play-state: paused !important; }',
       );
     }
     if (!injectStylesRules.length) {
@@ -1870,7 +1870,7 @@ export class Replayer {
               }
 
               if (
-                attributeName === 'dr_open_mode' &&
+                attributeName === 'br_open_mode' &&
                 target.nodeName === 'DIALOG'
               ) {
                 applyDialogToTopLevel(target, mutation);
