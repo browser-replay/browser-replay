@@ -1,6 +1,6 @@
 {
   "name": "@browser-replay/core",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "record and replay the web",
   "scripts": {
     "retest": "cross-env PUPPETEER_HEADLESS=true pnpm retest:headful",
@@ -50,7 +50,9 @@
     "dist",
     "package.json"
   ],
-  "sideEffects": ["**/*.css"],
+  "sideEffects": [
+    "**/*.css"
+  ],
   "license": "MIT",
   "devDependencies": {
     "@types/dom-mediacapture-transform": "0.1.11",

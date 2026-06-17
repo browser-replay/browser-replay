@@ -1,7 +1,7 @@
 {
   "name": "@browser-replay/web-extension",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "The web extension for browser-replay.",
   "author": "browser-replay maintainers",
   "license": "MIT",
