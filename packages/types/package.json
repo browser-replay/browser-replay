@@ -59,6 +59,6 @@
     "directory": "packages/types"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",
-  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/types#readme",
+  "homepage": "https://browserreplay.com",
   "description": "Shared TypeScript types for browser-replay"
 }

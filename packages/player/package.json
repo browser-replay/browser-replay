@@ -79,12 +79,16 @@
     "directory": "packages/player"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",
-  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/player#readme",
+  "homepage": "https://browserreplay.com",
   "keywords": [
     "browser-replay",
     "player",
     "react",
     "session-replay",
-    "replay"
+    "replay",
+    "dom-recording",
+    "browser-testing",
+    "typescript",
+    "rrweb"
   ]
 }

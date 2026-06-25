@@ -28,7 +28,11 @@
     "session-replay",
     "record",
     "replay",
-    "dom"
+    "dom",
+    "dom-recording",
+    "browser-testing",
+    "typescript",
+    "rrweb"
   ],
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -99,5 +103,5 @@
     "directory": "packages/core"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",
-  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/core#readme"
+  "homepage": "https://browserreplay.com"
 }

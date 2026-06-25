@@ -5,6 +5,8 @@
 [![npm version](https://img.shields.io/npm/v/@browser-replay/core.svg)](https://www.npmjs.com/package/@browser-replay/core)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
+**Website:** [browserreplay.com](https://browserreplay.com)
+
 Record and replay DOM interactions.
 
 browser-replay is a separate project (own name, repo, and roadmap) built on [rrweb](https://github.com/rrweb-io/rrweb). See `LICENSE` and `NOTICE` for attribution.

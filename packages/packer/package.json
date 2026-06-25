@@ -83,6 +83,6 @@
     "directory": "packages/packer"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",
-  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/packer#readme",
+  "homepage": "https://browserreplay.com",
   "description": "Event compression and packing for browser-replay"
 }

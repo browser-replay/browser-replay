@@ -3,7 +3,14 @@
   "version": "0.0.2",
   "keywords": [
     "browser-replay",
-    "@browser-replay/record"
+    "session-replay",
+    "record",
+    "replay",
+    "dom",
+    "dom-recording",
+    "browser-testing",
+    "typescript",
+    "rrweb"
   ],
   "scripts": {
     "dev": "tsdown --watch",
@@ -65,6 +72,6 @@
     "directory": "packages/record"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",
-  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/record#readme",
+  "homepage": "https://browserreplay.com",
   "description": "DOM recording module for browser-replay"
 }
