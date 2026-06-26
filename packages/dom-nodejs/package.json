@@ -70,6 +70,6 @@
     "directory": "packages/dom-nodejs"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",
-  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/dom-nodejs#readme",
+  "homepage": "https://browserreplay.com",
   "description": "Node.js DOM polyfill for server-side use of browser-replay"
 }

@@ -64,5 +64,5 @@
     "directory": "packages/plugins/plugin-console-record"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",
-  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/plugins/plugin-console-record#readme"
+  "homepage": "https://browserreplay.com"
 }

@@ -58,7 +58,7 @@
     "directory": "packages/dom"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",
-  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/dom#readme",
+  "homepage": "https://browserreplay.com",
   "description": "Virtual DOM implementation for browser-replay",
   "keywords": [
     "browser-replay",

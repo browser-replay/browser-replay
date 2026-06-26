@@ -61,5 +61,5 @@
     "directory": "packages/plugins/plugin-canvas-webrtc-record"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",
-  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/plugins/plugin-canvas-webrtc-record#readme"
+  "homepage": "https://browserreplay.com"
 }

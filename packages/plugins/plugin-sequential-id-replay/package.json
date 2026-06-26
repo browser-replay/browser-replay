@@ -61,5 +61,5 @@
     "directory": "packages/plugins/plugin-sequential-id-replay"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",
-  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/plugins/plugin-sequential-id-replay#readme"
+  "homepage": "https://browserreplay.com"
 }

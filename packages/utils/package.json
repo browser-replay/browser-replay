@@ -53,6 +53,6 @@
     "directory": "packages/utils"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",
-  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/utils#readme",
+  "homepage": "https://browserreplay.com",
   "description": "Shared utilities for browser-replay"
 }

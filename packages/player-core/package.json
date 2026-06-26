@@ -62,7 +62,7 @@
     "directory": "packages/player-core"
   },
   "bugs": "https://github.com/browser-replay/browser-replay/issues",
-  "homepage": "https://github.com/browser-replay/browser-replay/tree/master/packages/player-core#readme",
+  "homepage": "https://browserreplay.com",
   "keywords": [
     "browser-replay",
     "player",
