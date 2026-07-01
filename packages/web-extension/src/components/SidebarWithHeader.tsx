@@ -113,12 +113,15 @@ const SidebarContent = ({
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justify="flex-start" gap="3">
-        <Link href="https://github.com/rrweb-io/rrweb" target="_blank">
+        <Link
+          href="https://github.com/browser-replay/browser-replay"
+          target="_blank"
+        >
           <Image
             borderRadius="md"
             boxSize="2rem"
             src={Browser.runtime.getURL('icon128.png')}
-            alt="RRWeb Logo"
+            alt="browser-replay Logo"
           />
         </Link>
         {title && (

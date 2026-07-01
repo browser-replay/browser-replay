@@ -52,7 +52,6 @@ See the [guide](docs/guide.md) for full documentation.
 | [@browser-replay/record](packages/record)               | Record DOM events    |
 | [@browser-replay/replay](packages/replay)               | Replay engine        |
 | [@browser-replay/player](packages/player)               | React player UI      |
-
 | [@browser-replay/player-core](packages/player-core)     | Shared player logic  |
 | [@browser-replay/core](packages/core)                   | Record + replay core |
 

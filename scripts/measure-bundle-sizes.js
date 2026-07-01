@@ -13,14 +13,14 @@ const ROOT = path.resolve(__dirname, '..');
 const TARGETS = [
   {
     name: '@browser-replay/record',
-    dist: 'packages/record/dist/record.js',
+    dist: 'packages/record/dist/index.mjs',
     label: 'record (ESM)',
     maxGzippedKB: 180,
   },
   {
     name: '@browser-replay/snapshot',
-    dist: 'packages/snapshot/dist/snapshot.js',
-    label: 'snapshot (full)',
+    dist: 'packages/snapshot/dist/index.mjs',
+    label: 'snapshot (ESM)',
     maxGzippedKB: 220,
   },
 ];

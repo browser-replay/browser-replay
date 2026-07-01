@@ -79,9 +79,6 @@ pnpm publish:gh:dry    # dry run
 (`scripts/publish-gh-packages.sh --help`). Auth via `NODE_AUTH_TOKEN` / `GITHUB_TOKEN`
 with `write:packages`.
 
-> Note: that script's `GITHUB_OWNER` still defaults to the old `dom-replay` owner — pass
-> `GITHUB_OWNER=browser-replay` (or fix the default) when using it.
-
 ## Scripts reference
 
 | Script | Purpose |

@@ -1,8 +1,4 @@
-<p align="center">
-  <img width="100px" height="100px" src="https://www.rrweb.io/favicon.png">
-</p>
-
-# rrweb extension
+# browser-replay extension
 
 The package web-extension provides a browser extension for recording and replaying web pages.
 

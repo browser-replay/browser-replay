@@ -2,7 +2,7 @@
 
 browser-replay is a separate project built on [rrweb](https://github.com/rrweb-io/rrweb). See `LICENSE` and `NOTICE` for attribution.
 
-> You may also want to read the [recipes](./docs/recipes/index.md) to find some real-world use cases, or read the [design docs](./docs) to know more technical details.
+> You may also want to read the [recipes](./recipes/index.md) to find some real-world use cases, or read the [design docs](./) to know more technical details.
 
 ## Installation
 
@@ -15,22 +15,22 @@ You are recommended to install `@browser-replay/core` via jsdelivr's CDN service
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/@browser-replay/core@latest/dist/style.css"
 />
-<script src="https://cdn.jsdelivr.net/npm/@browser-replay/core@latest/dist/core.umd.min.cjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@browser-replay/core@latest/dist/core.umd.cjs"></script>
 ```
 
 Also, you can link to a specific version number that you can update manually:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@browser-replay/core@0.0.1/dist/core.umd.min.cjs"></script>
+<script src="https://cdn.jsdelivr.net/npm/@browser-replay/core@0.0.2/dist/core.umd.cjs"></script>
 ```
 
 #### Only include the recorder code
 
 `@browser-replay/core` includes both the record and the replay parts. Most of the time you only need to include the record part into your targeted web apps.
-This also can be done by using the `@browser-replay/record` package and the CDN service:
+For that, install the `@browser-replay/record` package via npm and bundle it into your app (it ships ESM and CommonJS builds, but no standalone UMD bundle for `<script>` includes):
 
-```html
-<script src="https://cdn.jsdelivr.net/npm/@browser-replay/record@latest/dist/record.umd.min.cjs"></script>
+```shell
+npm install --save @browser-replay/record
 ```
 
 #### Other packages
@@ -151,15 +151,15 @@ The parameter of `browserReplay.record` accepts the following options.
 | dataURLOptions           | {}                 | Canvas image format and quality ,This parameter will be passed to the OffscreenCanvas.convertToBlob(),Using this parameter effectively reduces the size of the recorded data                                                        |
 | inlineStylesheet         | true               | whether to inline the stylesheet in the events                                                                                                                                                                                      |
 | hooks                    | {}                 | hooks for events<br />refer to the [list](https://github.com/browser-replay/browser-replay/blob/master/packages/types/src/index.ts#L207)                                                                                                    |
-| packFn                   | -                  | refer to the [storage optimization recipe](./docs/recipes/optimize-storage.md)                                                                                                                                                      |
-| sampling                 | -                  | refer to the [storage optimization recipe](./docs/recipes/optimize-storage.md)                                                                                                                                                      |
+| packFn                   | -                  | refer to the [storage optimization recipe](./recipes/optimize-storage.md)                                                                                                                                                      |
+| sampling                 | -                  | refer to the [storage optimization recipe](./recipes/optimize-storage.md)                                                                                                                                                      |
 | recordCanvas             | false              | Whether to record the canvas element. Available options:<br/>`false`, <br/>`true`                                                                                                                                                   |
 | recordCrossOriginIframes | false              | Whether to record cross origin iframes. browser-replay has to be injected in each child iframe for this to work. Available options:<br/>`false`, <br/>`true`                                                                            |
 | recordAfter              | 'load'             | If the document is not ready, then the recorder will start recording after the specified event is fired. Available options: `DOMContentLoaded`, `load`                                                                              |
 | inlineImages             | false              | whether to record the image content                                                                                                                                                                                                 |
 | collectFonts             | false              | whether to collect fonts in the website                                                                                                                                                                                             |
 | userTriggeredOnInput     | false              | whether to add `userTriggered` on input events that indicates if this event was triggered directly by the user or not. [What is `userTriggered`?](https://github.com/browser-replay/browser-replay/blob/master/packages/types/src/index.ts) |
-| plugins                  | []                 | load plugins to provide extended record functions. [What is plugins?](./docs/recipes/plugin.md)                                                                                                                                     |
+| plugins                  | []                 | load plugins to provide extended record functions. [What is plugins?](./recipes/plugin.md)                                                                                                                                     |
 | errorHandler             | -                  | A callback that is called if something inside of browser-replay throws an error. The callback receives the error as argument.                                                                                                           |
 
 #### Privacy
@@ -307,9 +307,9 @@ The replayer accepts options as its constructor's second parameter, and it has t
 | UNSAFE_replayCanvas     | false         | whether to replay the canvas element. **Enable this will remove the sandbox, which is unsafe.**                                                                                                               |
 | pauseAnimation          | true          | whether to pause CSS animation when the replayer is paused                                                                                                                                                    |
 | mouseTail               | true          | whether to show mouse tail during replay. Set to false to disable mouse tail. A complete config can be found in this [type](https://github.com/browser-replay/browser-replay/blob/master/packages/types/src/index.ts) |
-| unpackFn                | -             | refer to the [storage optimization recipe](./docs/recipes/optimize-storage.md)                                                                                                                                |
-| logConfig               | -             | configuration of console output playback, refer to the [console recipe](./docs/recipes/console.md)                                                                                                            |
-| plugins                 | []            | load plugins to provide extended replay functions. [What is plugins?](./docs/recipes/plugin.md)                                                                                                               |
+| unpackFn                | -             | refer to the [storage optimization recipe](./recipes/optimize-storage.md)                                                                                                                                |
+| logConfig               | -             | configuration of console output playback, refer to the [console recipe](./recipes/console.md)                                                                                                            |
+| plugins                 | []            | load plugins to provide extended replay functions. [What is plugins?](./recipes/plugin.md)                                                                                                               |
 | useVirtualDom           | true          | whether to use Virtual Dom optimization in the process of skipping to a new point of time                                                                                                                     |
 | logger                  | console       | The logger object used by the replayer to print warnings or errors                                                                                                                                            |
 

@@ -1,13 +1,16 @@
 {
   "references": [
     {
+      "path": "packages/core"
+    },
+    {
       "path": "packages/dom"
     },
     {
       "path": "packages/dom-nodejs"
     },
     {
-      "path": "packages/core"
+      "path": "packages/packer"
     },
     {
       "path": "packages/player"
@@ -16,7 +19,10 @@
       "path": "packages/player-core"
     },
     {
-      "path": "packages/player-react"
+      "path": "packages/record"
+    },
+    {
+      "path": "packages/replay"
     },
     {
       "path": "packages/snapshot"
@@ -25,16 +31,31 @@
       "path": "packages/types"
     },
     {
-      "path": "packages/plugins/plugin-console-replay"
-    },
-    {
-      "path": "packages/plugins/plugin-console-record"
+      "path": "packages/utils"
     },
     {
       "path": "packages/video"
     },
     {
       "path": "packages/web-extension"
+    },
+    {
+      "path": "packages/plugins/plugin-canvas-webrtc-record"
+    },
+    {
+      "path": "packages/plugins/plugin-canvas-webrtc-replay"
+    },
+    {
+      "path": "packages/plugins/plugin-console-record"
+    },
+    {
+      "path": "packages/plugins/plugin-console-replay"
+    },
+    {
+      "path": "packages/plugins/plugin-sequential-id-record"
+    },
+    {
+      "path": "packages/plugins/plugin-sequential-id-replay"
     }
   ],
   "files": [],

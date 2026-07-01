@@ -1,7 +1,7 @@
 # @browser-replay/replay
 
 This package contains all the necessary code to replay recorded events.
-See the [guide](../../docs/guide.md) for more info on rrweb.
+See the [guide](../../docs/guide.md) for more info on browser-replay.
 
 ## Installation
 
@@ -22,5 +22,5 @@ replayer.play();
 
 ## Notes
 
-Currently this package is really just a wrapper around the `Replayer` class in the main `rrweb` package.
+Currently this package is a thin wrapper around the `Replayer` class in `@browser-replay/core`.
 All `Replayer` related code will get moved here in the future.

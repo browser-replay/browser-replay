@@ -41,4 +41,4 @@ replayer.play();
 **Enable replaying Canvas will remove the sandbox, which may cause a potential security issue.**
 
 Alternatively you can stream canvas elements via webrtc with the [@browser-replay/plugin-canvas-webrtc-record](../../packages/plugins/plugin-canvas-webrtc-record/) & [@browser-replay/plugin-canvas-webrtc-replay](../../packages/plugins/plugin-canvas-webrtc-replay) plugins.
-For more information see [canvas-webrtc documentation](../../packages/plugins/plugin-canvas-webrtc-record/Readme.md)
+For more information see [canvas-webrtc documentation](../../packages/plugins/plugin-canvas-webrtc-record/README.md)
