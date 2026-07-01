@@ -37,9 +37,9 @@
   "dependencies": {
     "@browser-replay/player-core": "workspace:*",
     "cli-progress": "^3.12.0",
-    "fs-extra": "^11.3.5",
+    "fs-extra": "^11.3.6",
     "minimist": "^1.2.8",
-    "playwright": "^1.60.0"
+    "playwright": "^1.61.1"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
