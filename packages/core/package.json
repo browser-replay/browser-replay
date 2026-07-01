@@ -60,9 +60,9 @@
   "license": "MIT",
   "devDependencies": {
     "@types/dom-mediacapture-transform": "0.1.11",
-    "@types/inquirer": "^9.0.9",
+    "@types/inquirer": "^9.0.10",
     "@types/jest-image-snapshot": "^6.1.0",
-    "@types/node": "^25.9.2",
+    "@types/node": "^26.0.1",
     "@types/offscreencanvas": "^2019.6.4",
     "construct-style-sheets-polyfill": "^3.1.0",
     "fast-mhtml": "^2.1.0",
@@ -70,14 +70,14 @@
     "ignore-styles": "^5.0.1",
     "inquirer": "^14.0.2",
     "jest-image-snapshot": "^6.5.2",
-    "puppeteer": "^25.1.0",
+    "puppeteer": "^25.2.1",
     "simple-peer-light": "^9.10.0",
     "ts-node": "^10.9.1",
     "tslib": "^2.3.1",
     "typescript": "6.0.3",
-    "vite": "^8.0.16",
-    "vite-plugin-dts": "^5.0.2",
-    "vitest": "^4.1.8"
+    "vite": "^8.1.2",
+    "vite-plugin-dts": "^5.0.3",
+    "vitest": "^4.1.9"
   },
   "dependencies": {
     "@browser-replay/dom": "workspace:*",
