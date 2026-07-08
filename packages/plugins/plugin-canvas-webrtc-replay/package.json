@@ -38,8 +38,8 @@
     "@browser-replay/snapshot": "workspace:*",
     "@types/dom-mediacapture-transform": "0.1.11",
     "typescript": "6.0.3",
-    "vite": "^8.0.16",
-    "vite-plugin-dts": "^5.0.2"
+    "vite": "^8.1.3",
+    "vite-plugin-dts": "^5.0.3"
   },
   "peerDependencies": {
     "@browser-replay/core": "workspace:^",
