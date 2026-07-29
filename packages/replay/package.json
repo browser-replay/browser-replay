@@ -36,11 +36,11 @@
     "package.json"
   ],
   "devDependencies": {
-    "puppeteer": "^25.1.0",
-    "typescript": "6.0.3",
-    "vite": "^8.0.16",
-    "vite-plugin-dts": "^5.0.2",
-    "vitest": "^4.1.8"
+    "puppeteer": "^25.4.0",
+    "typescript": "7.0.2",
+    "vite": "^8.1.5",
+    "vite-plugin-dts": "^5.0.3",
+    "vitest": "^4.1.10"
   },
   "dependencies": {
     "@browser-replay/core": "workspace:*",

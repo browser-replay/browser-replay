@@ -38,9 +38,9 @@
   "devDependencies": {
     "@browser-replay/core": "workspace:*",
     "@browser-replay/types": "workspace:*",
-    "typescript": "6.0.3",
-    "vite": "^8.0.16",
-    "vite-plugin-dts": "^5.0.2"
+    "typescript": "7.0.2",
+    "vite": "^8.1.5",
+    "vite-plugin-dts": "^5.0.3"
   },
   "peerDependencies": {
     "@browser-replay/core": "workspace:^",
