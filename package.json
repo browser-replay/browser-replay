@@ -46,7 +46,7 @@
     "rollup-plugin-visualizer": "^7.0.1",
     "tsdown": "^0.22.14",
     "turbo": "^2.10.8",
-    "typescript": "7.0.2",
+    "typescript": "6.0.3",
     "typescript-eslint": "^8.65.0"
   },
   "scripts": {
@@ -86,7 +86,7 @@
     "overrides": {
       "cssom": "https://registry.npmjs.org/rrweb-cssom/-/rrweb-cssom-0.8.0.tgz",
       "@types/dom-webcodecs": "0.1.5",
-      "typescript": "7.0.2",
+      "typescript": "6.0.3",
       "minimatch@>=10.0.0 <10.2.3": "10.2.4",
       "node-forge": "^1.4.0",
       "tmp": "^0.2.6",
