@@ -32,12 +32,12 @@
     "lint": "pnpm eslint src/**/*.ts"
   },
   "devDependencies": {
-    "jsdom": "^29.1.1",
-    "puppeteer": "^25.1.0",
-    "typescript": "6.0.3",
-    "vite": "^8.0.16",
-    "vite-plugin-dts": "^5.0.2",
-    "vitest": "^4.1.8"
+    "jsdom": "^30.0.1",
+    "puppeteer": "^25.4.0",
+    "typescript": "7.0.2",
+    "vite": "^8.2.0",
+    "vite-plugin-dts": "^5.0.3",
+    "vitest": "^4.1.10"
   },
   "dependencies": {
     "@browser-replay/snapshot": "workspace:*",
