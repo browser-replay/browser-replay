@@ -1,7 +1,4 @@
 <p align="center">
-  <img width="100px" height="100px" src="https://www.rrweb.io/favicon.png">
-</p>
-<p align="center">
   <a href="https://github.com/browser-replay/browser-replay" style="font-weight: bold">browser-replay</a> (built on <a href="https://github.com/rrweb-io/rrweb">rrweb</a>)
 </p>
 

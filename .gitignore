@@ -1,5 +1,5 @@
 .vscode/*
-!/.vscode/dom-replay.code-workspace
+!/.vscode/browser-replay.code-workspace
 .idea
 node_modules
 package-lock.json

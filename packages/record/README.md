@@ -1,7 +1,7 @@
 # @browser-replay/record
 
-This package contains all the record related code in rrweb.
-See the [guide](../../docs/guide.md) for more info on rrweb.
+Recording-only entry point for browser-replay.
+See the [guide](../../docs/guide.md) for more info on browser-replay.
 
 ## Installation
 
@@ -23,5 +23,5 @@ record({
 
 ## Notes
 
-Currently this package is really just a wrapper around the `record` function in the main `rrweb` package.
+Currently this package is a thin wrapper around the `record` function in `@browser-replay/core`.
 All `record` related code will get moved here in the future.

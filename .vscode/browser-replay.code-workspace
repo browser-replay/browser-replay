@@ -1,51 +1,47 @@
 {
   "folders": [
     {
-      "name": "dom-replay",
+      "name": "browser-replay",
       "path": ".."
     },
     {
-      "name": "@dom-replay/core",
+      "name": "@browser-replay/core",
       "path": "../packages/core"
     },
     {
-      "name": "@dom-replay/record",
+      "name": "@browser-replay/record",
       "path": "../packages/record"
     },
     {
-      "name": "@dom-replay/replay",
+      "name": "@browser-replay/replay",
       "path": "../packages/replay"
     },
     {
-      "name": "@dom-replay/player",
+      "name": "@browser-replay/player",
       "path": "../packages/player"
     },
     {
-      "name": "@dom-replay/player-svelte",
-      "path": "../packages/player-svelte"
-    },
-    {
-      "name": "@dom-replay/player-core",
+      "name": "@browser-replay/player-core",
       "path": "../packages/player-core"
     },
     {
-      "name": "@dom-replay/snapshot",
+      "name": "@browser-replay/snapshot",
       "path": "../packages/snapshot"
     },
     {
-      "name": "@dom-replay/dom",
+      "name": "@browser-replay/dom",
       "path": "../packages/dom"
     },
     {
-      "name": "@dom-replay/packer",
+      "name": "@browser-replay/packer",
       "path": "../packages/packer"
     },
     {
-      "name": "@dom-replay/types",
+      "name": "@browser-replay/types",
       "path": "../packages/types"
     },
     {
-      "name": "@dom-replay/utils",
+      "name": "@browser-replay/utils",
       "path": "../packages/utils"
     }
   ],

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Build + pack dom-replay packages for fast local iteration
+# Build + pack browser-replay packages for fast local iteration
 # Usage:
 #   bash scripts/pack-local-dev.sh
 #   bash scripts/pack-local-dev.sh --skip-build
@@ -17,7 +17,7 @@ fi
 
 ROOT_DIR="$(git rev-parse --show-toplevel 2>/dev/null || true)"
 if [[ -z "${ROOT_DIR}" ]]; then
-  echo "Error: must be run from within the dom-replay git repo." >&2
+  echo "Error: must be run from within the browser-replay git repo." >&2
   exit 1
 fi
 
@@ -28,19 +28,18 @@ DEST_DIR="${DEST_BASE}/${STAMP}"
 mkdir -p "${DEST_DIR}"
 
 if [[ "${SKIP_BUILD}" != "1" ]]; then
-  # Build the minimal closure needed for record+replay+player-react.
+  # Build the minimal closure needed for record+replay+player.
   pnpm turbo run prepublish \
-    --filter @dom-replay/types \
-    --filter @dom-replay/utils \
-    --filter @dom-replay/snapshot \
-    --filter @dom-replay/dom \
-    --filter @dom-replay/core \
-    --filter @dom-replay/packer \
-    --filter @dom-replay/record \
-    --filter @dom-replay/replay \
-    --filter @dom-replay/player-core \
-    --filter @dom-replay/player \
-    --filter @dom-replay/player
+    --filter @browser-replay/types \
+    --filter @browser-replay/utils \
+    --filter @browser-replay/snapshot \
+    --filter @browser-replay/dom \
+    --filter @browser-replay/core \
+    --filter @browser-replay/packer \
+    --filter @browser-replay/record \
+    --filter @browser-replay/replay \
+    --filter @browser-replay/player-core \
+    --filter @browser-replay/player
 fi
 
 # Pack in dependency order (not strictly required, but clearer).
@@ -59,8 +58,8 @@ mkdir -p "${DEST_BASE}"
 echo "${DEST_DIR}" > "${DEST_BASE}/latest"
 
 echo
-echo "Packed dom-replay tarballs into:"
+echo "Packed browser-replay tarballs into:"
 echo "  ${DEST_DIR}"
 echo
-echo "Next (from geo-kba):"
-echo "  bash scripts/update-dom-replay-local.sh --repo \"${ROOT_DIR}\" --packs-dir \"${DEST_DIR}\""
+echo "Next (from your consuming app; see CONTRIBUTING.md):"
+echo "  bash scripts/update-browser-replay-local.sh --repo \"${ROOT_DIR}\" --packs-dir \"${DEST_DIR}\""
