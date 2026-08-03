@@ -1,138 +1,88 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`replayer > can fast forward past StyleSheetRule changes on virtual elements 1`] = `
-"file-frame-2
+"file-frame-4
+[object Promise]
+
+file-frame-5
 [object Promise]
 
 file-cid-0
-(()=>{
-function addCustomElement(def) {
-  if (def.is_autonomous) {
-      window.customElements.define(def.name, class extends HTMLElement{});
-  } else {
-    const templateElement = document.createElement(def.local_name);
-    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
-    const ElementBase = window[baseName];
-    window.customElements.define(def.name, class extends ElementBase {},
-      {extends: def.local_name});
-  }
-}
+@charset \\"utf-8\\";
 
-function addCustomElements(metadata) {
-  for (const def of metadata.custom_elements) {
-    try {
-      addCustomElement(def);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
+.css-added-at-200 { position: fixed; top: 0px; right: 0px; left: 4rem; z-index: 15; flex-shrink: 0; height: 0.25rem; overflow: hidden; background-color: rgb(17, 171, 209); }
 
-function main(metadata) {
-  addCustomElements(metadata);
-}
-main({\\"custom_elements\\":[]});})();
+.css-added-at-200.alt { height: 0.25rem; background-color: rgb(190, 232, 242); opacity: 0; transition: opacity 0.5s ease-in 0.1s; }
 
+.css-added-at-1000-deleted-at-2500 { display: flex; flex-direction: column; min-width: 60rem; min-height: 100vh; color: blue; }
 
-file-frame-3
-[object Promise]
+.css-added-at-200.alt2 { padding-left: 4rem; }
+
 
 file-cid-1
-(()=>{
-function addCustomElement(def) {
-  if (def.is_autonomous) {
-      window.customElements.define(def.name, class extends HTMLElement{});
-  } else {
-    const templateElement = document.createElement(def.local_name);
-    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
-    const ElementBase = window[baseName];
-    window.customElements.define(def.name, class extends ElementBase {},
-      {extends: def.local_name});
-  }
-}
+@charset \\"utf-8\\";
 
-function addCustomElements(metadata) {
-  for (const def of metadata.custom_elements) {
-    try {
-      addCustomElement(def);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
+.css-added-at-200-overwritten-at-3000 { opacity: 1; transform: translateX(0px); }
 
-function main(metadata) {
-  addCustomElements(metadata);
-}
-main({\\"custom_elements\\":[]});})();
+.css-added-at-500-overwritten-at-3000 { border: 1px solid blue; }
+
+
+file-cid-2
+@charset \\"utf-8\\";
+
+.css-added-at-400 { padding: 1.3125rem; flex: 0 0 auto; width: 100%; }
+
+
+file-cid-3
+@charset \\"utf-8\\";
+
+.br-block { background: currentcolor; }
+
+noscript { display: none !important; }
+
+html.br-paused *, html.br-paused ::before, html.br-paused ::after { animation-play-state: paused !important; }
 "
 `;
 
 exports[`replayer > can fast forward past StyleSheetRule deletion on virtual elements 1`] = `
-"file-frame-2
+"file-frame-4
+[object Promise]
+
+file-frame-5
 [object Promise]
 
 file-cid-0
-(()=>{
-function addCustomElement(def) {
-  if (def.is_autonomous) {
-      window.customElements.define(def.name, class extends HTMLElement{});
-  } else {
-    const templateElement = document.createElement(def.local_name);
-    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
-    const ElementBase = window[baseName];
-    window.customElements.define(def.name, class extends ElementBase {},
-      {extends: def.local_name});
-  }
-}
+@charset \\"utf-8\\";
 
-function addCustomElements(metadata) {
-  for (const def of metadata.custom_elements) {
-    try {
-      addCustomElement(def);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
+.css-added-at-200 { position: fixed; top: 0px; right: 0px; left: 4rem; z-index: 15; flex-shrink: 0; height: 0.25rem; overflow: hidden; background-color: rgb(17, 171, 209); }
 
-function main(metadata) {
-  addCustomElements(metadata);
-}
-main({\\"custom_elements\\":[]});})();
+.css-added-at-200.alt { height: 0.25rem; background-color: rgb(190, 232, 242); opacity: 0; transition: opacity 0.5s ease-in 0.1s; }
 
+.css-added-at-200.alt2 { padding-left: 4rem; }
 
-file-frame-3
-[object Promise]
 
 file-cid-1
-(()=>{
-function addCustomElement(def) {
-  if (def.is_autonomous) {
-      window.customElements.define(def.name, class extends HTMLElement{});
-  } else {
-    const templateElement = document.createElement(def.local_name);
-    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
-    const ElementBase = window[baseName];
-    window.customElements.define(def.name, class extends ElementBase {},
-      {extends: def.local_name});
-  }
-}
+@charset \\"utf-8\\";
 
-function addCustomElements(metadata) {
-  for (const def of metadata.custom_elements) {
-    try {
-      addCustomElement(def);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
+.css-added-at-200-overwritten-at-3000 { opacity: 1; transform: translateX(0px); }
 
-function main(metadata) {
-  addCustomElements(metadata);
-}
-main({\\"custom_elements\\":[]});})();
+.css-added-at-500-overwritten-at-3000 { border: 1px solid blue; }
+
+
+file-cid-2
+@charset \\"utf-8\\";
+
+.css-added-at-400 { padding: 1.3125rem; flex: 0 0 auto; width: 100%; }
+
+
+file-cid-3
+@charset \\"utf-8\\";
+
+.br-block { background: currentcolor; }
+
+noscript { display: none !important; }
+
+html.br-paused *, html.br-paused ::before, html.br-paused ::after { animation-play-state: paused !important; }
 "
 `;
 
@@ -140,270 +90,88 @@ exports[`replayer > can handle remote stylesheets 1`] = `
 "file-frame-2
 [object Promise]
 
-file-cid-0
-(()=>{
-function addCustomElement(def) {
-  if (def.is_autonomous) {
-      window.customElements.define(def.name, class extends HTMLElement{});
-  } else {
-    const templateElement = document.createElement(def.local_name);
-    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
-    const ElementBase = window[baseName];
-    window.customElements.define(def.name, class extends ElementBase {},
-      {extends: def.local_name});
-  }
-}
-
-function addCustomElements(metadata) {
-  for (const def of metadata.custom_elements) {
-    try {
-      addCustomElement(def);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
-
-function main(metadata) {
-  addCustomElements(metadata);
-}
-main({\\"custom_elements\\":[]});})();
-
-
 file-frame-3
 [object Promise]
 
+file-cid-0
+@charset \\"utf-8\\";
+
+.OverlayDrawer-modal-187 { }
+
+.OverlayDrawer-paper-188 { width: 100%; }
+
+@media (min-width: 48em) {
+  .OverlayDrawer-paper-188 { width: 38rem; }
+}
+
+@media (min-width: 48em) {
+}
+
+@media (min-width: 48em) {
+}
+
+
 file-cid-1
-(()=>{
-function addCustomElement(def) {
-  if (def.is_autonomous) {
-      window.customElements.define(def.name, class extends HTMLElement{});
-  } else {
-    const templateElement = document.createElement(def.local_name);
-    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
-    const ElementBase = window[baseName];
-    window.customElements.define(def.name, class extends ElementBase {},
-      {extends: def.local_name});
-  }
-}
+@charset \\"utf-8\\";
 
-function addCustomElements(metadata) {
-  for (const def of metadata.custom_elements) {
-    try {
-      addCustomElement(def);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
+.br-block { background: currentcolor; }
 
-function main(metadata) {
-  addCustomElements(metadata);
-}
-main({\\"custom_elements\\":[]});})();
+noscript { display: none !important; }
+
+html.br-paused *, html.br-paused ::before, html.br-paused ::after { animation-play-state: paused !important; }
 "
 `;
 
 exports[`replayer > can handle removing style elements 1`] = `
-"file-frame-2
+"file-frame-1
+[object Promise]
+
+file-frame-2
 [object Promise]
 
 file-cid-0
-(()=>{
-function addCustomElement(def) {
-  if (def.is_autonomous) {
-      window.customElements.define(def.name, class extends HTMLElement{});
-  } else {
-    const templateElement = document.createElement(def.local_name);
-    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
-    const ElementBase = window[baseName];
-    window.customElements.define(def.name, class extends ElementBase {},
-      {extends: def.local_name});
-  }
-}
+@charset \\"utf-8\\";
 
-function addCustomElements(metadata) {
-  for (const def of metadata.custom_elements) {
-    try {
-      addCustomElement(def);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
+.br-block { background: currentcolor; }
 
-function main(metadata) {
-  addCustomElements(metadata);
-}
-main({\\"custom_elements\\":[]});})();
+noscript { display: none !important; }
 
-
-file-frame-3
-[object Promise]
-
-file-cid-1
-(()=>{
-function addCustomElement(def) {
-  if (def.is_autonomous) {
-      window.customElements.define(def.name, class extends HTMLElement{});
-  } else {
-    const templateElement = document.createElement(def.local_name);
-    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
-    const ElementBase = window[baseName];
-    window.customElements.define(def.name, class extends ElementBase {},
-      {extends: def.local_name});
-  }
-}
-
-function addCustomElements(metadata) {
-  for (const def of metadata.custom_elements) {
-    try {
-      addCustomElement(def);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
-
-function main(metadata) {
-  addCustomElements(metadata);
-}
-main({\\"custom_elements\\":[]});})();
+html.br-paused *, html.br-paused ::before, html.br-paused ::after { animation-play-state: paused !important; }
 "
 `;
 
 exports[`replayer > replays same timestamp events in correct order (with addAction) 1`] = `
-"file-frame-2
+"file-frame-1
+[object Promise]
+
+file-frame-2
 [object Promise]
 
 file-cid-0
-(()=>{
-function addCustomElement(def) {
-  if (def.is_autonomous) {
-      window.customElements.define(def.name, class extends HTMLElement{});
-  } else {
-    const templateElement = document.createElement(def.local_name);
-    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
-    const ElementBase = window[baseName];
-    window.customElements.define(def.name, class extends ElementBase {},
-      {extends: def.local_name});
-  }
-}
+@charset \\"utf-8\\";
 
-function addCustomElements(metadata) {
-  for (const def of metadata.custom_elements) {
-    try {
-      addCustomElement(def);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
+.br-block { background: currentcolor; }
 
-function main(metadata) {
-  addCustomElements(metadata);
-}
-main({\\"custom_elements\\":[]});})();
+noscript { display: none !important; }
 
-
-file-frame-3
-[object Promise]
-
-file-cid-1
-(()=>{
-function addCustomElement(def) {
-  if (def.is_autonomous) {
-      window.customElements.define(def.name, class extends HTMLElement{});
-  } else {
-    const templateElement = document.createElement(def.local_name);
-    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
-    const ElementBase = window[baseName];
-    window.customElements.define(def.name, class extends ElementBase {},
-      {extends: def.local_name});
-  }
-}
-
-function addCustomElements(metadata) {
-  for (const def of metadata.custom_elements) {
-    try {
-      addCustomElement(def);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
-
-function main(metadata) {
-  addCustomElements(metadata);
-}
-main({\\"custom_elements\\":[]});})();
+html.br-paused *, html.br-paused ::before, html.br-paused ::after { animation-play-state: paused !important; }
 "
 `;
 
 exports[`replayer > replays same timestamp events in correct order 1`] = `
-"file-frame-2
+"file-frame-1
+[object Promise]
+
+file-frame-2
 [object Promise]
 
 file-cid-0
-(()=>{
-function addCustomElement(def) {
-  if (def.is_autonomous) {
-      window.customElements.define(def.name, class extends HTMLElement{});
-  } else {
-    const templateElement = document.createElement(def.local_name);
-    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
-    const ElementBase = window[baseName];
-    window.customElements.define(def.name, class extends ElementBase {},
-      {extends: def.local_name});
-  }
-}
+@charset \\"utf-8\\";
 
-function addCustomElements(metadata) {
-  for (const def of metadata.custom_elements) {
-    try {
-      addCustomElement(def);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
+.br-block { background: currentcolor; }
 
-function main(metadata) {
-  addCustomElements(metadata);
-}
-main({\\"custom_elements\\":[]});})();
+noscript { display: none !important; }
 
-
-file-frame-3
-[object Promise]
-
-file-cid-1
-(()=>{
-function addCustomElement(def) {
-  if (def.is_autonomous) {
-      window.customElements.define(def.name, class extends HTMLElement{});
-  } else {
-    const templateElement = document.createElement(def.local_name);
-    const baseName = Object.getPrototypeOf(templateElement).constructor.name;
-    const ElementBase = window[baseName];
-    window.customElements.define(def.name, class extends ElementBase {},
-      {extends: def.local_name});
-  }
-}
-
-function addCustomElements(metadata) {
-  for (const def of metadata.custom_elements) {
-    try {
-      addCustomElement(def);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
-
-function main(metadata) {
-  addCustomElements(metadata);
-}
-main({\\"custom_elements\\":[]});})();
+html.br-paused *, html.br-paused ::before, html.br-paused ::after { animation-play-state: paused !important; }
 "
 `;
