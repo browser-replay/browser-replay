@@ -16,6 +16,11 @@ updates:
       # to Chakra UI v2. We are not migrating to v3, so skip its major-version bumps.
       - dependency-name: '@chakra-ui/react'
         update-types: ['version-update:semver-major']
+      # TypeScript 7 (the native compiler) is not yet supported by typescript-eslint
+      # and breaks lint/typecheck/build across the monorepo. Stay on 6.x until the
+      # ecosystem catches up: https://github.com/typescript-eslint/typescript-eslint/issues/10940
+      - dependency-name: 'typescript'
+        update-types: ['version-update:semver-major']
     groups:
       devDependencies:
         dependency-type: 'development'
