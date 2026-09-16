@@ -20,8 +20,8 @@
   "devDependencies": {
     "@browser-replay/types": "workspace:*",
     "@types/chrome": "^0.2.4",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "@types/semver": "^7.5.8",
     "@types/webextension-polyfill": "^0.12.5",
     "@vitejs/plugin-react": "^6.0.5",
@@ -39,14 +39,14 @@
     "@browser-replay/player": "workspace:*",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
-    "@tanstack/react-table": "^8.21.3",
-    "framer-motion": "^12.43.0",
+    "@tanstack/react-table": "^9.2.4",
+    "framer-motion": "^13.2.0",
     "idb": "^8.0.3",
     "mitt": "^3.0.1",
-    "nanoid": "^6.0.0",
-    "react": "^19.2.8",
-    "react-dom": "^19.2.8",
+    "nanoid": "^6.0.1",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "react-icons": "^5.7.0",
-    "react-router-dom": "^7.18.2"
+    "react-router-dom": "^7.18.3"
   }
 }
