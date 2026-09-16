@@ -39,14 +39,14 @@
   "devDependencies": {
     "@types/cssom": "^0.4.1",
     "@types/cssstyle": "^2.2.1",
-    "@types/node": "^26.1.2",
+    "@types/node": "^26.5.1",
     "@types/nwsapi": "^2.2.2",
     "compare-versions": "^6.1.1",
-    "puppeteer": "^25.4.0",
+    "puppeteer": "^25.10.0",
     "typescript": "6.0.3",
-    "vite": "^8.2.0",
-    "vite-plugin-dts": "^5.0.3",
-    "vitest": "^4.1.10"
+    "vite": "^8.3.0",
+    "vite-plugin-dts": "^5.1.0",
+    "vitest": "^5.0.0"
   },
   "dependencies": {
     "@browser-replay/dom": "workspace:*",

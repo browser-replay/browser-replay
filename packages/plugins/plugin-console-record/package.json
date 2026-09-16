@@ -38,11 +38,11 @@
     "@browser-replay/core": "workspace:*",
     "@browser-replay/types": "workspace:*",
     "@browser-replay/utils": "workspace:*",
-    "puppeteer": "^25.4.0",
+    "puppeteer": "^25.10.0",
     "typescript": "6.0.3",
-    "vite": "^8.2.0",
-    "vite-plugin-dts": "^5.0.3",
-    "vitest": "^4.1.10"
+    "vite": "^8.3.0",
+    "vite-plugin-dts": "^5.1.0",
+    "vitest": "^5.0.0"
   },
   "peerDependencies": {
     "@browser-replay/core": "workspace:^",
