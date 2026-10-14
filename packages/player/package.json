@@ -55,8 +55,8 @@
     "@browser-replay/player-core": "workspace:*"
   },
   "devDependencies": {
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
     "typescript": "6.0.3",
     "vite": "^8.2.0",
     "vite-plugin-dts": "^5.0.3",
