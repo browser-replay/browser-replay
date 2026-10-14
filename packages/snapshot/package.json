@@ -76,7 +76,7 @@
   "dependencies": {
     "@browser-replay/types": "workspace:*",
     "@browser-replay/utils": "workspace:*",
-    "postcss": "^8.5.25"
+    "postcss": "^8.5.29"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
